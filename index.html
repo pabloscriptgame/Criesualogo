@@ -76,6 +76,34 @@
       .generator{grid-template-columns:1fr}
       .grid{grid-template-columns:1fr}
     }
+
+    /* === PLAYER DE RÁDIO (glass/3D) === */
+    .radio-player{
+      position:fixed; right:16px; bottom:16px; z-index:50;
+      display:flex; align-items:center; gap:12px;
+      padding:12px 14px; border-radius:18px;
+      background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.16);
+      box-shadow:0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.08);
+      backdrop-filter: blur(10px) saturate(1.1);
+    }
+    .radio-player .pp{
+      width:44px; height:44px; border-radius:12px; border:1px solid rgba(255,255,255,.2);
+      display:grid; place-items:center; font-weight:800; cursor:pointer;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#07090f;
+      box-shadow:0 8px 24px rgba(56,189,248,.25);
+    }
+    .radio-player .meta{display:flex; flex-direction:column; line-height:1.1}
+    .radio-player .title{font-weight:800; font-size:13px}
+    .radio-player .status{font-size:12px; color:var(--muted)}
+    .radio-player input[type="range"]{width:110px}
+    .radio-hint{
+      position:fixed; left:50%; transform:translateX(-50%);
+      bottom:88px; z-index:49; font-size:13px;
+      background:rgba(245,158,11,.12); color:#fde68a;
+      border:1px solid rgba(245,158,11,.35); padding:8px 12px; border-radius:999px;
+      display:none;
+    }
   </style>
 </head>
 <body>
@@ -255,6 +283,25 @@
     </footer>
   </main>
 
+  <!-- === MINI-PLAYER DE RÁDIO === -->
+  <div class="radio-player" role="region" aria-label="Player de rádio online">
+    <button class="pp" id="ppBtn" aria-label="Play/Pause">▶</button>
+    <div class="meta">
+      <div class="title">Rádio Online</div>
+      <div class="status" id="radioStatus">Conectando…</div>
+    </div>
+    <input id="vol" type="range" min="0" max="1" step="0.01" value="0.8" aria-label="Volume">
+    <!-- Elemento de áudio oculto -->
+    <audio id="radioAudio" preload="none" playsinline>
+      <!-- TROQUE PELO SEU STREAM (mantenha múltiplos sources se quiser fallback) -->
+      <source src="STREAM_URL_AQUI" type="audio/mpeg">
+      <!-- Exemplo alternativo:
+      <source src="https://stream.zeno.fm/si5xey7akartv.mp3" type="audio/mp3">
+      -->
+    </audio>
+  </div>
+  <div class="radio-hint" id="radioHint">Toque em qualquer lugar para iniciar o rádio 🔊</div>
+
   <script>
     // ====== CONFIGURAÇÕES RÁPIDAS ======
     const BRAND_NAME = 'PabloDesigners';
@@ -377,6 +424,82 @@
 
     // Render inicial
     drawLogo();
+
+    // ====== PLAYER DE RÁDIO ======
+    const audio = document.getElementById('radioAudio');
+    const ppBtn = document.getElementById('ppBtn');
+    const vol = document.getElementById('vol');
+    const statusEl = document.getElementById('radioStatus');
+    const hintEl = document.getElementById('radioHint');
+
+    // Configure a URL do stream AQUI (caso prefira setar via JS):
+    // audio.src = 'STREAM_URL_AQUI';
+
+    // Volume inicial
+    audio.volume = parseFloat(vol.value);
+
+    function setStatus(txt){ statusEl.textContent = txt; }
+
+    async function tryAutoplay(){
+      // Tenta autoplay (muted) e depois desmuta — necessário em vários navegadores
+      try{
+        audio.muted = true;
+        await audio.play();
+        setStatus('Carregando…');
+        // desmuta gradualmente
+        setTimeout(()=>{ audio.muted = false; setStatus('Ao vivo'); }, 400);
+        ppBtn.textContent = '⏸';
+        hintEl.style.display = 'none';
+      }catch(e){
+        // Se bloqueado, mostra dica e aguarda interação do usuário
+        hintEl.style.display = 'block';
+        setStatus('Toque para iniciar');
+        ppBtn.textContent = '▶';
+      }
+    }
+
+    // Primeira tentativa ao carregar
+    document.addEventListener('DOMContentLoaded', tryAutoplay);
+
+    // Qualquer interação destrava o áudio
+    const unlock = async () => {
+      if(audio.paused){
+        try{ await audio.play(); audio.muted = false; setStatus('Ao vivo'); ppBtn.textContent='⏸'; hintEl.style.display='none'; }
+        catch(e){ /* mantém dica */ }
+      }
+      document.removeEventListener('click', unlock);
+      document.removeEventListener('touchstart', unlock);
+    };
+    document.addEventListener('click', unlock, { once:true });
+    document.addEventListener('touchstart', unlock, { once:true });
+
+    // Botão Play/Pause
+    ppBtn.addEventListener('click', async ()=>{
+      if(audio.paused){
+        try{ await audio.play(); audio.muted=false; setStatus('Ao vivo'); ppBtn.textContent='⏸'; hintEl.style.display='none'; }
+        catch(e){ setStatus('Falha ao tocar'); }
+      }else{
+        audio.pause();
+        setStatus('Pausado');
+        ppBtn.textContent='▶';
+      }
+    });
+
+    // Volume
+    vol.addEventListener('input', ()=>{ audio.volume = parseFloat(vol.value); });
+
+    // Atualiza status por eventos
+    audio.addEventListener('playing', ()=> setStatus('Ao vivo'));
+    audio.addEventListener('waiting', ()=> setStatus('Reconectando…'));
+    audio.addEventListener('stalled', ()=> setStatus('Sem dados…'));
+    audio.addEventListener('error', ()=> setStatus('Erro no stream'));
+
+    // Em alguns Androids, ao voltar ao foco é preciso tentar novamente
+    document.addEventListener('visibilitychange', ()=>{
+      if(!document.hidden && audio.paused){
+        tryAutoplay();
+      }
+    });
   </script>
 
 <script src="cookie-consent.js" defer></script>
