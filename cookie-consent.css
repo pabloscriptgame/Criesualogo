@@ -1,0 +1,13 @@
+/* Cookie Consent - leve, acessível e sem dependências externas */
+#cookie-consent-banner{position:fixed;left:0;right:0;bottom:0;z-index:2147483647;display:none;background:#111827;color:#f9fafb;box-shadow:0 -8px 24px rgba(0,0,0,.25);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+#cookie-consent-banner .cc-wrap{max-width:1000px;margin:0 auto;padding:16px;display:flex;gap:16px;align-items:flex-start}
+#cookie-consent-banner .cc-text{flex:1;line-height:1.45;font-size:14px}
+#cookie-consent-banner .cc-actions{display:flex;gap:8px;flex-wrap:wrap}
+#cookie-consent-banner a{color:#93c5fd}
+#cookie-consent-banner button{border:0;border-radius:12px;padding:10px 14px;cursor:pointer;font-weight:600}
+#cookie-consent-accept{background:#10b981;color:#052e1a}
+#cookie-consent-decline{background:#374151;color:#f9fafb}
+@media (max-width:640px){
+  #cookie-consent-banner .cc-wrap{flex-direction:column;align-items:stretch}
+  #cookie-consent-banner .cc-actions{justify-content:flex-end}
+}
