@@ -399,7 +399,45 @@ html, body { overflow-x: hidden; max-width: 100%; }
           <a id="whatsFoot" class="btn ghost" target="_blank" rel="noopener">WhatsApp</a>
         </div>
       </div>
-    </footer>
+    
+<div style="margin-top:12px">
+  <a href="https://transparencyreport.google.com/safe-browsing/search?url=www.pablologomarcas.online" target="_blank" rel="noopener">
+    <img src="https://www.gstatic.com/images/icons/material/system/2x/verified_user_grey600_48dp.png" 
+         alt="Site verificado pelo Google" 
+         style="height:40px;width:auto">
+  </a>
+  <span style="font-size:14px;color:#ccc;margin-left:6px">
+    Site protegido pelo Google
+  </span>
+</div>
+
+
+
+<div style="margin-top:14px; display:flex; gap:14px; align-items:center; flex-wrap:wrap;">
+  <div>
+    <button id="likeBtn" style="padding:8px 14px; border-radius:8px; border:none; cursor:pointer; background:#38bdf8; color:#fff; font-weight:600;">👍 Curtir</button>
+    <span id="likeCount" style="margin-left:6px; color:#ccc;">0</span>
+  </div>
+  <div>
+    <button id="loveBtn" style="padding:8px 14px; border-radius:8px; border:none; cursor:pointer; background:#ef4444; color:#fff; font-weight:600;">❤️ Amar</button>
+    <span id="loveCount" style="margin-left:6px; color:#ccc;">0</span>
+  </div>
+</div>
+
+<script>
+  let likeCount = 0;
+  let loveCount = 0;
+  document.getElementById('likeBtn').addEventListener('click', ()=>{
+    likeCount++;
+    document.getElementById('likeCount').textContent = likeCount;
+  });
+  document.getElementById('loveBtn').addEventListener('click', ()=>{
+    loveCount++;
+    document.getElementById('loveCount').textContent = loveCount;
+  });
+</script>
+
+</footer>
   </main>
 
   <!-- === MINI-PLAYER DE RÁDIO === -->
