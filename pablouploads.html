@@ -1,64 +1,228 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Converter Músicas Free — PabloDesigners</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>PabloUploads — Upload e Player de Áudio</title>
   <style>
-    body {
-      margin:0;
-      font-family:Poppins, sans-serif;
-      background:linear-gradient(135deg,#0b0f14 0%, #111827 60%, #0b0f14 100%);
-      color:#e8eef9;
-      text-align:center;
-      padding:40px;
+    :root{
+      --bg:#0b0f14;--card:#121826;--muted:#a3b1c6;--text:#e8eef9;
+      --brand:#38bdf8;--brand-2:#a78bfa;
     }
-    .card {
-      max-width:600px;
-      margin:0 auto;
-      padding:30px;
-      border-radius:22px;
-      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
-      border:1px solid rgba(255,255,255,.1);
-      box-shadow:0 0 18px rgba(56,189,248,.4),0 0 28px rgba(167,139,250,.3);
+    body { font-family: Poppins, Arial, sans-serif; background:linear-gradient(135deg,#0b0f14 0%, #111827 60%, #0b0f14 100%); color:var(--text); text-align:center; padding:20px; position:relative; }
+    h1 { color:var(--brand); text-shadow:0 0 12px var(--brand), 0 0 24px var(--brand-2); position:relative; z-index:1;}
+    p { color:var(--muted); position:relative; z-index:1;}
+    .upload-box {
+      border:2px dashed var(--brand);
+      padding:20px; margin:20px auto;
+      border-radius:18px; max-width:500px;
+      background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+      box-shadow:0 0 12px var(--brand), 0 0 24px var(--brand-2);
+      position:relative; z-index:1;
     }
-    h1 {margin-bottom:20px;}
-    input[type="file"]{
-      margin:20px 0;
-      padding:10px;
-      border-radius:12px;
-      background:#0b1220;
-      border:1px solid rgba(255,255,255,.2);
-      color:#fff;
-      width:100%;
-    }
-    .btn {
-      display:inline-block;
-      margin:10px 0;
-      padding:14px 18px;
+    .track {
+      background:var(--card);
+      border:1px solid rgba(255,255,255,.15);
       border-radius:16px;
-      font-weight:700;
-      background:linear-gradient(135deg,#38bdf8,#a78bfa);
-      color:#0b0f14;
-      text-decoration:none;
-      cursor:pointer;
+      padding:14px; margin:12px 0;
+      box-shadow:0 0 14px rgba(56,189,248,.5), 0 0 28px rgba(167,139,250,.4);
+      text-align:left;
+      position:relative; z-index:1;
     }
-    .muted{color:#a3b1c6;font-size:14px;}
+    strong { color:var(--brand); }
+    audio { width:100%; margin-top:8px; border-radius:8px; }
+    a, button {
+      display:inline-block; margin:6px 6px 0 0; padding:6px 12px;
+      border-radius:12px; text-decoration:none; border:none; cursor:pointer;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      color:#07090f; font-weight:700;
+      box-shadow:0 0 10px var(--brand), 0 0 20px var(--brand-2);
+    }
+    .back-btn {
+      display:inline-block;
+      margin:20px auto 10px auto;
+      padding:10px 16px;
+      border-radius:14px;
+      text-decoration:none;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      color:#07090f;
+      font-weight:800;
+      box-shadow:0 0 10px var(--brand), 0 0 20px var(--brand-2);
+    }
+    /* Neon lamps */
+    .neon-lamp {
+      position: fixed;
+      top: 0;
+      width: 12px;
+      height: 100%;
+      background: linear-gradient(180deg,#38bdf8,#a78bfa);
+      box-shadow: 0 0 25px #38bdf8, 0 0 50px #a78bfa, 0 0 80px #38bdf8;
+      animation: neonPulse 2s infinite alternate;
+      z-index:0;
+    }
+    .neon-lamp.left { left: 0; }
+    .neon-lamp.right { right: 0; }
+    @keyframes neonPulse {
+      from { opacity: 0.6; }
+      to { opacity: 1; }
+    }
+    /* Cookie box */
+    #cookie-box {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(18,24,38,0.95);
+      color: #e8eef9;
+      padding: 12px;
+      font-size: 14px;
+      text-align: center;
+      border-top: 2px solid #38bdf8;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.4);
+      z-index:2;
+    }
+    #cookie-box button {
+      margin-left: 12px;
+      padding: 6px 12px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #38bdf8, #a78bfa);
+      color: #07090f;
+      font-weight: 700;
+    }
   </style>
 </head>
 <body>
-  <header style="margin-bottom:30px">
-    <a href="index.html" class="btn">⬅ Voltar</a>
-  </header>
+  <div class="neon-lamp left"></div>
+  <div class="neon-lamp right"></div>
 
-  <div class="card">
-    <h1>🎵 Converter Músicas Free</h1>
-    <p class="muted">Faça upload de sua música e converta grátis para MP3 ou WAV.</p>
-    <input type="file" accept="audio/*">
-    <br>
-    <button class="btn">Iniciar Conversão</button>
-    <p class="muted">⚡ Conversor simples e rápido (demonstração).</p>
+  <h1>PabloUploads 🎶</h1>
+  <p>Envie seus arquivos de áudio (MP3, WAV, OGG, M4A, FLAC...) para ouvir, curtir e baixar. Agora também pode exportar para WAV!</p>
+
+  <div class="upload-box">
+    <input type="file" id="fileInput" accept="audio/*" multiple>
   </div>
+
+  <div id="playlist"></div>
+
+  <!-- Botão voltar no rodapé -->
+  <div style="margin-top:30px; position:relative; z-index:1;">
+    <a href="http://www.pablologomarcas.online" class="back-btn">⬅️ Voltar ao Site PabloLogos</a>
+  </div>
+
+  <!-- Cookie box -->
+  <div id="cookie-box">
+    Usamos cookies essenciais para garantir o bom funcionamento do site. 
+    <button id="cookie-ok">OK</button>
+  </div>
+
+  <script>
+    const input = document.getElementById("fileInput");
+    const playlist = document.getElementById("playlist");
+
+    // Cookie consent
+    const box = document.getElementById("cookie-box");
+    const btn = document.getElementById("cookie-ok");
+    if(localStorage.getItem("cookie-accepted")) {
+      box.style.display = "none";
+    }
+    btn.addEventListener("click", () => {
+      localStorage.setItem("cookie-accepted", "true");
+      box.style.display = "none";
+    });
+
+    // Função para converter qualquer áudio para WAV
+    async function convertToWav(file) {
+      const arrayBuffer = await file.arrayBuffer();
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+      const offlineCtx = new OfflineAudioContext(audioBuffer.numberOfChannels, audioBuffer.length, audioBuffer.sampleRate);
+      const source = offlineCtx.createBufferSource();
+      source.buffer = audioBuffer;
+      source.connect(offlineCtx.destination);
+      source.start(0);
+      const renderedBuffer = await offlineCtx.startRendering();
+      function encodeWAV(audioBuffer) {
+        const numChannels = audioBuffer.numberOfChannels;
+        const sampleRate = audioBuffer.sampleRate;
+        const format = 1;
+        const bitsPerSample = 16;
+        const samples = audioBuffer.getChannelData(0);
+        let buffer = new ArrayBuffer(44 + samples.length * 2);
+        let view = new DataView(buffer);
+        function writeString(view, offset, string) {
+          for (let i = 0; i < string.length; i++) {
+            view.setUint8(offset + i, string.charCodeAt(i));
+          }
+        }
+        let offset = 0;
+        writeString(view, offset, "RIFF"); offset += 4;
+        view.setUint32(offset, 36 + samples.length * 2, true); offset += 4;
+        writeString(view, offset, "WAVE"); offset += 4;
+        writeString(view, offset, "fmt "); offset += 4;
+        view.setUint32(offset, 16, true); offset += 4;
+        view.setUint16(offset, format, true); offset += 2;
+        view.setUint16(offset, numChannels, true); offset += 2;
+        view.setUint32(offset, sampleRate, true); offset += 4;
+        view.setUint32(offset, sampleRate * numChannels * 2, true); offset += 4;
+        view.setUint16(offset, numChannels * 2, true); offset += 2;
+        view.setUint16(offset, bitsPerSample, true); offset += 2;
+        writeString(view, offset, "data"); offset += 4;
+        view.setUint32(offset, samples.length * 2, true); offset += 4;
+        let pos = offset;
+        for (let i = 0; i < samples.length; i++, pos += 2) {
+          let s = Math.max(-1, Math.min(1, samples[i]));
+          view.setInt16(pos, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+        }
+        return new Blob([view], { type: "audio/wav" });
+      }
+      return encodeWAV(renderedBuffer);
+    }
+
+    input.addEventListener("change", () => {
+      playlist.innerHTML = "";
+      for (const file of input.files) {
+        const url = URL.createObjectURL(file);
+        const div = document.createElement("div");
+        div.className = "track";
+        div.innerHTML = `
+          <strong>${file.name}</strong><br>
+          <audio controls src="${url}"></audio><br>
+          <a href="${url}" download="${file.name}">⬇️ Baixar Original</a>
+          <a href="#" class="wavBtn">⬇️ Baixar WAV</a>
+        `;
+        
+        // Botão WAV
+        const wavBtn = div.querySelector(".wavBtn");
+        wavBtn.addEventListener("click", async (e) => {
+          e.preventDefault();
+          wavBtn.textContent = "Convertendo...";
+          const wavBlob = await convertToWav(file);
+          const wavUrl = URL.createObjectURL(wavBlob);
+          const a = document.createElement("a");
+          a.href = wavUrl;
+          a.download = file.name.replace(/\.[^/.]+$/, "") + ".wav";
+          a.click();
+          wavBtn.textContent = "⬇️ Baixar WAV";
+        });
+
+        // Botão Curtir
+        const likeBtn = document.createElement("button");
+        likeBtn.textContent = "👍 Curtir";
+        likeBtn.onclick = () => {
+          if (likeBtn.textContent === "👍 Curtir") {
+            likeBtn.textContent = "💙 Curtido";
+            likeBtn.style.background = "linear-gradient(135deg,#22c55e,#38bdf8)";
+          } else {
+            likeBtn.textContent = "👍 Curtir";
+            likeBtn.style.background = "linear-gradient(135deg,var(--brand),var(--brand-2))";
+          }
+        };
+        div.appendChild(likeBtn);
+
+        playlist.appendChild(div);
+      }
+    });
+  </script>
 </body>
 </html>
