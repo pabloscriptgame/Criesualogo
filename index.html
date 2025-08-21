@@ -5,13 +5,14 @@
 <link rel="stylesheet" href="cookie-consent.css">
 
   <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>PabloDesigners — Criamos sua Logomarca | Gerador Lite Grátis</title>
   <meta name="description" content="Criamos sua logomarca original e 100% confiável. Faça seu orçamento pelo WhatsApp ou gere uma logo simples grátis direto no site (versão Lite)." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Montserrat:wght@400;700&family=Lobster&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Montserrat:wght@400;700&family=Lobster&family=Bebas+Neue&family=Rubik:wght@700&family=Space+Grotesk:wght@700&family=Inter:wght@700&family=Playfair+Display:wght@700&family=Oswald:wght@700&display=swap" rel="stylesheet">
   
   <style>
 html, body { overflow-x: hidden; max-width: 100%; }
@@ -76,6 +77,22 @@ html, body { overflow-x: hidden; max-width: 100%; }
     footer{border-top:1px solid rgba(255,255,255,.08); padding:24px 0; font-size:14px; color:var(--muted)}
     /* Responsive */
     @media (max-width: 900px){
+  /* Centralizar textos no mobile */
+  .hero h1,
+  .hero p,
+  .hero h2,
+  .section h2,
+  .card h3 {
+    text-align: center;
+  }
+  .galeria {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .cta {
+    justify-content: center;
+  }
+
       .hero{grid-template-columns:1fr}
       .generator{grid-template-columns:1fr}
       .grid{grid-template-columns:1fr}
@@ -130,6 +147,21 @@ html, body { overflow-x: hidden; max-width: 100%; }
     text-align: center;
   }
 }
+
+/* === EFEITO NEON NAS BORDAS === */
+.btn.primary {
+  border: 2px solid var(--brand);
+  box-shadow: 0 0 12px var(--brand), 0 0 24px var(--brand-2);
+}
+.card {
+  border: 1px solid rgba(255,255,255,.15);
+  box-shadow: 0 0 14px rgba(56,189,248,.5), 0 0 28px rgba(167,139,250,.4);
+}
+.radio-player {
+  box-shadow: 0 0 12px var(--brand), 0 0 26px var(--brand-2);
+  border: 2px solid var(--brand);
+}
+
 </style>
 
 
@@ -143,6 +175,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
         <a class="btn" href="#gerador">Gerar logo grátis</a>
         <a class="btn" href="#planos">Planos</a>
         <a class="btn" href="#faq">FAQ</a>
+        <a class="btn" href="pablouploads.html">Converter Músicas Free</a>
         <a class="btn" id="whatsTop" target="_blank" rel="noopener">Orçamento WhatsApp</a>
       </nav>
     </div>
@@ -202,11 +235,16 @@ html, body { overflow-x: hidden; max-width: 100%; }
               <div>
                 <label for="font">Fonte</label>
                 <select id="font">
-                  <option value="Poppins:700">Poppins (Negrito)</option>
-                  <option value="Montserrat:700">Montserrat (Negrito)</option>
-                  <option value="Bebas Neue:800">Bebas Neue</option>
-                  <option value="Lobster:400">Lobster</option>
-                </select>
+      <option value="Poppins:700">Poppins (Negrito)</option>
+      <option value="Montserrat:700">Montserrat (Negrito)</option>
+      <option value="Bebas Neue:800">Bebas Neue</option>
+      <option value="Lobster:400">Lobster</option>
+      <option value="Rubik:700">Rubik</option>
+      <option value="Space Grotesk:700">Space Grotesk</option>
+      <option value="Inter:700">Inter</option>
+      <option value="Playfair Display:700">Playfair Display</option>
+      <option value="Oswald:700">Oswald</option>
+    </select>
               </div>
               <div>
                 <label for="style">Estilo</label>
@@ -215,6 +253,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
                   <option value="neon" selected>Neon</option>
                   <option value="gradiente">Gradiente</option>
                   <option value="selo">Selo</option>
+                  <option value="3d">3D</option>
                 </select>
               </div>
             </div>
@@ -236,15 +275,66 @@ html, body { overflow-x: hidden; max-width: 100%; }
 
             <label for="icon">Ícone (opcional)</label>
             <select id="icon">
-              <option value="">Sem ícone</option>
-              <option value="spark">⚡ Raio</option>
-              <option value="star">★ Estrela</option>
-              <option value="gem">◆ Diamante</option>
-              <option value="pen">✎ Caneta</option>
-            </select>
+      <option value="">Sem ícone</option>
+      <option value="spark">⚡ Raio</option>
+      <option value="star">★ Estrela</option>
+      <option value="gem">◆ Diamante</option>
+      <option value="pen">✎ Caneta</option>
+      <option value="heart">❤️ Coração</option>
+      <option value="check">✔ Check</option>
+      <option value="music">🎵 Música</option>
+      <option value="rocket">🚀 Foguete</option>
+      <option value="crown">👑 Coroa</option>
+      <option value="fire">🔥 Fogo</option>
+      <option value="laptop">💻 Laptop</option>
+    </select>
 
-            <div class="cta" style="margin-top:16px">
+            
+<div class="row">
+  <div>
+    <label for="fontSize">Tamanho da Fonte</label>
+    <input type="range" id="fontSize" min="30" max="120" value="86">
+  </div>
+  <div>
+    <label for="letterSpace">Espaçamento</label>
+    <input type="range" id="letterSpace" min="0" max="20" value="0">
+  </div>
+</div>
+
+<div class="row">
+  <div>
+    <label for="shadow">Sombra Neon</label>
+    <input type="checkbox" id="shadow" checked>
+  </div>
+  <div>
+    <label for="curve">Texto Curvado</label>
+    <select id="curve">
+      <option value="none">Normal</option>
+      <option value="up">Curvado para cima</option>
+      <option value="down">Curvado para baixo</option>
+    </select>
+  </div>
+</div>
+
+<div>
+  <label>Paleta Rápida</label>
+  <div id="colorPalette" style="display:flex;gap:6px;margin-top:6px;">
+    <button type="button" class="btn" style="background:#38bdf8" data-color="#38bdf8"></button>
+    <button type="button" class="btn" style="background:#a78bfa" data-color="#a78bfa"></button>
+    <button type="button" class="btn" style="background:#22c55e" data-color="#22c55e"></button>
+    <button type="button" class="btn" style="background:#f59e0b" data-color="#f59e0b"></button>
+    <button type="button" class="btn" style="background:#ef4444" data-color="#ef4444"></button>
+  </div>
+</div>
+
+<div class="cta" style="margin-top:16px; display:flex;gap:10px;flex-wrap:wrap">
               <button class="btn primary" id="btnPreview">Pré-visualizar</button>
+      <button class="btn ghost" id="btnDownloadPng">Baixar PNG</button>
+      <button class="btn ghost" id="btnDownloadJpg">Baixar JPG</button>
+      <button class="btn ghost" id="btnDownloadSvg">Baixar SVG</button>
+      <button class="btn ghost" id="btnZip">Baixar ZIP (Todos)</button>
+      <button class="btn ghost" id="btnReset">Resetar</button>
+      <button class="btn primary" id="btnRandom">🎲 Surpreenda-me</button>
               <button class="btn ghost" id="btnDownload">Baixar PNG</button>
             </div>
           </div>
@@ -418,6 +508,18 @@ html, body { overflow-x: hidden; max-width: 100%; }
       ctx.fillStyle = fillStyle;
       ctx.fillText(`${iconTxt ? iconTxt + ' ' : ''}${brand}`, centerX, centerY - (slogan ? 18 : 0));
 
+      
+      // Estilo 3D
+      if(style === '3d'){
+        ctx.save();
+        for(let i=8; i>0; i--){
+          ctx.fillStyle = `rgba(0,0,0,${0.15 + i*0.02})`;
+          ctx.fillText(`${iconTxt ? iconTxt + ' ' : ''}${brand}`, centerX+i, centerY+i - (slogan ? 18 : 0));
+        }
+        ctx.restore();
+        ctx.fillStyle = color;
+      }
+
       // Selo (anel)
       if(style === 'selo'){
         ctx.save();
@@ -523,7 +625,83 @@ html, body { overflow-x: hidden; max-width: 100%; }
     audio.addEventListener('stalled', ()=> setStatus('Sem dados…'));
     audio.addEventListener('error', ()=> setStatus('Erro no stream'));
 
-    // Em alguns Androids, ao voltar ao foco é preciso tentar novamente
+    
+// ====== NOVOS CONTROLES ======
+const fontSizeInput = document.getElementById('fontSize');
+const letterSpaceInput = document.getElementById('letterSpace');
+const shadowCheck = document.getElementById('shadow');
+const curveSelect = document.getElementById('curve');
+
+let mainSize = parseInt(fontSizeInput.value);
+let letterSpace = parseInt(letterSpaceInput.value);
+
+fontSizeInput.addEventListener('input', ()=>{ mainSize = parseInt(fontSizeInput.value); drawLogo(); });
+letterSpaceInput.addEventListener('input', ()=>{ letterSpace = parseInt(letterSpaceInput.value); drawLogo(); });
+shadowCheck.addEventListener('change', drawLogo);
+curveSelect.addEventListener('change', drawLogo);
+
+// Paleta de cores
+document.querySelectorAll('#colorPalette button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.getElementById('color').value = btn.dataset.color;
+    drawLogo();
+  });
+});
+
+// Botão Random (surpreenda-me)
+document.getElementById('btnRandom').addEventListener('click', ()=>{
+  const fonts = ["Poppins:700","Montserrat:700","Bebas Neue:800","Lobster:400","Rubik:700","Space Grotesk:700","Inter:700","Playfair Display:700","Oswald:700"];
+  const styles = ["clean","neon","gradiente","selo"];
+  const colors = ["#38bdf8","#a78bfa","#22c55e","#f59e0b","#ef4444"];
+  document.getElementById('font').value = fonts[Math.floor(Math.random()*fonts.length)];
+  document.getElementById('style').value = styles[Math.floor(Math.random()*styles.length)];
+  document.getElementById('color').value = colors[Math.floor(Math.random()*colors.length)];
+  fontSizeInput.value = Math.floor(Math.random()*60)+50;
+  mainSize = parseInt(fontSizeInput.value);
+  drawLogo();
+});
+
+// Downloads extras
+document.getElementById('btnDownloadPng').addEventListener('click', ()=>{
+  drawLogo();
+  const link = document.createElement('a');
+  link.download = 'logo-lite.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+});
+document.getElementById('btnDownloadJpg').addEventListener('click', ()=>{
+  drawLogo();
+  const link = document.createElement('a');
+  link.download = 'logo-lite.jpg';
+  link.href = canvas.toDataURL('image/jpeg',0.9);
+  link.click();
+});
+document.getElementById('btnDownloadSvg').addEventListener('click', ()=>{
+  alert('Exportar para SVG Lite: em breve disponível!');
+});
+document.getElementById('btnZip').addEventListener('click', ()=>{
+  alert('Baixar ZIP com todos formatos: em breve disponível!');
+});
+
+// Resetar
+document.getElementById('btnReset').addEventListener('click', ()=>{
+  document.getElementById('brand').value = 'PabloDesigners';
+  document.getElementById('slogan').value = '';
+  document.getElementById('font').value = 'Poppins:700';
+  document.getElementById('style').value = 'neon';
+  document.getElementById('color').value = '#38bdf8';
+  document.getElementById('bg').value = 'escuro';
+  document.getElementById('icon').value = '';
+  fontSizeInput.value = 86;
+  letterSpaceInput.value = 0;
+  shadowCheck.checked = true;
+  curveSelect.value = 'none';
+  mainSize = 86;
+  letterSpace = 0;
+  drawLogo();
+});
+
+// Em alguns Androids, ao voltar ao foco é preciso tentar novamente
     document.addEventListener('visibilitychange', ()=>{
       if(!document.hidden && audio.paused){
         tryAutoplay();
