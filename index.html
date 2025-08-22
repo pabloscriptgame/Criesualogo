@@ -750,5 +750,105 @@ document.getElementById('btnReset').addEventListener('click', ()=>{
 
 <script src="cookie-consent.js" defer></script>
 
+
+<!-- ===== ASSISTENTE PERSONALIZADO (PabloDesigners) ===== -->
+<script>
+(() => {
+  const BRAND = (typeof BRAND_NAME !== 'undefined' && BRAND_NAME) ? BRAND_NAME : 'PabloDesigners';
+  const WHATS = (typeof WHATS_LINK !== 'undefined' && WHATS_LINK) ? WHATS_LINK :
+    'https://wa.me/5534998110946?text=' + encodeURIComponent('Olá! Quero um orçamento de logomarca profissional.');
+  const LINKS = {
+    gerador: '#gerador',
+    planos: '#planos',
+    faq: '#faq',
+    converter: 'pablouploads.html',
+    beats: 'pablobeats.html'
+  };
+  const css = `.pd-assist{position:fixed;left:16px;bottom:16px;z-index:60;font-family:Poppins,system-ui,Arial}
+  .pd-assist *{box-sizing:border-box}
+  .pd-assist-bubble{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;
+    background:linear-gradient(135deg,#38bdf8,#a78bfa); color:#0b0f14;font-weight:900;
+    box-shadow:0 10px 28px rgba(0,0,0,.35), 0 0 12px #38bdf8, 0 0 22px #a78bfa; cursor:pointer; border:2px solid #38bdf8}
+  .pd-assist-panel{width:min(92vw,360px);max-height:65vh;display:none;flex-direction:column;gap:10px;
+    position:absolute;left:0;bottom:70px;background:rgba(11,15,20,.9);backdrop-filter:blur(10px) saturate(1.2);
+    border:1px solid rgba(255,255,255,.12); border-radius:18px; padding:12px; color:#e8eef9}
+  .pd-assist-header{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .pd-assist-title{display:flex;align-items:center;gap:8px;font-weight:800}
+  .pd-assist-dot{width:14px;height:14px;border-radius:6px;background:linear-gradient(135deg,#38bdf8,#a78bfa)}
+  .pd-assist-close{background:transparent;border:1px solid rgba(255,255,255,.2);color:#e8eef9;border-radius:10px;padding:6px 8px;cursor:pointer}
+  .pd-assist-log{overflow:auto;display:flex;flex-direction:column;gap:10px;min-height:140px;max-height:40vh;padding-right:4px}
+  .pd-assist-msg{padding:10px 12px;border-radius:12px;line-height:1.3;max-width:85%}
+  .pd-assist-bot{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+  .pd-assist-you{align-self:flex-end;background:#38bdf8;color:#0b0f14;font-weight:700}
+  .pd-assist-quick{display:flex;flex-wrap:wrap;gap:8px}
+  .pd-assist-chip{border:none;padding:8px 10px;border-radius:999px;background:rgba(56,189,248,.15);
+    border:1px solid rgba(56,189,248,.35);color:#bae6fd;font-weight:700;cursor:pointer}
+  .pd-assist-input{display:flex;gap:8px}
+  .pd-assist-input input{flex:1;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.18);
+    background:#0b1220;color:#e8eef9}
+  .pd-assist-input button{padding:10px 12px;border-radius:12px;border:none;cursor:pointer;
+    background:linear-gradient(135deg,#38bdf8,#a78bfa);color:#0b0f14;font-weight:900}
+  @media (max-width: 480px){ .pd-assist-panel{max-height:60vh} }`;
+  const html = `<div class="pd-assist"><div class="pd-assist-panel" role="dialog" aria-label="Assistente do site">
+        <div class="pd-assist-header"><div class="pd-assist-title"><span class="pd-assist-dot"></span>${BRAND} Assistente</div>
+        <button class="pd-assist-close" aria-label="Fechar">×</button></div>
+        <div class="pd-assist-log" id="pdLog"></div><div class="pd-assist-quick" id="pdQuick"></div>
+        <div class="pd-assist-input"><input id="pdInput" placeholder="Digite: orçamento, rádio, converter, logo..." />
+        <button id="pdSend">Enviar</button></div></div>
+      <div class="pd-assist-bubble" id="pdBubble" title="Falar com o assistente">💬</div></div>`;
+  const style = document.createElement('style'); style.textContent = css; document.head.appendChild(style);
+  const wrap = document.createElement('div'); wrap.innerHTML = html; document.body.appendChild(wrap);
+  const panel = document.querySelector('.pd-assist-panel'); const bubble = document.getElementById('pdBubble');
+  const closeBtn = document.querySelector('.pd-assist-close'); const log = document.getElementById('pdLog');
+  const quick = document.getElementById('pdQuick'); const input = document.getElementById('pdInput');
+  const send = document.getElementById('pdSend');
+  const say = (text, who='bot') => { const div = document.createElement('div'); div.className = `pd-assist-msg pd-assist-${who==='you'?'you':'bot'}`; div.textContent = text; log.appendChild(div); log.scrollTop = log.scrollHeight; };
+  const chips = (arr) => { quick.innerHTML = ''; arr.forEach(({label, fn})=>{ const b = document.createElement('button'); b.className = 'pd-assist-chip'; b.textContent = label; b.addEventListener('click', fn); quick.appendChild(b); }); };
+  const go = (s) => { if(s.startsWith('#')){ const el=document.querySelector(s); if(el) el.scrollIntoView({behavior:'smooth'});} else {location.href=s;} };
+  const clickIf = (id) => { const el=document.getElementById(id); if(el) el.click(); };
+  const ACOES = {
+    gerar: () => { go(LINKS.gerador); say('Abrindo o Gerador de Logomarcas (Lite)…'); },
+    planos: () => { go(LINKS.planos); say('Aqui estão os planos disponíveis.'); },
+    faq:    () => { go(LINKS.faq); say('Abrindo perguntas frequentes…'); },
+    orcamento: () => { window.open(WHATS, '_blank'); say('Abrindo WhatsApp para orçamento ✅'); },
+    radio: () => { say('Tocando rádio…'); clickIf('ppBtn'); },
+    converter: () => { location.href = LINKS.converter; },
+    beats: () => { location.href = LINKS.beats; },
+    humano: () => { window.open(WHATS, '_blank'); say('Te chamo no WhatsApp!'); }
+  };
+  const intent = (t) => { t=(t||'').toLowerCase(); if(/or[cç]amento|whats/.test(t)) return 'orcamento';
+    if(/logo|gerar|marca|lite/.test(t)) return 'gerar';
+    if(/plano|pre[cç]o|valor/.test(t)) return 'planos';
+    if(/d[uú]vida|faq|ajuda/.test(t)) return 'faq';
+    if(/r[aá]dio|tocar|som|m[uú]sica ao vivo/.test(t)) return 'radio';
+    if(/converter|mp3|wav|audio|áudio/.test(t)) return 'converter';
+    if(/beat|download|pablo ?beats/.test(t)) return 'beats';
+    if(/humano|atendente|pessoa|falar com/.test(t)) return 'humano'; return null; };
+  const greet = () => { say(`Olá! Eu sou o assistente do ${BRAND}. Posso te ajudar com:`);
+    chips([{label:'🧪 Gerar logo grátis', fn: ACOES.gerar},
+      {label:'💬 Orçamento WhatsApp', fn: ACOES.orcamento},
+      {label:'📦 Planos', fn: ACOES.planos},
+      {label:'📻 Ouvir rádio', fn: ACOES.radio},
+      {label:'🎧 Converter músicas', fn: ACOES.converter},
+      {label:'🎵 PabloBeats', fn: ACOES.beats},
+      {label:'❓ Dúvidas', fn: ACOES.faq},]); };
+  const toggle = (show) => { const visible=(show!==undefined)?show:panel.style.display!=='flex'; panel.style.display=visible?'flex':'none';
+    if(visible && !panel.dataset.greeted){ greet(); panel.dataset.greeted='1'; } };
+  bubble.addEventListener('click', ()=> toggle(true)); closeBtn.addEventListener('click', ()=> toggle(false));
+  const handle = () => { const val=input.value.trim(); if(!val) return; say(val,'you'); input.value=''; const i=intent(val);
+    if(i && ACOES[i]){ ACOES[i](); } else{ say('Entendi. Quer tentar um destes?');
+      chips([{label:'🧪 Gerar logo', fn: ACOES.gerar},
+             {label:'💬 Orçamento', fn: ACOES.orcamento},
+             {label:'📦 Planos', fn: ACOES.planos},
+             {label:'❓ FAQ', fn: ACOES.faq},]); } };
+  send.addEventListener('click', handle); input.addEventListener('keydown',(e)=>{ if(e.key==='Enter') handle(); });
+  const path=location.pathname.toLowerCase(); if(path.includes('pablobeats')) localStorage.setItem('pd_last_ctx','beats');
+  if(path.includes('pablouploads')) localStorage.setItem('pd_last_ctx','converter');
+  const last=localStorage.getItem('pd_last_ctx'); if(last){ bubble.title='Precisa de ajuda? Clique aqui!'; }
+  if(location.hash.toLowerCase().includes('ajuda')) toggle(true);
+})();
+</script>
+<!-- ===== /ASSISTENTE PERSONALIZADO ===== -->
+
 </body>
 </html>

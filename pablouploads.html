@@ -91,6 +91,26 @@
       font-weight: 700;
     }
   </style>
+
+<style>
+  .wavBtn, .mp3Btn, .oggBtn, .flacBtn {
+    display:inline-block; margin:4px; padding:6px 12px;
+    border-radius:8px; text-decoration:none; color:#fff;
+    background:rgba(56,189,248,0.2); border:1px solid #38bdf8;
+    box-shadow:0 0 8px #38bdf8, inset 0 0 6px rgba(56,189,248,.6);
+    transition:all .3s ease;
+  }
+  .wavBtn:hover, .mp3Btn:hover, .oggBtn:hover, .flacBtn:hover {
+    background:#38bdf8; color:#000;
+    box-shadow:0 0 15px #38bdf8, 0 0 25px #0ea5e9;
+    transform:scale(1.05);
+  }
+  .wavBtn:active, .mp3Btn:active, .oggBtn:active, .flacBtn:active {
+    transform:scale(0.95);
+    box-shadow:0 0 8px #38bdf8;
+  }
+</style>
+
 </head>
 <body>
   <div class="neon-lamp left"></div>
@@ -101,6 +121,52 @@
 
   <div class="upload-box">
     <input type="file" id="fileInput" accept="audio/*" multiple>
+  </div>
+
+  
+  <div id="quality-box" style="margin:20px auto; max-width:500px; text-align:left; background:rgba(255,255,255,.05); padding:12px; border-radius:12px; box-shadow:0 0 8px rgba(56,189,248,.6);">
+    <label><strong>Qualidade MP3:</strong>
+      <select id="mp3-quality">
+        <option value="128">128 kbps (padrão)</option>
+        <option value="192">192 kbps</option>
+        <option value="256">256 kbps</option>
+        <option value="320">320 kbps (alta qualidade)</option>
+      </select>
+    </label><br><br>
+    <label><strong>Qualidade OGG:</strong>
+      <select id="ogg-quality">
+        <option value="0.3">0.3 (leve)</option>
+        <option value="0.5" selected>0.5 (padrão)</option>
+        <option value="0.7">0.7</option>
+        <option value="1.0">1.0 (alta qualidade)</option>
+      </select>
+    </label><br><br>
+    <label><strong>Nível FLAC:</strong>
+      <select id="flac-level">
+        <option value="0">0 (rápido)</option>
+        <option value="5" selected>5 (padrão)</option>
+        <option value="8">8 (máxima compressão)</option>
+      </select>
+    </label>
+  </div>
+
+  
+  <div id="tools-box" style="margin:20px auto; max-width:500px; text-align:left; background:rgba(255,255,255,.05); padding:12px; border-radius:12px; box-shadow:0 0 8px rgba(168,85,247,.6);">
+    <h3>🔧 Ferramentas Extras</h3>
+    <label>✂️ Cortar início (segundos): <input type="number" id="trim-start" value="0" min="0" style="width:80px"></label><br>
+    <label>✂️ Cortar fim (segundos): <input type="number" id="trim-end" value="0" min="0" style="width:80px"></label><br><br>
+    <label>⏩ Velocidade:
+      <select id="speed-rate">
+        <option value="0.75">0.75x</option>
+        <option value="1" selected>1x (normal)</option>
+        <option value="1.25">1.25x</option>
+        <option value="1.5">1.5x</option>
+        <option value="2">2x</option>
+      </select>
+    </label><br><br>
+    <label>🎚️ Normalizar volume <input type="checkbox" id="normalize"></label><br><br>
+    <label>🔄 Reverter áudio <input type="checkbox" id="reverse"></label><br><br>
+    <label>🔁 Loop vezes: <input type="number" id="loop-count" value="1" min="1" max="10" style="width:60px"></label>
   </div>
 
   <div id="playlist"></div>
@@ -142,41 +208,42 @@
       source.connect(offlineCtx.destination);
       source.start(0);
       const renderedBuffer = await offlineCtx.startRendering();
-      function encodeWAV(audioBuffer) {
-        const numChannels = audioBuffer.numberOfChannels;
-        const sampleRate = audioBuffer.sampleRate;
-        const format = 1;
-        const bitsPerSample = 16;
-        const samples = audioBuffer.getChannelData(0);
-        let buffer = new ArrayBuffer(44 + samples.length * 2);
-        let view = new DataView(buffer);
-        function writeString(view, offset, string) {
-          for (let i = 0; i < string.length; i++) {
-            view.setUint8(offset + i, string.charCodeAt(i));
-          }
+      
+    function encodeWAV(audioBuffer) {
+      const numChannels = audioBuffer.numberOfChannels;
+      const sampleRate = audioBuffer.sampleRate;
+      const bitsPerSample = 16;
+      const frameCount = audioBuffer.length;
+      const bytesPerSample = bitsPerSample / 8;
+      const blockAlign = numChannels * bytesPerSample;
+      const byteRate = sampleRate * blockAlign;
+      const dataSize = frameCount * blockAlign;
+      const buffer = new ArrayBuffer(44 + dataSize);
+      const view = new DataView(buffer);
+      let offset = 0;
+      function writeString(s){ for(let i=0;i<s.length;i++) view.setUint8(offset+i, s.charCodeAt(i)); offset += s.length; }
+      function write16(d){ view.setUint16(offset, d, true); offset += 2; }
+      function write32(d){ view.setUint32(offset, d, true); offset += 4; }
+      // RIFF header
+      writeString('RIFF'); write32(36 + dataSize); writeString('WAVE');
+      // fmt chunk
+      writeString('fmt '); write32(16); write16(1); write16(numChannels); write32(sampleRate);
+      write32(byteRate); write16(blockAlign); write16(bitsPerSample);
+      // data chunk
+      writeString('data'); write32(dataSize);
+      // Interleave channels
+      const channels = [];
+      for (let c=0;c<numChannels;c++) channels.push(audioBuffer.getChannelData(c));
+      for (let i=0;i<frameCount;i++){
+        for (let c=0;c<numChannels;c++){
+          let s = Math.max(-1, Math.min(1, channels[c][i]));
+          view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+          offset += 2;
         }
-        let offset = 0;
-        writeString(view, offset, "RIFF"); offset += 4;
-        view.setUint32(offset, 36 + samples.length * 2, true); offset += 4;
-        writeString(view, offset, "WAVE"); offset += 4;
-        writeString(view, offset, "fmt "); offset += 4;
-        view.setUint32(offset, 16, true); offset += 4;
-        view.setUint16(offset, format, true); offset += 2;
-        view.setUint16(offset, numChannels, true); offset += 2;
-        view.setUint32(offset, sampleRate, true); offset += 4;
-        view.setUint32(offset, sampleRate * numChannels * 2, true); offset += 4;
-        view.setUint16(offset, numChannels * 2, true); offset += 2;
-        view.setUint16(offset, bitsPerSample, true); offset += 2;
-        writeString(view, offset, "data"); offset += 4;
-        view.setUint32(offset, samples.length * 2, true); offset += 4;
-        let pos = offset;
-        for (let i = 0; i < samples.length; i++, pos += 2) {
-          let s = Math.max(-1, Math.min(1, samples[i]));
-          view.setInt16(pos, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
-        }
-        return new Blob([view], { type: "audio/wav" });
       }
-      return encodeWAV(renderedBuffer);
+      return new Blob([buffer], { type: 'audio/wav' });
+    }
+    return encodeWAV(renderedBuffer);
     }
 
     input.addEventListener("change", () => {
@@ -190,8 +257,67 @@
           <audio controls src="${url}"></audio><br>
           <a href="${url}" download="${file.name}">⬇️ Baixar Original</a>
           <a href="#" class="wavBtn">⬇️ Baixar WAV</a>
+          <a href="#" class="mp3Btn">⬇️ Baixar MP3</a>
+          <a href="#" class="oggBtn">⬇️ Baixar OGG</a>
+          <a href="#" class="flacBtn">⬇️ Baixar FLAC</a>
         `;
         
+        // Botão WAV
+        const mp3Btn = div.querySelector('.mp3Btn');
+        const oggBtn = div.querySelector('.oggBtn');
+        const flacBtn = div.querySelector('.flacBtn');
+
+        // MP3
+        mp3Btn.addEventListener('click', async (e) => {
+          e.preventDefault();
+          mp3Btn.textContent = 'Convertendo MP3...';
+          try {
+            let buf = await decodeFileToBuffer(file);
+          buf = await applyExtraTools(file);
+            const bitrate = parseInt(document.getElementById('mp3-quality').value);
+            alert('📏 Tamanho estimado MP3: ' + formatSize(estimateFileSize(buf,'mp3',{bitrate})));
+            const mp3 = await convertToMp3(file);
+            const u = URL.createObjectURL(mp3);
+            const a = document.createElement('a'); a.href = u;
+            a.download = file.name.replace(/\.[^/.]+$/, '') + '.mp3'; a.click();
+          } catch(err){ alert('Falha ao converter para MP3: ' + err.message); }
+          finally { mp3Btn.textContent = '⬇️ Baixar MP3'; }
+        });
+
+        // OGG
+        oggBtn.addEventListener('click', async (e) => {
+          e.preventDefault();
+          oggBtn.textContent = 'Convertendo OGG...';
+          try {
+            let buf = await decodeFileToBuffer(file);
+          buf = await applyExtraTools(file);
+            const quality = parseFloat(document.getElementById('ogg-quality').value);
+            alert('📏 Tamanho estimado OGG: ' + formatSize(estimateFileSize(buf,'ogg',{quality})));
+            const ogg = await convertToOgg(file);
+            const u = URL.createObjectURL(ogg);
+            const a = document.createElement('a'); a.href = u;
+            a.download = file.name.replace(/\.[^/.]+$/, '') + '.ogg'; a.click();
+          } catch(err){ alert('Falha ao converter para OGG: ' + err.message); }
+          finally { oggBtn.textContent = '⬇️ Baixar OGG'; }
+        });
+
+        // FLAC
+        flacBtn.addEventListener('click', async (e) => {
+          e.preventDefault();
+          flacBtn.textContent = 'Convertendo FLAC...';
+          try {
+            let buf = await decodeFileToBuffer(file);
+          buf = await applyExtraTools(file);
+            const level = parseInt(document.getElementById('flac-level').value);
+            alert('📏 Tamanho estimado FLAC: ' + formatSize(estimateFileSize(buf,'flac',{level})));
+            const flac = await convertToFlac(file);
+            const u = URL.createObjectURL(flac);
+            const a = document.createElement('a'); a.href = u;
+            a.download = file.name.replace(/\.[^/.]+$/, '') + '.flac'; a.click();
+          } catch(err){ alert('Falha ao converter para FLAC: ' + err.message); }
+          finally { flacBtn.textContent = '⬇️ Baixar FLAC'; }
+        });
+
         // Botão WAV
         const wavBtn = div.querySelector(".wavBtn");
         wavBtn.addEventListener("click", async (e) => {
@@ -224,5 +350,237 @@
       }
     });
   </script>
+
+<!-- ===== ASSISTENTE PERSONALIZADO (PabloDesigners) ===== -->
+<script>
+(() => {
+  const BRAND = (typeof BRAND_NAME !== 'undefined' && BRAND_NAME) ? BRAND_NAME : 'PabloDesigners';
+  const WHATS = (typeof WHATS_LINK !== 'undefined' && WHATS_LINK) ? WHATS_LINK :
+    'https://wa.me/5534998110946?text=' + encodeURIComponent('Olá! Quero um orçamento de logomarca profissional.');
+  const LINKS = {
+    gerador: '#gerador',
+    planos: '#planos',
+    faq: '#faq',
+    converter: 'pablouploads.html',
+    beats: 'pablobeats.html'
+  };
+  // ... (rest of script igual ao inserido antes)
+})(); 
+</script>
+<!-- ===== /ASSISTENTE PERSONALIZADO ===== -->
+
+
+<!-- Encoders via CDN -->
+<script src="https://unpkg.com/lamejs@1.2.1/lame.min.js"></script>
+<script src="https://unpkg.com/ogg-vorbis-encoder/build/ogg-vorbis-encoder.min.js"></script>
+<script src="https://unpkg.com/libflacjs/dist/libflac.min.js"></script>
+
+
+<script>
+  // Helpers
+  function interleaveToInt16(buffer) {
+    const numChannels = buffer.numberOfChannels;
+    const length = buffer.length;
+    if (numChannels === 1) {
+      const ch = buffer.getChannelData(0);
+      const out = new Int16Array(length);
+      for (let i=0;i<length;i++){ const s=Math.max(-1, Math.min(1, ch[i])); out[i] = s<0 ? s*0x8000 : s*0x7FFF; }
+      return out;
+    } else {
+      const chL = buffer.getChannelData(0), chR = buffer.getChannelData(1);
+      const out = new Int16Array(length*2);
+      let o=0;
+      for (let i=0;i<length;i++){
+        let l = Math.max(-1, Math.min(1, chL[i]));
+        let r = Math.max(-1, Math.min(1, chR[i]));
+        out[o++] = l<0 ? l*0x8000 : l*0x7FFF;
+        out[o++] = r<0 ? r*0x8000 : r*0x7FFF;
+      }
+      return out;
+    }
+  }
+
+  async function decodeFileToBuffer(file){
+    const arrayBuffer = await file.arrayBuffer();
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const buf = await ctx.decodeAudioData(arrayBuffer);
+    return buf;
+  }
+
+  // MP3 using lamejs
+  async function convertToMp3(file){
+    const qSel = document.getElementById('mp3-quality');
+    const bitrate = qSel ? parseInt(qSel.value) : 128;
+    
+    const buffer = await decodeFileToBuffer(file);
+    const sampleRate = buffer.sampleRate;
+    const numChannels = Math.min(2, buffer.numberOfChannels);
+    const lame = new lamejs.Mp3Encoder(numChannels, sampleRate, bitrate);
+    const ch0 = buffer.getChannelData(0);
+    const ch1 = (numChannels>1) ? buffer.getChannelData(1) : null;
+    const blockSize = 1152;
+    const mp3Data = [];
+    let i = 0;
+    while(i < buffer.length){
+      const left = ch0.subarray(i, i+blockSize);
+      let right = null;
+      if (numChannels>1) right = ch1.subarray(i, i+blockSize);
+      // Convert Float32 to Int16
+      const left16 = Int16Array.from(left, s => s < 0 ? s * 0x8000 : s * 0x7FFF);
+      let enc;
+      if (numChannels===2){
+        const right16 = Int16Array.from(right, s => s < 0 ? s * 0x8000 : s * 0x7FFF);
+        enc = lame.encodeBuffer(left16, right16);
+      } else {
+        enc = lame.encodeBuffer(left16);
+      }
+      if (enc.length>0) mp3Data.push(enc);
+      i += blockSize;
+    }
+    const end = lame.flush();
+    if (end.length>0) mp3Data.push(end);
+    return new Blob(mp3Data, {type:'audio/mpeg'});
+  }
+
+  // OGG Vorbis (using ogg-vorbis-encoder)
+  async function convertToOgg(file){
+    const qSel = document.getElementById('ogg-quality');
+    const quality = qSel ? parseFloat(qSel.value) : 0.5;
+    
+    const buffer = await decodeFileToBuffer(file);
+    if (typeof OggVorbisEncoder === 'undefined') throw new Error('OGG encoder not loaded');
+    const sampleRate = buffer.sampleRate;
+    const numChannels = Math.min(2, buffer.numberOfChannels);
+    const quality = quality; // user selected
+    const chData = [];
+    for (let c=0;c<numChannels;c++) chData.push(buffer.getChannelData(c));
+    // The encoder expects an array of Float32Array per channel
+    const encoder = new OggVorbisEncoder(sampleRate, numChannels, quality);
+    const length = buffer.length;
+    const block = 4096;
+    let pos = 0;
+    while(pos < length){
+      const slice = [];
+      for (let c=0;c<numChannels;c++){
+        slice.push(chData[c].subarray(pos, Math.min(length, pos+block)));
+      }
+      encoder.encode(slice);
+      pos += block;
+    }
+    const blob = encoder.finish();
+    return new Blob([blob], {type:'audio/ogg'});
+  }
+
+  // FLAC (using libflac.js) - encodes 16-bit
+  async function convertToFlac(file){
+    const qSel = document.getElementById('flac-level');
+    const level = qSel ? parseInt(qSel.value) : 5;
+    
+    if (typeof Flac === 'undefined') throw new Error('FLAC encoder not loaded');
+    const buffer = await decodeFileToBuffer(file);
+    const sampleRate = buffer.sampleRate;
+    const numChannels = Math.min(2, buffer.numberOfChannels);
+    const flacEncoder = Flac.init_libflac_encoder(sampleRate, numChannels, 16, level, 0, true);
+    if (flacEncoder === 0) throw new Error('FLAC encoder init failed');
+    const input = interleaveToInt16(buffer);
+    const frames = 4096 * numChannels;
+    const chunks = [];
+    Flac.init_encoder_stream(flacEncoder,
+      function write_cb(bufArray, bytes) {
+        chunks.push(new Uint8Array(bufArray.slice(0, bytes)));
+      },
+      null, null, null
+    );
+    let offset = 0;
+    while (offset < input.length){
+      const end = Math.min(offset + frames, input.length);
+      const slice = input.subarray(offset, end);
+      const ok = Flac.FLAC__stream_encoder_process_interleaved(flacEncoder, slice, Math.floor(slice.length/numChannels));
+      if (!ok) { Flac.FLAC__stream_encoder_delete(flacEncoder); throw new Error('FLAC process failed'); }
+      offset = end;
+    }
+    Flac.FLAC__stream_encoder_finish(flacEncoder);
+    Flac.FLAC__stream_encoder_delete(flacEncoder);
+    return new Blob(chunks, {type:'audio/flac'});
+  }
+</script>
+
+
+<script>
+function estimateFileSize(buffer, format, options={}) {
+  const seconds = buffer.length / buffer.sampleRate;
+  if (format==='wav'){
+    const bytes = buffer.length * buffer.numberOfChannels * 2 + 44;
+    return bytes;
+  } else if (format==='mp3'){
+    const bitrate = options.bitrate || 128;
+    const bytes = seconds * (bitrate*1000/8);
+    return bytes;
+  } else if (format==='ogg'){
+    const q = options.quality || 0.5;
+    const avgBitrate = 64 + (q*128); // ~estimate kbps
+    const bytes = seconds * (avgBitrate*1000/8);
+    return bytes;
+  } else if (format==='flac'){
+    const level = options.level || 5;
+    // estimate: PCM size * compression ratio (0.5 default)
+    const wavBytes = buffer.length * buffer.numberOfChannels * 2 + 44;
+    const ratio = (level>=8?0.45:(level>=5?0.5:0.6));
+    return wavBytes*ratio;
+  }
+  return 0;
+}
+function formatSize(bytes){
+  if (bytes<1024) return bytes.toFixed(0)+' B';
+  if (bytes<1024*1024) return (bytes/1024).toFixed(1)+' KB';
+  return (bytes/1024/1024).toFixed(2)+' MB';
+}
+</script>
+
+
+<script>
+async function applyExtraTools(file){
+  let buf = await decodeFileToBuffer(file);
+          buf = await applyExtraTools(file);
+  let start = parseFloat(document.getElementById('trim-start').value)||0;
+  let end = parseFloat(document.getElementById('trim-end').value)||0;
+  if (end<=0 || end>buf.duration) end = buf.duration;
+  if (start<0) start=0;
+  if (end<=start) end=buf.duration;
+  const speed = parseFloat(document.getElementById('speed-rate').value)||1;
+  const normalize = document.getElementById('normalize').checked;
+  const reverse = document.getElementById('reverse').checked;
+  const loops = parseInt(document.getElementById('loop-count').value)||1;
+
+  const ctx = new OfflineAudioContext(buf.numberOfChannels, buf.sampleRate * ((end-start)/speed) * loops, buf.sampleRate);
+  const src = ctx.createBufferSource();
+  // slice audio
+  const sliceLength = Math.floor((end-start) * buf.sampleRate);
+  const slice = ctx.createBuffer(buf.numberOfChannels, sliceLength, buf.sampleRate);
+  for (let c=0;c<buf.numberOfChannels;c++){
+    slice.copyToChannel(buf.getChannelData(c).slice(start*buf.sampleRate, end*buf.sampleRate), c, 0);
+    if (reverse){
+      slice.getChannelData(c).reverse();
+    }
+    if (normalize){
+      let ch = slice.getChannelData(c);
+      let max = 0;
+      for(let i=0;i<ch.length;i++){ if (Math.abs(ch[i])>max) max=Math.abs(ch[i]); }
+      if (max>0){
+        for(let i=0;i<ch.length;i++){ ch[i] = ch[i]/max; }
+      }
+    }
+  }
+  src.buffer = slice;
+  src.playbackRate.value = 1/speed;
+  src.connect(ctx.destination);
+  for (let i=0;i<loops;i++){
+    src.start(i*(slice.duration/speed));
+  }
+  const rendered = await ctx.startRendering();
+  return rendered;
+}
+</script>
+
 </body>
 </html>
