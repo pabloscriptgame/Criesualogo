@@ -1,27 +1,30 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>PabloBeats — 50 Beats Grátis</title>
-<meta name="description" content="Página com player fixo, busca, shuffle e 50 beats grátis para ouvir e baixar." />
+<title>PabloBeats — Loja de Músicas e Free Beats</title>
+<meta name="description" content="Envie sua música, ouça prévias, compre no WhatsApp e curta beats grátis com visual neon." />
 <meta name="theme-color" content="#070716" />
 <style>
-/* CSS básico inline (copiado da versão original para manter estilo) */
 body{margin:0;background:#070716;color:#fff;font-family:Arial,sans-serif}
-.banner{padding:20px;text-align:center;background:#0a0b15}
-h1{margin:0;font-size:28px;color:#d5c6ff}
-.btn{display:inline-block;padding:8px 12px;background:#8b5cf6;color:#fff;border:none;border-radius:6px;text-decoration:none;margin:5px}
+.banner{padding:20px;text-align:center;background:#0a0b15;position:sticky;top:0;z-index:10}
+h1{margin:0;font-size:28px;color:#d5c6ff;text-shadow:0 0 10px #8b5cf6}
+.btn{display:inline-block;padding:8px 12px;background:#8b5cf6;color:#fff;border:none;border-radius:6px;text-decoration:none;margin:5px;cursor:pointer;box-shadow:0 0 10px #8b5cf6,0 0 20px #22d3ee;transition:.3s}
+.btn:hover{box-shadow:0 0 20px #8b5cf6,0 0 40px #22d3ee}
 .section{padding:15px;margin:15px;background:rgba(255,255,255,.05);border-radius:10px}
 .grid{display:grid;gap:12px}
 @media(min-width:760px){.grid{grid-template-columns:1fr 1fr}}
 .card{padding:10px;background:rgba(255,255,255,.06);border-radius:10px}
-.playing-badge{display:none;position:absolute}
+.small{opacity:.8;font-size:12px}
+input[type=file]{background:#111;color:#fff;border:1px solid #333;border-radius:6px;padding:8px}
+.status{margin-top:8px;font-size:14px}
 audio{width:100%;margin-top:8px}
-.player{position:fixed;left:0;right:0;bottom:0;background:#111;padding:10px;display:flex;justify-content:space-between;align-items:center;color:#fff}
-.progress{height:6px;background:#333;border-radius:3px;width:100%;overflow:hidden;margin-left:10px}
-.progress span{display:block;height:100%;background:linear-gradient(90deg,#8b5cf6,#22d3ee);width:0%}
+.notice{font-size:12px;opacity:.7}
+/* Neon Player */
+.neon-player{padding:20px;text-align:center;background:#0f0f1a;margin:15px;border-radius:12px;box-shadow:0 0 15px #8b5cf6,0 0 30px #22d3ee}
+.neon-player h2{text-shadow:0 0 10px #8b5cf6,0 0 20px #22d3ee}
+.neon-track{margin:10px 0;padding:10px;background:#111;border-radius:8px;box-shadow:0 0 10px #8b5cf6}
 </style>
 </head>
 <body>
@@ -31,66 +34,150 @@ audio{width:100%;margin-top:8px}
 </section>
 
 <main class="container">
-<section class="section">
-<h3>Beats Grátis para Ouvir e Baixar</h3>
-<div class="grid" id="grid"></div>
-</section>
+
+  <section class="neon-player">
+    <h2>🎵 Free Beats Neon Player</h2>
+    <div id="neonPlaylist"></div>
+  </section>
+
+  <section class="section">
+    <h3>Enviar sua música (salva na pasta <code>musicas/</code>)</h3>
+    <form id="uploadForm" enctype="multipart/form-data" method="post" action="upload.php">
+      <input type="file" name="musica" accept="audio/*" required>
+      <button type="submit" class="btn">Enviar Música</button>
+      <div class="status" id="uploadStatus"></div>
+      <div class="notice">Formatos aceitos: mp3, wav, ogg, flac, m4a, aac, wma. Até 64MB.</div>
+    </form>
+  </section>
+
+  <section class="section">
+    <h3>Músicas disponíveis para venda</h3>
+    <div class="grid" id="musicasVenda"></div>
+    <div class="small">Prévia limitada a 40 segundos. Para comprar o arquivo completo, use o botão do WhatsApp em cada música.</div>
+  </section>
+
 </main>
 
-<div class="player" id="player" hidden>
-  <div id="trackTitle">—</div>
-  <button class="btn" id="prevBtn">⏮</button>
-  <button class="btn" id="playPauseBtn">▶️</button>
-  <button class="btn" id="nextBtn">⏭</button>
-  <div class="progress"><span id="progressBar"></span></div>
-</div>
-
 <script>
-const grid = document.getElementById('grid');
-const beats = [];
-for(let i=1;i<=50;i++){
-  const bpm = 120 + (i % 20);
-  const genres = 'trap/hardtrap/rocktrap';
-  const audioUrl = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-' + ((i%16)+1) + '.mp3';
-  const card = document.createElement('div');
-  card.className = 'card';
-  card.innerHTML = '<strong>Beat '+i+'</strong> <div>BPM '+bpm+' · '+genres+'</div><audio controls preload="none" src="'+audioUrl+'"></audio>';
-  grid.appendChild(card);
-  beats.push({card, audio: card.querySelector('audio'), title:'Beat '+i, small:'BPM '+bpm+' · '+genres});
+const WHATSAPP_NUMBER = "5534998110946";
+
+function formatBytes(bytes) {
+  if (bytes === 0) return '0 B';
+  const k = 1024;
+  const sizes = ['B','KB','MB','GB','TB'];
+  const i = Math.floor(Math.log(bytes)/Math.log(k));
+  return parseFloat((bytes/Math.pow(k,i)).toFixed(2))+' '+sizes[i];
 }
-const player = document.getElementById('player');
-const titleEl = document.getElementById('trackTitle');
-const progressEl = document.getElementById('progressBar');
-const playPauseBtn = document.getElementById('playPauseBtn');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-let currentIndex=-1;
-function pauseOthers(except){ beats.forEach(b=>{if(b.audio!==except)b.audio.pause();});}
-function playAt(i){
- if(i<0||i>=beats.length)return;
- currentIndex=i;
- const b=beats[i];
- pauseOthers(b.audio);
- b.audio.play();
- titleEl.textContent=b.title+' — '+b.small;
- player.hidden=false;
+
+// Neon free tracks
+const freeTracks = [
+  {title:"Free Beat 1 - Trap", url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"},
+  {title:"Free Beat 2 - Drill", url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"},
+  {title:"Free Beat 3 - LoFi", url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"},
+  {title:"Free Beat 4 - BoomBap", url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"},
+  {title:"Free Beat 5 - Afro", url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"}
+];
+const neonContainer = document.getElementById('neonPlaylist');
+freeTracks.forEach(track => {
+  const div = document.createElement('div');
+  div.className = 'neon-track';
+  div.innerHTML = `<strong>${track.title}</strong><br><audio controls preload="none" src="${track.url}"></audio>`;
+  neonContainer.appendChild(div);
+});
+
+// Carregar músicas enviadas
+async function carregarMusicas() {
+  try {
+    const resp = await fetch('listar.php?ts=' + Date.now());
+    const lista = await resp.json();
+    const container = document.getElementById('musicasVenda');
+    container.innerHTML = '';
+
+    if (!Array.isArray(lista) || lista.length === 0) {
+      container.innerHTML = '<div class="small">Nenhuma música enviada ainda.</div>';
+      return;
+    }
+
+    lista.sort((a,b) => (b.mtime||0)-(a.mtime||0));
+
+    for (const m of lista) {
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      const watext = encodeURIComponent(`Tenho interesse na música: ${m.nome}`);
+      const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${watext}`;
+
+      card.innerHTML = `
+        <strong>${m.nome}</strong>
+        <div class="small">${formatBytes(m.size||0)}</div>
+        <audio preload="metadata" controls src="${m.url}"></audio>
+        <div>
+          <a class="btn" href="${waLink}" target="_blank" rel="noopener">Comprar no WhatsApp</a>
+        </div>
+        <div class="notice">A reprodução é limitada a 40 segundos nesta página.</div>
+      `;
+
+      const audio = card.querySelector('audio');
+      audio.addEventListener('timeupdate', () => {
+        if (audio.currentTime >= 40) {
+          audio.pause();
+          audio.currentTime = 0;
+        }
+      });
+      audio.addEventListener('seeking', () => {
+        if (audio.currentTime > 40) {
+          audio.currentTime = 0;
+          audio.pause();
+        }
+      });
+
+      container.appendChild(card);
+    }
+  } catch (e) {
+    console.error(e);
+    document.getElementById('musicasVenda').innerHTML = '<div class="small">Erro ao carregar lista.</div>';
+  }
 }
-beats.forEach((b,i)=>{
- b.audio.addEventListener('play',()=>{playAt(i);playPauseBtn.textContent='⏸';});
- b.audio.addEventListener('pause',()=>{if(i===currentIndex)playPauseBtn.textContent='▶️';});
- b.audio.addEventListener('timeupdate',()=>{
-  const p=(b.audio.currentTime/(b.audio.duration||1))*100;
-  progressEl.style.width=p+'%';
- });
- b.audio.addEventListener('ended',()=>playAt((i+1)%beats.length));
+document.addEventListener('DOMContentLoaded', carregarMusicas);
+
+// Upload com feedback
+const form = document.getElementById('uploadForm');
+const statusEl = document.getElementById('uploadStatus');
+form.addEventListener('submit', async (ev) => {
+  ev.preventDefault();
+  const formData = new FormData(form);
+  statusEl.textContent = 'Enviando...';
+
+  try {
+    const r = await fetch('upload.php', { method: 'POST', body: formData });
+    const raw = await r.text();
+    let data = null;
+    try { data = JSON.parse(raw); } catch (e) {}
+
+    if (!r.ok) {
+      statusEl.textContent = '❌ Falha HTTP ' + r.status + ' — ' + (raw?.slice(0,140) || 'sem resposta');
+      return;
+    }
+
+    if (!data) {
+      statusEl.textContent = '❌ Resposta inesperada do servidor (não-JSON).';
+      console.error('Resposta:', raw);
+      return;
+    }
+
+    if (data.ok) {
+      statusEl.textContent = '✅ Upload realizado com sucesso!';
+      form.reset();
+      carregarMusicas();
+    } else {
+      statusEl.textContent = '❌ ' + (data.msg || 'Erro no upload');
+      if (data.dir) statusEl.textContent += ' (Pasta: ' + data.dir + ')';
+    }
+  } catch (e) {
+    console.error(e);
+    statusEl.textContent = '❌ Erro de rede ao enviar (verifique se o PHP está ativo no servidor).';
+  }
 });
-playPauseBtn.addEventListener('click',()=>{
- const b=beats[currentIndex];
- if(!b)return;
- if(b.audio.paused)b.audio.play();else b.audio.pause();
-});
-nextBtn.addEventListener('click',()=>playAt((currentIndex+1)%beats.length));
-prevBtn.addEventListener('click',()=>playAt((currentIndex-1+beats.length)%beats.length));
 </script>
 </body>
 </html>
