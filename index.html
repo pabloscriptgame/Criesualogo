@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+  <meta name="referrer" content="strict-origin-when-cross-origin">
 
 <link rel="stylesheet" href="cookie-consent.css">
 
   <meta charset="utf-8" />
-  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.instagram.com https://platform.instagram.com https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' https: data:; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://stream.zeno.fm https:; media-src 'self' https://stream.zeno.fm https: data:; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; child-src https://www.instagram.com https://platform.instagram.com; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; ">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>PabloDesigners — Criamos sua Logomarca | Gerador Lite Grátis</title>
   <meta name="description" content="Criamos sua logomarca original e 100% confiável. Faça seu orçamento pelo WhatsApp ou gere uma logo simples grátis direto no site (versão Lite)." />
@@ -15,6 +16,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Montserrat:wght@400;700&family=Lobster&family=Bebas+Neue&family=Rubik:wght@700&family=Space+Grotesk:wght@700&family=Inter:wght@700&family=Playfair+Display:wght@700&family=Oswald:wght@700&display=swap" rel="stylesheet">
   
   <style>
+
+  /* Visit Counter Badge */
+  #visitCounterBadge{
+    position: fixed;
+    bottom: 12px;
+    right: 12px;
+    z-index: 9999;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    backdrop-filter: blur(6px);
+    background: rgba(0,0,0,.45);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(0,0,0,.25);
+    user-select: none;
+  }
+  #visitCounterBadge .dot{ width:8px; height:8px; border-radius: 9999px; background: currentColor; opacity: .7; }
+  #visitCounterBadge .num{ font-weight: 700; letter-spacing: .2px; }
+
 html, body { overflow-x: hidden; max-width: 100%; }
 
 
@@ -46,18 +69,18 @@ html, body { overflow-x: hidden; max-width: 100%; }
     .container{max-width:1100px;margin:0 auto;padding:24px}
     header{position:sticky;top:0;backdrop-filter:saturate(1.2) blur(10px); background:rgba(10,12,18,.6); border-bottom:1px solid rgba(255,255,255,.06); z-index:40}
     .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
-    .brand{display:flex;align-items:center;gap:12px;font-weight:800}
+    .brand{display:flex;align-items:center;gap:8px;font-weight:800}
     .brand .logo{width:40px;height:40px;border-radius:12px;background:radial-gradient(circle at 30% 30%, var(--brand), transparent 60%), radial-gradient(circle at 70% 70%, var(--brand-2), transparent 60%), #0ea5e9; box-shadow:0 8px 30px rgba(56,189,248,.35)}
     .nav a.btn{padding:10px 16px;border-radius:14px;background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#07090f; font-weight:700}
     .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;padding:42px 0}
     .hero h1{font-size:clamp(28px,5vw,46px);line-height:1.05;margin:0 0 12px}
     .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.12); padding:6px 10px;border-radius:999px;font-size:12px;color:var(--muted)}
     .hero .card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08); border-radius:22px; padding:20px}
-    .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+    .cta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
     .btn{border:none;cursor:pointer}
     .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#0b0f14; padding:14px 18px;border-radius:16px;font-weight:800}
     .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.12); padding:12px 16px;border-radius:14px;color:var(--text)}
-    .trust{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+    .trust{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
     .trust .chip{background:rgba(34,197,94,.12); color:#86efac; border:1px solid rgba(34,197,94,.3); padding:8px 12px;border-radius:999px;font-weight:700;font-size:12px}
     .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
     .section{padding:30px 0}
@@ -67,7 +90,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
     /* Logo Generator */
     .generator{display:grid;grid-template-columns:1fr 1fr;gap:20px}
     label{font-size:12px;color:var(--muted);display:block;margin:10px 0 6px}
-    input,select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12); background:#0b1220; color:var(--text)}
+    input,select{width:100%;padding:8px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.12); background:#0b1220; color:var(--text)}
     .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     .preview{display:grid;place-items:center;height:320px;border-radius:18px;background:radial-gradient(1200px 400px at 0% 0%, rgba(56,189,248,.15), transparent 40%), radial-gradient(1200px 400px at 100% 100%, rgba(167,139,250,.15), transparent 40%), #0a0f18; border:1px solid rgba(255,255,255,.05)}
     canvas{max-width:100%;}
@@ -101,15 +124,15 @@ html, body { overflow-x: hidden; max-width: 100%; }
     /* === PLAYER DE RÁDIO (glass/3D) === */
     .radio-player{
       position:fixed; right:16px; bottom:16px; z-index:50;
-      display:flex; align-items:center; gap:12px;
-      padding:12px 14px; border-radius:18px;
+      display:flex; align-items:center; gap:8px;
+      padding:8px 10px; border-radius:18px;
       background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.05));
       border:1px solid rgba(255,255,255,.16);
       box-shadow:0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.08);
       backdrop-filter: blur(10px) saturate(1.1);
     }
     .radio-player .pp{
-      width:44px; height:44px; border-radius:12px; border:1px solid rgba(255,255,255,.2);
+      width:34px; height:34px; border-radius:12px; border:1px solid rgba(255,255,255,.2);
       display:grid; place-items:center; font-weight:800; cursor:pointer;
       background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#07090f;
       box-shadow:0 8px 24px rgba(56,189,248,.25);
@@ -117,7 +140,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
     .radio-player .meta{display:flex; flex-direction:column; line-height:1.1}
     .radio-player .title{font-weight:800; font-size:13px}
     .radio-player .status{font-size:12px; color:var(--muted)}
-    .radio-player input[type="range"]{width:110px}
+    .radio-player input[type="range"]{width:90px}
     .radio-hint{
       position:fixed; left:50%; transform:translateX(-50%);
       bottom:88px; z-index:49; font-size:13px;
@@ -162,8 +185,76 @@ html, body { overflow-x: hidden; max-width: 100%; }
   border: 2px solid var(--brand);
 }
 
+
+  <style>
+    .radio-player.min { padding:4px 6px; }
+    .radio-player.min .meta, .radio-player.min input[type="range"] { display:none; }
+    .radio-player .toggle { font-size:12px; background:transparent; border:1px solid rgba(255,255,255,.25); border-radius:8px; padding:4px 6px; cursor:pointer;}
+  </style>
+
 </style>
 
+
+
+  <!-- Security helpers: anti-clickjacking, external link guard, and copy deterrents -->
+  <script>
+    // Framebusting (best done with CSP frame-ancestors; this is a client-side fallback)
+    try { if (window.top !== window.self) { window.top.location = window.location.href; } } catch (e) {}
+
+    // External link hardening: add rel and confirm on cross-origin navigations
+    document.addEventListener('DOMContentLoaded', () => {
+      const thisHost = location.host;
+      document.querySelectorAll('a[href]').forEach(a => {
+        const href = a.getAttribute('href');
+        if (!href) return;
+
+        // Block javascript: and data: navigations via links
+        if (/^(javascript|data):/i.test(href)) {
+          a.removeAttribute('href');
+          a.addEventListener('click', e => e.preventDefault());
+          return;
+        }
+
+        // Normalize rel & referrerpolicy on target=_blank
+        if (a.target === '_blank') {
+          const rel = (a.getAttribute('rel') || '').toLowerCase();
+          const parts = new Set(rel.split(/\s+/).filter(Boolean));
+          parts.add('noopener'); parts.add('noreferrer');
+          a.setAttribute('rel', Array.from(parts).join(' '));
+          if (!a.hasAttribute('referrerpolicy')) a.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+        }
+
+        // Confirmation for external, absolute links
+        try {
+          const u = new URL(href, location.href);
+          const isExternal = u.host && u.host !== thisHost;
+          if (isExternal) {
+            a.addEventListener('click', (ev) => {
+              const ok = confirm('Você está saindo de ' + location.hostname + ' para: ' + u.href + '\nDeseja continuar?');
+              if (!ok) ev.preventDefault();
+            }, { passive: false });
+          }
+        } catch {}
+      });
+    });
+
+    // Optional: discourage simple attempts to copiar/inspecionar (não garante segurança real)
+    (function deterrents(){
+      const blockKeys = (e) => {
+        // F12, Ctrl+Shift+I/J/C, Ctrl+U, Ctrl+S
+        if (
+          e.key === 'F12' ||
+          (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key.toUpperCase())) ||
+          (e.ctrlKey && ['U','S','P'].includes(e.key.toUpperCase()))
+        ) {
+          e.preventDefault();
+          return false;
+        }
+      };
+      document.addEventListener('contextmenu', e => e.preventDefault());
+      document.addEventListener('keydown', blockKeys);
+    })();
+  </script>
 
 </head>
 <body>
@@ -443,7 +534,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
 
   <!-- === MINI-PLAYER DE RÁDIO === -->
   <div class="radio-player" role="region" aria-label="Player de rádio online">
-    <button class="pp" id="ppBtn" aria-label="Play/Pause">▶</button>
+    <button class="pp" id="ppBtn" aria-label="Play/Pause">▶</button><button class="toggle" id="minBtn" title="Minimizar/Restaurar">–</button>
     <div class="meta">
       <div class="title">Rádio Online</div>
       <div class="status" id="radioStatus">Conectando…</div>
@@ -606,6 +697,8 @@ html, body { overflow-x: hidden; max-width: 100%; }
     // audio.src = 'STREAM_URL_AQUI';
 
     // Volume inicial
+    const minBtn = document.getElementById('minBtn');
+    minBtn.addEventListener('click', () => { document.querySelector('.radio-player').classList.toggle('min'); });
     audio.volume = parseFloat(vol.value);
 
     function setStatus(txt){ statusEl.textContent = txt; }
@@ -810,11 +903,11 @@ document.getElementById('btnReset').addEventListener('click', ()=>{
     gerar: () => { go(LINKS.gerador); say('Abrindo o Gerador de Logomarcas (Lite)…'); },
     planos: () => { go(LINKS.planos); say('Aqui estão os planos disponíveis.'); },
     faq:    () => { go(LINKS.faq); say('Abrindo perguntas frequentes…'); },
-    orcamento: () => { window.open(WHATS, '_blank'); say('Abrindo WhatsApp para orçamento ✅'); },
+    orcamento: () => { window.open(WHATS, '_blank', 'noopener,noreferrer'); say('Abrindo WhatsApp para orçamento ✅'); },
     radio: () => { say('Tocando rádio…'); clickIf('ppBtn'); },
     converter: () => { location.href = LINKS.converter; },
     beats: () => { location.href = LINKS.beats; },
-    humano: () => { window.open(WHATS, '_blank'); say('Te chamo no WhatsApp!'); }
+    humano: () => { window.open(WHATS, '_blank', 'noopener,noreferrer'); say('Te chamo no WhatsApp!'); }
   };
   const intent = (t) => { t=(t||'').toLowerCase(); if(/or[cç]amento|whats/.test(t)) return 'orcamento';
     if(/logo|gerar|marca|lite/.test(t)) return 'gerar';
@@ -849,6 +942,52 @@ document.getElementById('btnReset').addEventListener('click', ()=>{
 })();
 </script>
 <!-- ===== /ASSISTENTE PERSONALIZADO ===== -->
+
+
+  <!-- Visit Counter (per dispositivo/navegador) -->
+  <div id="visitCounterBadge" aria-live="polite" aria-label="Contador de visitas">
+    <span>Visitas</span><span class="dot" aria-hidden="true"></span><span class="num" id="visitCounter">—</span>
+  </div>
+
+
+  <script>
+    (function(){
+      const KEY = 'site_visits_total';
+      let count = 0;
+      try {
+        count = parseInt(localStorage.getItem(KEY) || '0', 10);
+      } catch(e){ count = 0; }
+
+      // Increment once per full page load
+      count = isFinite(count) ? count + 1 : 1;
+      try { localStorage.setItem(KEY, String(count)); } catch(e) {}
+
+      // Render
+      const el = document.getElementById('visitCounter');
+      if (el) {
+        try {
+          el.textContent = count.toLocaleString('pt-BR');
+          el.title = 'Total neste navegador/dispositivo';
+        } catch(_) {
+          el.textContent = String(count);
+        }
+      }
+    })();
+  </script>
+
+
+  <!-- Instagram Official Embed -->
+  <section class="instagram-widget" style="text-align:center;margin:20px auto;max-width:500px;">
+    <a href="https://www.instagram.com/pablologomarcas" target="_blank" rel="noopener noreferrer"
+       style="display:inline-block;font-weight:bold;color:#fff;background:#E1306C;padding:10px 18px;border-radius:8px;text-decoration:none;font-family:sans-serif;margin-bottom:12px;display:inline-flex;align-items:center;gap:8px;">
+       <img src="https://www.instagram.com/static/images/ico/favicon-192.png/68d99ba29cc8.png" alt="Instagram" width="18" height="18">
+       Siga @pablologomarcas
+    </a>
+    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DNl4p2qJT4U/" data-instgrm-version="14"
+      style="background:#fff; border-radius:12px; box-shadow:0 4px 14px rgba(0,0,0,.2); padding:0; margin:0 auto; max-width:100%;">
+    </blockquote>
+    <script async src="https://www.instagram.com/embed.js"></script>
+  </section>
 
 </body>
 </html>
