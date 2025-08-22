@@ -4,10 +4,21 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>PabloBeats — DJ Player Neon</title>
-<meta name="description" content="Player DJ Neon com playlist e compra no WhatsApp." />
-<meta name="theme-color" content="#070716" />
 <style>
-body{margin:0;background:#070716;color:#fff;font-family:Arial,sans-serif}
+body{
+  margin:0;
+  background:linear-gradient(135deg,#070716,#0b0f2a,#17123a,#0a2a3a);
+  background-size:400% 400%;
+  animation:neonGradient 18s ease infinite;
+  color:#fff;
+  font-family:Arial,sans-serif;
+}
+@keyframes neonGradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes neonPulse {
+  0% { text-shadow: 0 0 5px #8b5cf6, 0 0 10px #22d3ee; }
+  50% { text-shadow: 0 0 20px #8b5cf6, 0 0 40px #22d3ee; }
+  100% { text-shadow: 0 0 5px #8b5cf6, 0 0 10px #22d3ee; }
+}
 .banner{padding:20px;text-align:center;background:#0a0b15;position:sticky;top:0;z-index:10}
 h1{margin:0;font-size:28px;color:#d5c6ff;text-shadow:0 0 10px #8b5cf6}
 .btn{display:inline-block;padding:8px 12px;background:#8b5cf6;color:#fff;border:none;border-radius:6px;text-decoration:none;margin:5px;cursor:pointer;box-shadow:0 0 10px #8b5cf6,0 0 20px #22d3ee;transition:.3s}
@@ -19,13 +30,13 @@ h1{margin:0;font-size:28px;color:#d5c6ff;text-shadow:0 0 10px #8b5cf6}
 .small{opacity:.8;font-size:12px}
 audio{width:100%;margin-top:8px}
 .notice{font-size:12px;opacity:.7}
-/* DJ Player Neon */
-.dj-player{padding:20px;text-align:center;background:#0f0f1a;margin:15px;border-radius:12px;box-shadow:0 0 15px #8b5cf6,0 0 30px #22d3ee;position:relative}
-.dj-player h2{text-shadow:0 0 10px #8b5cf6,0 0 20px #22d3ee}
+.dj-player{padding:20px;text-align:center;background:#0f0f1a;margin:15px;border-radius:12px;box-shadow:0 0 15px #8b5cf6,0 0 30px #22d3ee}
 .track-title{font-size:18px;margin:10px 0;color:#fff;text-shadow:0 0 10px #22d3ee}
 .controls button{background:none;border:none;color:#fff;font-size:24px;cursor:pointer;margin:0 10px;text-shadow:0 0 10px #8b5cf6}
 .progress-container{width:80%;height:8px;background:#222;border-radius:5px;margin:15px auto;overflow:hidden;box-shadow:0 0 10px #22d3ee}
 .progress-bar{height:100%;width:0;background:linear-gradient(90deg,#8b5cf6,#22d3ee);transition:width .1s linear}
+.equalizer{display:flex;justify-content:center;align-items:end;height:60px;margin-top:15px}
+.equalizer .bar{width:6px;background:#8b5cf6;margin:0 2px;height:8px}
 .playlist{margin-top:15px;font-size:14px;text-align:left;max-width:400px;margin-left:auto;margin-right:auto}
 .playlist div{padding:6px;border-bottom:1px solid rgba(255,255,255,.1);cursor:pointer}
 .playlist div.active{color:#22d3ee;text-shadow:0 0 8px #8b5cf6}
@@ -34,11 +45,10 @@ audio{width:100%;margin-top:8px}
 <body>
 <section class="banner">
   <h1>PabloBeats</h1>
-  <a class="btn" href="http://www.pablologomarcas.online">← Voltar ao PabloLogos</a>
+  <button class="btn" id="toggleThemeBtn">Alternar Fundo</button>
 </section>
 
-<main class="container">
-
+<main>
   <section class="dj-player">
     <h2>🎧 DJ Player Neon</h2>
     <div class="track-title" id="trackTitle">Carregando...</div>
@@ -48,26 +58,28 @@ audio{width:100%;margin-top:8px}
       <button id="nextBtn">⏭</button>
     </div>
     <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="equalizer" id="eqContainer">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
     <audio id="audioPlayer" preload="metadata"></audio>
     <div class="playlist" id="playlist"></div>
   </section>
 
   <section class="section">
-    <h3>Músicas disponíveis</h3>
+    <h3>Músicas para Comprar</h3>
     <div class="grid" id="musicasGrid"></div>
     <div class="small">Prévia limitada a 40 segundos. Para comprar o arquivo completo, use o botão do WhatsApp em cada música.</div>
   </section>
-
 </main>
 
 <script>
 const WHATSAPP_NUMBER = "5534998110946";
 
-// Playlist DJ
+// Playlist com placeholders
 const playlist = [
-  {title:"01 Reggae", url:"https://raw.githubusercontent.com/SEUUSUARIO/SEUREPOSITORIO/main/musicas/01reggae.mp3"},
-  {title:"Free Beat 2 - Drill", url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"},
-  {title:"Free Beat 3 - LoFi", url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"}
+  {title:"Trap BR 01 - Favela Vibe", url:"https://SEULINK.com/musicas/trap01.mp3"},
+  {title:"Trap BR 02 - Beat Pesado", url:"https://SEULINK.com/musicas/trap02.mp3"},
+  {title:"Trap BR 03 - Flow Neon",   url:"https://SEULINK.com/musicas/trap03.mp3"}
 ];
 
 const audio = document.getElementById('audioPlayer');
@@ -79,37 +91,27 @@ const nextBtn = document.getElementById('nextBtn');
 const playlistContainer = document.getElementById('playlist');
 
 let currentIndex = 0;
-function loadTrack(index) {
-  currentIndex = index;
-  audio.src = playlist[index].url;
-  trackTitle.textContent = playlist[index].title;
-  highlightPlaylist();
-}
-function highlightPlaylist() {
-  const items = playlistContainer.querySelectorAll('div');
-  items.forEach((item,i)=>{item.classList.toggle('active', i===currentIndex);});
-}
-function playTrack() { audio.play(); playPauseBtn.textContent = '⏸'; }
-function pauseTrack() { audio.pause(); playPauseBtn.textContent = '▶️'; }
-playPauseBtn.addEventListener('click', ()=>{ audio.paused ? playTrack() : pauseTrack(); });
-prevBtn.addEventListener('click', ()=>{ currentIndex=(currentIndex-1+playlist.length)%playlist.length;loadTrack(currentIndex);playTrack(); });
-nextBtn.addEventListener('click', ()=>{ currentIndex=(currentIndex+1)%playlist.length;loadTrack(currentIndex);playTrack(); });
-audio.addEventListener('timeupdate', ()=>{ progressBar.style.width=(audio.currentTime/(audio.duration||1))*100+'%'; });
-audio.addEventListener('ended', ()=>{ nextBtn.click(); });
+function loadTrack(index){currentIndex=index;audio.src=playlist[index].url;trackTitle.textContent=playlist[index].title;highlightPlaylist();}
+function highlightPlaylist(){const items=playlistContainer.querySelectorAll('div');items.forEach((item,i)=>{item.classList.toggle('active',i===currentIndex);});}
+function playTrack(){audio.play();playPauseBtn.textContent='⏸';}
+function pauseTrack(){audio.pause();playPauseBtn.textContent='▶️';}
+playPauseBtn.addEventListener('click',()=>{audio.paused?playTrack():pauseTrack();});
+prevBtn.addEventListener('click',()=>{currentIndex=(currentIndex-1+playlist.length)%playlist.length;loadTrack(currentIndex);playTrack();});
+nextBtn.addEventListener('click',()=>{currentIndex=(currentIndex+1)%playlist.length;loadTrack(currentIndex);playTrack();});
+audio.addEventListener('timeupdate',()=>{progressBar.style.width=(audio.currentTime/(audio.duration||1))*100+'%';});
+audio.addEventListener('ended',()=>{nextBtn.click();});
 
-// Render playlist UI
-playlist.forEach((t,i)=>{
-  const div=document.createElement('div');
-  div.textContent=t.title;
-  div.addEventListener('click',()=>{loadTrack(i);playTrack();});
-  playlistContainer.appendChild(div);
-});
-loadTrack(0); playTrack();
+playlist.forEach((t,i)=>{const div=document.createElement('div');div.textContent=t.title;div.addEventListener('click',()=>{loadTrack(i);playTrack();});playlistContainer.appendChild(div);});
+loadTrack(0);
 
-// Músicas com botão WhatsApp
-const musicasVenda = [
-  {nome:"Beat Trap 01", url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"},
-  {nome:"Beat Afro 02", url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"}
+// Alternar fundo animado
+const toggleBtn=document.getElementById('toggleThemeBtn');let animated=true;toggleBtn.addEventListener('click',()=>{if(animated){document.body.style.animation='none';toggleBtn.textContent='Ativar Fundo Animado';}else{document.body.style.animation='neonGradient 18s ease infinite';toggleBtn.textContent='Desativar Fundo Animado';}animated=!animated;});
+
+// Músicas para venda
+const musicasVenda=[
+  {nome:"Trap Premium 01",url:"https://SEULINK.com/musicas/premium01.mp3"},
+  {nome:"Trap Premium 02",url:"https://SEULINK.com/musicas/premium02.mp3"},
+  {nome:"Trap Premium 03",url:"https://SEULINK.com/musicas/premium03.mp3"}
 ];
 const grid=document.getElementById('musicasGrid');
 musicasVenda.forEach(m=>{
@@ -117,18 +119,22 @@ musicasVenda.forEach(m=>{
   const waLink=`https://wa.me/${WHATSAPP_NUMBER}?text=${watext}`;
   const card=document.createElement('div');
   card.className='card';
-  card.innerHTML=`
-    <strong>${m.nome}</strong>
-    <audio controls preload="metadata" src="${m.url}"></audio>
-    <div><a class="btn" href="${waLink}" target="_blank" rel="noopener">Comprar no WhatsApp</a></div>
-    <div class="notice">Prévia limitada a 40 segundos.</div>
-  `;
+  card.innerHTML=`<strong>${m.nome}</strong><audio controls preload="metadata" src="${m.url}"></audio><div><a class="btn" href="${waLink}" target="_blank">Comprar no WhatsApp</a></div><div class="notice">Prévia limitada a 40 segundos.</div>`;
   const audioTag=card.querySelector('audio');
   audioTag.addEventListener('timeupdate',()=>{if(audioTag.currentTime>=40){audioTag.pause();audioTag.currentTime=0;}});
   audioTag.addEventListener('seeking',()=>{if(audioTag.currentTime>40){audioTag.currentTime=0;audioTag.pause();}});
   grid.appendChild(card);
 });
-</script>
 
+// Web Audio API Equalizer real-time
+let audioCtx=null,analyser=null,srcNode=null,dataArray=null,rafId=null;
+const eqBars=document.querySelectorAll('#eqContainer .bar');
+function ensureAudioGraph(){if(audioCtx)return;audioCtx=new(window.AudioContext||window.webkitAudioContext)();analyser=audioCtx.createAnalyser();analyser.fftSize=256;dataArray=new Uint8Array(analyser.frequencyBinCount);srcNode=audioCtx.createMediaElementSource(audio);srcNode.connect(analyser);analyser.connect(audioCtx.destination);}
+function renderEQ(){if(!analyser)return;analyser.getByteFrequencyData(dataArray);const step=Math.floor(dataArray.length/eqBars.length);let avg=0;for(let i=0;i<eqBars.length;i++){const val=dataArray[i*step]/255;const h=8+Math.pow(val,1.5)*52;eqBars[i].style.height=h+'px';avg+=val;}avg/=eqBars.length;const glow=5+Math.floor(avg*30);trackTitle.style.textShadow=`0 0 ${glow}px #8b5cf6, 0 0 ${glow*2}px #22d3ee`;rafId=requestAnimationFrame(renderEQ);}
+audio.addEventListener('play',async()=>{try{ensureAudioGraph();if(audioCtx.state==='suspended')await audioCtx.resume();}catch(e){console.warn('WebAudio init error',e);}if(!rafId)rafId=requestAnimationFrame(renderEQ);playPauseBtn.textContent='⏸';});
+audio.addEventListener('pause',()=>{if(rafId){cancelAnimationFrame(rafId);rafId=null;}playPauseBtn.textContent='▶️';});
+audio.addEventListener('ended',()=>{if(rafId){cancelAnimationFrame(rafId);rafId=null;}});
+document.addEventListener('click',()=>{if(audioCtx&&audioCtx.state==='suspended'){audioCtx.resume();}},{once:true});
+</script>
 </body>
 </html>
