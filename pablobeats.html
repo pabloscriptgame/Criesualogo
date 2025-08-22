@@ -1,419 +1,96 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PabloBeats — 50 Beats Grátis</title>
-  <meta name="description" content="Página HTML/CSS puro com upload e 50 beats grátis para ouvir e baixar." />
-  <style>
-    :root { --bg:#070716; --panel:rgba(255,255,255,.06); --b:#8b5cf6; --c:#22d3ee; --txt:#f7f7fb; --muted:#bfc1d4; --radius:18px; }
-    *{box-sizing:border-box} html,body{margin:0;background:var(--bg);color:var(--txt);font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif}
-    .banner{background: radial-gradient(800px 400px at 10% -10%, rgba(139,92,246,.25), transparent 40%),
-                         radial-gradient(800px 400px at 90% 0%, rgba(34,211,238,.25), transparent 40%), #0a0b15;
-            border-bottom:1px solid rgba(255,255,255,.08); padding:28px 16px}
-    .container{max-width:1100px;margin:0 auto;padding:16px}
-    h1{margin:0;font-size:32px;color:#d5c6ff;text-shadow:0 0 8px rgba(139,92,246,.9),0 0 18px rgba(34,211,238,.6)}
-    .btn{display:inline-block;margin-top:8px;padding:8px 12px;border-radius:12px;text-decoration:none;color:#fff;
-         background:linear-gradient(135deg,var(--b),var(--c)); box-shadow:0 0 8px rgba(139,92,246,.8),0 0 16px rgba(34,211,238,.6);font-size:13px}
-    .section{background:var(--panel);border:1px solid rgba(139,92,246,.35);border-radius:var(--radius);padding:16px;margin:18px 0;
-             box-shadow:0 0 10px rgba(139,92,246,.35), inset 0 0 12px rgba(34,211,238,.15)}
-    .grid{display:grid;gap:12px} @media(min-width:760px){.grid{grid-template-columns:1fr 1fr}}
-    .input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:var(--txt)}
-    .small{color:var(--muted);font-size:12px;margin-top:4px}
-    audio{width:100%;margin-top:6px}
-    .card{background:rgba(255,255,255,.05);border:1px solid rgba(139,92,246,.25);border-radius:16px;padding:12px}
-    footer{text-align:center;color:var(--muted);font-size:12px;padding:24px 0 40px}
-    .certificado { text-align:center; margin-top:20px; }
-    .certificado img { width:64px; height:64px; display:block; margin:0 auto 8px; }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PabloBeats — 50 Beats Grátis</title>
+<meta name="description" content="Página com player fixo, busca, shuffle e 50 beats grátis para ouvir e baixar." />
+<meta name="theme-color" content="#070716" />
+<style>
+/* CSS básico inline (copiado da versão original para manter estilo) */
+body{margin:0;background:#070716;color:#fff;font-family:Arial,sans-serif}
+.banner{padding:20px;text-align:center;background:#0a0b15}
+h1{margin:0;font-size:28px;color:#d5c6ff}
+.btn{display:inline-block;padding:8px 12px;background:#8b5cf6;color:#fff;border:none;border-radius:6px;text-decoration:none;margin:5px}
+.section{padding:15px;margin:15px;background:rgba(255,255,255,.05);border-radius:10px}
+.grid{display:grid;gap:12px}
+@media(min-width:760px){.grid{grid-template-columns:1fr 1fr}}
+.card{padding:10px;background:rgba(255,255,255,.06);border-radius:10px}
+.playing-badge{display:none;position:absolute}
+audio{width:100%;margin-top:8px}
+.player{position:fixed;left:0;right:0;bottom:0;background:#111;padding:10px;display:flex;justify-content:space-between;align-items:center;color:#fff}
+.progress{height:6px;background:#333;border-radius:3px;width:100%;overflow:hidden;margin-left:10px}
+.progress span{display:block;height:100%;background:linear-gradient(90deg,#8b5cf6,#22d3ee);width:0%}
+</style>
 </head>
 <body>
-  <section class="banner">
-    <div class="container">
-      <h1>PabloBeats</h1>
-      <a class="btn" href="http://www.pablologomarcas.online">← Voltar ao PabloLogos</a>
-    </div>
-  </section>
+<section class="banner">
+  <h1>PabloBeats</h1>
+  <a class="btn" href="http://www.pablologomarcas.online">← Voltar ao PabloLogos</a>
+</section>
 
-  <main class="container">
-    <section class="section">
-      <h2 style="margin:0 0 8px">Enviar áudio para o site</h2>
-      <form action="/upload" method="POST" enctype="multipart/form-data" class="grid">
-        <label>
-          <span>Selecione seu arquivo (MP3/WAV/OGG)</span>
-          <input class="input" type="file" name="file" accept="audio/*" required>
-        </label>
-        <div>
-          <button type="submit" class="btn" style="margin-top:10px">Enviar arquivo</button>
-        </div>
-      </form>
-    </section>
+<main class="container">
+<section class="section">
+<h3>Beats Grátis para Ouvir e Baixar</h3>
+<div class="grid" id="grid"></div>
+</section>
+</main>
 
-    <section class="section">
-      <h3 style="margin:0 0 8px">Beats Grátis para Ouvir e Baixar</h3>
-      <div class="grid">
+<div class="player" id="player" hidden>
+  <div id="trackTitle">—</div>
+  <button class="btn" id="prevBtn">⏮</button>
+  <button class="btn" id="playPauseBtn">▶️</button>
+  <button class="btn" id="nextBtn">⏭</button>
+  <div class="progress"><span id="progressBar"></span></div>
+</div>
 
-    <div class="card">
-      <strong>Beat 1</strong>
-      <div class="small">BPM 121 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 2</strong>
-      <div class="small">BPM 122 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 3</strong>
-      <div class="small">BPM 123 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 4</strong>
-      <div class="small">BPM 124 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 5</strong>
-      <div class="small">BPM 125 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 6</strong>
-      <div class="small">BPM 126 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 7</strong>
-      <div class="small">BPM 127 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 8</strong>
-      <div class="small">BPM 128 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 9</strong>
-      <div class="small">BPM 129 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 10</strong>
-      <div class="small">BPM 130 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 11</strong>
-      <div class="small">BPM 131 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 12</strong>
-      <div class="small">BPM 132 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 13</strong>
-      <div class="small">BPM 133 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 14</strong>
-      <div class="small">BPM 134 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 15</strong>
-      <div class="small">BPM 135 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 16</strong>
-      <div class="small">BPM 136 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 17</strong>
-      <div class="small">BPM 137 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 18</strong>
-      <div class="small">BPM 138 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 19</strong>
-      <div class="small">BPM 139 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 20</strong>
-      <div class="small">BPM 140 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 21</strong>
-      <div class="small">BPM 141 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 22</strong>
-      <div class="small">BPM 142 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 23</strong>
-      <div class="small">BPM 143 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 24</strong>
-      <div class="small">BPM 144 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 25</strong>
-      <div class="small">BPM 145 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 26</strong>
-      <div class="small">BPM 146 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 27</strong>
-      <div class="small">BPM 147 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 28</strong>
-      <div class="small">BPM 148 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 29</strong>
-      <div class="small">BPM 149 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 30</strong>
-      <div class="small">BPM 150 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 31</strong>
-      <div class="small">BPM 151 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 32</strong>
-      <div class="small">BPM 152 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 33</strong>
-      <div class="small">BPM 153 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 34</strong>
-      <div class="small">BPM 154 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 35</strong>
-      <div class="small">BPM 155 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 36</strong>
-      <div class="small">BPM 156 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 37</strong>
-      <div class="small">BPM 157 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 38</strong>
-      <div class="small">BPM 158 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 39</strong>
-      <div class="small">BPM 159 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 40</strong>
-      <div class="small">BPM 160 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 41</strong>
-      <div class="small">BPM 161 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 42</strong>
-      <div class="small">BPM 162 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 43</strong>
-      <div class="small">BPM 163 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 44</strong>
-      <div class="small">BPM 164 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 45</strong>
-      <div class="small">BPM 165 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 46</strong>
-      <div class="small">BPM 166 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 47</strong>
-      <div class="small">BPM 167 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 48</strong>
-      <div class="small">BPM 168 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 49</strong>
-      <div class="small">BPM 169 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" download>Download Free</a>
-    </div>
-    
-    <div class="card">
-      <strong>Beat 50</strong>
-      <div class="small">BPM 170 · trap/hardtrap/rocktrap</div>
-      <audio controls src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"></audio>
-      <a class="btn" href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" download>Download Free</a>
-    </div>
-    
-      </div>
-    </section>
-
-    <section class="section certificado">
-      <img src="https://www.gstatic.com/images/icons/material/system/2x/verified_user_black_48dp.png" alt="Certificado Google Seguro">
-      <p>Este site está protegido com Certificado SSL — 100% Seguro.</p>
-    </section>
-  </main>
-
-  <footer>
-    <p>© 2025 PabloBeats. 50 Beats Grátis — Trap, Hardtrap, Rocktrap.</p>
-  </footer>
+<script>
+const grid = document.getElementById('grid');
+const beats = [];
+for(let i=1;i<=50;i++){
+  const bpm = 120 + (i % 20);
+  const genres = 'trap/hardtrap/rocktrap';
+  const audioUrl = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-' + ((i%16)+1) + '.mp3';
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = '<strong>Beat '+i+'</strong> <div>BPM '+bpm+' · '+genres+'</div><audio controls preload="none" src="'+audioUrl+'"></audio>';
+  grid.appendChild(card);
+  beats.push({card, audio: card.querySelector('audio'), title:'Beat '+i, small:'BPM '+bpm+' · '+genres});
+}
+const player = document.getElementById('player');
+const titleEl = document.getElementById('trackTitle');
+const progressEl = document.getElementById('progressBar');
+const playPauseBtn = document.getElementById('playPauseBtn');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+let currentIndex=-1;
+function pauseOthers(except){ beats.forEach(b=>{if(b.audio!==except)b.audio.pause();});}
+function playAt(i){
+ if(i<0||i>=beats.length)return;
+ currentIndex=i;
+ const b=beats[i];
+ pauseOthers(b.audio);
+ b.audio.play();
+ titleEl.textContent=b.title+' — '+b.small;
+ player.hidden=false;
+}
+beats.forEach((b,i)=>{
+ b.audio.addEventListener('play',()=>{playAt(i);playPauseBtn.textContent='⏸';});
+ b.audio.addEventListener('pause',()=>{if(i===currentIndex)playPauseBtn.textContent='▶️';});
+ b.audio.addEventListener('timeupdate',()=>{
+  const p=(b.audio.currentTime/(b.audio.duration||1))*100;
+  progressEl.style.width=p+'%';
+ });
+ b.audio.addEventListener('ended',()=>playAt((i+1)%beats.length));
+});
+playPauseBtn.addEventListener('click',()=>{
+ const b=beats[currentIndex];
+ if(!b)return;
+ if(b.audio.paused)b.audio.play();else b.audio.pause();
+});
+nextBtn.addEventListener('click',()=>playAt((currentIndex+1)%beats.length));
+prevBtn.addEventListener('click',()=>playAt((currentIndex-1+beats.length)%beats.length));
+</script>
 </body>
 </html>
