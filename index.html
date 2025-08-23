@@ -777,5 +777,14 @@ renderLogo();
 </script>
 </div>
 
+
+<script>
+  const whatsURL = 'https://wa.me/5534998110946?text=' + encodeURIComponent('Olá! Quero um orçamento de logomarca profissional.');
+  ['whatsTop','ctaWhats','whatsPlans','whatsCombo','whatsFoot'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){ el.setAttribute('href',whatsURL); el.setAttribute('target','_blank'); el.setAttribute('rel','noopener'); }
+  });
+</script>
+
 </body>
 </html>
