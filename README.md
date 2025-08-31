@@ -1,14 +1,31 @@
-# PabloDesigners — Site Lite
-Site estático com gerador de logomarcas (versão Lite) + links de WhatsApp.
+# 🌐 PabloDesigners — Site Oficial
 
-## Como usar
-- Abra `index.html` no navegador.
-- Edite o número do WhatsApp no script:
-  - Procure por `WHATSAPP_NUMBER_E164` e troque para o seu no formato E.164 (ex.: 5534998XXXXXX).
+Site completo com gerador de logomarcas (Lite), planos e integração com Google AdSense.
 
-## Publicar grátis
-- GitHub Pages: crie um repositório e suba os arquivos. Ative Pages (branch `main`, pasta `/`).
-- Netlify: arraste a pasta para o painel.
-- Vercel: importe o repositório.
+## 🚀 Publicação no GitHub Pages
 
-© 2025 PabloDesigners
+1. Crie um repositório no GitHub.
+2. Envie os arquivos deste projeto (`index.html`, `assets/`, `cookie-consent.css`, `cookie-consent.js`).
+3. Vá em **Settings → Pages**, selecione a branch `main` e a pasta `/root`.
+4. Seu site estará disponível em:
+   ```
+   https://seuusuario.github.io/pablodesigners-site/
+   ```
+
+## 📦 Estrutura
+
+```
+index.html
+cookie-consent.css
+cookie-consent.js
+assets/
+ └── favicon.svg
+```
+
+## 📢 Google AdSense
+
+- Configurado com a conta: **ca-pub-1732605791412244**
+- Blocos de anúncios já adicionados no HTML.
+
+---
+✍️ Feito com ❤️ por [PabloDesigners](https://www.instagram.com/pablologomarcas)
