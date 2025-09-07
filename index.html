@@ -254,6 +254,50 @@ html, body { overflow-x: hidden; max-width: 100%; }
 <meta name="google-adsense-account" content="ca-pub-1732605791412244">
 </head>
 <body>
+<!-- ===== SISTEMA DE LOGIN/CADASTRO ===== -->
+<div id="authScreen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#0b0f14;display:flex;justify-content:center;align-items:center;z-index:99999;color:#fff;font-family:Poppins,Arial,sans-serif;">
+  <div style="background:#121826;padding:30px;border-radius:16px;box-shadow:0 0 20px rgba(0,0,0,0.6);width:90%;max-width:380px;text-align:center;">
+    <h2>Login / Cadastro</h2>
+    <input id="user" placeholder="Usuário" style="width:100%;padding:10px;margin:8px 0;border-radius:8px;border:none;background:#0b1220;color:#fff">
+    <input id="pass" type="password" placeholder="Senha" style="width:100%;padding:10px;margin:8px 0;border-radius:8px;border:none;background:#0b1220;color:#fff">
+    <div style="display:flex;gap:10px;justify-content:center;margin-top:10px;">
+      <button onclick="register()" style="padding:10px 16px;border-radius:10px;border:none;cursor:pointer;background:linear-gradient(135deg,#38bdf8,#a78bfa);color:#0b0f14;font-weight:700">Cadastrar</button>
+      <button onclick="login()" style="padding:10px 16px;border-radius:10px;border:none;cursor:pointer;background:#22c55e;color:#fff;font-weight:700">Login</button>
+    </div>
+    <p id="authMsg" style="color:#f87171;margin-top:10px;font-size:14px;"></p>
+  </div>
+</div>
+
+<script>
+function register(){
+  const u=document.getElementById('user').value.trim();
+  const p=document.getElementById('pass').value.trim();
+  if(!u||!p){document.getElementById('authMsg').textContent='Preencha usuário e senha!';return;}
+  if(localStorage.getItem('user:'+u)){document.getElementById('authMsg').textContent='Usuário já existe!';return;}
+  localStorage.setItem('user:'+u, p);
+  document.getElementById('authMsg').textContent='Usuário cadastrado! Faça login.';
+}
+
+function login(){
+  const u=document.getElementById('user').value.trim();
+  const p=document.getElementById('pass').value.trim();
+  if(localStorage.getItem('user:'+u)===p){
+    localStorage.setItem('loggedUser',u);
+    document.getElementById('authScreen').style.display='none';
+  } else {
+    document.getElementById('authMsg').textContent='Credenciais inválidas!';
+  }
+}
+
+function checkLogin(){
+  if(localStorage.getItem('loggedUser')){
+    document.getElementById('authScreen').style.display='none';
+  }
+}
+window.onload=checkLogin;
+</script>
+<!-- ===== /SISTEMA DE LOGIN/CADASTRO ===== -->
+
 <header>
 <div class="container nav">
 <div class="brand"><img alt="Logo PabloDesigners" src="https://i.ibb.co/j7PJ2M7/20250821-180849.png" style="width:40px; height:40px; border-radius:8px; object-fit:contain;"/> <span>Pablo<strong>Designers</strong></span></div>
@@ -305,6 +349,14 @@ html, body { overflow-x: hidden; max-width: 100%; }
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<script>
+function logout(){
+  localStorage.removeItem('loggedUser');
+  location.reload();
+}
+</script>
+
 </body>
 
 <section class="section" id="gerador">
@@ -594,6 +646,9 @@ renderLogo();
     document.getElementById('loveCount').textContent = loveCount;
   });
 </script>
+
+<a class="btn ghost" href="#" onclick="logout()">Sair</a>
+
 </footer>
 </main>
 <!-- === MINI-PLAYER DE RÁDIO === -->
