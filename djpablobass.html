@@ -129,7 +129,31 @@
       nav ul{display:none}
       .grid{grid-template-columns:1fr}
     }
-  </style>
+  
+/* Borda neon animada */
+.neon-border {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  z-index: 0;
+}
+.neon-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(90deg, #7c3aed, #22d3ee, #7c3aed);
+  background-size: 300% 300%;
+  animation: neonMove 6s linear infinite;
+  border-radius: inherit;
+  z-index: -1;
+}
+@keyframes neonMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+</style>
   <meta name="google-adsense-account" content="ca-pub-1732605791412244">
 </head>
 <body>
@@ -149,6 +173,7 @@
         </ul>
       </nav>
       <a class="btn primary" href="https://wa.me/5534998110946?text=Ol%C3%A1%20DJ%20PabloBass!%20Quero%20um%20or%C3%A7amento%20de%20vinheta." target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">WhatsApp</a>
+    <a class="btn ghost" href="https://www.pablologomarcas.online" target="_blank" rel="noopener">Voltar ao site</a>
     </div>
   </header>
 
@@ -364,6 +389,20 @@
           <p class="sub">Horário: seg-sáb · 10h–20h (BRT)</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  
+  <!-- SUPORTE -->
+  <section id="suporte">
+    <div class="container">
+      <h3>Suporte & Ajuda</h3>
+      <p class="sub">Precisa de ajuda? Entre em contato pelos canais abaixo:</p>
+      <ul>
+        <li>WhatsApp: <a href="https://wa.me/5534998110946" target="_blank" rel="noopener">(34) 99811-0946</a></li>
+        <li>Email: <a href="mailto:contato@pablobass.com">contato@pablobass.com</a></li>
+        <li>Site oficial: <a href="https://www.pablologomarcas.online" target="_blank" rel="noopener">www.pablologomarcas.online</a></li>
+      </ul>
     </div>
   </section>
 
