@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DJ PabloBass — Vinhetas, Beats & Mixagens</title>
+  <meta name="description" content="DJ PabloBass cria vinhetas personalizadas para DJs, beats de hip-hop e música eletrônica, mixagem e master. Loja com pacotes e prévias de áudio." />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="DJ PabloBass — Vinhetas, Beats & Mixagens" />
+  <meta property="og:description" content="Vinhetas para DJs, beats eletrônicos e hip-hop, mixagens e loja." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=1200&auto=format&fit=crop" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicon (opcional: troque pelo seu) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23000'/><text x='50' y='62' font-size='60' text-anchor='middle' fill='%23fff'></text></svg>">
+
+  <!-- SEO básico -->
+  <meta name="robots" content="index,follow" />
+
+  <!-- Tipografia Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #0b0b12;
+      --panel:#121222;
+      --panel-2:#1a1a2e;
+      --txt:#e6e6f0;
+      --muted:#a9a9c2;
+      --brand:#7c3aed; /* roxo neon */
+      --brand-2:#22d3ee; /* ciano */
+      --ok:#22c55e;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:var(--bg);color:var(--txt);font-family:'Outfit',system-ui,Arial,sans-serif}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{width:min(1160px, 92%);margin-inline:auto}
+
+    /* NAV */
+    header{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter:saturate(120%) blur(8px);
+      background:linear-gradient(180deg, rgba(11,11,18,.85), rgba(11,11,18,.35));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand .logo{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--brand),var(--brand-2));box-shadow:var(--shadow)}
+    .brand h1{font-size:1.2rem;margin:0;font-weight:800;letter-spacing:.3px}
+    nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));color:var(--txt);transition:.2s ease;box-shadow:0 4px 16px rgba(124,58,237,.0)}
+    .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.22);box-shadow:0 10px 30px rgba(124,58,237,.25)}
+    .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));border:none;color:#0b0b12;font-weight:700}
+    .btn.ghost{background:transparent}
+
+    /* HERO */
+    .hero{position:relative;isolation:isolate}
+    .hero::before{content:"";position:absolute;inset:-1px;background:
+      radial-gradient(1000px 400px at 10% 0%, rgba(124,58,237,.25), transparent 60%),
+      radial-gradient(1000px 400px at 90% 0%, rgba(34,211,238,.25), transparent 60%);
+      z-index:-1;opacity:.7}
+    .hero .wrap{display:grid;grid-template-columns: 1.1fr .9fr;gap:36px;align-items:center;padding:58px 0 40px}
+    .kicker{display:inline-block;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--brand-2);font-size:.75rem;margin-bottom:10px}
+    .hero h2{font-size:clamp(1.8rem, 4vw, 3rem);line-height:1.05;margin:0 0 12px}
+    .hero p{color:var(--muted);margin:0 0 22px;font-size:1.05rem}
+    .cta{display:flex;flex-wrap:wrap;gap:12px}
+    .hero .card{border-radius:var(--radius);background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));padding:20px;border:1px solid rgba(255,255,255,.08)}
+
+    /* SECTIONS */
+    section{padding:64px 0}
+    section h3{font-size:1.6rem;margin:0 0 10px}
+    section .sub{color:var(--muted);margin:0 0 24px}
+
+    /* GRID CARDS */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{background:linear-gradient(180deg,#131327,#111122);border:1px solid rgba(255,255,255,.08);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+    .card .body{padding:18px}
+    .badge{font-size:.72rem;color:#0b0b12;background:linear-gradient(135deg,var(--brand-2),var(--brand));display:inline-block;padding:6px 10px;border-radius:999px;font-weight:700}
+    .price{font-weight:800;font-size:1.3rem}
+
+    /* STORE */
+    .store .card img{aspect-ratio:16/9;object-fit:cover}
+    .store .actions{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+    .cart{position:sticky;top:84px;background:linear-gradient(180deg,#151532,#121228);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:18px;height:max-content}
+    .cart h4{margin:0 0 8px}
+    .cart-items{display:flex;flex-direction:column;gap:10px}
+    .cart-empty{color:var(--muted);font-size:.95rem}
+    .row{display:flex;justify-content:space-between;gap:10px}
+
+    /* AUDIO LIST */
+    .audio-list{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .audio-item{padding:14px;border:1px solid rgba(255,255,255,.08);border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01))}
+
+    /* PORTFÓLIO */
+    .embed{position:relative;padding-top:56%;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+    .embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+    /* SOBRE */
+    .about{display:grid;grid-template-columns: .9fr 1.1fr;gap:24px;align-items:center}
+    .about .pic{border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+
+    /* CONTATO */
+    form{display:grid;gap:12px}
+    input,select,textarea{background:#0e0e1a;border:1px solid rgba(255,255,255,.12);color:var(--txt);padding:12px 14px;border-radius:12px;font:inherit}
+    textarea{min-height:120px}
+    label{font-size:.9rem;color:var(--muted)}
+
+    /* FOOTER */
+    footer{padding:40px 0;border-top:1px solid rgba(255,255,255,.08);color:var(--muted)}
+    .foot{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
+
+    /* RESPONSIVO */
+    @media (max-width: 980px){
+      .hero .wrap{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr 1fr}
+      .about{grid-template-columns:1fr}
+      .audio-list{grid-template-columns:1fr}
+    }
+    @media (max-width: 640px){
+      nav ul{display:none}
+      .grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="Início">
+        <span class="logo"></span>
+        <h1>DJ PabloBass</h1>
+      </a>
+      <nav aria-label="Principal">
+        <ul>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#loja">Loja</a></li>
+          <li><a href="#portfolio">Portfólio</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </nav>
+      <a class="btn primary" href="https://wa.me/5534998110946?text=Ol%C3%A1%20DJ%20PabloBass!%20Quero%20um%20or%C3%A7amento%20de%20vinheta." target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">WhatsApp</a>
+    </div>
+  </header>
+
+  <main id="home" class="hero">
+    <div class="container wrap">
+      <div>
+        <span class="kicker">Vinhetas • Beats • Mixagem</span>
+        <h2>Voz marcante, grave pesado e criatividade no talo. <br/>Vinhetas para DJs, beats de hip-hop e eletrônica — prontos para palco e rádio.</h2>
+        <p>Atendo DJs, podcasters, rádios e produtores. Entrega rápida, qualidade de estúdio e suporte no pós-venda.</p>
+        <div class="cta">
+          <a class="btn primary" href="#loja">Comprar agora</a>
+          <a class="btn" href="#servicos">Ver serviços</a>
+          <a class="btn ghost" href="https://wa.me/5534998110946?text=Quero%20uma%20vinheta%20personalizada%20com%20o%20nome%20DJ%20PabloBass" target="_blank" rel="noopener">Falar no Whats</a>
+        </div>
+        <div class="card" style="margin-top:18px">
+          <strong>Contato direto:</strong> <a href="https://wa.me/5534998110946" target="_blank" rel="noopener">(34) 99811-0946</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop" alt="Setup de DJ com controladora e luzes" />
+      </div>
+    </div>
+  </main>
+
+  <!-- SERVIÇOS -->
+  <section id="servicos">
+    <div class="container">
+      <h3>Serviços</h3>
+      <p class="sub">Tudo o que um DJ precisa: vinhetas impactantes, beats originais e tratamento de áudio profissional.</p>
+      <div class="grid">
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1200&auto=format&fit=crop" alt="Microfone de estúdio" />
+          <div class="body">
+            <div class="badge">Vinhetas para DJs</div>
+            <h4>Identidade de voz do seu set</h4>
+            <p>Voz masculina/feminina, efeitos, drops e variações. Entrego em WAV/MP3, pronto para uso.</p>
+            <ul>
+              <li>Personalização: nome do DJ, cidade, slogan.</li>
+              <li>3 revisões inclusas.</li>
+              <li>Prazo médio: 48–72h.</li>
+            </ul>
+            <a class="btn" href="#contato">Pedir orçamento</a>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=1200&auto=format&fit=crop" alt="Laptop com DAW aberta" />
+          <div class="body">
+            <div class="badge">Produção Musical</div>
+            <h4>Beats eletrônicos e hip-hop</h4>
+            <p>Instrumentais exclusivos ou não-exclusivos. BPM/tonalidade a combinar, stems sob demanda.</p>
+            <ul>
+              <li>Licenças: exclusiva ou não-exclusiva.</li>
+              <li>Entrega com pré-mix em WAV/MP3.</li>
+            </ul>
+            <a class="btn" href="#loja">Ver beats</a>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop" alt="Mesa de som e fones" />
+          <div class="body">
+            <div class="badge">Mixagem & Edição</div>
+            <h4>Polimento e punch</h4>
+            <p>Mix/Master de faixas, correção de ruído, corte/edição de vinhetas, rádio edits e mais.</p>
+            <ul>
+              <li>Entrega A/B e relatório com mudanças.</li>
+              <li>Versões clean/explicit sob demanda.</li>
+            </ul>
+            <a class="btn" href="#contato">Solicitar mix</a>
+          </div>
+        </article>
+      </div>
+
+      <div style="margin-top:28px" class="audio-list">
+        <div class="audio-item">
+          <strong>Prévia Vinheta – "DJ PabloBass"</strong>
+          <audio controls src="assets/audio/vinheta1.mp3">Seu navegador não suporta áudio.</audio>
+        </div>
+        <div class="audio-item">
+          <strong>Beat Trap 150 BPM – "Neon Drift"</strong>
+          <audio controls src="assets/audio/beat1.mp3"></audio>
+        </div>
+      </div>
+      <p class="sub" style="margin-top:8px">Troque os arquivos em <code>assets/audio/</code> pelos seus áudios reais.</p>
+    </div>
+  </section>
+
+  <!-- LOJA / E-COMMERCE (client-side) -->
+  <section id="loja" class="store">
+    <div class="container">
+      <h3>Loja</h3>
+      <p class="sub">Escolha um produto e finalize pelo WhatsApp. Após o pagamento (Pix/Cartão/PayPal a combinar), o download é entregue por link.</p>
+
+      <div class="grid" style="grid-template-columns:2fr 1fr">
+        <div class="grid" id="product-grid">
+          <!-- Cards gerados via JS -->
+        </div>
+        <aside class="cart" aria-live="polite">
+          <h4>Seu carrinho</h4>
+          <div class="cart-items" id="cart-items"></div>
+          <div class="row" style="margin-top:12px"><span>Subtotal</span><strong id="subtotal">R$ 0,00</strong></div>
+          <div class="row" style="margin-top:8px"><span>Descontos</span><span id="discount">—</span></div>
+          <div class="row" style="margin-top:8px"><span>Total</span><strong id="total">R$ 0,00</strong></div>
+          <button id="btn-whats" class="btn primary" style="width:100%;margin-top:14px">Finalizar no WhatsApp</button>
+          <button id="btn-clear" class="btn" style="width:100%;margin-top:8px">Limpar carrinho</button>
+          <p class="sub" style="margin-top:10px">Dúvidas? <a href="https://wa.me/5534998110946" target="_blank" rel="noopener">(34) 99811-0946</a></p>
+        </aside>
+      </div>
+    </div>
+  </section>
+<body><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1732605791412244"
+     crossorigin="anonymous"></script>
+<!-- Pablologomarcas.online -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1732605791412244"
+     data-ad-slot="4176285165"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></body>
+<head><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1732605791412244"
+     crossorigin="anonymous"></script>
+	</head>
+  <!-- PORTFÓLIO -->
+  <section id="portfolio">
+    <div class="container">
+      <h3>Portfólio</h3>
+      <p class="sub">Alguns trabalhos e vídeos. Siga no Instagram e YouTube para ver os últimos lançamentos.</p>
+      <div class="grid">
+        <div class="card">
+          <div class="body">
+            <strong>Showcase – Edits ao vivo</strong>
+          </div>
+          <div class="embed">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/RKz90O0sR-Q" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1513863324620-9bf4c2f2a3ae?q=80&w=1200&auto=format&fit=crop" alt="Controladora com luzes" />
+          <div class="body">
+            <strong>Remix – "Bassline Fever"</strong>
+            <audio controls src="assets/audio/remix1.mp3" style="width:100%;margin-top:10px"></audio>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1461782296611-476109e3a626?q=80&w=1200&auto=format&fit=crop" alt="Estúdio com monitores" />
+          <div class="body">
+            <strong>Cliente: DJ X — Pacote de vinhetas</strong>
+            <p class="sub">"Entrega rápida e qualidade absurda!"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre">
+    <div class="container about">
+      <div class="pic">
+        <img src="https://images.unsplash.com/photo-1541580621-cb68c6f1313d?q=80&w=1200&auto=format&fit=crop" alt="Foto no estúdio do DJ PabloBass" />
+      </div>
+      <div>
+        <h3>Sobre — DJ PabloBass</h3>
+        <p class="sub">Produtor musical e DJ com foco em hip-hop e música eletrônica. Especialista em vinhetas com voz impactante e design sonoro cinematográfico.</p>
+        <ul>
+          <li>DAWs: Ableton Live, FL Studio.</li>
+          <li>Plugins favoritos: FabFilter, iZotope, Soundtoys.</li>
+          <li>Entrega em WAV 24-bit, MP3 320 kbps.</li>
+        </ul>
+        <div class="cta">
+          <a class="btn" href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+          <a class="btn" href="https://youtube.com/" target="_blank" rel="noopener">YouTube</a>
+          <a class="btn primary" href="https://wa.me/5534998110946?text=Quero%20fechar%20um%20pacote%20de%20vinhetas" target="_blank" rel="noopener">Fechar agora</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato">
+    <div class="container">
+      <h3>Contato</h3>
+      <p class="sub">Preencha o formulário ou chame direto no WhatsApp. Respondo rápido! </p>
+      <div class="grid" style="grid-template-columns:1.2fr .8fr">
+        <form id="form-contact" class="card" style="padding:18px">
+          <div>
+            <label for="nome">Seu nome</label>
+            <input id="nome" name="nome" placeholder="Seu nome" required />
+          </div>
+          <div>
+            <label for="email">E-mail</label>
+            <input id="email" type="email" name="email" placeholder="voce@email.com" required />
+          </div>
+          <div>
+            <label for="servico">Serviço</label>
+            <select id="servico" name="servico">
+              <option>Vinheta para DJ</option>
+              <option>Beat (hip-hop/eletrônica)</option>
+              <option>Mixagem/Master</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <div>
+            <label for="mensagem">Mensagem</label>
+            <textarea id="mensagem" name="mensagem" placeholder="Conte sua ideia, estilo, referências, prazos..."></textarea>
+          </div>
+          <button class="btn primary" type="submit">Enviar pelo WhatsApp</button>
+        </form>
+        <div class="card" style="padding:18px">
+          <h4>Atendimento</h4>
+          <p class="sub">WhatsApp: <a href="https://wa.me/5534998110946" target="_blank" rel="noopener">(34) 99811-0946</a></p>
+          <p class="sub">E-mail: <a href="mailto:contato@pablobass.com">contato@pablobass.com</a> (exemplo)</p>
+          <p class="sub">Horário: seg-sáb · 10h–20h (BRT)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container foot">
+      <p>© <span id="year"></span> DJ PabloBass — Todos os direitos reservados.</p>
+      <p>Site responsivo • SEO básico • Feito com </p>
+    </div>
+  </footer>
+
+  <!-- Schema.org (ajuda no SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "DJ PabloBass",
+    "jobTitle": "DJ & Produtor Musical",
+    "description": "Vinhetas para DJs, beats de hip-hop e eletrônica, mixagem e master.",
+    "telephone": "+55 34 99811-0946",
+    "sameAs": [
+      "https://instagram.com/",
+      "https://youtube.com/"
+    ]
+  }
+  </script>
+
+  <script>
+    // Utilidades
+    const fmtBRL = (n)=> n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})
+
+    // Mock de produtos (troque pelos seus)
+    const products = [
+      {id:'vinheta-basic', title:'Vinheta Basic', desc:'1 voz + efeitos, até 10s', price: 49.90, img:'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?q=80&w=1200&auto=format&fit=crop', tag:'Vinhetas'},
+      {id:'vinheta-pro', title:'Vinheta Pro', desc:'2 vozes, 3 variações, 15–20s', price: 129.90, img:'https://images.unsplash.com/photo-1535223289827-42f1e9919769?q=80&w=1200&auto=format&fit=crop', tag:'Vinhetas'},
+      {id:'pack-drops', title:'Pack 20 Drops', desc:'Pacote com 20 drops prontos', price: 79.90, img:'https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=1200&auto=format&fit=crop', tag:'Pacotes'},
+      {id:'beat-trap', title:'Beat Trap 150BPM', desc:'Licença não-exclusiva', price: 99.00, img:'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=1200&auto=format&fit=crop', tag:'Beats'},
+      {id:'beat-electro', title:'Beat Electro House', desc:'Licença exclusiva', price: 399.00, img:'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop', tag:'Beats'},
+      {id:'mix-master', title:'Mix + Master (1 faixa)', desc:'Até 4min, 24-bit', price: 149.00, img:'https://images.unsplash.com/photo-1513863324620-9bf4c2f2a3ae?q=80&w=1200&auto=format&fit=crop', tag:'Serviços'}
+    ]
+
+    const cart = JSON.parse(localStorage.getItem('cart-pablobass')||'{}')
+
+    function renderProducts(){
+      const el = document.getElementById('product-grid')
+      el.innerHTML = ''
+      products.forEach(p=>{
+        const card = document.createElement('article')
+        card.className = 'card'
+        card.innerHTML = `
+          <img src="${p.img}" alt="${p.title}">
+          <div class="body">
+            <div class="badge">${p.tag}</div>
+            <h4>${p.title}</h4>
+            <p>${p.desc}</p>
+            <div class="actions">
+              <span class="price">${fmtBRL(p.price)}</span>
+              <button class="btn" data-add="${p.id}">Adicionar</button>
+            </div>
+          </div>
+        `
+        el.appendChild(card)
+      })
+      el.addEventListener('click', e=>{
+        const id = e.target?.dataset?.add
+        if(!id) return
+        cart[id] = (cart[id]||0)+1
+        persistCart()
+        renderCart()
+      })
+    }
+
+    function renderCart(){
+      const itemsEl = document.getElementById('cart-items')
+      if(!Object.keys(cart).length){
+        itemsEl.innerHTML = `<div class="cart-empty">Seu carrinho está vazio.</div>`
+      } else {
+        itemsEl.innerHTML = ''
+        Object.entries(cart).forEach(([id,qty])=>{
+          const p = products.find(x=>x.id===id)
+          const row = document.createElement('div')
+          row.className = 'row'
+          row.innerHTML = `
+            <div>
+              <strong>${p.title}</strong>
+              <div class="sub">${qty} × ${fmtBRL(p.price)}</div>
+            </div>
+            <div>
+              <button class="btn" data-minus="${id}" aria-label="Diminuir"></button>
+              <button class="btn" data-plus="${id}" aria-label="Aumentar">+</button>
+              <button class="btn" data-remove="${id}" aria-label="Remover"></button>
+            </div>
+          `
+          itemsEl.appendChild(row)
+        })
+      }
+      // Totais
+      const subtotal = Object.entries(cart).reduce((acc,[id,qty])=>{
+        const p = products.find(x=>x.id===id); return acc + p.price*qty
+      },0)
+      document.getElementById('subtotal').textContent = fmtBRL(subtotal)
+      const discount = subtotal>=300? 0.1*subtotal : 0
+      document.getElementById('discount').textContent = discount? ` ${fmtBRL(discount)}` : '—'
+      document.getElementById('total').textContent = fmtBRL(subtotal - discount)
+    }
+
+    function persistCart(){
+      localStorage.setItem('cart-pablobass', JSON.stringify(cart))
+    }
+
+    // Eventos do carrinho
+    document.addEventListener('click', (e)=>{
+      const minus = e.target?.dataset?.minus
+      const plus = e.target?.dataset?.plus
+      const rem = e.target?.dataset?.remove
+      if(minus){ cart[minus] = Math.max(0,(cart[minus]||0)-1); if(cart[minus]===0) delete cart[minus]; persistCart(); renderCart() }
+      if(plus){ cart[plus] = (cart[plus]||0)+1; persistCart(); renderCart() }
+      if(rem){ delete cart[rem]; persistCart(); renderCart() }
+    })
+
+    // Checkout pelo WhatsApp
+    document.getElementById('btn-whats').addEventListener('click', ()=>{
+      if(!Object.keys(cart).length){ alert('Seu carrinho está vazio.'); return }
+      const linhas = []
+      let subtotal = 0
+      Object.entries(cart).forEach(([id,qty])=>{
+        const p = products.find(x=>x.id===id)
+        const line = `• ${p.title} — ${qty} × ${fmtBRL(p.price)}`
+        subtotal += p.price*qty
+        linhas.push(line)
+      })
+      const discount = subtotal>=300? 0.1*subtotal : 0
+      const total = subtotal - discount
+      const txt = encodeURIComponent(
+        `Olá DJ PabloBass!\n\nQuero finalizar este pedido:\n${linhas.join('\n')}\n\nSubtotal: ${fmtBRL(subtotal)}\nDesconto: ${discount? fmtBRL(discount): '—'}\nTOTAL: ${fmtBRL(total)}\n\nForma de pagamento: Pix/Cartão/PayPal.\nMeu nome: `
+      )
+      window.open(`https://wa.me/5534998110946?text=${txt}`, '_blank')
+    })
+
+    document.getElementById('btn-clear').addEventListener('click', ()=>{
+      if(confirm('Limpar carrinho?')){
+        for(const k in cart) delete cart[k]
+        persistCart(); renderCart()
+      }
+    })
+
+    // Formulário -> WhatsApp
+    document.getElementById('form-contact').addEventListener('submit', (e)=>{
+      e.preventDefault()
+      const nome = document.getElementById('nome').value.trim()
+      const email = document.getElementById('email').value.trim()
+      const servico = document.getElementById('servico').value
+      const mensagem = document.getElementById('mensagem').value.trim()
+      const txt = encodeURIComponent(`Olá! Sou ${nome}.\nE-mail: ${email}.\nServiço: ${servico}.\nMensagem: ${mensagem}`)
+      window.open(`https://wa.me/5534998110946?text=${txt}`, '_blank')
+    })
+
+    // Inicialização
+    document.getElementById('year').textContent = new Date().getFullYear()
+    renderProducts(); renderCart()
+  </script>
+</body>
+</html>
