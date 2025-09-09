@@ -55,7 +55,7 @@ function numeroBtn(n, status) {
 async function renderGrid() {
   gridEl.innerHTML = "";
   const estados = await listParticipacoes();
-  for (let i=1;i<=100;i++) {
+  for (let i=1;i<=200;i++) {
     const st = estados[i] || 'livre';
     gridEl.appendChild(numeroBtn(i, st));
   }
