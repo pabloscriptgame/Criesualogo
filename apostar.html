@@ -36,7 +36,7 @@
     <div class="max-w-6xl mx-auto px-4 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
       <div>
         <h1 class="text-2xl font-extrabold">🎲 Números da Sorte</h1>
-<marquee class="mt-2 text-sm font-semibold text-yellow-200">🎉 Sorteio todo Sábado às 11:00 da manhã 🎉</marquee>
+        <marquee class="mt-2 text-sm font-semibold text-yellow-200">🎉 Sorteio todo Sábado às 11:00 da manhã 🎉</marquee>
         <p class="opacity-90">Escolha seu número, faça o Pix e anexe o comprovante. Interface rápida e responsiva.</p>
       </div>
       <div class="text-right">
@@ -160,8 +160,8 @@
     <section class="mt-10">
       <div class="flex items-center justify-between mb-2">
         <h3 class="text-lg font-semibold">Participações (este dispositivo)</h3>
-<div class="text-sm flex items-center gap-2">Senha organizador: <input id="senhaOrg" type="password" class="px-2 py-1 rounded border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 bg-white dark:bg-slate-900 w-32"></div>
-        <button id="exportar" class="hidden" class="text-sm px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700">Exportar JSON</button>
+        <div class="text-sm flex items-center gap-2">Senha organizador: <input id="senhaOrg" type="password" class="px-2 py-1 rounded border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 bg-white dark:bg-slate-900 w-32"></div>
+        <button id="exportar" class="hidden text-sm px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700">Exportar JSON</button>
       </div>
       <div id="lista" class="bg-white dark:bg-slate-800 rounded-2xl shadow divide-y divide-slate-100 dark:divide-slate-700"></div>
       <p class="text-xs mt-2 text-slate-500">Obs.: os dados ficam salvos apenas neste dispositivo (localStorage). Para uso multiusuário/online, conecte com um backend.</p>
@@ -226,13 +226,23 @@ function selecionarNumero(n) {
 document.getElementById("file").addEventListener("change", (e) => {
   const f = e.target.files[0];
   if (!f) { preview.innerHTML = ""; return; }
-  if (f.type.startsWith("image/")) {
-    const r = new FileReader();
-    r.onload = () => { preview.innerHTML = `<img src="${r.result}" alt="comprovante" class="max-h-40 rounded-xl shadow border border-slate-200">`; };
-    r.readAsDataURL(f);
-  } else {
-    preview.textContent = `Arquivo selecionado: ${f.name}`;
-  }
+  const isImg = f.type.startsWith("image/");
+  const isPdf = f.type === "application/pdf";
+  const r = new FileReader();
+  r.onload = () => {
+    if (isImg) {
+      preview.innerHTML = `<img src="${r.result}" alt="comprovante" class="max-h-40 rounded-xl shadow border border-slate-200">`;
+    } else if (isPdf) {
+      preview.innerHTML = `<span class="inline-flex items-center gap-2 px-2 py-1 rounded bg-slate-100 dark:bg-slate-700">
+        📄 PDF selecionado: <b>${f.name}</b>
+      </span>`;
+    } else {
+      preview.textContent = \`Arquivo selecionado: \${f.name}\`;
+    }
+    preview.dataset.dataurl = r.result; // guarda para salvar
+  };
+  // Para qualquer tipo, tentamos DataURL (funciona p/ imagens e PDF)
+  r.readAsDataURL(f);
 });
 
 copiarPix.addEventListener("click", async () => {
@@ -249,23 +259,28 @@ form.addEventListener("submit", async (e) => {
   const nome = data.get("nome").toString().trim();
   const whats = data.get("whats").toString().trim();
   const numero = parseInt(data.get("numero"));
-  const file = document.getElementById("file").files[0];
+  const inputFile = document.getElementById("file");
+  const file = inputFile.files[0];
   if (!numero || Number.isNaN(numero)) return alert("Selecione um número no grid.");
   if (!file) return alert("Anexe o comprovante.");
 
-  // Converter imagem para DataURL (PDF apenas nome)
-  let comp = { name: file.name, type: file.type, dataURL: null };
-  if (file.type.startsWith("image/")) {
-    comp.dataURL = await fileToDataURL(file);
-  }
+  // Converter arquivo para DataURL (imagem ou PDF)
+  const dataURL = await fileToDataURL(file);
 
-  const ref = `P${Date.now().toString(36)}`;
-  const entrada = { ref, nome, whats, numero, comprovante: comp, status: "reservado", ts: new Date().toISOString() };
+  const ref = \`P\${Date.now().toString(36)}\`;
+  const entrada = { 
+    ref, nome, whats, numero, 
+    comprovante: { name: file.name, type: file.type, dataURL },
+    status: "reservado", 
+    ts: new Date().toISOString() 
+  };
   participacoes.push(entrada);
   reservas.add(numero);
   persist();
   form.reset();
   numEscolhido.value = numero; // mantém número no cartão
+  preview.innerHTML = "";
+  delete preview.dataset.dataurl;
   mostrarSucesso(entrada);
   renderStatus();
   renderLista();
@@ -288,25 +303,25 @@ function persist() {
 function renderStatus() {
   // limpar estilos
   for (let i=1;i<=TOTAL;i++) {
-    const el = document.getElementById(`num-${i}`);
+    const el = document.getElementById(\`num-\${i}\`);
     el.classList.remove("bg-amber-400","text-white","bg-emerald-500");
     el.classList.add("bg-white","dark:bg-slate-800");
     el.querySelector(".badge")?.remove();
   }
   // aplicar estados
   reservas.forEach(n => {
-    const el = document.getElementById(`num-${n}`);
+    const el = document.getElementById(\`num-\${n}\`);
     el.classList.remove("bg-white","dark:bg-slate-800");
     el.classList.add("bg-amber-400","text-white");
-    el.insertAdjacentHTML("beforeend", `<span class="badge text-[10px] bg-black/50 px-2 py-0.5 rounded-full">Reservado</span>`);
+    el.insertAdjacentHTML("beforeend", \`<span class="badge text-[10px] bg-black/50 px-2 py-0.5 rounded-full">Reservado</span>\`);
   });
   participacoes.forEach(p => {
     if (p.status === "pago") {
-      const el = document.getElementById(`num-${p.numero}`);
+      const el = document.getElementById(\`num-\${p.numero}\`);
       el.classList.remove("bg-white","dark:bg-slate-800","bg-amber-400");
       el.classList.add("bg-emerald-500","text-white");
       el.querySelector(".badge")?.remove();
-      el.insertAdjacentHTML("beforeend", `<span class="badge text-[10px] bg-black/50 px-2 py-0.5 rounded-full">Pago</span>`);
+      el.insertAdjacentHTML("beforeend", \`<span class="badge text-[10px] bg-black/50 px-2 py-0.5 rounded-full">Pago</span>\`);
     }
   });
 }
@@ -314,22 +329,22 @@ function renderStatus() {
 function renderLista() {
   lista.innerHTML = "";
   if (participacoes.length === 0) {
-    lista.innerHTML = `<div class="p-4 text-sm text-slate-500">Nenhuma participação enviada ainda.</div>`;
+    lista.innerHTML = \`<div class="p-4 text-sm text-slate-500">Nenhuma participação enviada ainda.</div>\`;
     return;
   }
   participacoes.slice().reverse().forEach(p => {
     const linha = document.createElement("div");
     linha.className = "p-4 flex items-center justify-between gap-3";
-    linha.innerHTML = `
+    linha.innerHTML = \`
       <div class="min-w-0">
-        <div class="font-semibold truncate">${p.nome} — nº ${p.numero} <span class="text-xs px-2 py-0.5 rounded-full ${p.status==='pago'?'bg-emerald-100 text-emerald-700':'bg-amber-100 text-amber-700'}">${p.status}</span></div>
-        <div class="text-xs text-slate-500 truncate">${new Date(p.ts).toLocaleString()} • ${p.whats}</div>
+        <div class="font-semibold truncate">\${p.nome} — nº \${p.numero} <span class="text-xs px-2 py-0.5 rounded-full \${p.status==='pago'?'bg-emerald-100 text-emerald-700':'bg-amber-100 text-amber-700'}">\${p.status}</span></div>
+        <div class="text-xs text-slate-500 truncate">\${new Date(p.ts).toLocaleString()} • \${p.whats}</div>
       </div>
       <div class="flex items-center gap-2 shrink-0">
-        <button data-ref="${p.ref}" class="ver px-3 py-1.5 text-sm rounded-xl border">Ver</button>
-        ${orgLiberado?`<button data-ref="${p.ref}" class="pago px-3 py-1.5 text-sm rounded-xl bg-emerald-600 text-white">Marcar pago</button><button data-ref="${p.ref}" class="apagar px-3 py-1.5 text-sm rounded-xl bg-rose-600 text-white">Apagar</button>`:""}
+        <button data-ref="\${p.ref}" class="ver px-3 py-1.5 text-sm rounded-xl border">Ver</button>
+        \${orgLiberado?\`<button data-ref="\${p.ref}" class="pago px-3 py-1.5 text-sm rounded-xl bg-emerald-600 text-white">Marcar pago</button><button data-ref="\${p.ref}" class="apagar px-3 py-1.5 text-sm rounded-xl bg-rose-600 text-white">Apagar</button>\`:""}
       </div>
-    `;
+    \`;
     lista.appendChild(linha);
   });
 
@@ -362,18 +377,22 @@ function mostrarSucesso(entrada) {
   document.getElementById("cardWhats").textContent = "";
   document.getElementById("cardNumero").textContent = entrada.numero;
   document.getElementById("cardRef").textContent = entrada.ref;
-  document.getElementById("cardObs").textContent = `Valor pago: ${VALOR_APOSTA} • Prêmio: ${PREMIO}`;
+  document.getElementById("cardObs").textContent = \`Valor pago: \${VALOR_APOSTA} • Prêmio: \${PREMIO}\`;
   const comp = entrada.comprovante;
   if (comp?.dataURL) {
-    document.getElementById("cardComp").innerHTML = `<img src="${comp.dataURL}" alt="comprovante" class="max-h-36 rounded-lg border border-white/30">`;
+    if (comp.type === "application/pdf") {
+      document.getElementById("cardComp").innerHTML = \`<a href="\${comp.dataURL}" target="_blank" class="underline">Abrir comprovante (PDF)</a>\`;
+    } else {
+      document.getElementById("cardComp").innerHTML = \`<img src="\${comp.dataURL}" alt="comprovante" class="max-h-36 rounded-lg border border-white/30">\`;
+    }
   } else if (comp?.name) {
     document.getElementById("cardComp").textContent = "Arquivo: " + comp.name;
   } else {
     document.getElementById("cardComp").textContent = "—";
   }
   // WhatsApp message
-  const msg = encodeURIComponent(`Olá! Segue minha participação.\nNome: ${entrada.nome}\nWhatsApp: ${entrada.whats}\nNúmero escolhido: ${entrada.numero}\nRef: ${entrada.ref}\nValor: ${VALOR_APOSTA}`);
-  whatsLink.href = `https://wa.me/${WHATS_NUM}?text=${msg}`;
+  const msg = encodeURIComponent(\`Olá! Segue minha participação.\\nNome: \${entrada.nome}\\nWhatsApp: \${entrada.whats}\\nNúmero escolhido: \${entrada.numero}\\nRef: \${entrada.ref}\\nValor: \${VALOR_APOSTA}\`);
+  whatsLink.href = \`https://wa.me/\${WHATS_NUM}?text=\${msg}\`;
 }
 
 // Baixar card como imagem
@@ -416,7 +435,7 @@ function atualizarContador() {
     const h = Math.floor(diff/3600000);
     const m = Math.floor((diff%3600000)/60000);
     const s = Math.floor((diff%60000)/1000);
-    el.textContent = `${h}h ${m}m ${s}s`;
+    el.textContent = \`\${h}h \${m}m \${s}s\`;
   }
 }
 setInterval(atualizarContador, 1000);
