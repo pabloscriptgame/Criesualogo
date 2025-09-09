@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Admin — Apostas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="bg-gray-100 text-gray-900">
+<header class="bg-gradient-to-r from-slate-800 to-slate-600 text-white shadow">
+  <div class="max-w-6xl mx-auto p-4">
+    <h1 class="text-2xl font-bold">🔐 Painel do Administrador</h1>
+    <p class="opacity-90">Marque números como <strong>Pago</strong> ou libere reservas.</p>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto p-4 space-y-4">
+  <div class="bg-white rounded-lg shadow p-4">
+    <label class="text-sm">Senha do admin</label>
+    <input type="password" id="adminPass" class="w-full p-2 border rounded" placeholder="Digite a senha do admin">
+    <button id="btnLogin" class="mt-2 bg-blue-600 text-white rounded p-2">Entrar</button>
+    <div id="loginMsg" class="text-sm mt-2"></div>
+  </div>
+
+  <div id="adminArea" class="hidden">
+    <div class="bg-white rounded-lg shadow p-4">
+      <h2 class="text-lg font-semibold mb-2">Gerenciar números</h2>
+      <div id="grid" class="grid grid-cols-5 sm:grid-cols-10 gap-2"></div>
+      <div class="text-xs text-gray-600 mt-2">Clique em um número:
+        <strong>Reservado</strong> → marcar <strong>Pago</strong> •
+        <strong>Pago</strong> → liberar (volta a Livre)
+      </div>
+      <div id="msg" class="text-sm mt-2"></div>
+    </div>
+  </div>
+</main>
+
+<footer class="text-center text-xs text-gray-500 p-4">© 2025 — Admin</footer>
+
+<script src="assets/admin.js"></script>
+</body>
+</html>
