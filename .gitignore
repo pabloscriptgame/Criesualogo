@@ -1,0 +1,8 @@
+# Pastas de uploads e dados
+uploads/
+participacoes/
+
+# Arquivos temporários
+*.log
+*.tmp
+*.bak
