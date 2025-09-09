@@ -1,5 +1,5 @@
 <?php
-// salvar.php - recebe POST com nome, whats, numero e file; salva em uploads/ e participacoes/NUMERO/dados.json
+// salvar.php - responsável por salvar os dados e comprovantes enviados via formulário
 date_default_timezone_set('America/Sao_Paulo');
 
 header('Content-Type: application/json; charset=utf-8');
@@ -24,9 +24,11 @@ if ($nome === '' || $whats === '' || $numero <= 0) {
   exit;
 }
 
+// Pasta específica para o número
 $numeroPasta = $participacoesDir . $numero . "/";
 if (!is_dir($numeroPasta)) mkdir($numeroPasta, 0777, true);
 
+// Validar e mover comprovante
 $arquivo = $_FILES['file'] ?? null;
 if (!$arquivo || $arquivo['error'] !== UPLOAD_ERR_OK) {
   echo json_encode(['status' => 'erro', 'msg' => 'Erro no upload do comprovante.']);
@@ -40,6 +42,7 @@ if (!move_uploaded_file($arquivo['tmp_name'], $uploadsDir . $nomeArquivo)) {
   exit;
 }
 
+// Dados salvos em JSON
 $dados = [
   'ref' => 'P' . base_convert(time(), 10, 36),
   'nome' => $nome,
@@ -53,3 +56,4 @@ $dados = [
 file_put_contents($numeroPasta . "dados.json", json_encode($dados, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
 echo json_encode(['status' => 'ok', 'msg' => 'Participação salva com sucesso!', 'dados' => $dados]);
+?>
