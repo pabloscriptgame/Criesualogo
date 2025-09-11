@@ -6,37 +6,80 @@
   <title>Apostador — Jogos</title>
   <meta name="color-scheme" content="light dark" />
   <style>
+    /* Neon Effect */
+    .btn-neon {
+      border:2px solid #7c5cff;
+      color:#fff;
+      text-shadow:0 0 5px #7c5cff, 0 0 10px #7c5cff;
+      box-shadow:0 0 5px #7c5cff, inset 0 0 5px #7c5cff;
+      transition:all 0.3s ease;
+    }
+    .btn-neon:hover {
+      background:#7c5cff;
+      color:#fff;
+      box-shadow:0 0 15px #7c5cff,0 0 30px #7c5cff,0 0 45px #7c5cff;
+    }
+
+    .btn-neon-green {
+      border:2px solid #22ff99;
+      color:#fff;
+      text-shadow:0 0 5px #22ff99,0 0 10px #22ff99;
+      box-shadow:0 0 5px #22ff99,inset 0 0 5px #22ff99;
+      transition:all 0.3s ease;
+    }
+    .btn-neon-green:hover {
+      background:#22ff99;
+      color:#000;
+      box-shadow:0 0 15px #22ff99,0 0 30px #22ff99,0 0 45px #22ff99;
+    }
+
+    .btn-neon-blue {
+      border:2px solid #00ccff;
+      color:#fff;
+      text-shadow:0 0 5px #00ccff,0 0 10px #00ccff;
+      box-shadow:0 0 5px #00ccff,inset 0 0 5px #00ccff;
+      transition:all 0.3s ease;
+    }
+    .btn-neon-blue:hover {
+      background:#00ccff;
+      color:#000;
+      box-shadow:0 0 15px #00ccff,0 0 30px #00ccff,0 0 45px #00ccff;
+    }
+
     :root{--bg:#0f1222;--card:#171a2f;--muted:#9aa3b2;--text:#e8eaf2;--accent:#7c5cff;--accent2:#22c55e;--danger:#ef4444}
     *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif;
-      background:radial-gradient(1200px 800px at 20% -10%,#1b1f3a 0%,#0f1222 60%),var(--bg);
-      color:var(--text);text-align:center}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif;background:radial-gradient(1200px 800px at 20% -10%,#1b1f3a 0%,#0f1222 60%),var(--bg); color:var(--text)}
+    a{color:inherit}
     .container{max-width:1100px;margin:0 auto;padding:24px}
-    header{margin-bottom:16px}
-    .brand{display:flex;align-items:center;gap:12px;justify-content:center}
-    .logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#7c5cff, #22c55e);
-      display:grid;place-items:center;font-weight:700}
-    .card{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
-      backdrop-filter: blur(8px); border:1px solid rgba(255,255,255,.08); border-radius:20px; padding:20px; box-shadow:0 10px 30px rgba(0,0,0,.3)}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#7c5cff, #22c55e);display:grid;place-items:center;font-weight:700}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));backdrop-filter: blur(8px); border:1px solid rgba(255,255,255,.08); border-radius:20px; padding:20px; box-shadow:0 10px 30px rgba(0,0,0,.3)}
     .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:20px}
     @media (max-width:880px){.grid{grid-template-columns:1fr}}
+    label{display:block;font-size:14px;color:var(--muted);margin:10px 0 6px}
+    input,select,button,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:var(--text);outline:none}
+    input::placeholder{color:#8a93a5}
+    button{cursor:pointer;border:0;font-weight:600}
+    .btn-primary{background:linear-gradient(135deg,var(--accent),#4f46e5)}
+    .btn-success{background:linear-gradient(135deg,var(--accent2),#16a34a)}
+    .btn-ghost{background:transparent;border:1px dashed rgba(255,255,255,.2)}
+    .muted{color:var(--muted)}
+    .row{display:flex; gap:12px; align-items:center}
+    .row > *{flex:1}
     .numbers{display:grid;grid-template-columns:repeat(10,1fr);gap:8px}
     .numbers button{padding:10px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15)}
     .numbers button.active{background:rgba(124,92,255,.25); border-color:rgba(124,92,255,.65)}
+    .pill{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);font-size:12px}
+    .qr{display:grid;place-items:center; background:rgba(255,255,255,.08); border-radius:16px; padding:16px}
+    .note{font-size:12px;color:var(--muted)}
     footer{margin-top:20px;font-size:12px;color:var(--muted);text-align:center}
-    .marquee{background:#111;padding:8px 0;overflow:hidden;white-space:nowrap}
-    .marquee span{display:inline-block;padding-left:100%;animation:scroll 15s linear infinite;color:#22ff99;font-weight:bold}
-    @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+    .danger{color:var(--danger)}
   </style>
 </head>
 <body>
-  <!-- Texto rolando -->
-  <div class="marquee">
-    <span>Sorteio todos os sábados às 11 horas da manhã — Ganhador levará R$200 — Valor da aposta R$2</span>
-  </div>
-
   <div class="container">
-    <header>
+    
       <div class="brand">
         <div class="logo">A</div>
         <div>
@@ -44,12 +87,13 @@
           <div class="muted" style="font-size:12px">Site demonstrativo — salve apostas e comprovantes</div>
         </div>
       </div>
+      <div class="pill">PIX • <span id="pixKey">11778657699</span></div>
     </header>
 
     <div class="grid">
       <section class="card">
         <h2 style="margin:0 0 8px">Monte sua aposta</h2>
-        <p class="muted" style="margin-top:0">Escolha até 4 números e preencha seus dados. O comprovante é opcional.</p>
+        <p class="muted" style="margin-top:0">Escolha até 6 números e preencha seus dados. O comprovante é opcional.</p>
         <form id="betForm">
           <div class="row">
             <div>
@@ -62,17 +106,26 @@
             </div>
           </div>
 
-          <label>Números (0–99) — selecione até 4</label>
+          <label>Números (0–99) — selecione até 6</label>
           <div class="numbers" id="numbers"></div>
           <input type="hidden" name="numeros" id="numeros" />
 
-          <div style="text-align:center;margin:20px 0">
-            <h3 style="color:#22ff99;text-shadow:0 0 10px #22ff99,0 0 20px #22ff99,0 0 30px #22ff99;">
-              Acerte 4 números e ganhe R$ 200,00
-            </h3>
+          <div class="row" style="margin-top:12px">
+            <div>
+              <label>Anexe o comprovante (imagem ou PDF)</label>
+              <input type="file" name="comprovante" accept=".png,.jpg,.jpeg,.webp,.pdf" />
+              <div class="note">Arquivos serão salvos por IP em repositório do GitHub configurado no Worker.</div>
+            </div>
           </div>
 
-          <div class="row" style="margin-top:16px">
+          
+    <div style="text-align:center;margin:20px 0">
+      <h3 style="color:#22ff99;text-shadow:0 0 10px #22ff99,0 0 20px #22ff99,0 0 30px #22ff99;">
+        Acerte 4 números e ganhe R$ 200,00
+      </h3>
+    </div>
+    <div class="row" style="margin-top:16px">
+
             <button type="button" class="btn-neon-green" id="btnGerarPix">Gerar PIX</button>
             <button class="btn-neon" id="btnEnviar">Enviar aposta</button>
           </div>
@@ -82,6 +135,7 @@
       <aside class="card">
         <h3 style="margin:0 0 8px">Pagamento PIX</h3>
         <p class="muted" style="margin-top:0">Use o botão abaixo para gerar o código “copia e cola” e o QR Code.</p>
+
         <div class="qr">
           <div id="qrcode"></div>
         </div>
@@ -90,48 +144,52 @@
           <textarea id="pixCode" rows="4" readonly></textarea>
           <button class="btn-neon-blue" id="btnCopiar" style="margin-top:8px">Copiar código PIX</button>
         </div>
+
+        <hr style="border:0;border-top:1px solid rgba(255,255,255,.15);margin:16px 0" />
+
+        <div class="note">
+          Ao enviar você concorda em salvar dados (nome, telefone, IP, números e comprovante) para registro da aposta.
+          Ajuste a política de privacidade conforme sua região.
+        </div>
       </aside>
     </div>
 
+    
     <section class="card" style="margin-top:24px">
       <h2 style="margin:0 0 8px">Como jogar</h2>
+      <p class="muted" style="margin-top:0">Siga estas dicas para entender o funcionamento do jogo:</p>
       <ol style="line-height:1.6">
-        <li>Escolha <strong>até 4 números</strong> entre <strong>00 e 99</strong> na grade acima.</li>
+        <li>Escolha <strong>até 6 números</strong> entre <strong>00 e 99</strong> na grade acima.</li>
         <li>Pague sua aposta via <strong>PIX</strong> usando o botão <em>"Gerar PIX"</em>.<br>
             <span class="note">Valor fixo da aposta: R$ 2,00.</span>
         </li>
-        <li>Anexe o comprovante (opcional) e clique em <strong>"Enviar aposta"</strong>.</li>
+        <li>Após o pagamento, <strong>anexe o comprovante</strong> no formulário.</li>
+        <li>Clique em <strong>"Enviar aposta"</strong> e aguarde a confirmação.</li>
+        <li>O sistema salva automaticamente:
+          <ul>
+            <li>Números escolhidos</li>
+            <li>Seu nome e telefone (opcional)</li>
+            <li>Comprovante do PIX</li>
+            <li>Seu IP para registro único</li>
+          </ul>
+        </li>
       </ol>
+      <p class="note">
+        Cada aposta é registrada em um repositório seguro no GitHub, separada por pastas com seu IP e data.
+      </p>
+      <p class="muted">
+        Exemplo de aposta salva:<br>
+        <code>data/SEU-IP/2025-09-09T18-55-23/aposta.json</code>
+      </p>
     </section>
 
     <footer>
-      © <span id="year"></span> Apostador • Uso educacional/demonstrativo.
+
+      © <span id="year"></span> Apostador • Uso educacional/demonstrativo. Respeite as leis locais sobre jogos.
     </footer>
   </div>
 
   <script src="./assets/qrcode.min.js"></script>
-  <script>
-    // limitar seleção a 4 números
-    const numbersDiv=document.getElementById("numbers");
-    const selected=[];
-    for(let i=0;i<100;i++){
-      const btn=document.createElement("button");
-      btn.type="button";btn.textContent=i.toString().padStart(2,"0");
-      btn.onclick=()=>{
-        if(btn.classList.contains("active")){
-          btn.classList.remove("active");
-          selected.splice(selected.indexOf(btn.textContent),1);
-        }else{
-          if(selected.length>=4){alert("Você só pode escolher até 4 números.");return;}
-          btn.classList.add("active");
-          selected.push(btn.textContent);
-        }
-        document.getElementById("numeros").value=selected.join(",");
-      };
-      numbersDiv.appendChild(btn);
-    }
-    document.getElementById("year").textContent=new Date().getFullYear();
-  </script>
   <script src="./assets/app.js"></script>
 </body>
 </html>
