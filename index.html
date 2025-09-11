@@ -251,7 +251,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
   </script>
 </meta>
 <!-- Google AdSense Script -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1732605791412244" crossorigin="anonymous"></script>
+
 
 </head>
 <body>
@@ -304,6 +304,101 @@ html, body { overflow-x: hidden; max-width: 100%; }
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<!-- === COOKIE CONSENT BLOCK START === -->
+<style>
+#cookie-consent {
+  position: fixed;left: 16px;right: 16px;bottom: 18px;z-index: 99999;
+  background: rgba(10,12,18,0.94);color: #e6eef9;border-radius: 12px;
+  padding: 14px;box-shadow: 0 10px 30px rgba(0,0,0,.45);
+  display:flex;gap:12px;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;font-family: Poppins, Arial, sans-serif;
+}
+#cookie-consent .text { max-width: 68%; font-size:14px; color: #cbd5e1; line-height:1.3; }
+#cookie-consent .actions { display:flex; gap:8px; align-items:center; }
+.cookie-btn { padding:8px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.06); cursor:pointer; font-weight:700; background:transparent; color:inherit; }
+.cookie-btn.primary { background:linear-gradient(135deg,#38bdf8,#a78bfa); color:#081012; border: none; }
+.cookie-btn.ghost { background:transparent; color:#cbd5e1; border:1px solid rgba(255,255,255,.06); }
+.cookie-small { font-size:12px; opacity:.85; }
+@media(max-width:640px){
+  #cookie-consent .text { max-width:100%; margin-bottom:8px; }
+  #cookie-consent { padding:12px; left:10px; right:10px; }
+}
+</style>
+
+<div id="cookie-consent" aria-live="polite" style="display:none;">
+  <div class="text">
+    Usamos cookies próprios e de terceiros (incluindo Google) para melhorar o site, veicular anúncios e medir desempenho.
+    <div class="cookie-small">Você pode aceitar todos os cookies ou escolher quais autorizar.</div>
+  </div>
+  <div class="actions">
+    <button class="cookie-btn ghost" id="cookie-decline">Recusar</button>
+    <button class="cookie-btn" id="cookie-manage">Gerenciar</button>
+    <button class="cookie-btn primary" id="cookie-accept">Aceitar todos</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const KEY = 'pablodesigners_cookie_consent_v1';
+  const consent = localStorage.getItem(KEY);
+  const banner = document.getElementById('cookie-consent');
+  function injectAdSense() {
+    if(window.__adsenseInjected) return;
+    window.__adsenseInjected = true;
+    const s = document.createElement('script');
+    s.async = true;
+    s.crossOrigin = "anonymous";
+    s.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1732605791412244";
+    s.onload = function(){
+      try {
+        document.querySelectorAll('ins.adsbygoogle').forEach(()=> {
+          try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e){}
+        });
+      } catch(e){}
+    };
+    document.head.appendChild(s);
+  }
+  function handleDeclinePlaceholder() {
+    document.querySelectorAll('ins.adsbygoogle').forEach(el=>{
+      const ph = document.createElement('div');
+      ph.style.cssText = 'background:#0b0f14;border:1px dashed rgba(255,255,255,.06);color:#9aa6bf;padding:12px;text-align:center;border-radius:8px;';
+      ph.innerText = 'Anúncio desativado - Cookies não permitidos';
+      el.replaceWith(ph);
+    });
+  }
+  function showBanner() { banner.style.display = 'flex'; }
+  function hideBanner() { banner.style.display = 'none'; }
+  document.getElementById('cookie-accept').addEventListener('click', ()=>{
+    localStorage.setItem(KEY, 'accepted'); hideBanner(); injectAdSense();
+  });
+  document.getElementById('cookie-decline').addEventListener('click', ()=>{
+    localStorage.setItem(KEY, 'declined'); hideBanner(); handleDeclinePlaceholder();
+  });
+  document.getElementById('cookie-manage').addEventListener('click', ()=>{
+    const ans = confirm('Deseja ativar apenas cookies funcionais (OK) ou ativar anúncios do Google também (Cancelar = recusar)?');
+    if(ans){ localStorage.setItem(KEY,'functional'); hideBanner(); handleDeclinePlaceholder(); }
+    else { localStorage.setItem(KEY,'declined'); hideBanner(); handleDeclinePlaceholder(); }
+  });
+  if(consent === 'accepted') { injectAdSense(); }
+  else if(consent === 'declined' || consent === 'functional') { handleDeclinePlaceholder(); }
+  else { document.addEventListener('DOMContentLoaded', showBanner); }
+})();
+</script>
+<!-- === COOKIE CONSENT BLOCK END === -->
+
+
+<div style="text-align:center; margin:30px 0;">
+  <a href="https://wa.me/5534998110946" target="_blank" rel="noopener" 
+     style="display:inline-block;background:#25D366;color:#fff;
+            padding:14px 22px;border-radius:12px;
+            font-weight:bold;font-family:sans-serif;
+            text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.25);
+            font-size:18px;">
+    📲 Contratar no WhatsApp
+  </a>
+</div>
+
 </body>
 
 <section class="section" id="gerador">
@@ -720,6 +815,101 @@ renderLogo();
     if(el){ el.setAttribute('href',whatsURL); el.setAttribute('target','_blank'); el.setAttribute('rel','noopener'); }
   });
 </script>
+
+
+<!-- === COOKIE CONSENT BLOCK START === -->
+<style>
+#cookie-consent {
+  position: fixed;left: 16px;right: 16px;bottom: 18px;z-index: 99999;
+  background: rgba(10,12,18,0.94);color: #e6eef9;border-radius: 12px;
+  padding: 14px;box-shadow: 0 10px 30px rgba(0,0,0,.45);
+  display:flex;gap:12px;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;font-family: Poppins, Arial, sans-serif;
+}
+#cookie-consent .text { max-width: 68%; font-size:14px; color: #cbd5e1; line-height:1.3; }
+#cookie-consent .actions { display:flex; gap:8px; align-items:center; }
+.cookie-btn { padding:8px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.06); cursor:pointer; font-weight:700; background:transparent; color:inherit; }
+.cookie-btn.primary { background:linear-gradient(135deg,#38bdf8,#a78bfa); color:#081012; border: none; }
+.cookie-btn.ghost { background:transparent; color:#cbd5e1; border:1px solid rgba(255,255,255,.06); }
+.cookie-small { font-size:12px; opacity:.85; }
+@media(max-width:640px){
+  #cookie-consent .text { max-width:100%; margin-bottom:8px; }
+  #cookie-consent { padding:12px; left:10px; right:10px; }
+}
+</style>
+
+<div id="cookie-consent" aria-live="polite" style="display:none;">
+  <div class="text">
+    Usamos cookies próprios e de terceiros (incluindo Google) para melhorar o site, veicular anúncios e medir desempenho.
+    <div class="cookie-small">Você pode aceitar todos os cookies ou escolher quais autorizar.</div>
+  </div>
+  <div class="actions">
+    <button class="cookie-btn ghost" id="cookie-decline">Recusar</button>
+    <button class="cookie-btn" id="cookie-manage">Gerenciar</button>
+    <button class="cookie-btn primary" id="cookie-accept">Aceitar todos</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const KEY = 'pablodesigners_cookie_consent_v1';
+  const consent = localStorage.getItem(KEY);
+  const banner = document.getElementById('cookie-consent');
+  function injectAdSense() {
+    if(window.__adsenseInjected) return;
+    window.__adsenseInjected = true;
+    const s = document.createElement('script');
+    s.async = true;
+    s.crossOrigin = "anonymous";
+    s.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1732605791412244";
+    s.onload = function(){
+      try {
+        document.querySelectorAll('ins.adsbygoogle').forEach(()=> {
+          try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e){}
+        });
+      } catch(e){}
+    };
+    document.head.appendChild(s);
+  }
+  function handleDeclinePlaceholder() {
+    document.querySelectorAll('ins.adsbygoogle').forEach(el=>{
+      const ph = document.createElement('div');
+      ph.style.cssText = 'background:#0b0f14;border:1px dashed rgba(255,255,255,.06);color:#9aa6bf;padding:12px;text-align:center;border-radius:8px;';
+      ph.innerText = 'Anúncio desativado - Cookies não permitidos';
+      el.replaceWith(ph);
+    });
+  }
+  function showBanner() { banner.style.display = 'flex'; }
+  function hideBanner() { banner.style.display = 'none'; }
+  document.getElementById('cookie-accept').addEventListener('click', ()=>{
+    localStorage.setItem(KEY, 'accepted'); hideBanner(); injectAdSense();
+  });
+  document.getElementById('cookie-decline').addEventListener('click', ()=>{
+    localStorage.setItem(KEY, 'declined'); hideBanner(); handleDeclinePlaceholder();
+  });
+  document.getElementById('cookie-manage').addEventListener('click', ()=>{
+    const ans = confirm('Deseja ativar apenas cookies funcionais (OK) ou ativar anúncios do Google também (Cancelar = recusar)?');
+    if(ans){ localStorage.setItem(KEY,'functional'); hideBanner(); handleDeclinePlaceholder(); }
+    else { localStorage.setItem(KEY,'declined'); hideBanner(); handleDeclinePlaceholder(); }
+  });
+  if(consent === 'accepted') { injectAdSense(); }
+  else if(consent === 'declined' || consent === 'functional') { handleDeclinePlaceholder(); }
+  else { document.addEventListener('DOMContentLoaded', showBanner); }
+})();
+</script>
+<!-- === COOKIE CONSENT BLOCK END === -->
+
+
+<div style="text-align:center; margin:30px 0;">
+  <a href="https://wa.me/5534998110946" target="_blank" rel="noopener" 
+     style="display:inline-block;background:#25D366;color:#fff;
+            padding:14px 22px;border-radius:12px;
+            font-weight:bold;font-family:sans-serif;
+            text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.25);
+            font-size:18px;">
+    📲 Contratar no WhatsApp
+  </a>
+</div>
 
 </body>
 </html>
