@@ -1,31 +1,15 @@
-# 🌐 PabloDesigners — Site Oficial
+# Cassino Neon — Projeto HTML Completo
 
-Site completo com gerador de logomarcas (Lite), planos e integração com Google AdSense.
+Este repositório contém uma versão **local** do front-end para o formulário de apostas com:
+- Geração de PIX (código EMV + QRCode)
+- Geração de comprovante em PDF (client-side)
+- Botões: Gerar PIX, Enviar aposta, Copiar PIX, Como pagar, Baixar PDF
+- Layout pronto para GitHub Pages (arquivo `index.html`)
 
-## 🚀 Publicação no GitHub Pages
+**Observação:** este projeto é apenas para demonstração/educacional. Não implemente apostas reais sem conformidade legal.
 
-1. Crie um repositório no GitHub.
-2. Envie os arquivos deste projeto (`index.html`, `assets/`, `cookie-consent.css`, `cookie-consent.js`).
-3. Vá em **Settings → Pages**, selecione a branch `main` e a pasta `/root`.
-4. Seu site estará disponível em:
-   ```
-   https://seuusuario.github.io/pablodesigners-site/
-   ```
+## Como usar
+1. Extraia o ZIP.
+2. Abra `index.html` no navegador.
+3. Teste as funcionalidades (Gerar PIX, Enviar aposta gera o PDF localmente).
 
-## 📦 Estrutura
-
-```
-index.html
-cookie-consent.css
-cookie-consent.js
-assets/
- └── favicon.svg
-```
-
-## 📢 Google AdSense
-
-- Configurado com a conta: **ca-pub-1732605791412244**
-- Blocos de anúncios já adicionados no HTML.
-
----
-✍️ Feito com ❤️ por [PabloDesigners](https://www.instagram.com/pablologomarcas)
