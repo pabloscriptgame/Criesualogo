@@ -63,6 +63,29 @@
     .chat-input input{flex:1}
     .typing{font-size:12px;color:var(--muted);font-style:italic}
   </style>
+
+<style>
+#numbers {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  gap: 8px;
+}
+.number {
+  background: #e0e0e0;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+  user-select: none;
+  text-align: center;
+}
+.number.selected {
+  background: #4caf50;
+  color: white;
+  font-weight: bold;
+}
+</style>
+
 </head>
 <body>
 <div class="page-wrap">
@@ -157,6 +180,6 @@
 <script>
 // Numbers grid
 const numbersEl=document.getElementById('numbers');const hidden=document.getElementById('numeros');
-for(let i=0;i<100;i++){const b=document.createElement('button');b.type='button';b.textContent=i.toString().padStart(2,'0');b.dataset.value=b.textContent;numbersEl.appendChild(b)}
+for(let i=0;i<=100;i++){const b=document.createElement('button');b.type='button';b.textContent=i.toString().padStart(2,'0');b.dataset.value=b.textContent;numbersEl.appendChild(b)}
 function update(){hidden.value=[...numbersEl.querySelectorAll('.active')].map(b=>b.dataset.value).join(',')}
 numbersEl.addEventListener('click',e=>{const b=e.target.closest('button
