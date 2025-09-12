@@ -5,73 +5,60 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Vaquinha Solidária — Dê Gusto Lanchonete</title>
   <style>
-    :root{
-      --accent:#ff5f91;
-      --accent2:#8b5cff;
-      --bg-gradient:linear-gradient(135deg,#ffe6f0,#e6e9ff);
-      --card:#fff;
-      --radius:26px;
-      font-family: 'Poppins', system-ui, sans-serif;
-    }
+    :root{ --accent:#ff5f91; --accent2:#8b5cff; --bg-gradient:linear-gradient(135deg,#ffe6f0,#e6e9ff); --card:#fff; --radius:26px; font-family: 'Poppins', system-ui, sans-serif; }
     *{box-sizing:border-box;margin:0;padding:0}
-    body{
-      min-height:100vh;
-      background:var(--bg-gradient);
-      display:flex;justify-content:center;align-items:center;
-      padding:20px;color:#222;
-    }
-    .container{
-      background:var(--card);
-      border-radius:var(--radius);
-      box-shadow:0 10px 40px rgba(0,0,0,0.12);
-      max-width:880px;width:100%;
-      display:grid;grid-template-columns:1fr 340px;
-      gap:32px;padding:36px;
-    }
+    body{min-height:100vh;background:var(--bg-gradient);display:flex;justify-content:center;align-items:center;padding:20px;color:#222;}
+    .container{background:var(--card);border-radius:var(--radius);box-shadow:0 10px 40px rgba(0,0,0,0.12);max-width:880px;width:100%;display:grid;grid-template-columns:1fr 340px;gap:32px;padding:36px;}
     header{grid-column:1 / -1;text-align:center}
     h1{font-size:26px;margin-bottom:10px;color:#111}
     .lead{font-size:16px;color:#555}
     .left p{line-height:1.6;font-size:16px;color:#333;margin-top:14px}
     .goals{margin-top:20px;display:flex;gap:16px;flex-wrap:wrap}
-    .goal{
-      background:linear-gradient(135deg,#fff,#faf9ff);
-      border-radius:20px;padding:16px;min-width:150px;
-      box-shadow:0 4px 12px rgba(0,0,0,0.05);
-      font-size:14px;flex:1;text-align:center
-    }
+    .goal{background:linear-gradient(135deg,#fff,#faf9ff);border-radius:20px;padding:16px;min-width:150px;box-shadow:0 4px 12px rgba(0,0,0,0.05);font-size:14px;flex:1;text-align:center}
     .goal strong{display:block;margin-top:4px}
-    .right{
-      background:linear-gradient(180deg,#fff,#f9f7ff);
-      border-radius:var(--radius);
-      padding:24px;
-      display:flex;flex-direction:column;align-items:center;gap:18px;
-      box-shadow:inset 0 0 14px rgba(139,92,255,0.05);
-    }
-    .pix-key{
-      background:#fff;padding:14px;border-radius:20px;
-      width:100%;text-align:center;font-weight:600;
-      word-break:break-word;font-size:16px;
-      box-shadow:0 4px 12px rgba(0,0,0,0.06);
-    }
+    .center-img{grid-column:1 / -1;text-align:center;margin:20px 0;}
+    .center-img img{max-width:100%;height:auto;border-radius:20px;box-shadow:0 6px 20px rgba(0,0,0,0.1);}
+    .right{background:linear-gradient(180deg,#fff,#f9f7ff);border-radius:var(--radius);padding:24px;display:flex;flex-direction:column;align-items:center;gap:18px;box-shadow:inset 0 0 14px rgba(139,92,255,0.05);}
+    .pix-key{background:#fff;padding:14px;border-radius:20px;width:100%;text-align:center;font-weight:600;word-break:break-word;font-size:16px;box-shadow:0 4px 12px rgba(0,0,0,0.06);}
     .buttons{display:flex;gap:12px;width:100%}
-    button{
-      flex:1;padding:12px;border-radius:20px;border:0;
-      font-weight:600;cursor:pointer;font-size:15px;
-      transition:all .2s ease;box-shadow:0 3px 8px rgba(0,0,0,0.08);
-    }
+    button{flex:1;padding:12px;border-radius:20px;border:0;font-weight:600;cursor:pointer;font-size:15px;transition:all .2s ease;box-shadow:0 3px 8px rgba(0,0,0,0.08);}
     .copy{background:var(--accent);color:#fff}
     .copy:active{transform:scale(.97)}
     .donate-link{background:transparent;border:2px solid var(--accent2);color:var(--accent2)}
     .donate-link:hover{background:var(--accent2);color:#fff}
     .donate-link:active{transform:scale(.97)}
-    .qr{width:220px;height:220px;border-radius:30px;background:#fff;
-        display:flex;align-items:center;justify-content:center;padding:14px;
-        box-shadow:0 8px 20px rgba(0,0,0,0.08)}
+    .qr{width:220px;height:220px;border-radius:30px;background:#fff;display:flex;align-items:center;justify-content:center;padding:14px;box-shadow:0 8px 20px rgba(0,0,0,0.08)}
     .small{font-size:13px;color:#666;text-align:center}
     footer{grid-column:1 / -1;text-align:center;margin-top:24px;font-size:14px;color:#777}
+    .row {display:flex; gap:8px; width:100%;}
+    input[type="number"]{flex:1;padding:10px;border-radius:12px;border:1px solid #e6e6e6;font-size:14px}
+
+    /* Botão WhatsApp */
+    .whatsapp-btn {
+      display:inline-block;
+      margin-top:16px;
+      padding:14px 24px;
+      background:#25D366;
+      color:#fff;
+      font-weight:600;
+      font-size:16px;
+      border-radius:30px;
+      text-decoration:none;
+      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+      transition:all 0.2s ease;
+    }
+    .whatsapp-btn:hover {
+      background:#1ebe5d;
+      transform:scale(1.03);
+    }
+
+    /* Responsividade */
     @media (max-width:820px){
-      .container{grid-template-columns:1fr;padding:24px;border-radius:22px}
-      .qr{width:160px;height:160px}
+      .container{grid-template-columns:1fr;padding:20px;border-radius:20px}
+      .center-img img{max-width:100%;height:auto}
+      .right{width:100%}
+      .goals{flex-direction:column;align-items:center;width:100%}
+      .goal{width:100%}
     }
   </style>
 </head>
@@ -95,43 +82,121 @@
       </div>
     </section>
 
+    <!-- Imagem centralizada -->
+    <div class="center-img">
+      <img src="https://i.ibb.co/q3Jc4nbk/8458c281064e5e82a6fdad162841f773-high.jpg" alt="Imagem da campanha">
+    </div>
+    <div class="center-img">
+      <img src="https://i.ibb.co/GQn8XswS/ce683ce4447da22289df2c8351aaf515-high.webp" alt="Imagem da campanha">
+    </div>
+
     <aside class="right">
       <div class="small">Doe via Pix</div>
       <div id="pixKey" class="pix-key">10738419605</div>
-      <div class="buttons">
-        <button class="copy" id="copyBtn">Copiar chave</button>
-        <button class="donate-link" id="openBtn">Abrir app</button>
+
+      <div class="row">
+        <input id="amountInput" type="number" placeholder="Valor (ex: 10.00)" step="0.01" min="0" />
+        <button class="donate-link" id="generateBtn">Gerar QR</button>
       </div>
+
+      <div class="buttons" style="margin-top:6px">
+        <button class="copy" id="copyBtn">Copiar chave</button>
+      </div>
+
       <div class="small">QR Code (escaneie com a câmera do celular)</div>
       <div class="qr">
-        <img id="qrImg" src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=10738419605" alt="QR Code Pix" style="max-width:100%;height:auto;border-radius:16px"/>
+        <img id="qrImg" src="" alt="QR Code Pix" style="max-width:100%;height:auto;border-radius:16px"/>
       </div>
+
+      <div class="small" style="margin-top:8px">Ou copie a chave Pix e cole no seu app de pagamentos.</div>
       <div class="small">Obrigado por ajudar — cada contribuição faz diferença!</div>
     </aside>
 
     <footer>
       🌟 Dê Gusto Lanchonete — juntos por nossas crianças 💖
+      <br>
+      <a class="whatsapp-btn" href="https://wa.me/5534999537698" target="_blank">📲 Entre em contato</a>
     </footer>
   </main>
 
   <script>
-    const pixKeyEl = document.getElementById('pixKey');
+    const PIX_KEY = "10738419605";
+    const MERCHANT_NAME = "DE GUSTO LANCHONETE";
+    const MERCHANT_CITY = "SAO PAULO";
+    const TXID = "VAQUINHA";
+
     const copyBtn = document.getElementById('copyBtn');
-    const openBtn = document.getElementById('openBtn');
-    let pixKey = pixKeyEl.textContent.trim();
+    const qrImg = document.getElementById('qrImg');
+    const amountInput = document.getElementById('amountInput');
+    const generateBtn = document.getElementById('generateBtn');
 
     copyBtn.addEventListener('click', async () => {
       try {
-        await navigator.clipboard.writeText(pixKey);
+        await navigator.clipboard.writeText(PIX_KEY);
         copyBtn.textContent = 'Copiado!';
         setTimeout(()=> copyBtn.textContent = 'Copiar chave', 2000);
       } catch (e) {
-        alert('Não foi possível copiar. Copie manualmente: ' + pixKey);
+        alert('Não foi possível copiar. Copie manualmente: ' + PIX_KEY);
       }
     });
 
-    openBtn.addEventListener('click', () => {
-      window.location.href = 'pix:' + encodeURIComponent(pixKey);
+    function crc16ccitt(str) {
+      const data = new TextEncoder().encode(str);
+      let crc = 0xFFFF;
+      for (let i = 0; i < data.length; i++) {
+        crc ^= (data[i] << 8);
+        for (let j = 0; j < 8; j++) {
+          if ((crc & 0x8000) !== 0) crc = ((crc << 1) ^ 0x1021) & 0xFFFF;
+          else crc = (crc << 1) & 0xFFFF;
+        }
+      }
+      return crc.toString(16).toUpperCase().padStart(4, '0');
+    }
+
+    function buildPayload(amount) {
+      const gui = "BR.GOV.BCB.PIX";
+      const sub00 = "00" + String(gui.length).padStart(2,'0') + gui;
+      const sub01 = "01" + String(PIX_KEY.length).padStart(2,'0') + PIX_KEY;
+      const m26content = sub00 + sub01;
+      const m26 = "26" + String(m26content.length).padStart(2,'0') + m26content;
+
+      let payload = "000201" + m26 + "52040000" + "530398";
+      if (amount && !isNaN(Number(amount)) && Number(amount) > 0) {
+        const formatted = Number(amount).toFixed(2);
+        const amtTag = "54" + String(formatted.length).padStart(2,'0') + formatted;
+        payload += amtTag;
+      }
+      payload += "5802BR";
+      const name = MERCHANT_NAME.substring(0,25);
+      const city = MERCHANT_CITY.substring(0,15);
+      payload += "59" + String(name.length).padStart(2,'0') + name;
+      payload += "60" + String(city.length).padStart(2,'0') + city;
+      const sub05 = "05" + String(TXID.length).padStart(2,'0') + TXID;
+      payload += "62" + String(sub05.length).padStart(2,'0') + sub05;
+
+      const payloadForCrc = payload + "6304";
+      const crc = crc16ccitt(payloadForCrc);
+      return payload + "63" + "04" + crc;
+    }
+
+    function updateQR(amount) {
+      const payload = buildPayload(amount);
+      const encoded = encodeURIComponent(payload);
+      const url = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + encoded;
+      qrImg.src = url;
+      qrImg.alt = "QR Pix";
+    }
+
+    // QR inicial sem valor
+    updateQR(null);
+
+    generateBtn.addEventListener('click', () => {
+      const amt = amountInput.value ? amountInput.value : null;
+      updateQR(amt);
+    });
+
+    amountInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { generateBtn.click(); }
     });
   </script>
 </body>
