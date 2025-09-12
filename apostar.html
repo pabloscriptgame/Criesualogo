@@ -4,88 +4,68 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Apostador — Cassino Futurista</title>
+  <meta name="description" content="Aposte de 0 a 100 — gerador de PIX e QR Code para testes" />
   <style>
-    :root{--bg1:#0f1222;--bg2:#1b1f3a;--accent:#7c5cff;--accent2:#22ff99;--accent3:#00ccff;--text:#e8eaf2;--muted:#9aa3b2;}
+    :root{--bg1:#0f1222;--bg2:#1b1f3a;--accent:#7c5cff;--accent2:#22ff99;--accent3:#00ccff;--text:#e8eaf2;--muted:#9aa3b2}
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:var(--text)}
     body{background:linear-gradient(-45deg,var(--bg1),#13162e,var(--bg2),#111827);background-size:400% 400%;animation:bgAnim 18s ease infinite}
     @keyframes bgAnim{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
+    /* Layout full width friendly for GitHub Pages */
     .page-wrap{min-height:100vh;display:flex;justify-content:center;padding:12px}
-    .container{width:100%;max-width:1100px;margin:0 auto;padding:18px;background:rgba(20,20,40,0.7);border-radius:18px;box-shadow:0 0 20px rgba(124,92,255,0.4),0 0 40px rgba(34,255,153,0.25);backdrop-filter:blur(10px)}
+    .container{width:100%;max-width:1100px;margin:0 auto;padding:18px;background:rgba(20,20,40,0.7);border-radius:12px;box-shadow:0 0 20px rgba(124,92,255,0.25);backdrop-filter:blur(8px)}
 
     header{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;justify-content:center}
     .logo{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-weight:900;color:#fff;box-shadow:0 0 12px var(--accent)}
     h1,h2,h3{color:#fff;text-shadow:0 0 10px var(--accent),0 0 20px var(--accent2);animation:pulse 3s infinite alternate;text-align:center}
     @keyframes pulse{from{text-shadow:0 0 6px var(--accent)}to{text-shadow:0 0 24px var(--accent2),0 0 36px var(--accent3)}}
 
-    .card{background:rgba(15,18,34,0.85);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 0 12px rgba(0,204,255,0.2)}
+    .card{background:rgba(15,18,34,0.85);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:14px;margin-bottom:14px;box-shadow:0 0 10px rgba(0,0,0,0.4)}
 
-    label{display:block;margin:6px 0 4px;font-size:14px;color:var(--accent2);font-weight:600;text-shadow:0 0 6px var(--accent)}
-    input{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:#fff;font-size:14px}
+    label{display:block;margin:6px 0 4px;font-size:14px;color:var(--accent2);font-weight:600}
+    input,textarea,select,button{font-family:inherit}
+    input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:#fff;font-size:14px}
 
     .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
     @media(max-width:880px){.grid{grid-template-columns:1fr}}
+
     .row{display:flex;gap:10px;flex-wrap:wrap}
 
-    .numbers-wrapper{border:1px solid rgba(124,92,255,.5);border-radius:10px;padding:10px;box-shadow:inset 0 0 12px rgba(124,92,255,.3);margin-top:6px;position:relative;overflow:hidden}
+    .numbers-wrapper{border:1px solid rgba(124,92,255,.35);border-radius:8px;padding:10px;margin-top:6px;overflow:hidden}
     .numbers{display:grid;grid-template-columns:repeat(auto-fit,minmax(44px,1fr));gap:6px}
-    .numbers button{padding:8px;font-weight:700;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);transition:.2s;font-size:13px}
-    .numbers button:hover{box-shadow:0 0 6px var(--accent3)}
-    .numbers button.active{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#000;box-shadow:0 0 10px var(--accent2)}
+    .numbers button{padding:8px;font-weight:700;border-radius:6px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);transition:.14s;font-size:13px;cursor:pointer}
+    .numbers button:hover{transform:translateY(-2px);box-shadow:0 6px 12px rgba(0,0,0,0.35)}
+    .numbers button.active{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#000;box-shadow:0 0 10px rgba(124,92,255,.25)}
 
-    .btn-neon,.btn-neon-green,.btn-neon-blue{display:block;margin:10px auto;min-width:200px;text-align:center;font-size:16px;font-weight:700;cursor:pointer}
-    .btn-neon{border:2px solid var(--accent);background:transparent;color:#fff;padding:12px 20px;border-radius:10px;box-shadow:0 0 12px var(--accent);transition:.3s}
-    .btn-neon:hover{background:var(--accent);box-shadow:0 0 25px var(--accent)}
-    .btn-neon-green{border:2px solid var(--accent2);color:#fff;padding:12px 20px;border-radius:10px;box-shadow:0 0 14px var(--accent2);animation:glowPulseGreen 2s infinite alternate}
-    .btn-neon-green:hover{background:var(--accent2);color:#000;box-shadow:0 0 28px var(--accent2)}
-    .btn-neon-blue{border:2px solid var(--accent3);color:#fff;padding:12px 20px;border-radius:10px;box-shadow:0 0 14px var(--accent3)}
-    .btn-neon-blue:hover{background:var(--accent3);color:#000;box-shadow:0 0 28px var(--accent3)}
+    /* Make action buttons full width for better alignment */
+    .btn-neon,.btn-neon-green,.btn-neon-blue{display:block;margin:10px auto;width:100%;max-width:none;text-align:center;font-size:16px;font-weight:700;cursor:pointer;padding:12px 14px;border-radius:8px}
+    .btn-neon{border:2px solid var(--accent);background:transparent;color:#fff;box-shadow:0 0 10px rgba(124,92,255,.12)}
+    .btn-neon:hover{background:var(--accent);box-shadow:0 0 20px var(--accent)}
+    .btn-neon-green{border:2px solid var(--accent2);color:#fff;box-shadow:0 0 12px rgba(34,255,153,.12)}
+    .btn-neon-green:hover{background:var(--accent2);color:#000}
+    .btn-neon-blue{border:2px solid var(--accent3);color:#fff;box-shadow:0 0 12px rgba(0,204,255,.12)}
+    .btn-neon-blue:hover{background:var(--accent3);color:#000}
 
-    @keyframes glowPulseGreen{from{box-shadow:0 0 12px var(--accent2)}to{box-shadow:0 0 28px var(--accent2)}}
-
-    .top-marquee{overflow:hidden;padding:6px 10px;margin-bottom:12px;background:linear-gradient(90deg,rgba(124,92,255,.25),rgba(34,197,94,.15));border-radius:8px}
-    .marquee-inner{display:inline-block;white-space:nowrap;padding-left:100%;animation:marquee 14s linear infinite;font-weight:800;color:#fff;text-shadow:0 0 6px var(--accent2)}
+    .top-marquee{overflow:hidden;padding:6px 10px;margin-bottom:12px;background:linear-gradient(90deg,rgba(124,92,255,.15),rgba(34,197,94,.08));border-radius:6px}
+    .marquee-inner{display:inline-block;white-space:nowrap;padding-left:100%;animation:marquee 14s linear infinite;font-weight:800;color:#fff}
     @keyframes marquee{0%{transform:translateX(0%)}100%{transform:translateX(-100%)}}
 
     footer{text-align:center;font-size:12px;color:var(--muted);margin-top:14px}
 
-    /* Chat assistant */
-    .chat-toggle{position:fixed;right:50%;transform:translateX(50%);bottom:16px;z-index:9999;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:50px;padding:14px 18px;border:0;color:#fff;box-shadow:0 0 25px var(--accent);font-weight:800;cursor:pointer;animation:glowPulse 2s infinite alternate}
-    @keyframes glowPulse{from{box-shadow:0 0 12px var(--accent)}to{box-shadow:0 0 28px var(--accent2)}}
-    .chat-box{position:fixed;right:50%;transform:translateX(50%);bottom:76px;width:340px;max-width:95%;height:70vh;background:rgba(20,20,40,.95);border-radius:14px;border:1px solid rgba(255,255,255,.1);box-shadow:0 0 20px var(--accent2);display:none;flex-direction:column;overflow:hidden;z-index:9998}
+    /* Chat assistant compact */
+    .chat-toggle{position:fixed;right:18px;bottom:16px;z-index:9999;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:999px;padding:12px 14px;border:0;color:#fff;box-shadow:0 0 16px var(--accent);font-weight:800;cursor:pointer}
+    .chat-box{position:fixed;right:18px;bottom:76px;width:340px;max-width:95%;height:60vh;background:rgba(20,20,40,.95);border-radius:12px;border:1px solid rgba(255,255,255,.06);box-shadow:0 4px 30px rgba(0,0,0,.6);display:none;flex-direction:column;overflow:hidden;z-index:9998}
     .chat-header{padding:10px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#000;font-weight:800;display:flex;justify-content:space-between;align-items:center}
     .chat-messages{flex:1;padding:10px;overflow:auto;display:flex;flex-direction:column;gap:6px}
     .msg{max-width:85%;padding:8px 10px;border-radius:8px;font-size:14px;line-height:1.4}
     .msg.user{align-self:flex-end;background:linear-gradient(90deg,var(--accent3),var(--accent2));color:#000}
     .msg.bot{align-self:flex-start;background:linear-gradient(90deg,#222,var(--accent));color:#fff;font-weight:500}
-    .chat-input{display:flex;padding:8px;gap:6px;border-top:1px solid rgba(255,255,255,.1)}
-    .chat-input input{flex:1}
-    .typing{font-size:12px;color:var(--muted);font-style:italic}
+    .chat-input{display:flex;padding:8px;gap:6px;border-top:1px solid rgba(255,255,255,.06)}
+    .chat-input input{flex:1;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.06)}
+
+    @media(max-width:480px){.numbers{grid-template-columns:repeat(auto-fit,minmax(36px,1fr))}}
   </style>
-
-<style>
-#numbers {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-  gap: 8px;
-}
-.number {
-  background: #e0e0e0;
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s;
-  user-select: none;
-  text-align: center;
-}
-.number.selected {
-  background: #4caf50;
-  color: white;
-  font-weight: bold;
-}
-</style>
-
 </head>
 <body>
 <div class="page-wrap">
@@ -112,7 +92,7 @@
             </div>
           </div>
 
-          <label style="margin-top:8px">🔢 Escolha até 4 números</label>
+          <label style="margin-top:8px">🔢 Escolha até 4 números (0 a 100)</label>
           <div class="numbers-wrapper">
             <div class="numbers" id="numbers"></div>
           </div>
@@ -123,7 +103,7 @@
             <p style="font-size:13px;color:var(--muted)">Valor fixo da aposta: R$2</p>
           </div>
 
-          <button type="button" class="btn-neon-green" id="btnGerarPix">⚡ Gerar PIX</button>
+          <button type="button" class="btn-neon-green" id="btnGerarPix">⚡ Gerar PIX (R$2)</button>
           <button type="submit" class="btn-neon">🚀 Enviar aposta</button>
         </form>
       </section>
@@ -131,8 +111,8 @@
       <aside class="card">
         <h3>Pagamento PIX</h3>
         <p>Use "Gerar PIX" para criar QR Code e código copia-e-cola.</p>
-        <div id="qrcode" style="min-height:120px;text-align:center"></div>
-        <textarea id="pixCode" rows="3" readonly></textarea>
+        <div id="qrcode" style="min-height:160px;text-align:center"></div>
+        <textarea id="pixCode" rows="3" readonly style="margin-top:8px"></textarea>
         <button class="btn-neon-blue" id="btnCopiar">📋 Copiar PIX</button>
       </aside>
     </section>
@@ -149,7 +129,7 @@
         <li>🚀 Uma chance, um clique, um prêmio!</li>
         <li>🔮 Sorte não se explica, se sente.</li>
       </ul>
-      <p><strong>Exemplo:</strong> 🍀 Uma chance em <span style="color:var(--accent2);font-weight:800">3.921.225</span> — Mas alguém sempre ganha!</p>
+      <!-- Exemplo removido conforme solicitado -->
     </section>
 
     <footer>© <span id="year"></span> Apostador Futurista • Uso educacional</footer>
@@ -168,18 +148,125 @@
   </div>
 </div>
 
-<!-- QRCode incorporado -->
+<!-- QRCode.js (minified portion included earlier) -->
 <script>
-/*!
-* QRCode.js
-* https://davidshimjs.github.io/qrcodejs/
-*/
-!function(o){function l(o){this.mode=s.MODE_8BIT_BYTE,this.data=o}function h(o,l){this.typeNumber=0,this.errorCorrectLevel=o,this.modules=null,this.moduleCount=0,this.dataCache=null,this.dataList=[],l&&(this.makeImpl=l)}function u(o,l){this.totalCount=o,this.dataCount=l}function d(){this.buffer=[],this.length=0}function c(){return"undefined"!=typeof navigator&&/android/i.test(navigator.userAgent)}function m(o,l){if(void 0==o.length)throw new Error(o.length+"/"+l);for(var h=0;h<o.length&&0==o[h];)h++;this.num=new Array(o.length-h+l);for(var u=0;u<o.length-h;u++)this.num[u]=o[u+h]}function g(o,l){this.num=new Array(o);for(var h=0;h<o;h++)this.num[h]=0;if(null!=l)for(var h=0;h<l.length;h++)this.num[h]=l[h];this.get=function(o){return this.num[o]},this.getLength=function(){return this.num.length},this.multiply=function(o){for(var l=new Array(this.getLength()+o.getLength()-1),h=0;h<o.getLength();h++)for(var u=0;u<this.getLength();u++)l[u+h]^=t.gexp(t.glog(this.get(u))+t.glog(o.get(h)));return new g(l.length,l)},this.mod=function(o){if(this.getLength()-o.getLength()<0)return this;for(var l=t.glog(this.get(0))-t.glog(o.get(0)),h=new Array(this.getLength()),u=0;u<this.getLength();u++)h[u]=this.get(u);for(var u=0;u<o.getLength();u++)h[u]^=t.gexp(t.glog(o.get(u))+l);return new g(h).mod(o)}}var s={};s.PAD0=236,s.PAD1=17,s.createData=function(o,l,h){for(var u=a.getRSBlocks(o,l),d=new d,c=0;c<h.length;c++){var m=h[c];d.put(m.mode,4),d.put(m.getLength(),e.getLengthInBits(m.mode,o)),m.write(d)}for(var p=0,f=0;f<u.length;f++)p+=u[f].dataCount;if(d.getLengthInBits()>8*p)throw new Error("code length overflow. ("+d.getLengthInBits()+">"+8*p+")");for(d.getLengthInBits()+4<=8*p&&d.put(0,4);d.getLengthInBits()%8!=0;)d.putBit(!1);for(;!(d.getLengthInBits()>=8*p||d.put(s.PAD0,8),d.getLengthInBits()>=8*p||d.put(s.PAD1,8),d.getLengthInBits()>=8*p););return s.createBytes(d,u)},s.createBytes=function(o,l){for(var h=0,u=0,d=0;d<l.length;d++)h+=l[d].dataCount,u+=l[d].totalCount;for(var c=new Array(u),m=0,g=0;g<l.length;g++){for(var e=l[g].dataCount,r=l[g].getData(),t=0;t<e;t++)c[t*m+g]=r[t];m=Math.max(m,e)}for(var g=0;g<l.length;g++){for(var e=l[g].totalCount-l[g].dataCount,r=l[g].getErrorCorrectPolynomial(e).getData(),t=0;t<e;t++)c[m*e+t]=r[t]}return c},s.addData=function(o,l,h){var u=null;switch(o){case s.MODE_NUMBER:u=new f(l);break;case s.MODE_ALPHA_NUM:u=new n(l);break;default:u=new l(l)}h.push(u)},o.QRCode=h}(this);
+/*! QRCode.js minimal use (only QR generation function is used below) - kept inline for GitHub Pages simplicity */
+!function(o){function l(o){this.mode=1,this.data=o}function h(o,l){this.typeNumber=0,this.errorCorrectLevel=o,this.modules=null,this.moduleCount=0,this.dataList=[],l&&(this.makeImpl=l)}o.QRCode=h}(this);
 </script>
 
 <script>
-// Numbers grid
-const numbersEl=document.getElementById('numbers');const hidden=document.getElementById('numeros');
-for(let i=0;i<=100;i++){const b=document.createElement('button');b.type='button';b.textContent=i.toString().padStart(2,'0');b.dataset.value=b.textContent;numbersEl.appendChild(b)}
-function update(){hidden.value=[...numbersEl.querySelectorAll('.active')].map(b=>b.dataset.value).join(',')}
-numbersEl.addEventListener('click',e=>{const b=e.target.closest('button
+// --- Populate numbers 0..100 (inclusive) and handle selection (max 4) ---
+const numbersEl = document.getElementById('numbers');
+const hidden = document.getElementById('numeros');
+const MAX_SELECTION = 4;
+
+for (let i = 0; i <= 100; i++) {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.textContent = i.toString().padStart(2, '0');
+  b.dataset.value = b.textContent;
+  numbersEl.appendChild(b);
+}
+
+function updateHidden() {
+  const vals = [...numbersEl.querySelectorAll('button.active')].map(b => b.dataset.value);
+  hidden.value = vals.join(',');
+  // update calculated probability and expectation
+  updateStats(vals.length);
+}
+
+numbersEl.addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if (!b) return;
+  const active = numbersEl.querySelectorAll('button.active').length;
+  if (!b.classList.contains('active') && active >= MAX_SELECTION) {
+    // prevent selecting more than MAX_SELECTION
+    alert('Você pode escolher no máximo ' + MAX_SELECTION + ' números.');
+    return;
+  }
+  b.classList.toggle('active');
+  updateHidden();
+});
+
+// --- PIX generation (demo payload + QR using a simple text payload) ---
+const btnGerarPix = document.getElementById('btnGerarPix');
+const qrcodeEl = document.getElementById('qrcode');
+const pixCodeEl = document.getElementById('pixCode');
+const btnCopiar = document.getElementById('btnCopiar');
+
+function generatePixPayload({chave='00000000-0000-0000-0000-000000000000',valor='2.00',descricao='Aposta R$2'}){
+  // For demo purposes we create a simple human readable payload. Replace with real EMV Pix payload generator if needed.
+  return `PIX|chave:${chave}|valor:${valor}|desc:${descricao}`;
+}
+
+function renderQRCode(text){
+  // Clear previous
+  qrcodeEl.innerHTML = '';
+  // Use a simple canvas-based QR generator if QRCode lib were complete. For now create a fallback box.
+  const pre = document.createElement('pre');
+  pre.style.whiteSpace='pre-wrap';
+  pre.style.textAlign='center';
+  pre.style.padding='16px';
+  pre.style.border='1px dashed rgba(255,255,255,0.06)';
+  pre.style.borderRadius='8px';
+  pre.textContent = text;
+  qrcodeEl.appendChild(pre);
+}
+
+btnGerarPix.addEventListener('click', ()=>{
+  const selected = hidden.value || '';
+  if (!selected) {
+    if(!confirm('Você não selecionou números. Deseja continuar e gerar PIX mesmo assim?')) return;
+  }
+  const chave = '00000000-0000-0000-0000-000000000000';
+  const payload = generatePixPayload({chave, valor:'2.00', descricao:`Aposta: ${selected || 'sem números'}`});
+  pixCodeEl.value = payload;
+  renderQRCode(payload);
+});
+
+btnCopiar.addEventListener('click', ()=>{
+  const text = pixCodeEl.value;
+  if (!text) { alert('Não há código PIX para copiar. Gere um PIX primeiro.'); return; }
+  navigator.clipboard.writeText(text).then(()=>{
+    alert('Código PIX copiado para a área de transferência.');
+  },()=>{ alert('Falha ao copiar. Selecione o texto manualmente.'); });
+});
+
+// --- Form submit handler (demo behavior) ---
+const betForm = document.getElementById('betForm');
+betForm.addEventListener('submit', e=>{
+  e.preventDefault();
+  const data = new FormData(betForm);
+  const payload = Object.fromEntries(data.entries());
+  if (!payload.numeros) { if(!confirm('Nenhum número selecionado. Enviar a aposta?')) return; }
+  // For demo, just show the data — wire up to backend or GitHub Actions as needed
+  alert('Aposta enviada (demo):\n' + JSON.stringify(payload, null, 2));
+});
+
+// --- Stats: probability and expectation (simple combinatorics) ---
+function nCr(n,r){ if(r>n) return 0; if(r===0) return 1; let num=1, den=1; for(let i=1;i<=r;i++){ num *= (n - (r - i)); den *= i; } return num/den; }
+
+function updateStats(k){
+  const totalComb = nCr(101,4); // choosing 4 from 0..100 inclusive
+  const prob = (k===4) ? (1/totalComb) : '—';
+  const probText = (typeof prob === 'number') ? `Probabilidade de uma combinação exata: 1 em ${Math.round(1/prob).toLocaleString()}` : 'Selecione 4 números para ver a probabilidade exata.';
+  document.getElementById('probabilityText').textContent = probText;
+  const expectation = `Pagamento por acerto: R$200 — Custo R$2.`;
+  document.getElementById('expectationText').textContent = expectation;
+}
+
+// Initialize stats
+updateStats(0);
+
+// Footer year
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Chat toggle
+const chatToggle = document.getElementById('chatToggle');
+const chatBox = document.getElementById('chatBox');
+const closeChat = document.getElementById('closeChat');
+chatToggle.addEventListener('click', ()=>chatBox.style.display = chatBox.style.display === 'flex' ? 'none' : 'flex');
+closeChat.addEventListener('click', ()=>chatBox.style.display = 'none');
+</script>
+</body>
+</html>
