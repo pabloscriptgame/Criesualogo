@@ -4,269 +4,199 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Apostador — Cassino Futurista</title>
-  <meta name="description" content="Aposte de 0 a 100 — gerador de PIX e QR Code para testes" />
   <style>
-    :root{--bg1:#0f1222;--bg2:#1b1f3a;--accent:#7c5cff;--accent2:#22ff99;--accent3:#00ccff;--text:#e8eaf2;--muted:#9aa3b2}
+    :root{
+      --bg1:#0f1222; --bg2:#1b1f3a; --accent:#7c5cff; --accent2:#22ff99; --accent3:#00ccff;
+      --text:#e8eaf2; --muted:#9aa3b2;
+    }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:var(--text)}
-    body{background:linear-gradient(-45deg,var(--bg1),#13162e,var(--bg2),#111827);background-size:400% 400%;animation:bgAnim 18s ease infinite}
+    body{margin:0;padding:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:var(--text);
+      background:linear-gradient(-45deg,var(--bg1),#13162e,var(--bg2),#111827);background-size:400% 400%;
+      animation:bgAnim 18s ease infinite}
     @keyframes bgAnim{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-
-    /* Layout full width friendly for GitHub Pages */
-    .page-wrap{min-height:100vh;display:flex;justify-content:center;padding:12px}
-    .container{width:100%;max-width:1100px;margin:0 auto;padding:18px;background:rgba(20,20,40,0.7);border-radius:12px;box-shadow:0 0 20px rgba(124,92,255,0.25);backdrop-filter:blur(8px)}
-
-    header{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;justify-content:center}
-    .logo{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-weight:900;color:#fff;box-shadow:0 0 12px var(--accent)}
-    h1,h2,h3{color:#fff;text-shadow:0 0 10px var(--accent),0 0 20px var(--accent2);animation:pulse 3s infinite alternate;text-align:center}
-    @keyframes pulse{from{text-shadow:0 0 6px var(--accent)}to{text-shadow:0 0 24px var(--accent2),0 0 36px var(--accent3)}}
-
-    .card{background:rgba(15,18,34,0.85);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:14px;margin-bottom:14px;box-shadow:0 0 10px rgba(0,0,0,0.4)}
-
-    label{display:block;margin:6px 0 4px;font-size:14px;color:var(--accent2);font-weight:600}
-    input,textarea,select,button{font-family:inherit}
-    input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:#fff;font-size:14px}
-
-    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+    .page-wrap{min-height:100vh;display:flex;justify-content:center;padding:18px}
+    .container{width:100%;max-width:1100px;margin:0 auto;padding:20px;background:rgba(12,14,28,0.7);
+      border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.6);backdrop-filter: blur(6px)}
+    header{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;justify-content:center}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));
+      display:grid;place-items:center;font-weight:900;color:#000;box-shadow:0 6px 18px rgba(124,92,255,0.22);font-size:24px}
+    h1,h2,h3{color:#fff;text-align:center;margin:0}
+    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
     @media(max-width:880px){.grid{grid-template-columns:1fr}}
-
-    .row{display:flex;gap:10px;flex-wrap:wrap}
-
-    .numbers-wrapper{border:1px solid rgba(124,92,255,.35);border-radius:8px;padding:10px;margin-top:6px;overflow:hidden}
-    .numbers{display:grid;grid-template-columns:repeat(auto-fit,minmax(44px,1fr));gap:6px}
-    .numbers button{padding:8px;font-weight:700;border-radius:6px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);transition:.14s;font-size:13px;cursor:pointer}
-    .numbers button:hover{transform:translateY(-2px);box-shadow:0 6px 12px rgba(0,0,0,0.35)}
-    .numbers button.active{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#000;box-shadow:0 0 10px rgba(124,92,255,.25)}
-
-    /* Make action buttons full width for better alignment */
-    .btn-neon,.btn-neon-green,.btn-neon-blue{display:block;margin:10px auto;width:100%;max-width:none;text-align:center;font-size:16px;font-weight:700;cursor:pointer;padding:12px 14px;border-radius:8px}
-    .btn-neon{border:2px solid var(--accent);background:transparent;color:#fff;box-shadow:0 0 10px rgba(124,92,255,.12)}
-    .btn-neon:hover{background:var(--accent);box-shadow:0 0 20px var(--accent)}
-    .btn-neon-green{border:2px solid var(--accent2);color:#fff;box-shadow:0 0 12px rgba(34,255,153,.12)}
-    .btn-neon-green:hover{background:var(--accent2);color:#000}
-    .btn-neon-blue{border:2px solid var(--accent3);color:#fff;box-shadow:0 0 12px rgba(0,204,255,.12)}
-    .btn-neon-blue:hover{background:var(--accent3);color:#000}
-
-    .top-marquee{overflow:hidden;padding:6px 10px;margin-bottom:12px;background:linear-gradient(90deg,rgba(124,92,255,.15),rgba(34,197,94,.08));border-radius:6px}
-    .marquee-inner{display:inline-block;white-space:nowrap;padding-left:100%;animation:marquee 14s linear infinite;font-weight:800;color:#fff}
-    @keyframes marquee{0%{transform:translateX(0%)}100%{transform:translateX(-100%)}}
-
-    footer{text-align:center;font-size:12px;color:var(--muted);margin-top:14px}
-
-    /* Chat assistant compact */
-    .chat-toggle{position:fixed;right:18px;bottom:16px;z-index:9999;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:999px;padding:12px 14px;border:0;color:#fff;box-shadow:0 0 16px var(--accent);font-weight:800;cursor:pointer}
-    .chat-box{position:fixed;right:18px;bottom:76px;width:340px;max-width:95%;height:60vh;background:rgba(20,20,40,.95);border-radius:12px;border:1px solid rgba(255,255,255,.06);box-shadow:0 4px 30px rgba(0,0,0,.6);display:none;flex-direction:column;overflow:hidden;z-index:9998}
-    .chat-header{padding:10px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#000;font-weight:800;display:flex;justify-content:space-between;align-items:center}
-    .chat-messages{flex:1;padding:10px;overflow:auto;display:flex;flex-direction:column;gap:6px}
-    .msg{max-width:85%;padding:8px 10px;border-radius:8px;font-size:14px;line-height:1.4}
-    .msg.user{align-self:flex-end;background:linear-gradient(90deg,var(--accent3),var(--accent2));color:#000}
-    .msg.bot{align-self:flex-start;background:linear-gradient(90deg,#222,var(--accent));color:#fff;font-weight:500}
-    .chat-input{display:flex;padding:8px;gap:6px;border-top:1px solid rgba(255,255,255,.06)}
-    .chat-input input{flex:1;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.06)}
-
-    @media(max-width:480px){.numbers{grid-template-columns:repeat(auto-fit,minmax(36px,1fr))}}
+    .card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);
+      border-radius:10px;padding:14px;margin-bottom:14px;box-shadow:0 6px 20px rgba(0,0,0,0.5)}
+    label{display:block;margin:6px 0 4px;font-size:14px;color:var(--accent2);font-weight:600}
+    input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,.06);
+      background:rgba(255,255,255,.02);color:#fff;font-size:14px}
+    .numbers{display:grid;grid-template-columns:repeat(auto-fit,minmax(44px,1fr));gap:8px}
+    .numbers button{padding:10px;font-weight:800;border-radius:8px;background:transparent;
+      border:1px solid rgba(255,255,255,.06);color:var(--text);cursor:pointer;font-size:13px}
+    .numbers button:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(0,0,0,0.5)}
+    .numbers button.active{background:transparent;border:2px solid var(--accent);color:#fff;
+      box-shadow:0 6px 18px rgba(124,92,255,0.18)}
+    .btn{padding:12px 14px;border-radius:8px;font-weight:800;cursor:pointer;border:0}
+    .btn-neon{background:transparent;border:2px solid var(--accent);color:#fff}
+    .btn-neon:hover{background:var(--accent);color:#000}
+    .btn-green{background:transparent;border:2px solid var(--accent2);color:#fff}
+    .btn-green:hover{background:var(--accent2);color:#000}
+    .btn-blue{background:transparent;border:2px solid var(--accent3);color:#fff}
+    .btn-blue:hover{background:var(--accent3);color:#000}
+    .muted{color:var(--muted);font-size:13px}
+    footer{text-align:center;font-size:12px;color:var(--muted);margin-top:12px}
   </style>
 </head>
 <body>
-<div class="page-wrap">
-  <main class="container">
-    <div class="top-marquee"><div class="marquee-inner">🎰 Sorteio todo sábado às 11h — Prêmio: R$200 — Aposta: R$2</div></div>
+  <div class="page-wrap">
+    <main class="container">
+      <header>
+        <div class="logo">A</div>
+        <h1>Apostador — Cassino Futurista</h1>
+      </header>
 
-    <header>
-      <div class="logo">A</div>
-      <h1>Apostador — Cassino Futurista</h1>
-    </header>
-
-    <section class="grid">
-      <section class="card">
-        <h2>Monte sua aposta</h2>
-        <form id="betForm">
-          <div class="row">
-            <div style="flex:1">
-              <label>👤 Nome completo</label>
-              <input name="nome" required placeholder="Ex.: Ana Silva" />
-            </div>
-            <div style="flex:1">
-              <label>📱 WhatsApp</label>
-              <input name="telefone" placeholder="(00) 90000-0000" />
-            </div>
-          </div>
-
-          <label style="margin-top:8px">🔢 Escolha até 4 números (0 a 100)</label>
-          <div class="numbers-wrapper">
+      <section class="grid">
+        <section class="card">
+          <h2>Monte sua aposta</h2>
+          <form id="betForm">
+            <label>👤 Nome completo</label>
+            <input name="nome" id="nome" required />
+            <label>📱 WhatsApp</label>
+            <input name="telefone" id="telefone" />
+            <label style="margin-top:12px">🔢 Escolha até 4 números</label>
             <div class="numbers" id="numbers"></div>
-          </div>
-          <input type="hidden" id="numeros" name="numeros" />
+            <input type="hidden" id="numeros" name="numeros" />
+            <div style="margin-top:14px;text-align:center">
+              <button type="button" id="btnGerarPix" class="btn btn-green">⚡ Gerar PIX</button>
+              <button type="submit" class="btn btn-neon">🚀 Enviar aposta</button>
+              <button type="button" id="btnDownloadPdf" class="btn btn-blue" style="display:none">⬇️ Baixar PDF</button>
+            </div>
+          </form>
+        </section>
 
-          <div style="text-align:center;margin:14px 0">
-            <h3 style="color:var(--accent2);animation:pulse 2s infinite">💰 Acerte 4 números e leve R$200!</h3>
-            <p style="font-size:13px;color:var(--muted)">Valor fixo da aposta: R$2</p>
-          </div>
-
-          <button type="button" class="btn-neon-green" id="btnGerarPix">⚡ Gerar PIX (R$2)</button>
-          <button type="submit" class="btn-neon">🚀 Enviar aposta</button>
-        </form>
+        <aside class="card">
+          <h3>Pagamento PIX</h3>
+          <div id="qrcode" style="margin:auto;text-align:center"></div>
+          <textarea id="pixCode" rows="3" readonly></textarea>
+          <button id="btnCopiar" class="btn btn-neon" style="margin-top:8px">📋 Copiar PIX</button>
+        </aside>
       </section>
 
-      <aside class="card">
-        <h3>Pagamento PIX</h3>
-        <p>Use "Gerar PIX" para criar QR Code e código copia-e-cola.</p>
-        <div id="qrcode" style="min-height:160px;text-align:center"></div>
-        <textarea id="pixCode" rows="3" readonly style="margin-top:8px"></textarea>
-        <button class="btn-neon-blue" id="btnCopiar">📋 Copiar PIX</button>
-      </aside>
-    </section>
-
-    <section class="card">
-      <h2>🎲 Detalhes do Jogo</h2>
-      <p>✨ Transforme <strong>R$2</strong> em <strong>R$200</strong> com sorte! ✨</p>
-      <p id="probabilityText"></p>
-      <p id="expectationText"></p>
-      <ul>
-        <li>🎯 Suas escolhas, sua sorte! Cada número pode mudar tudo.</li>
-        <li>💸 De R$2 para R$200! Transforme pouco em muito.</li>
-        <li>🍀 Aposte no impossível: às vezes a sorte sorri quando menos se espera.</li>
-        <li>🚀 Uma chance, um clique, um prêmio!</li>
-        <li>🔮 Sorte não se explica, se sente.</li>
-      </ul>
-      <!-- Exemplo removido conforme solicitado -->
-    </section>
-
-    <footer>© <span id="year"></span> Apostador Futurista • Uso educacional</footer>
-  </main>
-</div>
-
-<button class="chat-toggle" id="chatToggle">🤖 Assistente</button>
-<div class="chat-box" id="chatBox">
-  <div class="chat-header">Assistente <button id="closeChat" style="background:none;border:0;color:#000;cursor:pointer">✖</button></div>
-  <div class="chat-messages" id="chatMessages">
-    <div class="msg bot">👋 Olá jogador! Pergunte: "Como funciona?", "Minhas chances?", "Como pagar?"</div>
+      <footer>© <span id="year"></span> Apostador Futurista</footer>
+    </main>
   </div>
-  <div class="chat-input">
-    <input id="chatInput" placeholder="Digite aqui..." />
-    <button id="chatSend" class="btn-neon">Enviar</button>
-  </div>
-</div>
 
-<!-- QRCode.js (minified portion included earlier) -->
-<script>
-/*! QRCode.js minimal use (only QR generation function is used below) - kept inline for GitHub Pages simplicity */
-!function(o){function l(o){this.mode=1,this.data=o}function h(o,l){this.typeNumber=0,this.errorCorrectLevel=o,this.modules=null,this.moduleCount=0,this.dataList=[],l&&(this.makeImpl=l)}o.QRCode=h}(this);
-</script>
+  <!-- libs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-<script>
-// --- Populate numbers 0..100 (inclusive) and handle selection (max 4) ---
-const numbersEl = document.getElementById('numbers');
-const hidden = document.getElementById('numeros');
-const MAX_SELECTION = 4;
+  <script>
+    const PIX_KEY = '11778657699';
+    const WHATSAPP_NUMBER = '5534998110946';
+    const BET_VALUE = '2.00';
+    const MAX_SELECTION = 4;
 
-for (let i = 0; i <= 100; i++) {
-  const b = document.createElement('button');
-  b.type = 'button';
-  b.textContent = i.toString().padStart(2, '0');
-  b.dataset.value = b.textContent;
-  numbersEl.appendChild(b);
-}
+    const numbersEl = document.getElementById('numbers');
+    const hidden = document.getElementById('numeros');
 
-function updateHidden() {
-  const vals = [...numbersEl.querySelectorAll('button.active')].map(b => b.dataset.value);
-  hidden.value = vals.join(',');
-  // update calculated probability and expectation
-  updateStats(vals.length);
-}
+    // Criar botões 0-100
+    for (let i=0;i<=100;i++){
+      const b=document.createElement('button');
+      b.type='button'; b.textContent=i.toString().padStart(2,'0');
+      b.dataset.value=i; numbersEl.appendChild(b);
+    }
 
-numbersEl.addEventListener('click', e => {
-  const b = e.target.closest('button');
-  if (!b) return;
-  const active = numbersEl.querySelectorAll('button.active').length;
-  if (!b.classList.contains('active') && active >= MAX_SELECTION) {
-    // prevent selecting more than MAX_SELECTION
-    alert('Você pode escolher no máximo ' + MAX_SELECTION + ' números.');
-    return;
-  }
-  b.classList.toggle('active');
-  updateHidden();
-});
+    numbersEl.addEventListener('click',e=>{
+      const b=e.target.closest('button'); if(!b) return;
+      const active=numbersEl.querySelectorAll('.active').length;
+      if(!b.classList.contains('active')&&active>=MAX_SELECTION){alert('Máx '+MAX_SELECTION+' números');return;}
+      b.classList.toggle('active');
+      hidden.value=[...numbersEl.querySelectorAll('.active')].map(x=>x.dataset.value).join(',');
+    });
 
-// --- PIX generation (demo payload + QR using a simple text payload) ---
-const btnGerarPix = document.getElementById('btnGerarPix');
-const qrcodeEl = document.getElementById('qrcode');
-const pixCodeEl = document.getElementById('pixCode');
-const btnCopiar = document.getElementById('btnCopiar');
+    // Gerador Pix EMV
+    function emvPix({chave,valor,descricao,txid}){
+      function f(id,v){const len=(v.length).toString().padStart(2,'0');return id+len+v}
+      let gui='0014br.gov.bcb.pix';
+      let key=f('01',chave);
+      let desc=descricao?f('02',descricao):'';
+      let add=f('26',gui+key+desc);
+      let val=valor?f('54',valor):'';
+      let base='000201'+add+f('52','0000')+f('53','986')+val+f('58','BR')+f('59','APOSTADOR')+f('60','BR')+'6304';
+      return base+crc16(base).toUpperCase();
+    }
+    function crc16(str){let crc=0xFFFF;for(let i=0;i<str.length;i++){crc^=str.charCodeAt(i)<<8;for(let j=0;j<8;j++){crc=(crc&0x8000)?(crc<<1)^0x1021:crc<<1;crc&=0xFFFF;}}return crc.toString(16).padStart(4,'0');}
 
-function generatePixPayload({chave='00000000-0000-0000-0000-000000000000',valor='2.00',descricao='Aposta R$2'}){
-  // For demo purposes we create a simple human readable payload. Replace with real EMV Pix payload generator if needed.
-  return `PIX|chave:${chave}|valor:${valor}|desc:${descricao}`;
-}
+    const btnGerarPix=document.getElementById('btnGerarPix');
+    const qrcodeEl=document.getElementById('qrcode');
+    const pixCodeEl=document.getElementById('pixCode');
+    btnGerarPix.addEventListener('click',()=>{
+      const selected=hidden.value||'';
+      const payload=emvPix({chave:PIX_KEY,valor:BET_VALUE,descricao:'Aposta '+selected,txid:'APOSTA'});
+      pixCodeEl.value=payload;
+      qrcodeEl.innerHTML='';
+      new QRCode(qrcodeEl,{text:payload,width:200,height:200});
+    });
 
-function renderQRCode(text){
-  // Clear previous
-  qrcodeEl.innerHTML = '';
-  // Use a simple canvas-based QR generator if QRCode lib were complete. For now create a fallback box.
-  const pre = document.createElement('pre');
-  pre.style.whiteSpace='pre-wrap';
-  pre.style.textAlign='center';
-  pre.style.padding='16px';
-  pre.style.border='1px dashed rgba(255,255,255,0.06)';
-  pre.style.borderRadius='8px';
-  pre.textContent = text;
-  qrcodeEl.appendChild(pre);
-}
+    document.getElementById('btnCopiar').addEventListener('click',()=>{
+      if(!pixCodeEl.value){alert('Gere o PIX primeiro');return;}
+      navigator.clipboard.writeText(pixCodeEl.value);
+      alert('PIX copiado');
+    });
 
-btnGerarPix.addEventListener('click', ()=>{
-  const selected = hidden.value || '';
-  if (!selected) {
-    if(!confirm('Você não selecionou números. Deseja continuar e gerar PIX mesmo assim?')) return;
-  }
-  const chave = '00000000-0000-0000-0000-000000000000';
-  const payload = generatePixPayload({chave, valor:'2.00', descricao:`Aposta: ${selected || 'sem números'}`});
-  pixCodeEl.value = payload;
-  renderQRCode(payload);
-});
+    // PDF Neon
+    async function generatePdf(data){
+      const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'pt',format:'a4'});
+      // Header neon
+      doc.setFillColor(20,20,40);doc.rect(0,0,595,80,'F');
+      doc.setFontSize(22);doc.setTextColor(124,92,255);
+      doc.text('Comprovante de Aposta',297,50,{align:'center'});
 
-btnCopiar.addEventListener('click', ()=>{
-  const text = pixCodeEl.value;
-  if (!text) { alert('Não há código PIX para copiar. Gere um PIX primeiro.'); return; }
-  navigator.clipboard.writeText(text).then(()=>{
-    alert('Código PIX copiado para a área de transferência.');
-  },()=>{ alert('Falha ao copiar. Selecione o texto manualmente.'); });
-});
+      // Info
+      doc.setFontSize(12);doc.setTextColor(255,255,255);
+      let y=100;
+      doc.text(`Nome: ${data.nome}`,40,y); y+=18;
+      doc.text(`WhatsApp: ${data.telefone||'—'}`,40,y); y+=18;
+      doc.text(`Data: ${data.date}`,40,y); y+=18;
+      doc.text(`Valor: R$${BET_VALUE}`,40,y); y+=18;
+      doc.text(`Chave PIX: ${PIX_KEY}`,40,y); y+=30;
 
-// --- Form submit handler (demo behavior) ---
-const betForm = document.getElementById('betForm');
-betForm.addEventListener('submit', e=>{
-  e.preventDefault();
-  const data = new FormData(betForm);
-  const payload = Object.fromEntries(data.entries());
-  if (!payload.numeros) { if(!confirm('Nenhum número selecionado. Enviar a aposta?')) return; }
-  // For demo, just show the data — wire up to backend or GitHub Actions as needed
-  alert('Aposta enviada (demo):\n' + JSON.stringify(payload, null, 2));
-});
+      // Números em caixinhas neon
+      doc.setFontSize(14);doc.setTextColor(34,255,153);
+      doc.text('Números escolhidos:',40,y); y+=20;
+      const nums=data.numeros.length?data.numeros:['—'];
+      let x=40;let count=0;
+      nums.forEach(n=>{
+        doc.setDrawColor(124,92,255);doc.setFillColor(30,30,50);
+        doc.roundedRect(x,y,40,30,6,6,'FD');
+        doc.setTextColor(255,255,255);doc.text(n.toString().padStart(2,'0'),x+20,y+20,{align:'center'});
+        x+=50;count++;if(count%8===0){x=40;y+=40;}
+      });
 
-// --- Stats: probability and expectation (simple combinatorics) ---
-function nCr(n,r){ if(r>n) return 0; if(r===0) return 1; let num=1, den=1; for(let i=1;i<=r;i++){ num *= (n - (r - i)); den *= i; } return num/den; }
+      // Rodapé
+      y+=60;doc.setFontSize(10);doc.setTextColor(180,180,200);
+      doc.text('Guarde este comprovante e envie-o junto ao suporte via WhatsApp.',40,y);
 
-function updateStats(k){
-  const totalComb = nCr(101,4); // choosing 4 from 0..100 inclusive
-  const prob = (k===4) ? (1/totalComb) : '—';
-  const probText = (typeof prob === 'number') ? `Probabilidade de uma combinação exata: 1 em ${Math.round(1/prob).toLocaleString()}` : 'Selecione 4 números para ver a probabilidade exata.';
-  document.getElementById('probabilityText').textContent = probText;
-  const expectation = `Pagamento por acerto: R$200 — Custo R$2.`;
-  document.getElementById('expectationText').textContent = expectation;
-}
+      return doc;
+    }
 
-// Initialize stats
-updateStats(0);
+    const betForm=document.getElementById('betForm');
+    const btnDownloadPdf=document.getElementById('btnDownloadPdf');
+    betForm.addEventListener('submit',async e=>{
+      e.preventDefault();
+      const nome=document.getElementById('nome').value;
+      const telefone=document.getElementById('telefone').value;
+      const numeros=hidden.value?hidden.value.split(','):[];
+      const now=new Date().toLocaleString('pt-BR');
+      const pdf=await generatePdf({nome,telefone,numeros,date:now});
+      const blob=pdf.output('blob');const url=URL.createObjectURL(blob);
+      btnDownloadPdf.style.display='inline-block';
+      btnDownloadPdf.onclick=()=>{const a=document.createElement('a');a.href=url;a.download='comprovante.pdf';a.click();}
+      const msg=`Nome: ${nome}\nWhatsApp: ${telefone}\nNúmeros: ${numeros.join(', ')||'—'}\nValor: R$${BET_VALUE}\nPIX: ${PIX_KEY}\nData: ${now}`;
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank');
+      alert('PDF gerado. Clique em Baixar PDF e envie no WhatsApp que abriu.');
+    });
 
-// Footer year
-document.getElementById('year').textContent = new Date().getFullYear();
-
-// Chat toggle
-const chatToggle = document.getElementById('chatToggle');
-const chatBox = document.getElementById('chatBox');
-const closeChat = document.getElementById('closeChat');
-chatToggle.addEventListener('click', ()=>chatBox.style.display = chatBox.style.display === 'flex' ? 'none' : 'flex');
-closeChat.addEventListener('click', ()=>chatBox.style.display = 'none');
-</script>
+    document.getElementById('year').textContent=new Date().getFullYear();
+  </script>
 </body>
 </html>
+
