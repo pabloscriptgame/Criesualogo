@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Cassino Neon - Completo</title>
+  <style>
+    :root{--bg1:#0b0710;--bg2:#12030a;--accent:#ff004c;--accent2:#ffd700;--accent3:#00ff85;--accent4:#00ccff;--text:#e9eef8;--muted:#b6b9c7}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,Arial;background:linear-gradient(120deg,var(--bg1),var(--bg2));color:var(--text)}
+    .wrap{max-width:1150px;margin:20px auto;padding:20px}
+    header{display:flex;align-items:center;gap:16px}
+    .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#000;font-weight:900}
+    .grid{display:grid;grid-template-columns:1fr;gap:18px}
+    .card{background:rgba(255,255,255,0.02);padding:14px;border-radius:12px}
+    label{display:block;margin:6px 0;color:var(--accent2);font-weight:700}
+    input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.01);color:var(--text)}
+    .numbers{display:grid;grid-template-columns:repeat(auto-fit,minmax(46px,1fr));gap:8px}
+    .numbers button{padding:10px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text);cursor:pointer}
+    .numbers button.active{background:linear-gradient(90deg,rgba(255,0,76,0.08),rgba(34,255,153,0.04));border:2px solid var(--accent);color:#fff}
+    .actions{display:flex;gap:8px;justify-content:center}
+    .btn{padding:12px 14px;border-radius:10px;border:0;cursor:pointer}
+    .btn-neon{background:transparent;border:2px solid var(--accent);color:#fff}
+    .btn-green{background:transparent;border:2px solid var(--accent3);color:#fff}
+    .btn-gold{background:transparent;border:2px solid var(--accent2);color:#fff}
+    .muted{color:var(--muted)}
+    .gallery{display:flex;gap:12px;margin-top:12px}
+    .gallery img{width:32%;border-radius:10px;border:2px solid rgba(255,255,255,0.04)}
+    .chat-toggle{position:fixed;right:18px;bottom:16px;background:linear-gradient(135deg,var(--accent),var(--accent3));padding:12px;border-radius:999px;border:0;color:#000;cursor:pointer}
+    .chat-box{position:fixed;right:18px;bottom:76px;width:380px;height:62vh;background:linear-gradient(180deg,#0a0a12,#161626);border-radius:12px;display:none;flex-direction:column;overflow:hidden}
+    .chat-header{background:linear-gradient(90deg,var(--accent),var(--accent3));padding:10px;color:#000;font-weight:800;display:flex;justify-content:space-between}
+    .chat-messages{flex:1;padding:10px;overflow:auto}
+    .msg{padding:8px;border-radius:10px;margin-bottom:8px}
+    .bot{background:linear-gradient(90deg,#222,var(--accent));color:#fff}
+    .user{background:linear-gradient(90deg,var(--accent4),var(--accent3));color:#000}
+    .footer{margin-top:18px;text-align:center;color:var(--muted)}
+
+    /* Texto rolando */
+    .marquee {
+      overflow: hidden;
+      white-space: nowrap;
+      box-sizing: border-box;
+      color: var(--muted);
+      animation: scroll-left 12s linear infinite;
+    }
+    @keyframes scroll-left {
+      0%   { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">A</div>
+    <div>
+      <h1>APOSTA</h1>
+      <div class="marquee">Sorteio todo sábado às 11h — Aposta R$2</div>
+    </div>
+  </header>
+
+  <div class="grid">
+    <main class="card">
+      <h2>Monte sua aposta</h2>
+      <form id="betForm">
+        <div style="display:flex;gap:10px">
+          <div style="flex:1">
+            <label>Nome</label><input id="nome" required>
+          </div>
+          <div style="flex:1">
+            <label>WhatsApp</label><input id="telefone">
+          </div>
+        </div>
+        
+        <div style="text-align:center;margin:12px 0">
+          <h3 style="color:var(--accent3)">Acerte 4 números e leve R$200!</h3>
+          <p class="muted">Valor: R$2</p>
+        </div>
+
+        <label style="margin-top:10px">Escolha até 4 números (0 a 100)</label>
+        <div class="card"><div class="numbers" id="numbers"></div></div>
+        <input type="hidden" id="numeros" name="numeros">
+<label style="margin-top:10px">Comprovante PIX</label>
+<input type="file" id="comprovante" accept="image/*,.pdf" required>
+
+        <div class="actions">
+          <button type="button" id="btnGerarPix" class="btn btn-green">⚡ Gerar PIX (R$2)</button>
+          <button type="submit" class="btn btn-neon">🚀 Enviar aposta</button>
+          <button type="button" id="btnDownloadPdf" class="btn btn-gold" style="display:none">⬇️ Baixar PDF</button>
+        </div>
+
+        <div id="pixArea" class="card" style="margin-top:14px">
+          <h3>Pagamento PIX</h3>
+          <div id="qrcode" style="text-align:center"></div>
+          <textarea id="pixCode" rows="3" readonly></textarea>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button id="btnCopiar" class="btn btn-neon">📋 Copiar PIX</button>
+            <button id="btnInstr" class="btn btn-gold">❓ Como pagar</button>
+          </div>
+        </div>
+      </form>
+
+      <section class="card" style="margin-top:12px">
+        <h3>Detalhes do Jogo</h3>
+        <p class="muted">Selecione 4 números. Cada aposta custa R$2. Prêmio: R$200 para combinação exata.</p>
+        <div style="color:var(--accent4);font-weight:700">
+          <p>“Sinta o pulso da sorte — respire, escolha, confie.”</p>
+          <p>“O brilho chama — deixe a intuição guiar seu dedo.”p>
+          <p>“Apostar é dançar com a sorte; mova-se com coragem.”</p>
+        </div>
+        <h3 style="margin-top:12px">Regras</h3>
+        <ol class="muted">
+          <li>Idade mínima 18 anos.</li>
+          <li>Valor da aposta: R$2. Não há reembolso.</li>
+          <li>Sorteio aos sábados às 11h (Horário de Brasília).</li>
+          <li>Ganhos pagos após verificação do comprovante.</li>
+          <li>Reservamo-nos o direito de recusar apostas suspeitas.</li>
+        </ol>
+      </section>
+
+      <section class="card" style="margin-top:12px">
+        <p class="muted">Ao enviar a aposta será gerado um PDF estilizado contendo os números escolhidos.</p>
+        <div class="gallery">
+          <img src="assets/person1.svg" alt="Vencedor segurando R$200">
+          <img src="assets/person2.svg" alt="Comemoração com R$200">
+          <img src="assets/person3.svg" alt="Mão com notas de R$200">
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="footer">© <span id="year"></span> Cassino Neon — Uso educacional</div>
+</div>
+
+<button class="chat-toggle" id="chatToggle">🤖 Assistente</button>
+<div class="chat-box" id="chatBox">
+  <div class="chat-header">Assistente
+    <button id="closeChat" style="background:none;border:0;cursor:pointer">✖</button>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="msg bot">Olá! Posso ajudar com pagamentos, regras e comprovantes. Pergunte algo.</div>
+  </div>
+  <div style="padding:8px;display:flex;gap:8px">
+    <input id="chatInput" style="flex:1;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.06)">
+    <button id="chatSend" class="btn btn-neon">Enviar</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const PIX_KEY='11778657699', WHATSAPP='5534998110946', BET_VALUE='2.00', MAX_SELECTION=4;
+const numbersEl=document.getElementById('numbers'), hidden=document.getElementById('numeros');
+for(let i=0;i<=100;i++){
+  const b=document.createElement('button');
+  b.type='button';b.textContent=i.toString().padStart(2,'0');b.dataset.value=i;
+  b.onclick=()=>{
+    if(!b.classList.contains('active')&&numbersEl.querySelectorAll('.active').length>=MAX_SELECTION){
+      alert('Máx '+MAX_SELECTION+' números');return;
+    }
+    b.classList.toggle('active');
+    hidden.value=[...numbersEl.querySelectorAll('.active')].map(x=>x.dataset.value).join(',');
+  };
+  numbersEl.appendChild(b);
+}
+function crc16(str){let crc=0xFFFF;for(let i=0;i<str.length;i++){crc^=str.charCodeAt(i)<<8;for(let j=0;j<8;j++){crc=(crc&0x8000)?(crc<<1)^0x1021:crc<<1;crc&=0xFFFF;}}return crc.toString(16).padStart(4,'0');}
+function emvPix({chave,valor,descricao,txid}){function f(id,v){return id+String(v.length).padStart(2,'0')+v}let gui='0014br.gov.bcb.pix';let add=f('26',gui+f('01',chave)+(descricao?f('02',descricao):''));let val=valor?f('54',valor):'';let base='000201'+add+f('52','0000')+f('53','986')+val+f('58','BR')+f('59','APOSTADOR')+f('60','BR')+'6304';return base+crc16(base).toUpperCase();}
+const btnGerarPix=document.getElementById('btnGerarPix'), qrcodeEl=document.getElementById('qrcode'), pixCodeEl=document.getElementById('pixCode');
+btnGerarPix.addEventListener('click',()=>{const selected=hidden.value||'';const payload=emvPix({chave:PIX_KEY,valor:BET_VALUE,descricao:'Aposta '+(selected||'sem números'),txid:'APOSTA'});pixCodeEl.value=payload;document.getElementById('qrcode').innerHTML='';new QRCode(document.getElementById('qrcode'),{text:payload,width:200,height:200});});
+document.getElementById('btnCopiar').addEventListener('click',()=>{navigator.clipboard.writeText(pixCodeEl.value).then(()=>alert('PIX copiado'),()=>alert('Falha'))});
+document.getElementById('btnInstr').addEventListener('click',()=>{alert("📌 Como pagar via PIX:\n\n1. Abra seu app do banco.\n2. Escolha a opção 'Pix Copia e Cola'.\n3. Cole o código gerado.\n4. Confirme o valor R$2,00.\n5. Finalize o pagamento.");});
+const { jsPDF } = window.jspdf;
+const btnDownloadPdf=document.getElementById('btnDownloadPdf');
+
+document.getElementById('betForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const nome = document.getElementById('nome').value;
+  const telefone = document.getElementById('telefone').value;
+  const numeros = hidden.value;
+  const comprovante = document.getElementById('comprovante').files[0];
+
+  if (!numeros) {
+    alert("Escolha ao menos 1 número.");
+    return;
+  }
+  if (!comprovante) {
+    alert("Envie o comprovante PIX.");
+    return;
+  }
+
+  // Gera PDF da aposta
+  const pdf = new jsPDF();
+  pdf.setFontSize(18);
+  pdf.text("Comprovante de Aposta", 20, 20);
+  pdf.setFontSize(12);
+  pdf.text("Nome: " + nome, 20, 40);
+  pdf.text("WhatsApp: " + telefone, 20, 50);
+  pdf.text("Números: " + numeros, 20, 60);
+  pdf.text("Valor: R$2,00", 20, 70);
+  pdf.text("Boa sorte no sorteio!", 20, 90);
+
+  // Monta a mensagem para WhatsApp
+  const msg = `🚀 Nova aposta!
+
+👤 Nome: ${nome}
+📱 WhatsApp: ${telefone}
+🎲 Números: ${numeros}
+
+Comprovante PIX enviado.`;
+  const link = `https://wa.me/5534998110946?text=${encodeURIComponent(msg)}`;
+
+  // Abre o WhatsApp Web/App com a mensagem pronta
+  window.open(link, "_blank");
+
+  // Exibe botão de download do PDF
+  btnDownloadPdf.style.display = "inline-block";
+  btnDownloadPdf.onclick = () => pdf.save("aposta.pdf");
+});
+document.getElementById('year').textContent=new Date().getFullYear();
+
+// Simple chat toggle
+document.getElementById('chatToggle').addEventListener('click',()=>{document.getElementById('chatBox').style.display='flex';});
+document.getElementById('closeChat').addEventListener('click',()=>{document.getElementById('chatBox').style.display='none';});
+document.getElementById('chatSend').addEventListener('click',()=>{const msg=document.getElementById('chatInput').value.trim();if(!msg) return;const div=document.createElement('div');div.className='msg user';div.textContent=msg;document.getElementById('chatMessages').appendChild(div);document.getElementById('chatInput').value='';setTimeout(()=>{const r=document.createElement('div');r.className='msg bot';r.textContent='Desculpe, ainda estou em modo demo. Use Gerar PIX e Enviar aposta.';document.getElementById('chatMessages').appendChild(r);},600);});
+</script>
+</body>
+</html>
