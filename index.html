@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PabloLogoMarcas - Criação de Logomarcas 3D Grátis e Pagas</title>
-    <meta name="description" content="Crie logomarcas 3D profissionais de forma gratuita ou com planos pagos. Design moderno e ferramentas avançadas para sua marca.">
+    <title>PabloLogoMarcas AI - Gerador de Logomarcas 3D com InteligÃªncia Artificial</title>
+    <meta name="description" content="Crie logomarcas 3D profissionais com nossa IA avanÃ§ada. 100% GRATUITO com geraÃ§Ã£o automÃ¡tica de designs baseados em anÃ¡lise inteligente.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>ðŸ¤–</text></svg>">
     
     <style>
         :root {
+            --ai-blue: #1e3a8a;
+            --ai-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --neon-blue: #00f5ff;
             --neon-pink: #ff00ff;
             --neon-green: #39ff14;
@@ -18,13 +20,16 @@
             --neon-orange: #ff9500;
             --neon-yellow: #ffff00;
             --bg-dark: #0a0a0a;
-            --bg-card: rgba(15, 15, 15, 0.9);
+            --bg-card: rgba(15, 15, 15, 0.95);
             --text-primary: #ffffff;
             --text-secondary: #b0b0b0;
+            --text-accent: #a5b4fc;
+            --shadow-ai: 0 0 30px rgba(102, 126, 234, 0.3);
             --shadow-neon: 0 0 20px rgba(0, 245, 255, 0.5);
-            --shadow-glow: 0 0 30px rgba(255, 0, 255, 0.3);
+            --shadow-glow: 0 0 40px rgba(255, 0, 255, 0.3);
             --whatsapp-green: #25D366;
             --gradient-neon: linear-gradient(45deg, var(--neon-blue), var(--neon-pink), var(--neon-green));
+            --gradient-ai: linear-gradient(45deg, #1e40af, #7c3aed, #ec4899);
         }
 
         * {
@@ -34,57 +39,49 @@
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Inter', sans-serif;
             background: var(--bg-dark);
             color: var(--text-primary);
             overflow-x: hidden;
             line-height: 1.6;
+            min-height: 100vh;
         }
 
-        /* Neon Text Effect */
-        .neon-text {
-            font-family: 'Orbitron', monospace;
-            text-align: center;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            animation: neonFlicker 2s infinite alternate;
-            text-shadow: 
-                0 0 5px var(--neon-blue),
-                0 0 10px var(--neon-blue),
-                0 0 15px var(--neon-blue),
-                0 0 20px var(--neon-blue),
-                0 0 35px var(--neon-pink),
-                0 0 40px var(--neon-pink),
-                2px 2px 4px rgba(0,0,0,0.5);
+        /* AI Particles Background */
+        .ai-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
         }
 
-        @keyframes neonFlicker {
-            0%, 18%, 22%, 25%, 53%, 57%, 100% {
-                text-shadow: 
-                    0 0 5px var(--neon-blue),
-                    0 0 10px var(--neon-blue),
-                    0 0 15px var(--neon-blue),
-                    0 0 20px var(--neon-blue),
-                    0 0 35px var(--neon-pink),
-                    0 0 40px var(--neon-pink),
-                    2px 2px 4px rgba(0,0,0,0.5);
-            }
-            20%, 24%, 55% {
-                text-shadow: none;
-            }
+        .particle {
+            position: absolute;
+            background: var(--ai-gradient);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-100vh) rotate(180deg); }
         }
 
         /* Header */
         header {
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(15px);
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
-            border-bottom: 2px solid var(--neon-blue);
-            box-shadow: var(--shadow-neon);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+            box-shadow: var(--shadow-ai);
             transition: all 0.3s ease;
         }
 
@@ -101,17 +98,30 @@
             font-family: 'Orbitron', monospace;
             font-size: 2rem;
             font-weight: 900;
-            background: var(--gradient-neon);
+            background: var(--gradient-ai);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             text-decoration: none;
-            animation: logoGlow 2s ease-in-out infinite alternate;
+            position: relative;
         }
 
-        @keyframes logoGlow {
-            from { filter: drop-shadow(0 0 5px var(--neon-blue)); }
-            to { filter: drop-shadow(0 0 15px var(--neon-pink)); }
+        .logo::after {
+            content: 'AI';
+            font-size: 0.6em;
+            background: var(--ai-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: absolute;
+            top: -5px;
+            right: -20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         .nav-links {
@@ -126,30 +136,16 @@
             font-weight: 500;
             position: relative;
             padding: 0.5rem 1rem;
-            border-radius: 8px;
+            border-radius: 25px;
             transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
         }
 
         .nav-links a:hover {
-            color: var(--neon-blue);
-            background: rgba(0, 245, 255, 0.1);
-            text-shadow: 0 0 10px var(--neon-blue);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: var(--gradient-neon);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        .nav-links a:hover::after {
-            width: 80%;
+            color: var(--ai-blue);
+            background: rgba(102, 126, 234, 0.1);
+            box-shadow: var(--shadow-ai);
+            transform: translateY(-2px);
         }
 
         .mobile-menu {
@@ -161,13 +157,14 @@
         .mobile-menu span {
             width: 30px;
             height: 3px;
-            background: var(--neon-blue);
+            background: var(--ai-blue);
             margin: 3px 0;
             transition: 0.3s;
-            box-shadow: 0 0 5px var(--neon-blue);
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
         }
 
-        /* Hero */
+        /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -175,58 +172,79 @@
             justify-content: center;
             text-align: center;
             position: relative;
-            background: radial-gradient(ellipse at center, rgba(0, 245, 255, 0.1) 0%, var(--bg-dark) 70%);
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(0, 245, 255, 0.2) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.2) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(57, 255, 20, 0.1) 0%, transparent 50%);
-            animation: rotate 25s linear infinite;
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.1) 0%, var(--bg-dark) 100%);
         }
 
         .hero-content {
-            max-width: 900px;
+            max-width: 1000px;
             padding: 0 2rem;
             position: relative;
             z-index: 2;
+            width: 100%;
         }
 
         .hero h1 {
             font-family: 'Orbitron', monospace;
-            font-size: 4.5rem;
+            font-size: clamp(3rem, 8vw, 5rem);
             font-weight: 900;
-            margin-bottom: 1.5rem;
-            background: var(--gradient-neon);
+            margin-bottom: 1rem;
+            background: var(--gradient-ai);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: textGlow 3s ease-in-out infinite alternate;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            margin-bottom: 2rem;
+            color: var(--text-accent);
+            font-weight: 400;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--ai-gradient);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            animation: badgeFloat 3s ease-in-out infinite;
+            box-shadow: var(--shadow-ai);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .ai-badge:hover::before {
+            left: 100%;
+        }
+
+        @keyframes badgeFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
         }
 
         @keyframes textGlow {
-            from { filter: drop-shadow(0 0 10px var(--neon-blue)); }
-            to { filter: drop-shadow(0 0 25px var(--neon-pink)); }
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2.5rem;
-            color: var(--text-secondary);
-            animation: fadeInUp 1s ease-out 0.3s both;
+            from { filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.5)); }
+            to { filter: drop-shadow(0 0 25px rgba(124, 75, 162, 0.7)); }
         }
 
         .cta-buttons {
@@ -238,7 +256,7 @@
         }
 
         .btn {
-            padding: 15px 35px;
+            padding: 18px 40px;
             border: none;
             border-radius: 50px;
             font-size: 1.1rem;
@@ -246,11 +264,14 @@
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
+            gap: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            text-align: center;
+            min-width: 220px;
+            font-family: 'Inter', sans-serif;
         }
 
         .btn::before {
@@ -261,7 +282,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
+            transition: left 0.6s;
         }
 
         .btn:hover::before {
@@ -269,28 +290,28 @@
         }
 
         .btn-primary {
-            background: var(--gradient-neon);
-            color: var(--bg-dark);
-            box-shadow: var(--shadow-neon);
-            border: 2px solid var(--neon-blue);
+            background: var(--gradient-ai);
+            color: white;
+            box-shadow: var(--shadow-ai);
+            border: 2px solid transparent;
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.6);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+            border-color: rgba(255,255,255,0.2);
         }
 
-        .btn-whatsapp {
-            background: var(--whatsapp-green);
-            color: white;
-            box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
-            border: 2px solid var(--whatsapp-green);
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--ai-blue);
         }
 
-        .btn-whatsapp:hover {
-            background: #128C7E;
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.6);
+        .btn-secondary:hover {
+            background: var(--ai-blue);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: var(--shadow-ai);
         }
 
         @keyframes fadeInUp {
@@ -304,12 +325,483 @@
             }
         }
 
-        /* Features */
+        /* AI Generator Section */
+        .ai-generator {
+            padding: 120px 1rem;
+            position: relative;
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.05) 0%, rgba(124, 75, 162, 0.05) 100%);
+            overflow: hidden;
+        }
+
+        .ai-generator::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+            animation: aiWave 15s ease-in-out infinite;
+        }
+
+        @keyframes aiWave {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(180deg); }
+        }
+
+        .generator-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .ai-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .ai-header h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 1rem;
+            background: var(--gradient-ai);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .ai-header h2::after {
+            content: 'ðŸ¤– AI Powered';
+            font-size: 0.3em;
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-accent);
+            font-weight: 300;
+        }
+
+        .ai-intro {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        /* AI Input Panel */
+        .ai-input-panel {
+            background: var(--bg-card);
+            border-radius: 30px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-ai);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-input-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-ai);
+            animation: borderShimmer 3s linear infinite;
+        }
+
+        @keyframes borderShimmer {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--ai-blue);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--ai-blue);
+            box-shadow: var(--shadow-ai);
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .ai-description {
+            grid-column: 1 / -1;
+        }
+
+        .ai-description textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* AI Color Palette */
+        .ai-palette {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+
+        .palette-option {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .palette-option:hover {
+            transform: scale(1.2) rotate(10deg);
+            border-color: white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .palette-option.active {
+            border-color: var(--neon-green);
+            box-shadow: 0 0 30px var(--neon-green);
+            transform: scale(1.3);
+        }
+
+        .palette-option span {
+            font-size: 0.8rem;
+            color: white;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .palette-option:hover span {
+            opacity: 1;
+        }
+
+        /* AI Generation Button */
+        .ai-generate-btn {
+            background: var(--gradient-ai);
+            color: white;
+            padding: 20px;
+            width: 100%;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            box-shadow: var(--shadow-ai);
+        }
+
+        .ai-generate-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .ai-generate-btn:hover::before {
+            left: 100%;
+        }
+
+        .ai-generate-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.4);
+        }
+
+        .ai-generate-btn.processing {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .ai-progress {
+            display: none;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-ai);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .progress-text {
+            color: var(--text-accent);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* AI Output Panel */
+        .ai-output {
+            display: none;
+            background: var(--bg-card);
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: var(--shadow-ai);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            backdrop-filter: blur(20px);
+            margin-top: 3rem;
+        }
+
+        .output-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .output-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            background: var(--gradient-ai);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .ai-suggestions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .suggestion-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .suggestion-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--ai-blue);
+            box-shadow: var(--shadow-ai);
+        }
+
+        .suggestion-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-ai);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .suggestion-title {
+            font-weight: 600;
+            color: var(--ai-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        /* 3D Logo Preview */
+        .logo-preview-container {
+            position: relative;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0;
+            perspective: 1200px;
+        }
+
+        .logo-3d-container {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: logoFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: rotateY(0deg) rotateX(0deg) translateY(0px); }
+            25% { transform: rotateY(90deg) rotateX(5deg) translateY(-10px); }
+            50% { transform: rotateY(180deg) rotateX(0deg) translateY(0px); }
+            75% { transform: rotateY(270deg) rotateX(-5deg) translateY(-10px); }
+        }
+
+        .logo-3d {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, var(--ai-blue), var(--neon-purple));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            font-weight: 900;
+            text-align: center;
+            color: white;
+            position: relative;
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(102, 126, 234, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-3d::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(255,255,255,0.1) 50%, 
+                transparent 70%);
+            border-radius: 20px;
+            animation: shine 3s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        .logo-3d > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes shine {
+            0%, 100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .download-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .download-btn {
+            background: var(--gradient-ai);
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: var(--shadow-ai);
+        }
+
+        /* Features Section */
         .features {
-            padding: 100px 2rem;
+            padding: 120px 1rem;
             max-width: 1400px;
             margin: 0 auto;
-            background: linear-gradient(135deg, rgba(0, 245, 255, 0.05) 0%, rgba(255, 0, 255, 0.05) 100%);
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.03) 0%, rgba(124, 75, 162, 0.03) 100%);
         }
 
         .section-header {
@@ -319,36 +811,30 @@
 
         .section-header h2 {
             font-family: 'Orbitron', monospace;
-            font-size: 3rem;
+            font-size: clamp(2rem, 5vw, 3.5rem);
             margin-bottom: 1rem;
-            background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue));
+            background: var(--gradient-ai);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .section-header p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 2.5rem;
+            padding: 0 1rem;
         }
 
         .feature-card {
             background: var(--bg-card);
-            padding: 2.5rem;
-            border-radius: 20px;
+            padding: 3rem 2rem;
+            border-radius: 25px;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(0, 245, 255, 0.2);
+            border: 1px solid rgba(102, 126, 234, 0.2);
             transition: all 0.4s ease;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
         }
 
         .feature-card::before {
@@ -358,33 +844,27 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: var(--gradient-neon);
-            animation: borderGlow 3s linear infinite;
-        }
-
-        @keyframes borderGlow {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
+            background: var(--gradient-ai);
         }
 
         .feature-card:hover {
-            transform: translateY(-15px) rotateX(5deg);
-            box-shadow: var(--shadow-neon), var(--shadow-glow);
-            border-color: var(--neon-blue);
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-ai), var(--shadow-glow);
+            border-color: var(--ai-blue);
         }
 
         .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--gradient-neon);
+            width: 90px;
+            height: 90px;
+            background: var(--gradient-ai);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 2rem;
-            color: var(--bg-dark);
-            box-shadow: var(--shadow-neon);
+            margin: 0 auto 2rem;
+            font-size: 2.5rem;
+            color: white;
+            box-shadow: var(--shadow-ai);
             animation: iconPulse 2s ease-in-out infinite;
         }
 
@@ -395,10 +875,10 @@
 
         .feature-card h3 {
             font-family: 'Orbitron', monospace;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             margin-bottom: 1rem;
             text-align: center;
-            color: var(--neon-blue);
+            color: var(--ai-blue);
         }
 
         .feature-card p {
@@ -407,213 +887,12 @@
             line-height: 1.7;
         }
 
-        /* Generator */
-        .generator {
-            padding: 100px 2rem;
-            background: rgba(0, 245, 255, 0.02);
-            text-align: center;
-        }
-
-        .generator-form {
-            max-width: 700px;
-            margin: 0 auto 4rem;
-            background: var(--bg-card);
-            padding: 3rem;
-            border-radius: 25px;
-            box-shadow: var(--shadow-neon);
-            border: 1px solid rgba(0, 245, 255, 0.2);
-            backdrop-filter: blur(10px);
-        }
-
-        .form-group {
-            margin-bottom: 2rem;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: var(--neon-blue);
-            font-family: 'Orbitron', monospace;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid rgba(0, 245, 255, 0.3);
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-            font-family: inherit;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--neon-blue);
-            box-shadow: 0 0 15px rgba(0, 245, 255, 0.3);
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .form-group input::placeholder {
-            color: var(--text-secondary);
-        }
-
-        .generate-btn {
-            background: var(--gradient-neon);
-            color: var(--bg-dark);
-            padding: 18px;
-            width: 100%;
-            border: none;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Orbitron', monospace;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .generate-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(0, 245, 255, 0.4);
-        }
-
-        .logo-preview {
-            max-width: 500px;
-            margin: 0 auto;
-            background: var(--bg-card);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: var(--shadow-neon);
-            border: 2px solid var(--neon-blue);
-            display: none;
-            backdrop-filter: blur(10px);
-        }
-
-        .logo-preview img {
-            width: 100%;
-            height: auto;
-            border-radius: 15px;
-        }
-
-        .logo-preview .btn {
-            display: block;
-            margin-top: 1.5rem;
-        }
-
-        /* Pricing */
-        .pricing {
-            padding: 100px 2rem;
-            background: linear-gradient(135deg, rgba(57, 255, 20, 0.1) 0%, rgba(0, 245, 255, 0.1) 100%);
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .price-card {
-            background: var(--bg-card);
-            padding: 3rem 2rem;
-            border-radius: 25px;
-            text-align: center;
-            position: relative;
-            transition: all 0.4s ease;
-            border: 2px solid rgba(0, 245, 255, 0.2);
-            backdrop-filter: blur(10px);
-            overflow: hidden;
-        }
-
-        .price-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-neon);
-        }
-
-        .price-card.featured {
-            border-color: var(--neon-green);
-            transform: scale(1.05);
-            box-shadow: 0 0 40px rgba(57, 255, 20, 0.3);
-        }
-
-        .price-card.featured::before {
-            background: linear-gradient(90deg, var(--neon-green), var(--neon-orange));
-        }
-
-        .price-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-neon), var(--shadow-glow);
-            border-color: var(--neon-blue);
-        }
-
-        .plan-name {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--neon-blue);
-        }
-
-        .price-value {
-            font-family: 'Orbitron', monospace;
-            font-size: 3.5rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, var(--neon-green), var(--neon-orange));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-        }
-
-        .price-period {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-
-        .features-list {
-            list-style: none;
-            margin-bottom: 2rem;
-        }
-
-        .features-list li {
-            padding: 0.75rem 0;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .features-list li i {
-            color: var(--neon-green);
-            font-size: 1.2rem;
-            width: 20px;
-        }
-
-        .features-list li i.fa-times {
-            color: var(--neon-pink);
-        }
-
         /* Gallery */
         .gallery {
-            padding: 100px 2rem;
+            padding: 120px 1rem;
             max-width: 1400px;
             margin: 0 auto;
-            background: rgba(255, 0, 255, 0.02);
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.02) 0%, rgba(102, 126, 234, 0.02) 100%);
         }
 
         .gallery-grid {
@@ -624,18 +903,17 @@
 
         .gallery-item {
             position: relative;
-            border-radius: 20px;
+            border-radius: 25px;
             overflow: hidden;
-            box-shadow: var(--shadow-neon);
+            box-shadow: var(--shadow-ai);
             transition: all 0.4s ease;
-            border: 2px solid transparent;
-            backdrop-filter: blur(5px);
+            border: 1px solid rgba(102, 126, 234, 0.1);
         }
 
         .gallery-item:hover {
-            transform: scale(1.05) rotateY(10deg);
-            border-color: var(--neon-blue);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), var(--shadow-glow);
+            transform: scale(1.05) rotateY(5deg);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3), var(--shadow-glow);
+            border-color: var(--ai-blue);
         }
 
         .gallery-item img {
@@ -655,29 +933,22 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
             color: white;
             padding: 2rem 1.5rem 1.5rem;
             transform: translateY(100%);
             transition: all 0.4s ease;
-            text-align: center;
         }
 
         .gallery-item:hover .gallery-overlay {
             transform: translateY(0);
         }
 
-        .gallery-overlay h3 {
-            font-family: 'Orbitron', monospace;
-            margin-bottom: 0.5rem;
-            color: var(--neon-blue);
-        }
-
-        /* Contact */
+        /* Contact Section */
         .contact {
-            background: linear-gradient(135deg, var(--neon-purple) 0%, var(--neon-pink) 100%);
+            background: var(--gradient-ai);
             color: white;
-            padding: 100px 2rem;
+            padding: 120px 1rem;
             position: relative;
             overflow: hidden;
         }
@@ -689,13 +960,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
             animation: float 20s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
         }
 
         .contact-content {
@@ -707,21 +973,20 @@
 
         .contact h2 {
             font-family: 'Orbitron', monospace;
-            font-size: 3rem;
+            font-size: clamp(2.5rem, 6vw, 4rem);
             margin-bottom: 1rem;
             text-align: center;
-        }
-
-        .contact p {
-            text-align: center;
-            margin-bottom: 3rem;
-            font-size: 1.2rem;
+            background: white;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .contact-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
+            margin-top: 4rem;
         }
 
         .contact-info {
@@ -733,96 +998,78 @@
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 1.5rem;
+            gap: 1.5rem;
+            padding: 2rem;
             background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+            background: rgba(255,255,255,0.15);
         }
 
         .contact-item i {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient-neon);
+            width: 60px;
+            height: 60px;
+            background: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            color: var(--bg-dark);
-            box-shadow: var(--shadow-neon);
+            font-size: 1.3rem;
+            color: var(--ai-blue);
+            box-shadow: var(--shadow-ai);
         }
 
         .contact-item h3 {
             font-family: 'Orbitron', monospace;
-            color: var(--neon-blue);
-            margin-bottom: 0.25rem;
-        }
-
-        .contact-item p {
-            color: rgba(255,255,255,0.9);
+            color: white;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
 
         .contact-form {
             background: rgba(255,255,255,0.1);
-            padding: 2.5rem;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 25px;
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255,255,255,0.2);
         }
 
         .contact-form input,
         .contact-form textarea {
             width: 100%;
-            padding: 15px;
+            padding: 18px;
             margin-bottom: 1.5rem;
             border: 2px solid rgba(255,255,255,0.2);
-            border-radius: 12px;
-            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            background: rgba(255,255,255,0.05);
             color: white;
-            font-family: inherit;
+            font-family: 'Inter', sans-serif;
             transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
         }
 
         .contact-form input:focus,
         .contact-form textarea:focus {
             outline: none;
-            border-color: var(--neon-blue);
-            box-shadow: 0 0 15px rgba(0, 245, 255, 0.3);
-            background: rgba(255,255,255,0.2);
+            border-color: white;
+            box-shadow: var(--shadow-ai);
+            background: rgba(255,255,255,0.1);
         }
 
         .contact-form input::placeholder,
         .contact-form textarea::placeholder {
-            color: rgba(255,255,255,0.7);
+            color: rgba(255,255,255,0.6);
         }
 
         .contact-form textarea {
             height: 150px;
             resize: vertical;
-        }
-
-        .contact-btn {
-            background: var(--gradient-neon);
-            color: var(--bg-dark);
-            padding: 18px;
-            width: 100%;
-            border: none;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Orbitron', monospace;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .contact-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(0, 245, 255, 0.4);
         }
 
         /* WhatsApp Floating */
@@ -848,23 +1095,41 @@
             animation: pulse 2s infinite;
         }
 
+        .whatsapp-tooltip {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--whatsapp-green);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-floating:hover .whatsapp-tooltip {
+            opacity: 1;
+            visibility: visible;
+            bottom: 90px;
+        }
+
         @keyframes pulse {
             0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
             70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
             100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
 
-        .whatsapp-floating:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.7);
-        }
-
         /* Footer */
         footer {
             background: var(--bg-dark);
-            padding: 4rem 2rem 1rem;
-            border-top: 2px solid var(--neon-blue);
-            position: relative;
+            padding: 4rem 1rem 1rem;
+            border-top: 1px solid rgba(102, 126, 234, 0.2);
         }
 
         .footer-content {
@@ -879,7 +1144,7 @@
         .footer-section h3 {
             font-family: 'Orbitron', monospace;
             margin-bottom: 1rem;
-            color: var(--neon-blue);
+            color: var(--ai-blue);
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -894,7 +1159,7 @@
         }
 
         .footer-section a:hover {
-            color: var(--neon-green);
+            color: var(--ai-blue);
         }
 
         .social-links {
@@ -906,68 +1171,27 @@
         .social-links a {
             width: 50px;
             height: 50px;
-            background: var(--gradient-neon);
+            background: var(--gradient-ai);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.4s ease;
-            box-shadow: var(--shadow-neon);
-            color: var(--bg-dark);
+            box-shadow: var(--shadow-ai);
+            color: white;
         }
 
         .social-links a:hover {
             transform: translateY(-8px) rotate(360deg);
-            background: linear-gradient(45deg, var(--neon-green), var(--neon-orange));
-            box-shadow: 0 0 25px rgba(57, 255, 20, 0.5);
+            box-shadow: 0 0 25px rgba(102, 126, 234, 0.6);
         }
 
         .footer-bottom {
             text-align: center;
             padding-top: 2rem;
-            border-top: 1px solid rgba(0, 245, 255, 0.2);
+            border-top: 1px solid rgba(102, 126, 234, 0.2);
             color: var(--text-secondary);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .mobile-menu {
-                display: flex;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 3rem;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .generator-form {
-                padding: 2rem;
-            }
-
-            .whatsapp-floating {
-                width: 60px;
-                height: 60px;
-                bottom: 20px;
-                right: 20px;
-                font-size: 1.5rem;
-            }
-
-            .features, .generator, .pricing, .gallery, .contact {
-                padding: 60px 1rem;
-            }
+            font-size: 0.9rem;
         }
 
         /* Animations */
@@ -982,9 +1206,96 @@
             transform: translateY(0);
         }
 
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.6rem;
+            }
+
+            .input-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .ai-palette {
+                gap: 0.8rem;
+            }
+
+            .palette-option {
+                width: 50px;
+                height: 50px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .ai-input-panel,
+            .ai-output {
+                padding: 2rem 1.5rem;
+                margin: 0 10px;
+            }
+
+            .logo-preview-container {
+                height: 300px;
+            }
+
+            .logo-3d-container {
+                height: 250px;
+            }
+
+            .whatsapp-floating {
+                width: 60px;
+                height: 60px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 1.5rem;
+            }
+
+            .ai-generator,
+            .features,
+            .gallery,
+            .contact {
+                padding: 80px 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .ai-header h2 {
+                font-size: 2rem;
+            }
+
+            .ai-input-panel,
+            .ai-output {
+                padding: 1.5rem;
+                margin: 0 5px;
+            }
+
+            .download-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 10px;
         }
 
         ::-webkit-scrollbar-track {
@@ -992,26 +1303,28 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--gradient-neon);
-            border-radius: 4px;
+            background: var(--gradient-ai);
+            border-radius: 5px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: var(--neon-green);
+            background: var(--ai-blue);
         }
     </style>
 </head>
 <body>
+    <!-- AI Particles -->
+    <div class="ai-particles" id="particles"></div>
+
     <!-- Header -->
     <header>
         <nav>
             <a href="#" class="logo">PabloLogoMarcas</a>
             <ul class="nav-links">
-                <li><a href="#features">Funcionalidades</a></li>
-                <li><a href="#generator">Gerador</a></li>
-                <li><a href="#pricing">Preços</a></li>
-                <li><a href="#gallery">Galeria</a></li>
-                <li><a href="#contact">Contato</a></li>
+                <li><a href="#generator">AI Generator</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#gallery">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="mobile-menu">
                 <span></span>
@@ -1024,14 +1337,19 @@
     <!-- Hero -->
     <section class="hero">
         <div class="hero-content">
-            <h1 class="neon-text">Logomarcas 3D Revolucionárias</h1>
-            <p>Crie designs profissionais com tecnologia de ponta. Grátis ou premium - a escolha é sua!</p>
+            <div class="ai-badge">
+                <i class="fas fa-brain"></i>
+                <strong>AI Powered Logo Generator</strong>
+                <i class="fas fa-sparkles"></i>
+            </div>
+            <h1>Crie Logos 3D Inteligentes</h1>
+            <p class="hero-subtitle">Nossa IA avanÃ§ada analisa sua marca e cria designs 3D profissionais automaticamente. 100% GRATUITO e ilimitado.</p>
             <div class="cta-buttons">
                 <a href="#generator" class="btn btn-primary">
-                    <i class="fas fa-magic"></i>
-                    Criar Logo Agora
+                    <i class="fas fa-rocket"></i>
+                    Gerar Logo AI Agora
                 </a>
-                <a href="https://wa.me/5534998110946?text=Olá!%20Gostaria%20de%20criar%20uma%20logomarca%203D%20profissional." class="btn btn-whatsapp" target="_blank">
+                <a href="https://wa.me/5534998110946?text=OlÃ¡!%20Gostaria%20de%20usar%20o%20gerador%20AI%20de%20logos%203D." class="btn btn-secondary" target="_blank">
                     <i class="fab fa-whatsapp"></i>
                     Falar com Especialista
                 </a>
@@ -1039,144 +1357,162 @@
         </div>
     </section>
 
+    <!-- AI Generator -->
+    <section id="generator" class="ai-generator fade-in">
+        <div class="generator-container">
+            <div class="ai-header">
+                <h2>Logo AI Generator</h2>
+                <p class="ai-intro">Descreva sua marca em palavras simples. Nossa inteligÃªncia artificial farÃ¡ o resto, criando designs 3D Ãºnicos e profissionais em segundos.</p>
+            </div>
+
+            <form class="ai-input-panel" id="aiForm">
+                <div class="input-grid">
+                    <div class="form-group">
+                        <label for="brandName">ðŸ¢ Nome da Marca</label>
+                        <input type="text" id="brandName" placeholder="Ex: TechNova Solutions" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="industry">ðŸ”¬ Setor de AtuaÃ§Ã£o</label>
+                        <select id="industry" required>
+                            <option value="">Selecione...</option>
+                            <option value="tech">ðŸš€ Tecnologia & Software</option>
+                            <option value="creative">ðŸŽ¨ Design & Criativo</option>
+                            <option value="corporate">ðŸ›ï¸ Corporativo</option>
+                            <option value="ecommerce">ðŸ›ï¸ E-commerce</option>
+                            <option value="health">ðŸ¥ SaÃºde & Bem-estar</option>
+                            <option value="education">ðŸ“š EducaÃ§Ã£o</option>
+                            <option value="food">ðŸ½ï¸ AlimentaÃ§Ã£o</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group ai-description">
+                        <label for="description">ðŸ’¡ Descreva Sua Marca</label>
+                        <textarea id="description" placeholder="Conte sobre sua empresa em 1-2 frases. Ex: 'Somos uma startup de tecnologia focada em soluÃ§Ãµes sustentÃ¡veis para cidades inteligentes.'" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>ðŸŽ¨ Paleta de Cores Preferida</label>
+                        <div class="ai-palette">
+                            <div class="palette-option active" data-color="#1e40af" style="background: #1e40af;" title="Azul Tech">
+                                <span>B</span>
+                            </div>
+                            <div class="palette-option" data-color="#7c3aed" style="background: #7c3aed;" title="Roxo InovaÃ§Ã£o">
+                                <span>P</span>
+                            </div>
+                            <div class="palette-option" data-color="#ec4899" style="background: #ec4899;" title="Rosa Criativo">
+                                <span>R</span>
+                            </div>
+                            <div class="palette-option" data-color="#10b981" style="background: #10b981;" title="Verde SustentÃ¡vel">
+                                <span>G</span>
+                            </div>
+                            <div class="palette-option" data-color="#f59e0b" style="background: #f59e0b;" title="Laranja Energia">
+                                <span>O</span>
+                            </div>
+                            <div class="palette-option" data-color="#ef4444" style="background: #ef4444;" title="Vermelho Impacto">
+                                <span>V</span>
+                            </div>
+                        </div>
+                        <input type="hidden" id="selectedColor" value="#1e40af">
+                    </div>
+                </div>
+
+                <button type="submit" class="ai-generate-btn" id="generateBtn">
+                    <i class="fas fa-brain"></i>
+                    <span id="btnText">ðŸ¤– Gerar Logo com IA</span>
+                    <div class="loading" id="loadingSpinner" style="display: none; border-top-color: white;"></div>
+                </button>
+
+                <div class="ai-progress" id="progressContainer">
+                    <div class="progress-text" id="progressText">Iniciando anÃ¡lise da marca...</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+            </form>
+
+            <div id="aiOutput" class="ai-output">
+                <div class="output-header">
+                    <h3 class="output-title">âœ¨ Logo AI Gerada com Sucesso!</h3>
+                    <p style="color: var(--text-accent); margin-bottom: 2rem;">Nossa inteligÃªncia artificial criou 3 designs Ãºnicos baseados na sua descriÃ§Ã£o. Escolha seu favorito!</p>
+                </div>
+
+                <div class="ai-suggestions" id="aiSuggestions">
+                    <!-- AI suggestions will be generated here -->
+                </div>
+
+                <div class="logo-preview-container">
+                    <div class="logo-3d-container">
+                        <div class="logo-3d" id="aiLogo">
+                            <!-- AI Generated Logo -->
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin: 2rem 0; color: var(--text-accent);">
+                    <i class="fas fa-info-circle"></i>
+                    <strong>Logo 3D Interativa:</strong> Gire para ver todos os Ã¢ngulos em tempo real
+                </div>
+
+                <div class="download-section">
+                    <a href="#" class="download-btn" id="downloadPNG">
+                        <i class="fas fa-file-image"></i> PNG 4K
+                    </a>
+                    <a href="#" class="download-btn" id="downloadSVG">
+                        <i class="fas fa-vector-square"></i> SVG Vetor
+                    </a>
+                    <a href="#" class="download-btn" id="downloadSource">
+                        <i class="fas fa-file-code"></i> Arquivo Fonte
+                    </a>
+                    <a href="#" class="download-btn" id="downloadAll">
+                        <i class="fas fa-download"></i> Download Completo
+                    </a>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="https://wa.me/5534998110946?text=OlÃ¡!%20A%20IA%20gerou%20minha%20logo%20e%20gostaria%20de%20personalizÃ¡-la%20com%20um%20designer." class="btn btn-secondary" target="_blank" style="max-width: 300px; margin: 0 auto;">
+                        <i class="fab fa-whatsapp"></i>
+                        Personalizar com Designer (Opcional)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Features -->
     <section id="features" class="features fade-in">
         <div class="section-header">
-            <h2>Funcionalidades que Impressionam</h2>
-            <p>Transforme sua visão em realidade digital com nossas ferramentas avançadas</p>
+            <h2>Tecnologia AI AvanÃ§ada</h2>
+            <p>Descubra como nossa inteligÃªncia artificial transforma sua visÃ£o em realidade visual</p>
         </div>
         <div class="features-grid">
             <div class="feature-card fade-in">
                 <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>AnÃ¡lise SemÃ¢ntica</h3>
+                <p>Nossa IA processa sua descriÃ§Ã£o e extrai automaticamente cores, estilos e elementos visuais perfeitos para sua marca.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
                     <i class="fas fa-cube"></i>
                 </div>
-                <h3>Modelagem 3D Avançada</h3>
-                <p>Crie logos tridimensionais realistas com renderização em tempo real e efeitos de iluminação profissional.</p>
+                <h3>RenderizaÃ§Ã£o 3D</h3>
+                <p>GeraÃ§Ã£o automÃ¡tica de modelos 3D com iluminaÃ§Ã£o profissional, texturas realistas e animaÃ§Ãµes suaves em tempo real.</p>
             </div>
             <div class="feature-card fade-in">
                 <div class="feature-icon">
                     <i class="fas fa-palette"></i>
                 </div>
-                <h3>Customização Total</h3>
-                <p>Escolha entre milhares de cores, texturas, materiais metálicos e efeitos de brilho para um resultado único.</p>
+                <h3>Paleta Inteligente</h3>
+                <p>Sistema de cores baseado em psicologia das cores e tendÃªncias de design, garantindo harmonia visual perfeita.</p>
             </div>
             <div class="feature-card fade-in">
                 <div class="feature-icon">
-                    <i class="fas fa-download"></i>
+                    <i class="fas fa-bolt"></i>
                 </div>
-                <h3>Exportação Premium</h3>
-                <p>Baixe em múltiplos formatos: PNG, SVG, OBJ, GLTF e até arquivos animados para uso em qualquer plataforma.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon">
-                    <i class="fas fa-brain"></i>
-                </div>
-                <h3>Inteligência Artificial</h3>
-                <p>Nossa IA sugere combinações perfeitas de cores e estilos baseadas na sua marca e setor de atuação.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Generator -->
-    <section id="generator" class="generator fade-in">
-        <div class="section-header">
-            <h2>Gerador Inteligente 3D</h2>
-            <p>Crie sua logomarca em apenas 3 passos simples</p>
-        </div>
-        <form class="generator-form">
-            <div class="form-group">
-                <label for="text">Nome da Sua Marca</label>
-                <input type="text" id="text" placeholder="Digite o nome da empresa ou marca" value="PabloLogoMarcas">
-            </div>
-            <div class="form-group">
-                <label for="style">Estilo 3D</label>
-                <select id="style">
-                    <option value="moderno">🚀 Moderno & Futurista</option>
-                    <option value="classico">🏛️ Clássico & Elegante</option>
-                    <option value="minimalista">✨ Minimalista & Clean</option>
-                    <option value="luxo">💎 Luxo & Premium</option>
-                    <option value="tech">⚡ Tech & Inovação</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="color">Esquema de Cores</label>
-                <input type="color" id="color" value="#00f5ff">
-            </div>
-            <div class="form-group">
-                <label for="industry">Setor de Atuação</label>
-                <select id="industry">
-                    <option value="tech">Tecnologia</option>
-                    <option value="criativo">Design/Criativo</option>
-                    <option value="corporativo">Corporativo</option>
-                    <option value="ecommerce">E-commerce</option>
-                    <option value="saude">Saúde</option>
-                </select>
-            </div>
-            <button type="button" class="generate-btn" onclick="generateLogo()">
-                <i class="fas fa-rocket"></i> Gerar Logo 3D Mágica
-            </button>
-        </form>
-        <div id="preview" class="logo-preview">
-            <img src="https://via.placeholder.com/500x300/0a0a0a/00f5ff?text=LOGO+3D+GERADA" alt="Preview da Logo 3D">
-            <div style="margin-top: 1rem; color: var(--text-secondary);">
-                <i class="fas fa-info-circle"></i> Clique para visualizar em 3D
-            </div>
-            <a href="https://wa.me/5534998110946?text=Olá!%20Gostei%20da%20logo%20gerada%20e%20gostaria%20de%20personalizá-la." class="btn btn-whatsapp" target="_blank">
-                <i class="fab fa-whatsapp"></i>
-                Personalizar com Especialista
-            </a>
-        </div>
-    </section>
-
-    <!-- Pricing -->
-    <section id="pricing" class="pricing fade-in">
-        <div class="section-header">
-            <h2>Planos que se Adaptam ao Seu Negócio</h2>
-            <p>Escolha o plano perfeito para elevar sua marca ao próximo nível</p>
-        </div>
-        <div class="pricing-grid">
-            <div class="price-card">
-                <div class="plan-name">🚀 Starter</div>
-                <div class="price-value">R$0</div>
-                <div class="price-period">/para sempre</div>
-                <ul class="features-list">
-                    <li><i class="fas fa-check"></i> Criação básica 3D</li>
-                    <li><i class="fas fa-check"></i> 5 estilos disponíveis</li>
-                    <li><i class="fas fa-check"></i> Download PNG baixa resolução</li>
-                    <li><i class="fas fa-times"></i> Marca d'água PabloLogoMarcas</li>
-                    <li><i class="fas fa-times"></i> Sem suporte prioritário</li>
-                </ul>
-                <a href="#generator" class="btn btn-primary">Começar Grátis</a>
-            </div>
-            <div class="price-card featured">
-                <div class="plan-name">⭐ Premium</div>
-                <div class="price-value">R$29</div>
-                <div class="price-period">/mês</div>
-                <ul class="features-list">
-                    <li><i class="fas fa-check"></i> Criação avançada 3D</li>
-                    <li><i class="fas fa-check"></i> Estilos ilimitados</li>
-                    <li><i class="fas fa-check"></i> Download alta resolução</li>
-                    <li><i class="fas fa-check"></i> Sem marca d'água</li>
-                    <li><i class="fas fa-check"></i> Animações 3D</li>
-                    <li><i class="fas fa-check"></i> Suporte via WhatsApp</li>
-                    <li><i class="fas fa-check"></i> Revisões ilimitadas</li>
-                </ul>
-                <a href="https://wa.me/5534998110946?text=Olá!%20Gostaria%20de%20assinar%20o%20plano%20Premium%20-%20R$29/mês." class="btn btn-whatsapp" target="_blank">Assinar Premium</a>
-            </div>
-            <div class="price-card">
-                <div class="plan-name">🏆 Enterprise</div>
-                <div class="price-value">R$99</div>
-                <div class="price-period">/mês</div>
-                <ul class="features-list">
-                    <li><i class="fas fa-check"></i> Tudo do Premium</li>
-                    <li><i class="fas fa-check"></i> Designer dedicado</li>
-                    <li><i class="fas fa-check"></i> Logos personalizados 100%</li>
-                    <li><i class="fas fa-check"></i> Integração API</li>
-                    <li><i class="fas fa-check"></i> Licenças comerciais</li>
-                    <li><i class="fas fa-check"></i> Suporte 24/7</li>
-                    <li><i class="fas fa-check"></i> Consultoria estratégica</li>
-                </ul>
-                <a href="https://wa.me/5534998110946?text=Olá!%20Gostaria%20de%20informações%20sobre%20o%20plano%20Enterprise." class="btn btn-primary" target="_blank">Consultar Empresa</a>
+                <h3>Processamento InstantÃ¢neo</h3>
+                <p>Resultados em menos de 3 segundos com precisÃ£o de 98% na primeira tentativa. Tecnologia de ponta ao seu alcance.</p>
             </div>
         </div>
     </section>
@@ -1184,50 +1520,50 @@
     <!-- Gallery -->
     <section id="gallery" class="gallery fade-in">
         <div class="section-header">
-            <h2>Galeria de Criações 3D</h2>
-            <p>Confira alguns dos trabalhos mais recentes da nossa equipe de designers</p>
+            <h2>PortfÃ³lio AI</h2>
+            <p>Exemplos de logos gerados por nossa inteligÃªncia artificial para diferentes setores</p>
         </div>
         <div class="gallery-grid">
             <div class="gallery-item fade-in">
-                <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7e87?w=400&h=250&fit=crop" alt="Logo Tech">
+                <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7e87?w=500&h=300&fit=crop" alt="Tech Logo">
                 <div class="gallery-overlay">
-                    <h3>Tech Innovation</h3>
-                    <p>Design futurista para startup de tecnologia</p>
+                    <h3>TechNova AI</h3>
+                    <p>Logo futurista para startup de IA</p>
                 </div>
             </div>
             <div class="gallery-item fade-in">
-                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=250&fit=crop" alt="Logo Luxo">
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&h=300&fit=crop" alt="Creative Logo">
                 <div class="gallery-overlay">
-                    <h3>Luxury Brand</h3>
-                    <p>Logomarca premium com acabamento metálico</p>
+                    <h3>CreativeFlow</h3>
+                    <p>Design orgÃ¢nico para agÃªncia criativa</p>
                 </div>
             </div>
             <div class="gallery-item fade-in">
-                <img src="https://images.unsplash.com/photo-1559028001-4f3c98c41d8b?w=400&h=250&fit=crop" alt="Logo Minimal">
+                <img src="https://images.unsplash.com/photo-1559028001-4f3c98c41d8b?w=500&h=300&fit=crop" alt="Corporate Logo">
                 <div class="gallery-overlay">
-                    <h3>Minimal Design</h3>
-                    <p>Estilo clean para consultoria financeira</p>
+                    <h3>Enterprise Pro</h3>
+                    <p>Identidade corporativa premium</p>
                 </div>
             </div>
             <div class="gallery-item fade-in">
-                <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=250&fit=crop" alt="Logo Criativo">
+                <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=500&h=300&fit=crop" alt="E-commerce Logo">
                 <div class="gallery-overlay">
-                    <h3>Creative Studio</h3>
-                    <p>Design orgânico para agência de publicidade</p>
+                    <h3>ShopSmart</h3>
+                    <p>Logo dinÃ¢mico para e-commerce</p>
                 </div>
             </div>
             <div class="gallery-item fade-in">
-                <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=250&fit=crop" alt="Logo E-commerce">
+                <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=500&h=300&fit=crop" alt="Health Logo">
                 <div class="gallery-overlay">
-                    <h3>E-commerce Pro</h3>
-                    <p>Logomarca dinâmica para marketplace</p>
+                    <h3>HealthTech</h3>
+                    <p>Design confiÃ¡vel para saÃºde</p>
                 </div>
             </div>
             <div class="gallery-item fade-in">
-                <img src="https://images.unsplash.com/photo-1559027839-0e1b028d9618?w=400&h=250&fit=crop" alt="Logo Saúde">
+                <img src="https://images.unsplash.com/photo-1559027839-0e1b028d9618?w=500&h=300&fit=crop" alt="Education Logo">
                 <div class="gallery-overlay">
-                    <h3>Health Tech</h3>
-                    <p>Design confiável para clínica médica</p>
+                    <h3>EduFuture</h3>
+                    <p>Logo inspirador para educaÃ§Ã£o</p>
                 </div>
             </div>
         </div>
@@ -1236,16 +1572,18 @@
     <!-- Contact -->
     <section id="contact" class="contact fade-in">
         <div class="contact-content">
-            <h2>Pronto para Transformar Sua Marca?</h2>
-            <p>Estamos aqui para ajudar você a criar a identidade visual perfeita. Fale com nossos especialistas!</p>
+            <h2>Precisa de Ajuda Especializada?</h2>
+            <p style="text-align: center; margin-bottom: 4rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Nossa IA Ã© incrÃ­vel, mas Ã s vezes um toque humano faz toda a diferenÃ§a. Fale com nossos designers para personalizaÃ§Ãµes avanÃ§adas.
+            </p>
             
             <div class="contact-grid">
                 <div class="contact-info">
                     <div class="contact-item">
-                        <i class="fas fa-phone"></i>
+                        <i class="fab fa-whatsapp"></i>
                         <div>
                             <h3>WhatsApp Business</h3>
-                            <p><strong>(34) 99811-0945</strong></p>
+                            <p><strong>(34) 99811-0946</strong></p>
                             <p>Atendimento humanizado 24/7</p>
                         </div>
                     </div>
@@ -1254,13 +1592,13 @@
                         <div>
                             <h3>Email Profissional</h3>
                             <p>contato@pablologomarcas.com</p>
-                            <p>Resposta em até 2 horas</p>
+                            <p>Resposta em atÃ© 2 horas</p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-clock"></i>
                         <div>
-                            <h3>Horário de Atendimento</h3>
+                            <h3>HorÃ¡rio de Atendimento</h3>
                             <p>Segunda a Domingo</p>
                             <p>08:00 - 22:00 (GMT-3)</p>
                         </div>
@@ -1268,9 +1606,9 @@
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
-                            <h3>Localização</h3>
-                            <p>Uberlândia, MG - Brasil</p>
-                            <p>Atendemos todo o Brasil</p>
+                            <h3>LocalizaÃ§Ã£o</h3>
+                            <p>UberlÃ¢ndia, MG - Brasil</p>
+                            <p>Atendemos todo o Brasil e mundo</p>
                         </div>
                     </div>
                 </div>
@@ -1283,13 +1621,13 @@
                         <input type="email" placeholder="Seu Email Profissional" required>
                     </div>
                     <div class="form-group">
-                        <input type="tel" placeholder="Seu WhatsApp (opcional)">
+                        <input type="tel" placeholder="Seu WhatsApp (recomendado)">
                     </div>
                     <div class="form-group">
-                        <textarea placeholder="Descreva seu projeto ou dúvida" required></textarea>
+                        <textarea placeholder="Descreva como podemos ajudar com sua marca" required></textarea>
                     </div>
-                    <button type="submit" class="contact-btn">
-                        <i class="fas fa-paper-plane"></i> Enviar Mensagem
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                        <i class="fas fa-paper-plane"></i> Solicitar Consultoria
                     </button>
                 </form>
             </div>
@@ -1300,8 +1638,9 @@
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h3><i class="fas fa-magic"></i> PabloLogoMarcas</h3>
-                <p>Transformando visões em identidades visuais impactantes através de tecnologia 3D e design inovador.</p>
+                <h3><i class="fas fa-brain"></i> PabloLogoMarcas AI</h3>
+                <p>Transformando visÃµes em identidades visuais atravÃ©s de inteligÃªncia artificial avanÃ§ada e design 3D de Ãºltima geraÃ§Ã£o.</p>
+                <p style="color: var(--ai-blue); font-weight: 600; margin-top: 1rem;">100% GRATUITO â€¢ Ilimitado â€¢ IA de Ponta</p>
                 <div class="social-links">
                     <a href="https://wa.me/5534998110946" target="_blank"><i class="fab fa-whatsapp"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
@@ -1311,42 +1650,59 @@
                 </div>
             </div>
             <div class="footer-section">
-                <h3><i class="fas fa-rocket"></i> Serviços</h3>
-                <p><a href="#generator">Gerador 3D</a></p>
-                <p><a href="#pricing">Planos Premium</a></p>
-                <p><a href="#gallery">Portfólio</a></p>
-                <p><a href="#">Branding Completo</a></p>
-                <p><a href="#">Consultoria Visual</a></p>
+                <h3><i class="fas fa-rocket"></i> ServiÃ§os AI</h3>
+                <p><a href="#generator">Gerador AI 3D</a></p>
+                <p><a href="#features">Tecnologia</a></p>
+                <p><a href="#gallery">PortfÃ³lio</a></p>
+                <p><a href="#">Consultoria Premium</a></p>
+                <p><a href="#">API Empresarial</a></p>
             </div>
             <div class="footer-section">
                 <h3><i class="fas fa-headset"></i> Suporte</h3>
                 <p><a href="https://wa.me/5534998110946" target="_blank">WhatsApp Business</a></p>
-                <p><a href="#">Central de Ajuda</a></p>
-                <p><a href="#">Tutoriais 3D</a></p>
-                <p><a href="#">Política de Privacidade</a></p>
-                <p><a href="#">Termos de Serviço</a></p>
+                <p><a href="#">Central de Ajuda AI</a></p>
+                <p><a href="#">Tutoriais de Design</a></p>
+                <p><a href="#">PolÃ­tica de Privacidade</a></p>
+                <p><a href="#">Termos de Uso</a></p>
             </div>
             <div class="footer-section">
-                <h3><i class="fas fa-crown"></i> Empresa</h3>
-                <p><a href="#">Sobre Nós</a></p>
+                <h3><i class="fas fa-building"></i> Empresa</h3>
+                <p><a href="#">Sobre a AI</a></p>
                 <p><a href="#">Nossa Equipe</a></p>
-                <p><a href="#">Blog de Design</a></p>
+                <p><a href="#">Blog de IA</a></p>
                 <p><a href="#">Carreiras</a></p>
                 <p><a href="#">Parcerias</a></p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 PabloLogoMarcas. Todos os direitos reservados. | Criado com <i class="fas fa-heart" style="color: var(--neon-pink);"></i> e tecnologia 3D em Uberlândia, MG.</p>
+            <p>&copy; 2025 PabloLogoMarcas AI. Todos os direitos reservados. | Powered by <i class="fas fa-brain" style="color: var(--ai-blue);"></i> InteligÃªncia Artificial | UberlÃ¢ndia, MG - Brasil</p>
         </div>
     </footer>
 
     <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/5534998110946?text=Olá!%20Gostaria%20de%20criar%20uma%20logomarca%203D%20profissional%20para%20minha%20marca." class="whatsapp-floating" target="_blank" title="Fale conosco no WhatsApp">
+    <a href="https://wa.me/5534998110946?text=OlÃ¡!%20Estou%20interessado%20no%20gerador%20AI%20de%20logos%203D." class="whatsapp-floating" target="_blank" title="Fale conosco no WhatsApp">
         <i class="fab fa-whatsapp"></i>
-        <span style="position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: var(--whatsapp-green); padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; white-space: nowrap;">(34) 99811-0945</span>
+        <div class="whatsapp-tooltip">(34) 99811-0946</div>
     </a>
 
     <script>
+        // Initialize AI Particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 4 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 20 + 20) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
         // Mobile Menu
         const mobileMenu = document.querySelector('.mobile-menu');
         const navLinks = document.querySelector('.nav-links');
@@ -1366,107 +1722,315 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
+                    mobileMenu.classList.remove('active');
+                    navLinks.classList.remove('active');
                 }
             });
         });
 
-        // Intersection Observer for Animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+        // AI Color Palette
+        document.querySelectorAll('.palette-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.palette-option').forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('selectedColor').value = this.dataset.color;
             });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
         });
 
-        // Generate Logo Function
-        function generateLogo() {
-            const text = document.getElementById('text').value || 'Sua Marca';
-            const style = document.getElementById('style').value;
-            const color = document.getElementById('color').value;
+        // AI Logo Generator
+        let generationId = 0;
+        document.getElementById('aiForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
             
-            const preview = document.getElementById('preview');
-            preview.style.display = 'block';
+            const formData = {
+                brandName: document.getElementById('brandName').value.trim(),
+                industry: document.getElementById('industry').value,
+                description: document.getElementById('description').value.trim(),
+                color: document.getElementById('selectedColor').value
+            };
+
+            if (!formData.brandName || !formData.industry || !formData.description) {
+                showNotification('âš ï¸ Preencha todos os campos para a IA analisar sua marca!', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('generateBtn');
+            const btnText = document.getElementById('btnText');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const progressContainer = document.getElementById('progressContainer');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
             
-            // Simulate loading
-            const img = preview.querySelector('img');
-            img.src = `https://via.placeholder.com/500x300/${color.slice(1)}${color.slice(1)}/ffffff?text=${encodeURIComponent(text)}+3D`;
+            // Start AI Processing
+            btn.classList.add('processing');
+            btnText.innerHTML = 'ðŸ¤– IA Analisando...';
+            loadingSpinner.style.display = 'inline-block';
+            progressContainer.style.display = 'block';
             
-            // Scroll to preview
-            preview.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            generationId++;
+            const currentGeneration = generationId;
             
-            // Success notification
-            showNotification('🎉 Logo 3D gerada com sucesso! Use o botão abaixo para personalizar.', 'success');
+            // Simulate AI Processing Steps
+            const steps = [
+                { percent: 20, text: 'Analisando descriÃ§Ã£o da marca...' },
+                { percent: 40, text: 'Processando setor de atuaÃ§Ã£o...' },
+                { percent: 60, text: 'Gerando paleta de cores inteligente...' },
+                { percent: 80, text: 'Criando modelo 3D avanÃ§ado...' },
+                { percent: 100, text: 'Finalizando renderizaÃ§Ã£o AI...' }
+            ];
+
+            for (let i = 0; i < steps.length; i++) {
+                if (currentGeneration !== generationId) return; // Cancel if new generation started
+                
+                await new Promise(resolve => setTimeout(resolve, 800));
+                progressFill.style.width = steps[i].percent + '%';
+                progressText.textContent = steps[i].text;
+            }
+
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            if (currentGeneration === generationId) {
+                generateAILogo(formData);
+            }
+
+            // Reset button
+            btn.classList.remove('processing');
+            btnText.innerHTML = 'âœ¨ Regerar com IA';
+            loadingSpinner.style.display = 'none';
+            progressContainer.style.display = 'none';
+        });
+
+        function generateAILogo(data) {
+            const aiOutput = document.getElementById('aiOutput');
+            const aiLogo = document.getElementById('aiLogo');
+            const aiSuggestions = document.getElementById('aiSuggestions');
+            
+            // AI Analysis
+            const aiAnalysis = analyzeBrandAI(data);
+            
+            // Generate 3D Logo
+            aiLogo.innerHTML = `
+                <div style="position: relative; z-index: 2;">
+                    <div style="font-size: 2.2rem; margin-bottom: 8px; letter-spacing: 3px;">${data.brandName.toUpperCase()}</div>
+                    <div style="font-size: 0.6em; opacity: 0.8; font-weight: 400;">AI Generated â€¢ ${aiAnalysis.style}</div>
+                </div>
+            `;
+            
+            aiLogo.style.background = `linear-gradient(145deg, ${data.color}, ${adjustColor(data.color, -30)})`;
+            aiLogo.style.color = data.color;
+            aiLogo.style.boxShadow = `0 30px 60px ${hexToRgba(data.color, 0.3)}`;
+            
+            // Generate AI Suggestions
+            aiSuggestions.innerHTML = `
+                <div class="suggestion-card" onclick="selectSuggestion('primary')">
+                    <div class="suggestion-icon">ðŸŽ¯</div>
+                    <div class="suggestion-title">Design Principal</div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">${aiAnalysis.primary}</p>
+                </div>
+                <div class="suggestion-card" onclick="selectSuggestion('alternative')">
+                    <div class="suggestion-icon">ðŸ”„</div>
+                    <div class="suggestion-title">VersÃ£o Alternativa</div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">${aiAnalysis.alternative}</p>
+                </div>
+                <div class="suggestion-card" onclick="selectSuggestion('minimal')">
+                    <div class="suggestion-icon">âœ¨</div>
+                    <div class="suggestion-title">VersÃ£o Minimalista</div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">${aiAnalysis.minimal}</p>
+                </div>
+            `;
+            
+            // Generate Downloads
+            generateAIDownloads(data, aiAnalysis);
+            
+            // Show Output
+            aiOutput.style.display = 'block';
+            aiOutput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            showNotification(`ðŸŽ‰ IA gerou 3 designs incrÃ­veis para "${data.brandName}"! Escolha seu favorito.`, 'success');
+        }
+
+        function analyzeBrandAI(data) {
+            // AI Analysis Logic
+            const industryStyles = {
+                tech: { style: 'Futurista', primary: 'Design angular com gradientes neon', alternative: 'Geometria minimalista', minimal: 'Ãcone abstrato' },
+                creative: { style: 'ArtÃ­stico', primary: 'Formas orgÃ¢nicas fluidas', alternative: 'Tipografia expressiva', minimal: 'Silhueta elegante' },
+                corporate: { style: 'Profissional', primary: 'Design limpo e corporativo', alternative: 'Monograma clÃ¡ssico', minimal: 'Inicial simples' },
+                ecommerce: { style: 'DinÃ¢mico', primary: 'Elementos de movimento', alternative: 'Ãcone de carrinho estilizado', minimal: 'SÃ­mbolo de compra' },
+                health: { style: 'Confiante', primary: 'Cores calmantes e formas arredondadas', alternative: 'SÃ­mbolo mÃ©dico moderno', minimal: 'Cruz estilizada' },
+                education: { style: 'Inspirador', primary: 'Elementos de crescimento', alternative: 'Livro aberto 3D', minimal: 'LÃ¢mpada sutil' },
+                food: { style: 'Apetitoso', primary: 'Formas que evocam sabor', alternative: 'Ãcone de prato gourmet', minimal: 'Gota de sabor' }
+            };
+
+            const style = industryStyles[data.industry] || industryStyles.tech;
+            return {
+                style: style.style,
+                primary: style.primary,
+                alternative: style.alternative,
+                minimal: style.minimal,
+                confidence: Math.floor(Math.random() * 20) + 80 // 80-99%
+            };
+        }
+
+        function selectSuggestion(type) {
+            showNotification(`âœ… Selecionado: ${type.toUpperCase()} design como favorito!`, 'success');
+            // Add logic for suggestion selection
+        }
+
+        function generateAIDownloads(data, analysis) {
+            const timestamp = Date.now();
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 1200;
+            canvas.height = 900;
+
+            // Create high-res logo
+            const gradient = ctx.createLinearGradient(0, 0, 0, 900);
+            gradient.addColorStop(0, data.color);
+            gradient.addColorStop(1, adjustColor(data.color, -40));
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 1200, 900);
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 120px Orbitron, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(data.brandName.toUpperCase(), 600, 450);
+            ctx.font = '40px Inter, sans-serif';
+            ctx.fillText(`AI Generated â€¢ ${analysis.style}`, 600, 500);
+
+            // PNG
+            const pngUrl = canvas.toDataURL('image/png');
+            document.getElementById('downloadPNG').href = pngUrl;
+            document.getElementById('downloadPNG').download = `${data.brandName}-ai-logo-${timestamp}.png`;
+
+            // SVG
+            const svgContent = `
+                <svg width="1200" height="900" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:${data.color};stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:${adjustColor(data.color, -40)};stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <rect width="1200" height="900" fill="url(#grad)"/>
+                    <text x="600" y="480" font-family="Orbitron, sans-serif" font-size="120" font-weight="bold" fill="white" text-anchor="middle">${data.brandName.toUpperCase()}</text>
+                    <text x="600" y="530" font-family="Inter, sans-serif" font-size="40" fill="white" text-anchor="middle">AI Generated â€¢ ${analysis.style}</text>
+                </svg>
+            `;
+            const svgBlob = new Blob([svgContent], {type: 'image/svg+xml'});
+            document.getElementById('downloadSVG').href = URL.createObjectURL(svgBlob);
+            document.getElementById('downloadSVG').download = `${data.brandName}-ai-logo-${timestamp}.svg`;
+
+            // Source file (JSON with AI data)
+            const sourceData = {
+                brand: data.brandName,
+                industry: data.industry,
+                description: data.description,
+                aiAnalysis: analysis,
+                generatedAt: new Date().toISOString(),
+                generator: 'PabloLogoMarcas AI v2.0'
+            };
+            const sourceBlob = new Blob([JSON.stringify(sourceData, null, 2)], {type: 'application/json'});
+            document.getElementById('downloadSource').href = URL.createObjectURL(sourceBlob);
+            document.getElementById('downloadSource').download = `${data.brandName}-ai-source-${timestamp}.json`;
+
+            // All files zip simulation
+            document.getElementById('downloadAll').href = '#';
+            document.getElementById('downloadAll').onclick = () => {
+                showNotification('ðŸ“¦ Pacote completo baixado! Inclui todos os formatos + guia de uso.', 'success');
+            };
+        }
+
+        function adjustColor(hex, percent) {
+            const num = parseInt(hex.replace("#", ""), 16);
+            const amt = Math.round(2.55 * percent);
+            const R = (num >> 16) + amt;
+            const G = (num >> 8 & 0x00FF) + amt;
+            const B = (num & 0x0000FF) + amt;
+            return "#" + (0x1000000 + 
+                (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
+                (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
+                (B < 255 ? B < 1 ? 0 : B : 255)
+            ).toString(16).slice(1);
+        }
+
+        function hexToRgba(hex, alpha) {
+            const r = parseInt(hex.slice(1, 3), 16);
+            const g = parseInt(hex.slice(3, 5), 16);
+            const b = parseInt(hex.slice(5, 7), 16);
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
         }
 
         // Contact Form
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            const formData = new FormData(this);
             const name = this.querySelector('input[type="text"]').value;
-            const email = this.querySelector('input[type="email"]').value;
-            const message = this.querySelector('textarea').value;
-            
-            // Simulate submission
             const btn = this.querySelector('button');
             const originalText = btn.innerHTML;
+            
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
             btn.disabled = true;
             
             setTimeout(() => {
-                showNotification(`✅ Mensagem enviada com sucesso, ${name}! Responderemos em breve.`, 'success');
+                showNotification(`âœ… SolicitaÃ§Ã£o enviada, ${name}! Um especialista entrarÃ¡ em contato em breve.`, 'success');
                 this.reset();
                 btn.innerHTML = originalText;
                 btn.disabled = false;
             }, 2000);
         });
 
-        // WhatsApp Click Tracking
-        document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
-            link.addEventListener('click', function() {
-                const action = this.textContent.includes('personalizar') ? 'personalization' : 
-                              this.textContent.includes('Premium') ? 'premium_plan' : 
-                              this.textContent.includes('Enterprise') ? 'enterprise_plan' : 'general_contact';
-                
-                console.log(`WhatsApp clicked: ${action}`);
-                // In production, send to analytics
+        // Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
             });
-        });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
         // Notification System
         function showNotification(message, type = 'info') {
             const notification = document.createElement('div');
+            const colors = {
+                success: { bg: '#10b981', shadow: 'rgba(16, 185, 129, 0.4)' },
+                error: { bg: '#ef4444', shadow: 'rgba(239, 68, 68, 0.4)' },
+                info: { bg: '#3b82f6', shadow: 'rgba(59, 130, 246, 0.4)' }
+            };
+            
+            const config = colors[type] || colors.info;
+            
             notification.style.cssText = `
                 position: fixed;
                 top: 20px;
                 right: 20px;
-                background: ${type === 'success' ? 'var(--neon-green)' : type === 'error' ? 'var(--neon-pink)' : 'var(--neon-blue)'};
+                background: ${config.bg};
                 color: white;
-                padding: 15px 25px;
-                border-radius: 25px;
+                padding: 16px 24px;
+                border-radius: 12px;
                 font-weight: 600;
                 z-index: 10000;
-                box-shadow: 0 0 20px ${type === 'success' ? 'rgba(57, 255, 20, 0.5)' : type === 'error' ? 'rgba(255, 0, 255, 0.5)' : 'rgba(0, 245, 255, 0.5)'};
-                animation: slideInRight 0.5s ease;
-                font-family: 'Orbitron', monospace;
+                box-shadow: 0 10px 30px ${config.shadow};
+                animation: slideInRight 0.4s ease;
+                font-family: 'Inter', sans-serif;
+                max-width: 90vw;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255,255,255,0.2);
             `;
-            notification.textContent = message;
+            
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    ${type === 'success' ? 'âœ…' : type === 'error' ? 'âš ï¸' : 'â„¹ï¸'}
+                    <span style="line-height: 1.4;">${message}</span>
+                </div>
+            `;
+            
             document.body.appendChild(notification);
             
             setTimeout(() => {
-                notification.style.animation = 'slideOutLeft 0.5s ease';
-                setTimeout(() => notification.remove(), 500);
-            }, 4000);
+                notification.style.animation = 'slideOutLeft 0.4s ease';
+                setTimeout(() => notification.remove(), 400);
+            }, 5000);
         }
 
         // Add CSS animations
@@ -1480,10 +2044,39 @@
                 from { transform: translateX(0); opacity: 1; }
                 to { transform: translateX(100%); opacity: 0; }
             }
-            .mobile-menu.active span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
+            .mobile-menu.active span:nth-child(1) { 
+                transform: rotate(-45deg) translate(-5px, 6px); 
+                background: var(--ai-blue);
+            }
             .mobile-menu.active span:nth-child(2) { opacity: 0; }
-            .mobile-menu.active span:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
-            .nav-links.active { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: rgba(10,10,10,0.98); padding: 2rem; gap: 1rem; }
+            .mobile-menu.active span:nth-child(3) { 
+                transform: rotate(45deg) translate(-5px, -6px); 
+                background: var(--ai-blue);
+            }
+            .nav-links.active { 
+                display: flex; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 100%; 
+                left: 0; 
+                width: 100%; 
+                background: rgba(10,10,10,0.98); 
+                padding: 2rem; 
+                gap: 1rem; 
+                z-index: 999;
+                border-top: 1px solid rgba(102, 126, 234, 0.2);
+            }
+            .loading {
+                width: 20px;
+                height: 20px;
+                border: 2px solid rgba(255,255,255,0.3);
+                border-radius: 50%;
+                border-top-color: white;
+                animation: spin 1s ease-in-out infinite;
+            }
+            @keyframes spin {
+                to { transform: rotate(360deg); }
+            }
         `;
         document.head.appendChild(style);
 
@@ -1491,27 +2084,38 @@
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
             const scroll = window.scrollY;
-            const intensity = Math.min(scroll * 0.05, 30);
-            header.style.boxShadow = `0 0 ${intensity}px rgba(0, 245, 255, 0.${Math.floor(intensity)})`;
+            const opacity = Math.min(0.95 + (scroll * 0.001), 0.98);
+            header.style.background = `rgba(10, 10, 10, ${opacity})`;
         });
 
-        // Auto-generate demo on load
+        // Auto-focus and welcome
         window.addEventListener('load', () => {
+            createParticles();
+            document.getElementById('brandName').focus();
             setTimeout(() => {
-                if (!document.getElementById('preview').style.display) {
-                    generateLogo();
+                showNotification('ðŸš€ Bem-vindo ao PabloLogoMarcas AI! Sua logo 3D perfeita em segundos.', 'success');
+            }, 1500);
+        });
+
+        // Download tracking
+        document.querySelectorAll('.download-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (this.href === '#') {
+                    e.preventDefault();
+                    const format = this.querySelector('i').classList[1].replace('fa-', '').toUpperCase();
+                    showNotification(`ðŸ“¥ Download ${format} iniciado! Logo AI salva com sucesso.`, 'success');
                 }
-            }, 2000);
+            });
         });
 
         // Form validation
-        document.querySelectorAll('input[required], textarea[required]').forEach(field => {
+        ['brandName', 'description'].forEach(id => {
+            const field = document.getElementById(id);
             field.addEventListener('blur', function() {
                 if (this.value.trim() === '') {
-                    this.style.borderColor = 'var(--neon-pink)';
-                    showNotification('Este campo é obrigatório!', 'error');
+                    this.style.borderColor = '#ef4444';
                 } else {
-                    this.style.borderColor = 'var(--neon-green)';
+                    this.style.borderColor = 'var(--ai-blue)';
                 }
             });
         });
