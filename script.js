@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const closeHelpModal = document.querySelector('#help-modal .close-modal');
             const checkoutTotal = document.getElementById('checkout-total');
 
-            // Radio player
+            // radio player
             const radio = document.getElementById("radio-audio");
             const playBtn = document.getElementById("play-btn");
             const pauseBtn = document.getElementById("pause-btn");
@@ -175,70 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             };
 
-            // Função para salvar pedido no GitHub
-            async function saveOrderToGitHub(orderDetails) {
-                const githubToken = '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'; // Token fornecido (REVOGUE APÓS TESTES!)
-                const repoOwner = 'pabloscriptgame';
-                const repoName = 'Criesualogo';
-                const folderPath = 'pedidos';
-
-                // Gerar nome do arquivo com timestamp
-                const timestamp = new Date().toISOString().replace(/[:.]/g, '').replace('T', '_').slice(0, -1);
-                const fileName = `pedido_${timestamp}.txt`;
-                const filePath = `${folderPath}/${fileName}`;
-
-                // Codificar conteúdo em base64
-                const content = btoa(unescape(encodeURIComponent(orderDetails)));
-
-                try {
-                    // Verificar se o arquivo já existe (evita conflitos)
-                    const checkResponse = await fetch(
-                        `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
-                            method: 'GET',
-                            headers: {
-                                'Authorization': `token ${githubToken}`,
-                                'Accept': 'application/vnd.github.v3+json'
-                            }
-                        }
-                    );
-
-                    let sha = null;
-                    if (checkResponse.ok) {
-                        const data = await checkResponse.json();
-                        sha = data.sha; // Obter SHA se o arquivo existir
-                    }
-
-                    // Criar ou atualizar o arquivo no GitHub
-                    const response = await fetch(
-                        `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
-                            method: 'PUT',
-                            headers: {
-                                'Authorization': `token ${githubToken}`,
-                                'Accept': 'application/vnd.github.v3+json',
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                message: `Novo pedido: ${fileName}`,
-                                content: content,
-                                branch: 'main',
-                                sha: sha
-                            })
-                        }
-                    );
-
-                    if (response.ok) {
-                        showNotification('Pedido salvo no GitHub (pasta pedidos)!', 'success');
-                    } else {
-                        const errorData = await response.json();
-                        console.error('Erro ao salvar no GitHub:', errorData);
-                        showNotification('Erro ao salvar no GitHub. Verifique o token ou conexão.', 'error');
-                    }
-                } catch (error) {
-                    console.error('Erro na requisição ao GitHub:', error);
-                    showNotification('Erro de conexão com GitHub. Tente novamente.', 'error');
-                }
-            }
-
             // Enviar pedido
             checkoutForm.addEventListener('submit', (e) => {
                         e.preventDefault();
@@ -270,17 +206,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         cart.forEach(item => orderDetails += `- ${item.name} (${formatCurrency(item.price)})\n`);
                         orderDetails += `\nTotal: ${formatCurrency(total)}\n`;
                         orderDetails += `Endereço: Rua ${rua}, Nº ${numero} - Bairro ${bairro}${referencia ? `, Ref: ${referencia}` : ''}\n`;
-        orderDetails += `Pagamento: ${metodo}${metodo === 'Dinheiro' && troco ? ` (Troco para R$ ${troco})` : ''}${metodo === 'PIX' ? '\nPIX Chave: 10738419605' : ''}\n`;
-        orderDetails += `Data/Hora: ${new Date().toLocaleString('pt-BR')}`;
+        orderDetails += `Pagamento: ${metodo}${metodo === 'Dinheiro' && troco ? ` (Troco para R$ ${troco})` : ''}${metodo === 'PIX' ? '\nPIX Chave: 10738419605' : ''}`;
 
-        // Enviar para WhatsApp
         const whatsappUrl = `https://wa.me/+5534999537698?text=${encodeURIComponent(orderDetails)}`;
         window.open(whatsappUrl, '_blank');
 
-        // Salvar no GitHub
-        saveOrderToGitHub(orderDetails);
-
-        // Limpar carrinho e UI
         cart.length = 0;
         localStorage.setItem('cart', JSON.stringify(cart));
         updateCartButton();
@@ -341,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartButton();
     populateModal();
 
-    // Radio simple controls
+    // radio simple controls - CORRIGIDO
     (function(){
         if(!radio || !playBtn || !pauseBtn || !vuMeter) {
             console.warn('Elementos do player de rádio não encontrados.');
