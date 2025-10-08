@@ -3,1958 +3,505 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PabloLogoMarcas - Logos Profissionais 3D por R$50</title>
-    <meta name="description" content="Logomarcas 3D profissionais por apenas R$50. Atendimento via WhatsApp (34) 99811-0946. Entrega em 24h com revisões ilimitadas.">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
-    
-    <style>
-        :root {
-            --primary-gold: #FFD700;
-            --primary-blue: #1e3a8a;
-            --accent-purple: #8b5cf6;
-            --success-green: #10b981;
-            --bg-dark: #0a0a0a;
-            --bg-card: rgba(15, 15, 15, 0.95);
-            --text-primary: #ffffff;
-            --text-secondary: #b0b0b0;
-            --text-accent: #e5e7eb;
-            --shadow-gold: 0 0 30px rgba(255, 215, 0, 0.3);
-            --shadow-blue: 0 0 20px rgba(30, 58, 138, 0.4);
-            --gradient-gold: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-            --gradient-blue: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-            --whatsapp-green: #25D366;
-            --border-gold: 1px solid rgba(255, 215, 0, 0.2);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-primary);
-            overflow-x: hidden;
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        /* Floating Elements */
-        .floating-elements {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .floating-shape {
-            position: absolute;
-            opacity: 0.05;
-            animation: float 25s infinite linear;
-        }
-
-        .floating-shape:nth-child(1) {
-            top: 10%;
-            left: 10%;
-            width: 80px;
-            height: 80px;
-            background: var(--gradient-gold);
-            border-radius: 50%;
-            animation-delay: 0s;
-        }
-
-        .floating-shape:nth-child(2) {
-            top: 60%;
-            right: 15%;
-            width: 120px;
-            height: 120px;
-            background: var(--gradient-blue);
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            animation-delay: 5s;
-        }
-
-        .floating-shape:nth-child(3) {
-            bottom: 20%;
-            left: 20%;
-            width: 60px;
-            height: 60px;
-            background: var(--accent-purple);
-            border-radius: 20px;
-            animation-delay: 10s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            33% { transform: translateY(-20px) rotate(120deg); }
-            66% { transform: translateY(20px) rotate(240deg); }
-        }
-
-        /* Header */
-        header {
-            background: rgba(10, 10, 10, 0.98);
-            backdrop-filter: blur(20px);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            border-bottom: var(--border-gold);
-            box-shadow: var(--shadow-gold);
-            transition: all 0.3s ease;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-        }
-
-        .logo {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.2rem;
-            font-weight: 900;
-            background: var(--gradient-gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-decoration: none;
-            position: relative;
-        }
-
-        .logo::after {
-            content: 'PROFISSIONAL';
-            font-size: 0.4em;
-            background: var(--gradient-blue);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: absolute;
-            top: -8px;
-            right: -40px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.05); }
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-            padding: 0.5rem 1.5rem;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-gold);
-            background: rgba(255, 215, 0, 0.1);
-            box-shadow: var(--shadow-gold);
-            transform: translateY(-2px);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: var(--gradient-gold);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        .nav-links a:hover::after {
-            width: 80%;
-        }
-
-        .mobile-menu {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .mobile-menu span {
-            width: 30px;
-            height: 3px;
-            background: var(--primary-gold);
-            margin: 3px 0;
-            transition: 0.3s;
-            border-radius: 2px;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            padding: 20px;
-            background: linear-gradient(135deg, rgba(30, 58, 138, 0.1) 0%, var(--bg-dark) 100%);
-        }
-
-        .hero-content {
-            max-width: 1000px;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 2;
-            width: 100%;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: var(--gradient-gold);
-            color: #1a1a1a;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            animation: badgeFloat 3s ease-in-out infinite;
-            box-shadow: var(--shadow-gold);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-badge::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.6s;
-        }
-
-        .hero-badge:hover::before {
-            left: 100%;
-        }
-
-        @keyframes badgeFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
-
-        .hero h1 {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(3.5rem, 9vw, 6rem);
-            font-weight: 900;
-            margin-bottom: 1.5rem;
-            background: var(--gradient-gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: textGlow 3s ease-in-out infinite alternate;
-            line-height: 1.1;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1::after {
-            content: '3D PROFISSIONAL';
-            font-size: 0.3em;
-            background: var(--gradient-blue);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes textGlow {
-            from { filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5)); }
-            to { filter: drop-shadow(0 0 30px rgba(255, 165, 0, 0.7)); }
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1.3rem, 4vw, 2rem);
-            margin-bottom: 3rem;
-            color: var(--text-accent);
-            font-weight: 400;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            animation: fadeInUp 1s ease-out 0.3s both;
-            line-height: 1.6;
-        }
-
-        .price-highlight {
-            background: var(--gradient-gold);
-            color: #1a1a1a;
-            padding: 24px 32px;
-            border-radius: 20px;
-            display: inline-block;
-            margin: 2rem 0;
-            font-weight: 800;
-            font-size: clamp(2.5rem, 8vw, 4rem);
-            box-shadow: var(--shadow-gold);
-            position: relative;
-            overflow: hidden;
-            animation: priceFloat 4s ease-in-out infinite;
-        }
-
-        .price-highlight::before {
-            content: 'APENAS';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 8px 0;
-            font-size: 0.3em;
-            font-weight: 600;
-            text-align: center;
-        }
-
-        .price-highlight::after {
-            content: '/ logo';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 8px 0;
-            font-size: 0.3em;
-            font-weight: 600;
-            text-align: center;
-        }
-
-        @keyframes priceFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: fadeInUp 1s ease-out 0.6s both;
-            position: relative;
-            z-index: 2;
-        }
-
-        .btn {
-            padding: 20px 40px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-            min-width: 240px;
-            font-family: 'Inter', sans-serif;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.6s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn-primary {
-            background: var(--gradient-gold);
-            color: #1a1a1a;
-            box-shadow: var(--shadow-gold);
-            border: 2px solid transparent;
-            font-weight: 800;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: 0 20px 50px rgba(255, 215, 0, 0.4);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-whatsapp {
-            background: var(--whatsapp-green);
-            color: white;
-            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
-            border: 2px solid var(--whatsapp-green);
-            font-weight: 700;
-        }
-
-        .btn-whatsapp:hover {
-            background: #128C7E;
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: 0 20px 50px rgba(37, 211, 102, 0.6);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--text-primary);
-            border: 2px solid var(--primary-gold);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary-gold);
-            color: #1a1a1a;
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: var(--shadow-gold);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Services Section */
-        .services {
-            padding: 120px 1rem;
-            position: relative;
-            background: linear-gradient(135deg, rgba(30, 58, 138, 0.03) 0%, rgba(139, 92, 246, 0.03) 100%);
-        }
-
-        .services-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 5rem;
-        }
-
-        .section-header h2 {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            margin-bottom: 1.5rem;
-            background: var(--gradient-gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: relative;
-        }
-
-        .section-header p {
-            font-size: 1.3rem;
-            color: var(--text-secondary);
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.8;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 3rem;
-            margin-bottom: 4rem;
-        }
-
-        .service-card {
-            background: var(--bg-card);
-            border-radius: 25px;
-            padding: 3rem 2.5rem;
-            text-align: center;
-            position: relative;
-            transition: all 0.4s ease;
-            border: var(--border-gold);
-            backdrop-filter: blur(15px);
-            overflow: hidden;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-gold);
-            animation: borderShimmer 3s linear infinite;
-        }
-
-        @keyframes borderShimmer {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-
-        .service-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: var(--shadow-gold), 0 30px 60px rgba(0, 0, 0, 0.4);
-            border-color: var(--primary-gold);
-        }
-
-        .service-icon {
-            width: 100px;
-            height: 100px;
-            background: var(--gradient-gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 2rem;
-            font-size: 2.5rem;
-            color: #1a1a1a;
-            box-shadow: var(--shadow-gold);
-            animation: iconPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes iconPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .service-card h3 {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary-gold);
-            position: relative;
-        }
-
-        .service-card p {
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-
-        .service-price {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--primary-gold);
-            margin-bottom: 1rem;
-            background: var(--gradient-blue);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .service-cta {
-            background: var(--gradient-blue);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            display: inline-block;
-            transition: all 0.3s ease;
-            border: 2px solid var(--primary-blue);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-cta:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-blue);
-            background: var(--primary-blue);
-        }
-
-        /* Portfolio Section */
-        .portfolio {
-            padding: 120px 1rem;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.02) 0%, rgba(30, 58, 138, 0.02) 100%);
-        }
-
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .portfolio-item {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--shadow-blue);
-            transition: all 0.4s ease;
-            border: var(--border-gold);
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-        }
-
-        .portfolio-item:hover {
-            transform: scale(1.05) translateY(-10px);
-            box-shadow: var(--shadow-gold), 0 30px 60px rgba(0, 0, 0, 0.4);
-            border-color: var(--primary-gold);
-        }
-
-        .portfolio-item img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.4s ease;
-        }
-
-        .portfolio-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .portfolio-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            color: white;
-            padding: 2.5rem 2rem 2rem;
-            transform: translateY(100%);
-            transition: all 0.4s ease;
-        }
-
-        .portfolio-item:hover .portfolio-overlay {
-            transform: translateY(0);
-        }
-
-        .portfolio-overlay h3 {
-            font-family: 'Orbitron', monospace;
-            margin-bottom: 0.5rem;
-            color: var(--primary-gold);
-            font-size: 1.4rem;
-        }
-
-        .portfolio-overlay .price-tag {
-            background: var(--gradient-gold);
-            color: #1a1a1a;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            display: inline-block;
-            margin-top: 0.5rem;
-        }
-
-        /* Process Section */
-        .process {
-            padding: 120px 1rem;
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.03) 0%, var(--bg-dark) 100%);
-        }
-
-        .process-steps {
-            display: flex;
-            justify-content: space-between;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            gap: 3rem;
-        }
-
-        .process-step {
-            flex: 1;
-            text-align: center;
-            position: relative;
-            padding: 2rem 1rem;
-        }
-
-        .process-step::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: -50%;
-            width: 100%;
-            height: 2px;
-            background: var(--border-gold);
-            z-index: -1;
-        }
-
-        .process-step:last-child::before {
-            display: none;
-        }
-
-        .step-number {
-            width: 80px;
-            height: 80px;
-            background: var(--gradient-gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 2rem;
-            font-weight: 900;
-            color: #1a1a1a;
-            box-shadow: var(--shadow-gold);
-            position: relative;
-            z-index: 2;
-        }
-
-        .step-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: var(--primary-gold);
-        }
-
-        .step-description {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            max-width: 250px;
-            margin: 0 auto;
-        }
-
-        /* Guarantee Section */
-        .guarantee {
-            padding: 120px 1rem;
-            background: linear-gradient(135deg, var(--success-green) 0%, var(--whatsapp-green) 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .guarantee::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            animation: float 20s ease-in-out infinite;
-        }
-
-        .guarantee-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-            text-align: center;
-        }
-
-        .guarantee h2 {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            margin-bottom: 2rem;
-            position: relative;
-        }
-
-        .guarantee-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .guarantee-item {
-            background: rgba(255,255,255,0.1);
-            padding: 2.5rem;
-            border-radius: 20px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .guarantee-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-gold);
-        }
-
-        .guarantee-item:hover {
-            transform: translateY(-5px);
-            background: rgba(255,255,255,0.15);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .guarantee-icon {
-            width: 70px;
-            height: 70px;
-            background: var(--gradient-gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 1.8rem;
-            color: #1a1a1a;
-            box-shadow: var(--shadow-gold);
-        }
-
-        .guarantee-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            color: var(--primary-gold);
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 120px 1rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            background: var(--bg-dark);
-        }
-
-        .contact-content {
-            text-align: center;
-        }
-
-        .contact h2 {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            margin-bottom: 1rem;
-            background: var(--gradient-gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .contact-subtitle {
-            font-size: 1.3rem;
-            color: var(--text-secondary);
-            margin-bottom: 4rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.8;
-        }
-
-        .whatsapp-section {
-            background: var(--whatsapp-green);
-            color: white;
-            padding: 4rem 2rem;
-            border-radius: 25px;
-            margin: 3rem 0;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(37, 211, 102, 0.3);
-        }
-
-        .whatsapp-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: var(--gradient-gold);
-        }
-
-        .whatsapp-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .whatsapp-info h3 {
-            font-family: 'Orbitron', monospace;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--primary-gold);
-        }
-
-        .whatsapp-number {
-            font-size: 3rem;
-            font-weight: 900;
-            background: var(--gradient-gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .whatsapp-features {
-            list-style: none;
-            margin-top: 2rem;
-        }
-
-        .whatsapp-features li {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 0.75rem 0;
-            font-size: 1.1rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .whatsapp-features li:last-child {
-            border-bottom: none;
-        }
-
-        .whatsapp-features i {
-            width: 24px;
-            color: var(--primary-gold);
-            font-size: 1.2rem;
-        }
-
-        .whatsapp-cta {
-            text-align: center;
-        }
-
-        .whatsapp-cta .btn-whatsapp {
-            padding: 24px 48px;
-            font-size: 1.3rem;
-            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4);
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            background: var(--primary-gold);
-            color: #1a1a1a;
-            border: 2px solid var(--primary-gold);
-            font-weight: 800;
-        }
-
-        .whatsapp-cta .btn-whatsapp:hover {
-            background: #1a1a1a;
-            color: var(--primary-gold);
-            border-color: var(--primary-gold);
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: var(--shadow-gold);
-        }
-
-        .contact-form {
-            background: var(--bg-card);
-            padding: 3rem;
-            border-radius: 25px;
-            margin-top: 4rem;
-            border: var(--border-gold);
-            backdrop-filter: blur(15px);
-        }
-
-        .contact-form h3 {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            color: var(--primary-gold);
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: var(--primary-gold);
-            font-family: 'Orbitron', monospace;
-            font-size: 0.95rem;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 18px;
-            border: 2px solid rgba(255, 215, 0, 0.2);
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--primary-gold);
-            box-shadow: var(--shadow-gold);
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: var(--text-secondary);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .form-submit {
-            background: var(--gradient-gold);
-            color: #1a1a1a;
-            padding: 20px;
-            width: 100%;
-            border: none;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Orbitron', monospace;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
-            margin-top: 1rem;
-        }
-
-        .form-submit:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: var(--shadow-gold);
-        }
-
-        /* WhatsApp Floating */
-        .whatsapp-floating {
-            position: fixed;
-            width: 80px;
-            height: 80px;
-            bottom: 40px;
-            right: 40px;
-            background: var(--whatsapp-green);
-            color: white;
-            border-radius: 50px;
-            text-align: center;
-            font-size: 2.2rem;
-            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
-            z-index: 1000;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            animation: pulse 2s infinite;
-            border: 4px solid white;
-        }
-
-        .whatsapp-tooltip {
-            position: absolute;
-            bottom: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--whatsapp-green);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 700;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
-            z-index: 1001;
-        }
-
-        .whatsapp-tooltip::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 8px solid transparent;
-            border-top-color: var(--whatsapp-green);
-        }
-
-        .whatsapp-floating:hover .whatsapp-tooltip {
-            opacity: 1;
-            visibility: visible;
-            bottom: 110px;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 25px rgba(37, 211, 102, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-        }
-
-        /* Footer */
-        footer {
-            background: var(--bg-dark);
-            padding: 4rem 1rem 1rem;
-            border-top: var(--border-gold);
-            position: relative;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h3 {
-            font-family: 'Orbitron', monospace;
-            margin-bottom: 1.5rem;
-            color: var(--primary-gold);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.4rem;
-        }
-
-        .footer-section p,
-        .footer-section a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            line-height: 1.7;
-            transition: color 0.3s ease;
-            font-size: 0.95rem;
-        }
-
-        .footer-section a:hover {
-            color: var(--primary-gold);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .social-links a {
-            width: 55px;
-            height: 55px;
-            background: var(--gradient-gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.4s ease;
-            box-shadow: var(--shadow-gold);
-            color: #1a1a1a;
-            font-size: 1.3rem;
-        }
-
-        .social-links a:hover {
-            transform: translateY(-10px) rotate(360deg);
-            background: var(--whatsapp-green);
-            color: white;
-            box-shadow: 0 0 25px rgba(37, 211, 102, 0.6);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2.5rem;
-            border-top: var(--border-gold);
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .footer-bottom .highlight {
-            color: var(--primary-gold);
-            font-weight: 700;
-        }
-
-        /* Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .mobile-menu {
-                display: flex;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            nav {
-                padding: 1rem;
-            }
-
-            .logo {
-                font-size: 1.8rem;
-            }
-
-            .hero {
-                padding: 10px;
-                min-height: 95vh;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-                gap: 1.5rem;
-            }
-
-            .btn {
-                width: 100%;
-                max-width: 320px;
-                justify-content: center;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .process-steps {
-                flex-direction: column;
-                gap: 2rem;
-            }
-
-            .process-step::before {
-                display: none;
-            }
-
-            .whatsapp-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                text-align: center;
-            }
-
-            .guarantee-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .whatsapp-floating {
-                width: 70px;
-                height: 70px;
-                bottom: 20px;
-                right: 20px;
-                font-size: 1.8rem;
-            }
-
-            .services, .portfolio, .process, .guarantee, .contact {
-                padding: 80px 1rem;
-            }
-
-            .whatsapp-section {
-                padding: 3rem 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
-
-            .price-highlight {
-                font-size: 3rem;
-                padding: 20px 24px;
-            }
-
-            .service-card {
-                padding: 2rem 1.5rem;
-            }
-
-            .whatsapp-section {
-                padding: 2rem 1rem;
-            }
-
-            .whatsapp-number {
-                font-size: 2.5rem;
-            }
-
-            .contact-form {
-                padding: 2rem;
-                margin: 2rem 1rem;
-            }
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg-dark);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--gradient-gold);
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-gold);
-        }
-    </style>
+    <title>DêGusto Lanchonete Premium</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Fredoka:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Floating Elements -->
-    <div class="floating-elements">
-        <div class="floating-shape"></div>
-        <div class="floating-shape"></div>
-        <div class="floating-shape"></div>
-    </div>
-
-    <!-- Header -->
     <header>
-        <nav>
-            <a href="#" class="logo">PabloLogoMarcas</a>
-            <ul class="nav-links">
-                <li><a href="#services">Serviços</a></li>
-                <li><a href="#portfolio">Portfólio</a></li>
-                <li><a href="#process">Processo</a></li>
-                <li><a href="#guarantee">Garantia</a></li>
-                <li><a href="#contact">Contato</a></li>
-            </ul>
-            <div class="mobile-menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
+        <div class="header-container">
+            <a href="#" class="logo-link">
+                <div class="logo">
+                    <img src="https://via.placeholder.com/120" alt="DêGusto Logo" class="logo-image">
+                    <p>Atendimento a partir das 19H!</p>
+                </div>
+            </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#promocoes">Promoções</a></li>
+                    <li><a href="#cardapio">Cardápio</a></li>
+                    <li><a href="#radio">Rádio</a></li>
+                    <li><a href="#app">App (Em Breve)</a></li>
+                </ul>
+            </nav>
+            <span class="mobile-menu-toggle">☰</span>
+        </div>
     </header>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <i class="fas fa-crown"></i>
-                <strong>Logos 3D Profissionais</strong>
-                <i class="fas fa-star"></i>
+    <section id="inicio" class="hero-banner">
+        <div class="banner-content">
+            <h2>Bem-vindo(a)</h2>
+            <div class="marquee">
+                <span class="marquee-text">Promoções diárias • Delivery em 30min • Peça agora!</span>
             </div>
-            <h1>Logo 3D Profissional</h1>
-            <p class="hero-subtitle">Crie uma identidade visual impactante para sua marca. Design exclusivo, entrega em 24h e revisões ilimitadas incluídas.</p>
-            
-            <div class="price-highlight">
-                R$ 50
-            </div>
-            
-            <div class="cta-buttons">
-                <a href="https://wa.me/5534998110946?text=Olá!%20Gostaria%20de%20encomendar%20uma%20logomarca%203D%20profissional%20por%20R$50." class="btn btn-primary">
-                    <i class="fab fa-whatsapp"></i>
-                    Pedir Logo por R$50
-                </a>
-                <a href="#services" class="btn btn-outline">
-                    <i class="fas fa-info-circle"></i>
-                    Ver Serviços
-                </a>
-            </div>
-            
-            <p style="margin-top: 2rem; color: var(--text-secondary); font-size: 1.1rem;">
-                <i class="fas fa-clock" style="color: var(--primary-gold);"></i>
-                Entrega em 24h • <i class="fas fa-sync-alt" style="color: var(--primary-gold);"></i>
-                Revisões Ilimitadas • <i class="fas fa-download" style="color: var(--primary-gold);"></i>
-                3 Formatos Incluídos
-            </p>
+            <a href="#cardapio" class="cta-button">Ver Cardápio</a>
         </div>
     </section>
 
-    <!-- Services -->
-    <section id="services" class="services fade-in">
-        <div class="services-container">
-            <div class="section-header">
-                <h2>O que Você Recebe por R$50</h2>
-                <p>Todo o processo de criação de logomarca profissional, desde o briefing até a entrega final, por um preço imbatível.</p>
+    <section id="cardapio" class="menu-section">
+        <h2>Cardápio</h2>
+        <div class="tabs">
+            <button class="tab-button active" data-tab="hamburgers">🍔 Hambúrgueres</button>
+            <button class="tab-button" data-tab="combos">🎁 Combos</button>
+            <button class="tab-button" data-tab="sauces">🧂 Molhos</button>
+            <button class="tab-button" data-tab="fries">🍟 Batatas</button>
+            <button class="tab-button" data-tab="drinks">🥤 Bebidas</button>
+        </div>
+
+        <div id="hamburgers" class="tab-panel active">
+            <h3>🍔 Hambúrgueres</h3>
+            <div class="menu-grid">
+                <div class="item" data-name="X-COSTELA" data-price="30.00">
+                    <h3>X-COSTELA</h3>
+                    <p>Pão artesanal, costela desfiada suculenta, queijo cheddar derretido, anéis de cebola crocantes, molho barbecue especial, cebola caramelizada, bacon crocante e milho doce.</p>
+                    <span>R$ 30,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="ESPECIAL TILÁPIA" data-price="30.00">
+                    <h3>ESPECIAL TILÁPIA</h3>
+                    <p>Hambúrguer de tilápia grelhada, anéis de cebola empanados, queijo muçarela, molho de picles caseiro, milho fresco e salada crocante.</p>
+                    <span>R$ 30,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="ARTESANAL GOIABADA" data-price="30.00">
+                    <h3>ARTESANAL GOIABADA</h3>
+                    <p>Hambúrguer artesanal de carne bovina, molho de goiabada especial, cebola caramelizada, milho, bacon crocante, presunto, muçarela e salada fresca.</p>
+                    <span>R$ 30,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="ESPECIAL STEAK" data-price="30.00">
+                    <h3>ESPECIAL STEAK</h3>
+                    <p>Steak de frango grelhado, anéis de cebola, molho barbecue, maionese de churrasco, presunto, muçarela, bacon, milho e salada.</p>
+                    <span>R$ 30,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="X-DÊ-GUSTO" data-price="28.00">
+                    <h3>X-DÊ-GUSTO</h3>
+                    <p>Pão premium, 2 hambúrgueres de picanha, ovo frito, salsicha artesanal, presunto, muçarela, bacon, milho, cheddar, Catupiry e batata palha.</p>
+                    <span>R$ 28,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="ARTESANAL CLÁSSICO" data-price="28.00">
+                    <h3>ARTESANAL CLÁSSICO</h3>
+                    <p>Pão artesanal, hambúrguer artesanal, bacon crocante, cheddar, cebola caramelizada, presunto, muçarela, milho, batata palha e salada.</p>
+                    <span>R$ 28,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="ARTESANAL DORITOS" data-price="30.00">
+                    <h3>ARTESANAL DORITOS</h3>
+                    <p>Pão artesanal, hambúrguer artesanal, bacon, cheddar, cebola caramelizada, milho, presunto, muçarela, Doritos e salada.</p>
+                    <span>R$ 30,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="ARTESANAL DUPLO" data-price="35.00">
+                    <h3>ARTESANAL DUPLO</h3>
+                    <p>Pão artesanal, 2 hambúrgueres artesanais, bacon, cheddar, cebola caramelizada, presunto, muçarela, milho e batata palha.</p>
+                    <span>R$ 35,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="X-BOLO GIGANTE" data-price="42.00">
+                    <h3>X-BOLO GIGANTE</h3>
+                    <p>Pão, 2 hambúrgueres, 2 salsichas, 2 ovos, bacon, calabresa, muçarela. Finalizado com muito cheddar e batata frita.</p>
+                    <span>R$ 42,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="X-TUDO" data-price="24.00">
+                    <h3>X-TUDO</h3>
+                    <p>Pão artesanal, hambúrguer de picanha, ovo frito, presunto, muçarela, milho, bacon, Catupiry e salada crocante.</p>
+                    <span>R$ 24,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="X-BACON" data-price="22.00">
+                    <h3>X-BACON</h3>
+                    <p>Pão, hambúrguer de picanha, ovo, presunto, muçarela, milho, bacon, Catupiry e salada.</p>
+                    <span>R$ 22,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="X-CALABRESA" data-price="22.00">
+                    <h3>X-CALABRESA</h3>
+                    <p>Pão artesanal, hambúrguer de picanha, ovo, presunto, muçarela, milho, calabresa, cheddar e salada.</p>
+                    <span>R$ 22,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="X-CHEDDAR" data-price="22.00">
+                    <h3>X-CHEDDAR</h3>
+                    <p>Pão, hambúrguer de picanha, presunto, muçarela, salsicha, milho, bacon, cheddar e salada.</p>
+                    <span>R$ 22,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="X-SALADA" data-price="16.00">
+                    <h3>X-SALADA</h3>
+                    <p>Pão artesanal, hambúrguer de picanha, presunto, muçarela, Catupiry, milho e salada crocante.</p>
+                    <span>R$ 16,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="X-STEAK" data-price="20.00">
+                    <h3>X-STEAK</h3>
+                    <p>Pão, steak de frango, presunto, muçarela, milho, molho verde, molho barbecue, batata palha e salada.</p>
+                    <span>R$ 20,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="X-DOBRO PODEROSO" data-price="30.00">
+                    <h3>X-DOBRO PODEROSO</h3>
+                    <p>Pão artesanal, 2 hambúrgueres, 2 salsichas, 2 ovos, bacon, cheddar, Catupiry, presunto, muçarela, milho e batata palha.</p>
+                    <span>R$ 30,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="X-BAGUNÇA" data-price="33.00">
+                    <h3>X-BAGUNÇA</h3>
+                    <p>Pão, hambúrguer de picanha, steak de frango, bacon, salsicha, presunto, muçarela, Catupiry, cheddar, milho, batata palha e salada.</p>
+                    <span>R$ 33,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
             </div>
-            
-            <div class="services-grid">
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <i class="fas fa-cube"></i>
-                    </div>
-                    <h3>Design 3D Profissional</h3>
-                    <p>Logomarca tridimensional com renderização de alta qualidade, iluminação profissional e acabamento premium para todos os formatos digitais.</p>
-                    <div class="service-price">Incluso</div>
-                    <a href="https://wa.me/5534998110946?text=Olá!%20Quero%20saber%20mais%20sobre%20o%20design%203D%20profissional." class="service-cta">
-                        <i class="fab fa-whatsapp"></i> Solicitar
-                    </a>
+        </div>
+
+        <div id="combos" class="tab-panel">
+            <h3>🎁 Combos Irresistíveis</h3>
+            <div class="menu-grid">
+                <div class="item" data-name="COMBO DUPLO TUDO" data-price="42.00">
+                    <h3>COMBO DUPLO TUDO</h3>
+                    <p>2 hambúrgueres X-Tudo Premium - Perfeito para compartilhar!</p>
+                    <span>R$ 42,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
                 </div>
-                
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <i class="fas fa-sync-alt"></i>
-                    </div>
-                    <h3>Revisões Ilimitadas</h3>
-                    <p>Ajustes ilimitados até você ficar 100% satisfeito. Mudanças de cor, estilo, tipografia e composição sem custo adicional.</p>
-                    <div class="service-price">Incluso</div>
-                    <a href="https://wa.me/5534998110946?text=Olá!%20Gostaria%20de%20saber%20como%20funcionam%20as%20revisões%20ilimitadas." class="service-cta">
-                        <i class="fab fa-whatsapp"></i> Solicitar
-                    </a>
+                <div class="item" data-name="COMBO KIDS" data-price="25.00">
+                    <h3>COMBO KIDS</h3>
+                    <p>Hambúrguer + Batata Frita + Refrigerante + Bala Fine - O sabor que encanta os pequenos!</p>
+                    <span>R$ 25,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
                 </div>
-                
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <i class="fas fa-download"></i>
-                    </div>
-                    <h3>3 Formatos Profissionais</h3>
-                    <p>PNG (alta resolução), SVG (vetorial escalável) e JPG (otimizado web). Prontos para uso em site, redes sociais e impressão.</p>
-                    <div class="service-price">Incluso</div>
-                    <a href="https://wa.me/5534998110946?text=Olá!%20Quero%20os%203%20formatos%20profissionais%20da%20logo." class="service-cta">
-                        <i class="fab fa-whatsapp"></i> Solicitar
-                    </a>
+                <div class="item" data-name="COMBO FAMÍLIA" data-price="45.00">
+                    <h3>COMBO FAMÍLIA</h3>
+                    <p>2 hambúrgueres X-Tudo + 2 refrigerantes 200ml - Combo completo!</p>
+                    <span>R$ 45,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="COMBO DUPLO PODER" data-price="46.00">
+                    <h3>COMBO DUPLO PODER</h3>
+                    <p>2 hambúrgueres X-Dobro Poderoso - Para quem tem muita fome!</p>
+                    <span>R$ 46,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="COMBO X-TUDO COMPLETO" data-price="27.00">
+                    <h3>COMBO X-TUDO COMPLETO</h3>
+                    <p>1 X-Tudo + Batata tamanho P + Refrigerante 200ml - Combo individual perfeito!</p>
+                    <span>R$ 27,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="COMBO LEVE E SAUDÁVEL" data-price="23.00">
+                    <h3>COMBO LEVE E SAUDÁVEL</h3>
+                    <p>1 X-Salada Fresca + Batata tamanho P + Refrigerante 200ml - Opção mais leve!</p>
+                    <span>R$ 23,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="COMBO TRIO TUDO" data-price="70.00">
+                    <h3>COMBO TRIO TUDO</h3>
+                    <p>3 hambúrgueres X-Tudo + 3 refrigerantes 200ml - Para 3 pessoas!</p>
+                    <span>R$ 70,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="COMBO COMPLETO FAMÍLIA" data-price="50.00">
+                    <h3>COMBO COMPLETO FAMÍLIA</h3>
+                    <p>2 X-Tudo + 2 refrigerantes + Batata tamanho P - Combo familiar completo!</p>
+                    <span>R$ 50,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="COMBO SUPREMO DÊ-GUSTO" data-price="30.00">
+                    <h3>COMBO SUPREMO DÊ-GUSTO</h3>
+                    <p>1 X-Dê-Gusto Supremo + Batata tamanho P + Refrigerante 200ml - O melhor!</p>
+                    <span>R$ 30,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="COMBO TRIO PURO" data-price="60.00">
+                    <h3>COMBO TRIO PURO</h3>
+                    <p>3 hambúrgueres X-Tudo - Para quem quer só hambúrguer!</p>
+                    <span>R$ 60,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="COMBO DUPLO ARTESANAL" data-price="52.00">
+                    <h3>COMBO DUPLO ARTESANAL</h3>
+                    <p>2 hambúrgueres Artesanal Clássico - Qualidade premium em dobro!</p>
+                    <span>R$ 52,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="COMBO ARTESANAL + REFRIGERANTE" data-price="30.00">
+                    <h3>COMBO ARTESANAL + REFRIGERANTE</h3>
+                    <p>1 Artesanal Clássico + Refrigerante 200ml - Combinação perfeita!</p>
+                    <span>R$ 30,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="sauces" class="tab-panel">
+            <h3>🧂 Molhos Especiais</h3>
+            <div class="menu-grid">
+                <div class="item" data-name="MOLHO CHURRASCO" data-price="3.00">
+                    <h3>MOLHO CHURRASCO</h3>
+                    <p>Molho barbecue caseiro com toque defumado - Perfeito para carnes!</p>
+                    <span>R$ 3,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="MOLHO DE ALHO" data-price="3.00">
+                    <h3>MOLHO DE ALHO</h3>
+                    <p>Cremoso molho de alho com ervas frescas - Clássico irresistível!</p>
+                    <span>R$ 3,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="MOLHO VERDE" data-price="3.00">
+                    <h3>MOLHO VERDE</h3>
+                    <p>Molho verde refrescante com ervas e limão - Leve e saboroso!</p>
+                    <span>R$ 3,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="MOLHO GOIABADA" data-price="3.00">
+                    <h3>MOLHO GOIABADA</h3>
+                    <p>Molho exclusivo de goiabada com especiarias - Nossa especialidade!</p>
+                    <span>R$ 3,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="MOLHO PICLES" data-price="3.00">
+                    <h3>MOLHO PICLES</h3>
+                    <p>Molho de picles caseiro com toque de mostarda - Crocante e ácido!</p>
+                    <span>R$ 3,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="MOLHO CHEDDAR" data-price="3.00">
+                    <h3>MOLHO CHEDDAR</h3>
+                    <p>Queijo cheddar cremoso derretido - Para os amantes de queijo!</p>
+                    <span>R$ 3,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="MOLHO CATUPIRY" data-price="3.00">
+                    <h3>MOLHO CATUPIRY</h3>
+                    <p>Clássico Catupiry cremoso - Nobreza no sabor!</p>
+                    <span>R$ 3,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="MOLHO BARBECUE" data-price="3.00">
+                    <h3>MOLHO BARBECUE</h3>
+                    <p>Molho barbecue tradicional com mel - Doce e defumado!</p>
+                    <span>R$ 3,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="CEBOLA CARAMELIZADA" data-price="3.00">
+                    <h3>CEBOLA CARAMELIZADA</h3>
+                    <p>Cebola caramelizada com toque de balsâmico - Doçura perfeita!</p>
+                    <span>R$ 3,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="MOLHO PIMENTA" data-price="3.00">
+                    <h3>MOLHO PIMENTA</h3>
+                    <p>Molho de pimenta habanero com mel - Picante com equilíbrio!</p>
+                    <span>R$ 3,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="MOSTARDA MEL" data-price="3.00">
+                    <h3>MOSTARDA MEL</h3>
+                    <p>Mostarda Dijon com mel puro - Doce e picante na medida!</p>
+                    <span>R$ 3,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="MOLHO MARACUJÁ" data-price="3.00">
+                    <h3>MOLHO MARACUJÁ</h3>
+                    <p>Molho de maracujá com toque apimentado - Tropical e ousado!</p>
+                    <span>R$ 3,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="MOLHO ABACAXI" data-price="3.00">
+                    <h3>MOLHO ABACAXI</h3>
+                    <p>Molho de abacaxi grelhado com curry - Exótico e surpreendente!</p>
+                    <span>R$ 3,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="fries" class="tab-panel">
+            <h3>🍟 Porções Crocantes</h3>
+            <div class="menu-grid">
+                <div class="item" data-name="BATATA PETIT" data-price="10.00">
+                    <h3>BATATA PETIT</h3>
+                    <p>200g de batata frita crocante com bacon e cheddar derretido - Porção individual perfeita!</p>
+                    <span>R$ 10,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="BATATA MÉDIA" data-price="20.00">
+                    <h3>BATATA MÉDIA</h3>
+                    <p>400g de batata frita com bacon crocante e cheddar - Para compartilhar!</p>
+                    <span>R$ 20,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="BATATA GIGANTE" data-price="35.00">
+                    <h3>BATATA GIGANTE</h3>
+                    <p>300g de batata frita completa com salsicha, hambúrguer, calabresa, bacon, salada, muçarela e cheddar - A maior porção!</p>
+                    <span>R$ 35,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="drinks" class="tab-panel">
+            <h3>🥤 Bebidas Geladas</h3>
+            <div class="menu-grid">
+                <div class="item" data-name="COCA-COLA 2L" data-price="14.00">
+                    <h3>COCA-COLA 2L</h3>
+                    <p>Coca-Cola 2L geladinha - Perfeita para compartilhar com a família!</p>
+                    <span>R$ 14,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="COCA-COLA 1L" data-price="10.00">
+                    <h3>COCA-COLA 1L</h3>
+                    <p>Coca-Cola 1L bem gelada - Ideal para acompanhar seu hambúrguer!</p>
+                    <span>R$ 10,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="COCA-COLA LATA" data-price="6.00">
+                    <h3>COCA-COLA LATA</h3>
+                    <p>Coca-Cola lata gelada 350ml - Clássico sempre!</p>
+                    <span>R$ 6,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="FANTA LARANJA 2L" data-price="12.00">
+                    <h3>FANTA LARANJA 2L</h3>
+                    <p>Fanta Laranja 2L - Sabor cítrico refrescante para toda família!</p>
+                    <span>R$ 12,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="FANTA LARANJA 1L" data-price="10.00">
+                    <h3>FANTA LARANJA 1L</h3>
+                    <p>Fanta Laranja 1L gelada - Perfeita para um hambúrguer leve!</p>
+                    <span>R$ 10,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="KUAT 2L" data-price="10.00">
+                    <h3>KUAT 2L</h3>
+                    <p>Kuat Guaraná 2L - Sabor brasileiro autêntico e refrescante!</p>
+                    <span>R$ 10,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="MINEIRO 2L" data-price="12.00">
+                    <h3>MINEIRO 2L</h3>
+                    <p>Guaraná Mineiro 2L - Orgulho mineiro em cada gole!</p>
+                    <span>R$ 12,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+                <div class="item" data-name="PITHULÁ" data-price="3.00">
+                    <h3>PITHULÁ</h3>
+                    <p>Pithulá 200ml - Bebida regional geladinha para acompanhar!</p>
+                    <span>R$ 3,00</span>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Portfolio -->
-    <section id="portfolio" class="portfolio fade-in">
-        <div class="section-header">
-            <h2>Portfólio de Criações</h2>
-            <p>Confira alguns dos trabalhos recentes entregues para clientes satisfeitos. Cada logo foi criada sob medida por apenas R$50.</p>
+    <section id="radio" class="radio-player">
+        <h2>📻 Rádio DêGusto</h2>
+        <p>Ouça nossa seleção especial enquanto saboreia seu lanche!</p>
+        <div class="radio-controls">
+            <button id="play-btn">▶</button>
+            <button id="pause-btn">⏸</button>
         </div>
-        
-        <div class="portfolio-grid">
-            <div class="portfolio-item fade-in">
-                <img src="https://i.ibb.co/F4x3hVXW/1756485793445.png" alt="Logo Tech">
-                <div class="portfolio-overlay">
-                    <h3>TechNova Solutions</h3>
-                    <p>Logo 3D futurista para startup de tecnologia</p>
-                    <div class="price-tag">R$ 50</div>
-                </div>
+        <audio id="radio-audio">
+            <source src="https://stream.example.com/radio.mp3" type="audio/mpeg">
+        </audio>
+        <div class="speaker-grill"></div>
+        <div id="vu-meter">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </section>
+
+    <section id="parceiros" class="partners">
+        <h2>🤝 Parceiros</h2>
+        <p>Anuncie seu negócio conosco!</p>
+        <div class="partners-grid">
+            <div class="partner">
+                <h3>Pablo LogoMarcas</h3>
+                <a href="#" class="partner-link">Saiba mais</a>
             </div>
-            <div class="portfolio-item fade-in">
-                <img src="https://i.ibb.co/F4x3hVXW/1756485793445.png" alt="Logo Criativa">
-                <div class="portfolio-overlay">
-                    <h3>CreativeFlow Studio</h3>
-                    <p>Design orgânico para agência de publicidade</p>
-                    <div class="price-tag">R$ 50</div>
-                </div>
-            </div>
-            <div class="portfolio-item fade-in">
-                <img src="https://i.ibb.co/F4x3hVXW/1756485793445.png" alt="Logo Corporativa">
-                <div class="portfolio-overlay">
-                    <h3>Enterprise Pro</h3>
-                    <p>Identidade corporativa premium e elegante</p>
-                    <div class="price-tag">R$ 50</div>
-                </div>
-            </div>
-            <div class="portfolio-item fade-in">
-                <img src="https://i.ibb.co/F4x3hVXW/1756485793445.png" alt="Logo E-commerce">
-                <div class="portfolio-overlay">
-                    <h3>ShopSmart</h3>
-                    <p>Logo dinâmica para marketplace online</p>
-                    <div class="price-tag">R$ 50</div>
-                </div>
-            </div>
-            <div class="portfolio-item fade-in">
-                <img src="https://i.ibb.co/F4x3hVXW/1756485793445.png" alt="Logo Saúde">
-                <div class="portfolio-overlay">
-                    <h3>HealthTech Clinic</h3>
-                    <p>Design confiável para clínica médica</p>
-                    <div class="price-tag">R$ 50</div>
-                </div>
-            </div>
-            <div class="portfolio-item fade-in">
-                <img src="https://i.ibb.co/F4x3hVXW/1756485793445.png" alt="Logo Educação">
-                <div class="portfolio-overlay">
-                    <h3>EduFuture Academy</h3>
-                    <p>Logo inspiradora para escola online</p>
-                    <div class="price-tag">R$ 50</div>
-                </div>
+            <div class="partner">
+                <h3>Lorrayne Oliveira - NAIL DESIGNER</h3>
+                <a href="#" class="partner-link">Saiba mais</a>
             </div>
         </div>
     </section>
 
-    <!-- Process -->
-    <section id="process" class="process fade-in">
-        <div class="section-header">
-            <h2>Nosso Processo Simples</h2>
-            <p>Do briefing à entrega final em apenas 4 passos. Transparente, rápido e sem complicações.</p>
-        </div>
-        
-        <div class="process-steps">
-            <div class="process-step fade-in">
-                <div class="step-number">1</div>
-                <div class="step-title">Briefing Rápido</div>
-                <div class="step-description">Você nos conta sobre sua marca via WhatsApp em 2 minutos. Sem formulários complicados.</div>
-            </div>
-            <div class="process-step fade-in">
-                <div class="step-number">2</div>
-                <div class="step-title">Criação 3D</div>
-                <div class="step-description">Nossos designers criam sua logo 3D personalizada em até 24h com os primeiros conceitos.</div>
-            </div>
-            <div class="process-step fade-in">
-                <div class="step-number">3</div>
-                <div class="step-title">Revisões</div>
-                <div class="step-description">Você aprova ou pede ajustes. Revisões ilimitadas até ficar 100% satisfeito.</div>
-            </div>
-            <div class="process-step fade-in">
-                <div class="step-number">4</div>
-                <div class="step-title">Entrega Final</div>
-                <div class="step-description">Receba sua logo em 3 formatos profissionais prontos para uso imediato.</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Guarantee -->
-    <section id="guarantee" class="guarantee fade-in">
-        <div class="guarantee-content">
-            <h2>Garantia de Satisfação Total</h2>
-            <p style="font-size: 1.3rem; margin-bottom: 3rem; opacity: 0.95;">
-                Se não gostar do resultado, devolvemos seu dinheiro. Sem perguntas. 
-                <strong>100% de satisfação ou seu dinheiro de volta.</strong>
-            </p>
-            
-            <div class="guarantee-grid">
-                <div class="guarantee-item fade-in">
-                    <div class="guarantee-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div class="guarantee-title">Entrega em 24h</div>
-                    <p style="line-height: 1.6;">Garantimos a entrega da primeira versão em até 24 horas úteis. Sem atrasos, sem desculpas.</p>
-                </div>
-                <div class="guarantee-item fade-in">
-                    <div class="guarantee-icon">
-                        <i class="fas fa-sync-alt"></i>
-                    </div>
-                    <div class="guarantee-title">Revisões Ilimitadas</div>
-                    <p style="line-height: 1.6;">Ajustes ilimitados até você amar o resultado. Sem custo extra, sem limite de tempo.</p>
-                </div>
-                <div class="guarantee-item fade-in">
-                    <div class="guarantee-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="guarantee-title">Satisfação Garantida</div>
-                    <p style="line-height: 1.6;">Se não ficar satisfeito, devolvemos 100% do valor. Zero risco para você.</p>
-                </div>
-                <div class="guarantee-item fade-in">
-                    <div class="guarantee-icon">
-                        <i class="fas fa-file-download"></i>
-                    </div>
-                    <div class="guarantee-title">Formatos Completos</div>
-                    <p style="line-height: 1.6;">PNG, SVG e JPG em alta resolução. Prontos para site, redes sociais e impressão.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="contact fade-in">
-        <div class="contact-content">
-            <h2>Pronto para Sua Logo?</h2>
-            <p class="contact-subtitle">Vamos conversar sobre sua marca e criar algo incrível juntos. Resposta em até 5 minutos!</p>
-            
-            <div class="whatsapp-section">
-                <div class="whatsapp-content">
-                    <div class="whatsapp-info">
-                        <h3>Atendimento via WhatsApp</h3>
-                        <a href="https://wa.me/5534998110946" class="whatsapp-number" style="text-decoration: none;">
-                            (34) 99811-0946
-                        </a>
-                        <p style="margin-bottom: 1.5rem; opacity: 0.9;">Clique no número acima ou no botão para começar</p>
-                        
-                        <ul class="whatsapp-features">
-                            <li><i class="fas fa-check-circle"></i> Atendimento humano 24/7</li>
-                            <li><i class="fas fa-check-circle"></i> Resposta em até 5 minutos</li>
-                            <li><i class="fas fa-check-circle"></i> Pagamento via Pix instantâneo</li>
-                            <li><i class="fas fa-check-circle"></i> Briefing simples de 2 minutos</li>
-                            <li><i class="fas fa-check-circle"></i> Suporte completo no processo</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="whatsapp-cta">
-                        <a href="https://wa.me/5534998110946?text=Olá!%20Gostaria%20de%20encomendar%20uma%20logomarca%203D%20profissional%20por%20R$50.%20Podemos%20conversar?" 
-                           class="btn-whatsapp" target="_blank">
-                            <i class="fab fa-whatsapp"></i>
-                            <strong>Começar Pedido</strong>
-                            <div style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9;">R$ 50 via Pix</div>
-                        </a>
-                        <p style="margin-top: 1.5rem; opacity: 0.8; font-size: 0.95rem;">
-                            💳 Aceitamos Pix, cartão e boleto
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="contact-form">
-                <h3>Ou Preencha o Formulário</h3>
-                <form id="contactForm">
-                    <div class="form-group">
-                        <label for="name">Nome Completo</label>
-                        <input type="text" id="name" placeholder="Seu nome completo" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">WhatsApp</label>
-                        <input type="tel" id="phone" placeholder="(34) 99999-9999" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email (opcional)</label>
-                        <input type="email" id="email" placeholder="seu@email.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="brand">Nome da Sua Marca</label>
-                        <input type="text" id="brand" placeholder="Nome da empresa ou marca" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Sobre Sua Marca</label>
-                        <textarea id="message" placeholder="Descreva brevemente sua empresa e o que você espera da logomarca. Ex: 'Sou dono de uma padaria e quero uma logo acolhedora'" required></textarea>
-                    </div>
-                    <button type="submit" class="form-submit">
-                        <i class="fab fa-whatsapp"></i>
-                        Enviar e Receber Proposta
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3><i class="fas fa-crown"></i> PabloLogoMarcas</h3>
-                <p>Logomarcas 3D profissionais por apenas R$50. Design exclusivo, entrega rápida e satisfação garantida.</p>
-                <p class="highlight">Mais de 500 logos entregues • 100% satisfação</p>
-                <div class="social-links">
-                    <a href="https://wa.me/5534998110946" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h3><i class="fas fa-briefcase"></i> Serviços</h3>
-                <p><a href="#services">Logo 3D - R$50</a></p>
-                <p><a href="#portfolio">Portfólio</a></p>
-                <p><a href="#process">Nosso Processo</a></p>
-                <p><a href="#guarantee">Garantias</a></p>
-                <p><a href="https://wa.me/5534998110946" target="_blank">Fale Conosco</a></p>
-            </div>
-            <div class="footer-section">
-                <h3><i class="fas fa-headset"></i> Suporte</h3>
-                <p><a href="https://wa.me/5534998110946" target="_blank">WhatsApp (34) 99811-0946</a></p>
-                <p><a href="#">Perguntas Frequentes</a></p>
-                <p><a href="#">Como Funciona</a></p>
-                <p><a href="#">Política de Reembolso</a></p>
-                <p><a href="#">Termos de Serviço</a></p>
-            </div>
-            <div class="footer-section">
-                <h3><i class="fas fa-map-marker-alt"></i> Empresa</h3>
-                <p><a href="#">Sobre Nós</a></p>
-                <p><a href="#">Nossa Equipe</a></p>
-                <p><a href="#">Depoimentos</a></p>
-                <p><a href="#">Blog de Design</a></p>
-                <p>Uberlândia, MG - Brasil</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 PabloLogoMarcas. Todos os direitos reservados. | 
-                <span class="highlight">Logos Profissionais por R$50 via WhatsApp</span> | 
-                Criado com <i class="fas fa-heart" style="color: var(--primary-gold);"></i> em Uberlândia, MG
-            </p>
-        </div>
+        <button id="open-cart-modal">🛒 Meu Carrinho (<span id="cart-count">0</span>)</button>
+        <button id="help-button" class="help-fixed-button">Ajuda</button>
+        <p>Entregamos sabor e qualidade em cada mordida! 🛵✨</p>
+        <p>© 2025/2026 DêGusto Lanchonete Premium — Feito com ❤️</p>
+        <p>© criado por PabloLogoMarcas</p>
     </footer>
 
-    <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/5534998110946?text=Olá!%20Gostaria%20de%20encomendar%20uma%20logomarca%203D%20profissional%20por%20R$50." 
-       class="whatsapp-floating" target="_blank" title="Fale conosco no WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-        <div class="whatsapp-tooltip">
-            <strong>(34) 99811-0946</strong><br>
-            <small>Resposta em 5min</small>
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Seu Carrinho</h3>
+            <div id="modal-cart-items"></div>
+            <p id="modal-total">Total: R$ 0,00</p>
+            <button id="checkout-button">Finalizar Pedido</button>
+            <button id="clear-cart">Limpar Carrinho</button>
         </div>
-    </a>
+    </div>
 
-    <script>
-        // Mobile Menu
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const navLinks = document.querySelector('.nav-links');
-        
-        mobileMenu.addEventListener('click', () => {
-            mobileMenu.classList.toggle('active');
-            navLinks.classList.toggle('active');
-        });
-
-        // Smooth Scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    mobileMenu.classList.remove('active');
-                    navLinks.classList.remove('active');
-                }
-            });
-        });
-
-        // WhatsApp Click Tracking
-        document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
-            link.addEventListener('click', function() {
-                const action = this.textContent.includes('R$50') ? 'direct_order' : 
-                              this.textContent.includes('solicitar') ? 'service_inquiry' : 
-                              this.textContent.includes('encomendar') ? 'portfolio_order' : 'general_contact';
-                
-                console.log(`WhatsApp clicked: ${action} - R$50 Logo Service`);
-                gtag?.('event', 'whatsapp_click', { 'action': action });
-            });
-        });
-
-        // Contact Form
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const name = this.querySelector('#name').value;
-            const phone = this.querySelector('#phone').value;
-            const brand = this.querySelector('#brand').value;
-            const message = this.querySelector('#message').value;
-            
-            // Simulate WhatsApp message
-            const whatsappMessage = `Olá!%0A%0ANovo%20pedido%20de%20logo%20por%20R$50%3A%0A%0A👤%20Nome%3A%20${encodeURIComponent(name)}%0A📱%20WhatsApp%3A%20${encodeURIComponent(phone)}%0A🏢%20Marca%3A%20${encodeURIComponent(brand)}%0A%0A💬%20Descrição%3A%0A${encodeURIComponent(message)}%0A%0APor%20favor%2C%20envie%20a%20proposta%20completa.`;
-            
-            const btn = this.querySelector('button');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-            btn.disabled = true;
-            
-            // Open WhatsApp directly
-            setTimeout(() => {
-                window.open(`https://wa.me/5534998110946?text=${whatsappMessage}`, '_blank');
-                showNotification(`✅ Solicitação enviada para o WhatsApp, ${name}! Você será atendido em até 5 minutos.`, 'success');
-                this.reset();
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-            }, 1000);
-        });
-
-        // Intersection Observer for Animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Header Scroll Effect
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            const scroll = window.scrollY;
-            const opacity = Math.min(0.95 + (scroll * 0.001), 0.98);
-            header.style.background = `rgba(10, 10, 10, ${opacity})`;
-            
-            if (scroll > 100) {
-                header.style.borderBottomColor = 'rgba(255, 215, 0, 0.3)';
-            } else {
-                header.style.borderBottomColor = 'rgba(255, 215, 0, 0.2)';
-            }
-        });
-
-        // WhatsApp Floating Animation
-        const whatsappBtn = document.querySelector('.whatsapp-floating');
-        let pulseCount = 0;
-        setInterval(() => {
-            if (pulseCount % 3 === 0) {
-                whatsappBtn.style.transform = 'scale(1.1)';
-                setTimeout(() => {
-                    whatsappBtn.style.transform = 'scale(1)';
-                }, 200);
-            }
-            pulseCount++;
-        }, 8000);
-
-        // Auto-scroll to WhatsApp on load (with delay)
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                if (window.innerWidth > 768) {
-                    whatsappBtn.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'end',
-                        inline: 'nearest'
-                    });
-                }
-                showNotification('💎 Bem-vindo! Logos profissionais por apenas R$50 via WhatsApp!', 'success');
-            }, 2000);
-        });
-
-        // Form Validation
-        document.querySelectorAll('input[required], textarea[required]').forEach(field => {
-            field.addEventListener('blur', function() {
-                if (this.value.trim() === '') {
-                    this.style.borderColor = '#ef4444';
-                    this.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
-                } else {
-                    this.style.borderColor = 'var(--primary-gold)';
-                    this.style.boxShadow = '0 0 0 3px rgba(255, 215, 0, 0.1)';
-                }
-            });
-            
-            field.addEventListener('input', function() {
-                if (this.value.trim() !== '') {
-                    this.style.borderColor = 'var(--primary-gold)';
-                    this.style.boxShadow = '0 0 0 3px rgba(255, 215, 0, 0.1)';
-                }
-            });
-        });
-
-        // Add CSS animations
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideInRight {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            @keyframes slideOutLeft {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-            }
-            .mobile-menu.active span:nth-child(1) { 
-                transform: rotate(-45deg) translate(-5px, 6px); 
-                background: var(--primary-gold);
-            }
-            .mobile-menu.active span:nth-child(2) { opacity: 0; }
-            .mobile-menu.active span:nth-child(3) { 
-                transform: rotate(45deg) translate(-5px, -6px); 
-                background: var(--primary-gold);
-            }
-            .nav-links.active { 
-                display: flex; 
-                flex-direction: column; 
-                position: absolute; 
-                top: 100%; 
-                left: 0; 
-                width: 100%; 
-                background: rgba(10,10,10,0.98); 
-                padding: 2rem; 
-                gap: 1rem; 
-                z-index: 999;
-                border-top: var(--border-gold);
-                border-radius: 0 0 20px 20px;
-            }
-            .nav-links.active a:hover {
-                background: rgba(255, 215, 0, 0.1);
-                transform: translateX(10px);
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Notification System
-        function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            const colors = {
-                success: { bg: '#10b981', shadow: 'rgba(16, 185, 129, 0.4)' },
-                error: { bg: '#ef4444', shadow: 'rgba(239, 68, 68, 0.4)' },
-                info: { bg: '#3b82f6', shadow: 'rgba(59, 130, 246, 0.4)' },
-                gold: { bg: '#FFD700', shadow: 'rgba(255, 215, 0, 0.4)', text: '#1a1a1a' }
-            };
-            
-            const config = colors[type] || colors.info;
-            
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: ${config.bg};
-                color: ${config.text || 'white'};
-                padding: 16px 24px;
-                border-radius: 12px;
-                font-weight: 600;
-                z-index: 10000;
-                box-shadow: 0 10px 30px ${config.shadow};
-                animation: slideInRight 0.4s ease;
-                font-family: 'Inter', sans-serif;
-                max-width: 90vw;
-                backdrop-filter: blur(10px);
-                border: 1px solid rgba(255,255,255,0.2);
-            `;
-            
-            notification.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    ${type === 'success' ? '✅' : type === 'error' ? '⚠️' : type === 'gold' ? '💎' : 'ℹ️'}
-                    <span style="line-height: 1.4;">${message}</span>
+    <div id="checkout-form" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Delivery Rápido</h3>
+            <p>Entrega em todo Monte Carmelo</p>
+            <form>
+                <h4>Endereço de Entrega</h4>
+                <input type="text" id="rua" placeholder="Rua" required>
+                <input type="text" id="numero" placeholder="Número" required>
+                <input type="text" id="bairro" placeholder="Bairro" required>
+                <input type="text" id="referencia" placeholder="Ponto de Referência (opcional)">
+                <h4>Forma de Pagamento</h4>
+                <label><input type="radio" name="pagamento" value="Dinheiro"> Dinheiro</label>
+                <label><input type="radio" name="pagamento" value="Crédito"> Crédito</label>
+                <label><input type="radio" name="pagamento" value="Débito"> Débito</label>
+                <label><input type="radio" name="pagamento" value="PIX"> PIX</label>
+                <div id="troco-div" style="display: none;">
+                    <input type="text" id="troco" placeholder="Troco para quanto? (ex: 50,00)">
                 </div>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideOutLeft 0.4s ease';
-                setTimeout(() => notification.remove(), 400);
-            }, 5000);
-        }
+                <div id="pix-details" style="display: none;">
+                    <p>Chave PIX: 10738419605</p>
+                    <button type="button" onclick="copyPix()">📋 Copiar Chave PIX</button>
+                    <p>Envie o comprovante após o pedido para confirmarmos!</p>
+                </div>
+                <p id="checkout-total">Total: R$ 0,00</p>
+                <button type="submit">Enviar Pedido</button>
+            </form>
+        </div>
+    </div>
 
-        // Portfolio hover effects
-        document.querySelectorAll('.portfolio-item').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'scale(1.02) translateY(-5px)';
-            });
-            
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'scale(1) translateY(0)';
-            });
-        });
+    <div id="help-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Como Comprar na DêGusto Lanchonete</h3>
+            <p>
+                1. Escolha seus itens: Navegue pelo cardápio, selecione os hambúrgueres, combos, molhos, batatas ou bebidas que deseja e clique em "Adicionar ao Carrinho".<br>
+                2. Veja seu carrinho: Clique no botão "Meu Carrinho" no rodapé ou no header para visualizar os itens adicionados. Você pode remover itens se quiser.<br>
+                3. Finalize o pedido: No carrinho, clique em "Finalizar Pedido". Preencha seu endereço de entrega e selecione a forma de pagamento (Dinheiro, Crédito, Débito ou PIX).<br>
+                4. Envie o pedido: Clique em "Enviar Pedido" e o pedido será enviado diretamente para o WhatsApp da lanchonete. Aguarde a confirmação!<br>
+                5. Dicas extras: Aproveite as promoções diárias! Delivery em até 30 minutos. Atendimento a partir das 19h.
+            </p>
+            <p>Precisa de mais ajuda? Entre em contato via WhatsApp!</p>
+        </div>
+    </div>
 
-        // Service cards hover
-        document.querySelectorAll('.service-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                const icon = this.querySelector('.service-icon');
-                icon.style.transform = 'scale(1.2) rotate(10deg)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                const icon = this.querySelector('.service-icon');
-                icon.style.transform = 'scale(1) rotate(0deg)';
-            });
-        });
-    </script>
+    <div id="notification" class="notification"></div>
+
+    <script src="script.js"></script>
 </body>
 </html>
