@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const closeHelpModal = document.querySelector('#help-modal .close-modal');
             const checkoutTotal = document.getElementById('checkout-total');
 
-            // radio player
+            // Radio player
             const radio = document.getElementById("radio-audio");
             const playBtn = document.getElementById("play-btn");
             const pauseBtn = document.getElementById("pause-btn");
@@ -61,9 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         const div = document.createElement('div');
                         div.classList.add('cart-item-modal');
                         div.innerHTML = `
-            <span>${item.name} - ${formatCurrency(item.price)}</span>
-            <button onclick="removeFromCart(${index})">Remover</button>
-        `;
+                    <span>${item.name} - ${formatCurrency(item.price)}</span>
+                    <button onclick="removeFromCart(${index})">Remover</button>
+                `;
                         modalCartItems.appendChild(div);
                     });
                     modalTotal.textContent = `Total: ${formatCurrency(total)}`;
@@ -175,6 +175,70 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             };
 
+            // Função para salvar pedido no GitHub
+            async function saveOrderToGitHub(orderDetails) {
+                const githubToken = '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'; // Token fornecido (REVOGUE APÓS TESTES!)
+                const repoOwner = 'pabloscriptgame';
+                const repoName = 'Criesualogo';
+                const folderPath = 'pedidos';
+
+                // Gerar nome do arquivo com timestamp
+                const timestamp = new Date().toISOString().replace(/[:.]/g, '').replace('T', '_').slice(0, -1);
+                const fileName = `pedido_${timestamp}.txt`;
+                const filePath = `${folderPath}/${fileName}`;
+
+                // Codificar conteúdo em base64
+                const content = btoa(unescape(encodeURIComponent(orderDetails)));
+
+                try {
+                    // Verificar se o arquivo já existe (evita conflitos)
+                    const checkResponse = await fetch(
+                        `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
+                            method: 'GET',
+                            headers: {
+                                'Authorization': `token ${githubToken}`,
+                                'Accept': 'application/vnd.github.v3+json'
+                            }
+                        }
+                    );
+
+                    let sha = null;
+                    if (checkResponse.ok) {
+                        const data = await checkResponse.json();
+                        sha = data.sha; // Obter SHA se o arquivo existir
+                    }
+
+                    // Criar ou atualizar o arquivo no GitHub
+                    const response = await fetch(
+                        `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Authorization': `token ${githubToken}`,
+                                'Accept': 'application/vnd.github.v3+json',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                message: `Novo pedido: ${fileName}`,
+                                content: content,
+                                branch: 'main',
+                                sha: sha
+                            })
+                        }
+                    );
+
+                    if (response.ok) {
+                        showNotification('Pedido salvo no GitHub (pasta pedidos)!', 'success');
+                    } else {
+                        const errorData = await response.json();
+                        console.error('Erro ao salvar no GitHub:', errorData);
+                        showNotification('Erro ao salvar no GitHub. Verifique o token ou conexão.', 'error');
+                    }
+                } catch (error) {
+                    console.error('Erro na requisição ao GitHub:', error);
+                    showNotification('Erro de conexão com GitHub. Tente novamente.', 'error');
+                }
+            }
+
             // Enviar pedido
             checkoutForm.addEventListener('submit', (e) => {
                         e.preventDefault();
@@ -206,104 +270,99 @@ document.addEventListener('DOMContentLoaded', () => {
                         cart.forEach(item => orderDetails += `- ${item.name} (${formatCurrency(item.price)})\n`);
                         orderDetails += `\nTotal: ${formatCurrency(total)}\n`;
                         orderDetails += `Endereço: Rua ${rua}, Nº ${numero} - Bairro ${bairro}${referencia ? `, Ref: ${referencia}` : ''}\n`;
-orderDetails += `Pagamento: ${metodo}${metodo === 'Dinheiro' && troco ? ` (Troco para R$ ${troco})` : ''}${metodo === 'PIX' ? '\nPIX Chave: 10738419605' : ''}`;
+        orderDetails += `Pagamento: ${metodo}${metodo === 'Dinheiro' && troco ? ` (Troco para R$ ${troco})` : ''}${metodo === 'PIX' ? '\nPIX Chave: 10738419605' : ''}\n`;
+        orderDetails += `Data/Hora: ${new Date().toLocaleString('pt-BR')}`;
 
-const whatsappUrl = `https://wa.me/+5534999537698?text=${encodeURIComponent(orderDetails)}`;
-window.open(whatsappUrl, '_blank');
+        // Enviar para WhatsApp
+        const whatsappUrl = `https://wa.me/+5534999537698?text=${encodeURIComponent(orderDetails)}`;
+        window.open(whatsappUrl, '_blank');
 
-// Salvar apenas os dados do endereço como arquivo de texto para download (simulando salvamento em "pasta pedidos simples")
-const addressData = `Dados do Endereço do Pedido:\n\nEndereço: Rua ${rua}, Nº ${numero} - Bairro ${bairro}${referencia ? `, Ref: ${referencia}` : ''}`;
-const blob = new Blob([addressData], { type: 'text/plain' });
-const url = URL.createObjectURL(blob);
-const a = document.createElement('a');
-a.href = url;
-a.download = 'pedido_endereco.txt'; // Salve este arquivo na pasta "pedidos simples" manualmente após o download
-a.click();
-URL.revokeObjectURL(url);
-showNotification('Dados do endereço salvos! Baixe o arquivo e mova para a pasta "pedidos simples".', 'success');
+        // Salvar no GitHub
+        saveOrderToGitHub(orderDetails);
 
-cart.length = 0;
-localStorage.setItem('cart', JSON.stringify(cart));
-updateCartButton();
-checkoutForm.reset();
-trocoDiv.style.display = 'none';
-pixDetails.style.display = 'none';
-checkoutForm.style.display = 'none';
-modal.style.display = 'none';
-document.body.style.overflow = 'auto';
-showNotification('Pedido enviado para WhatsApp!', 'success');
-populateModal();
-});
-
-// Botão Ajuda - Abrir modal de ajuda
-helpButton.addEventListener('click', () => {
-helpModal.style.display = 'flex';
-document.body.style.overflow = 'hidden';
-});
-
-// Fechar modal de ajuda
-closeHelpModal.addEventListener('click', () => {
-helpModal.style.display = 'none';
-document.body.style.overflow = 'auto';
-});
-
-window.addEventListener('click', (e) => {
-if (e.target === modal) {
-    modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
-}
-if (e.target === checkoutForm) {
-    checkoutForm.style.display = 'none';
-    document.body.style.overflow = 'auto';
-}
-if (e.target === helpModal) {
-    helpModal.style.display = 'none';
-    document.body.style.overflow = 'auto';
-}
-});
-
-// Menu mobile
-mobileToggle.addEventListener('click', () => mainNav.classList.toggle('active'));
-
-// Tabs
-const tabButtons = document.querySelectorAll('.tab-button');
-const tabPanels = document.querySelectorAll('.tab-panel');
-
-tabButtons.forEach(button => {
-button.addEventListener('click', () => {
-    tabButtons.forEach(btn => btn.classList.remove('active'));
-    button.classList.add('active');
-    tabPanels.forEach(panel => panel.classList.remove('active'));
-    document.getElementById(button.dataset.tab).classList.add('active');
-});
-});
-
-// Inicialização
-updateCartButton();
-populateModal();
-
-// radio simple controls - CORRIGIDO
-(function(){
-if(!radio || !playBtn || !pauseBtn || !vuMeter) {
-    console.warn('Elementos do player de rádio não encontrados.');
-    return;
-}
-playBtn.addEventListener('click', () => {
-    radio.play().then(() => {
-        vuMeter.style.display = 'flex';
-        console.log('Rádio tocando.');
-    }).catch(error => {
-        console.error('Erro ao reproduzir áudio:', error);
-        showNotification('Erro ao iniciar o player. Verifique a conexão.', 'error');
+        // Limpar carrinho e UI
+        cart.length = 0;
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartButton();
+        checkoutForm.reset();
+        trocoDiv.style.display = 'none';
+        pixDetails.style.display = 'none';
+        checkoutForm.style.display = 'none';
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        showNotification('Pedido enviado para WhatsApp!', 'success');
+        populateModal();
     });
-});
-pauseBtn.addEventListener('click', () => {
-    radio.pause();
-    vuMeter.style.display = 'none';
-    console.log('Rádio pausado.');
-});
-radio.pause();
-vuMeter.style.display = 'none';
-console.log('Player de rádio inicializado.');
-})();
+
+    // Botão Ajuda - Abrir modal de ajuda
+    helpButton.addEventListener('click', () => {
+        helpModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    });
+
+    // Fechar modal de ajuda
+    closeHelpModal.addEventListener('click', () => {
+        helpModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        if (e.target === checkoutForm) {
+            checkoutForm.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        if (e.target === helpModal) {
+            helpModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
+
+    // Menu mobile
+    mobileToggle.addEventListener('click', () => mainNav.classList.toggle('active'));
+
+    // Tabs
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            tabPanels.forEach(panel => panel.classList.remove('active'));
+            document.getElementById(button.dataset.tab).classList.add('active');
+        });
+    });
+
+    // Inicialização
+    updateCartButton();
+    populateModal();
+
+    // Radio simple controls
+    (function(){
+        if(!radio || !playBtn || !pauseBtn || !vuMeter) {
+            console.warn('Elementos do player de rádio não encontrados.');
+            return;
+        }
+        playBtn.addEventListener('click', () => {
+            radio.play().then(() => {
+                vuMeter.style.display = 'flex';
+                console.log('Rádio tocando.');
+            }).catch(error => {
+                console.error('Erro ao reproduzir áudio:', error);
+                showNotification('Erro ao iniciar o player. Verifique a conexão.', 'error');
+            });
+        });
+        pauseBtn.addEventListener('click', () => {
+            radio.pause();
+            vuMeter.style.display = 'none';
+            console.log('Rádio pausado.');
+        });
+        radio.pause();
+        vuMeter.style.display = 'none';
+        console.log('Player de rádio inicializado.');
+    })();
 });
