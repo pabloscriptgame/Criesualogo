@@ -1,5 +1,43 @@
+// script.js atualizado com integração ao MongoDB via API backend (assumindo server.js rodando em localhost:3000)
 document.addEventListener('DOMContentLoaded', () => {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const API_BASE = 'http://localhost:3000/api/cart?AqBVeBOlSfejm7zu'; // Ajuste para o URL do seu backend
+    let userId = localStorage.getItem('userId') || generateUserId();
+    localStorage.setItem('userId', userId);
+
+    function generateUserId() {
+        return 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    }
+
+    async function saveToDB(endpoint, data) {
+        try {
+            const response = await fetch(`${API_BASE}/${endpoint}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId, ...data })
+            });
+            if (!response.ok) throw new Error('Erro ao salvar');
+        } catch (error) {
+            console.error('Erro ao salvar no DB:', error);
+            // Fallback para localStorage em caso de erro
+            localStorage.setItem(endpoint, JSON.stringify(data));
+        }
+    }
+
+    async function loadFromDB(endpoint) {
+        try {
+            const response = await fetch(`${API_BASE}/${endpoint}?userId=${userId}`);
+            if (response.ok) {
+                const data = await response.json();
+                return data || {};
+            }
+        } catch (error) {
+            console.error('Erro ao carregar do DB:', error);
+        }
+        // Fallback para localStorage
+        return JSON.parse(localStorage.getItem(endpoint)) || {};
+    }
+
+    const cart = [];
     const cartCount = document.getElementById('cart-count');
     const notification = document.getElementById('notification');
     const pagamentoRadios = document.querySelectorAll('input[name="pagamento"]');
@@ -27,19 +65,39 @@ document.addEventListener('DOMContentLoaded', () => {
     let discountApplied = false;
     let originalTotal = 0;
 
-    // Sistema de Gamificação
-    let gamificationData = JSON.parse(localStorage.getItem('gamification')) || {
-        points: 0,
-        level: 1,
-        ordersCompleted: 0,
-        combosOrdered: 0,
-        badges: {
-            primeiroPedido: false,
-            fieis: false,
-            gourmet: false,
-            comboMaster: false
+    // Carregar cart do DB no init
+    async function initCart() {
+        const savedCart = await loadFromDB('cart');
+        Object.assign(cart, savedCart);
+        updateCartButton();
+    }
+
+    // Sistema de Gamificação - carregado do DB
+    let gamificationData = {};
+
+    async function initGamification() {
+        gamificationData = await loadFromDB('gamification');
+        if (Object.keys(gamificationData).length === 0) {
+            gamificationData = {
+                points: 0,
+                level: 1,
+                ordersCompleted: 0,
+                combosOrdered: 0,
+                badges: {
+                    primeiroPedido: false,
+                    fieis: false,
+                    gourmet: false,
+                    comboMaster: false
+                }
+            };
+            await saveGamification();
         }
-    };
+        updateGamificationUI();
+    }
+
+    async function saveGamification() {
+        await saveToDB('gamification', gamificationData);
+    }
 
     const POINTS_PER_ITEM = 10;
     const POINTS_PER_ORDER = 50;
@@ -48,10 +106,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const userPointsEl = document.getElementById('user-points');
     const nextLevelPointsEl = document.getElementById('next-level-points');
     const progressFillEl = document.getElementById('progress-fill');
-
-    function saveGamification() {
-        localStorage.setItem('gamification', JSON.stringify(gamificationData));
-    }
 
     function updateGamificationUI() {
         userLevelEl.textContent = gamificationData.level;
@@ -73,48 +127,48 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function addPoints(points) {
+    async function addPoints(points) {
         gamificationData.points += points;
         let newLevel = Math.floor(gamificationData.points / POINTS_PER_LEVEL) + 1;
         if (newLevel > gamificationData.level) {
             gamificationData.level = newLevel;
             showNotification(`Parabéns! Você subiu para o Nível ${newLevel}! 🎉`, 'success');
         }
-        saveGamification();
+        await saveGamification();
         updateGamificationUI();
     }
 
-    function checkBadges() {
+    async function checkBadges() {
         if (!gamificationData.badges.primeiroPedido && gamificationData.ordersCompleted >= 1) {
             gamificationData.badges.primeiroPedido = true;
             showNotification('Badge desbloqueado: Primeiro Pedido! 🍔', 'success');
-            saveGamification();
+            await saveGamification();
         }
         if (!gamificationData.badges.fieis && gamificationData.ordersCompleted >= 3) {
             gamificationData.badges.fieis = true;
             showNotification('Badge desbloqueado: Cliente Fiel! ⭐', 'success');
-            saveGamification();
+            await saveGamification();
         }
         if (!gamificationData.badges.gourmet && gamificationData.points >= 500) {
             gamificationData.badges.gourmet = true;
             showNotification('Badge desbloqueado: Gourmet! 👑', 'success');
-            saveGamification();
+            await saveGamification();
         }
         if (!gamificationData.badges.comboMaster && gamificationData.combosOrdered >= 5) {
             gamificationData.badges.comboMaster = true;
             showNotification('Badge desbloqueado: Combo Master! 🎁', 'success');
-            saveGamification();
+            await saveGamification();
         }
         updateGamificationUI();
     }
 
-    // Player de rádio
+    // Player de rádio (sem mudanças)
     const radio = document.getElementById("radio-audio");
     const playBtn = document.getElementById("play-btn");
     const pauseBtn = document.getElementById("pause-btn");
     const vuMeter = document.getElementById("vu-meter");
 
-    // Cupons (lista completa truncada para exemplo; adicione mais se quiser)
+    // Cupons (sem mudanças)
     const validCoupons = [
         'DEGUSTO5-001', 'DEGUSTO5-002', 'DEGUSTO5-003', 'DEGUSTO5-004', 'DEGUSTO5-005',
         'DEGUSTO5-006', 'DEGUSTO5-007', 'DEGUSTO5-008', 'DEGUSTO5-009', 'DEGUSTO5-010',
@@ -132,7 +186,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return 'R$ ' + parseFloat(value).toFixed(2).replace('.', ',');
     }
 
-    function updateCartButton() {
+    async function updateCartButton() {
+        await saveToDB('cart', cart);
         cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
     }
 
@@ -171,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function populateModal() {
+    async function populateModal() {
         modalCartItems.innerHTML = '';
         const total = calculateTotal();
         if (cart.length === 0) {
@@ -202,14 +257,13 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCheckoutTotal();
     }
 
-    window.updateQuantity = (index, change) => {
+    window.updateQuantity = async(index, change) => {
         if (cart[index].quantity + change > 0) {
             cart[index].quantity += change;
             if (cart[index].quantity === 0) {
                 cart.splice(index, 1);
             }
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartButton();
+            await updateCartButton();
             populateModal();
             showNotification(`${change > 0 ? 'Quantidade aumentada' : 'Quantidade diminuída'}!`);
         }
@@ -217,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Adicionar ao carrinho com gamificação
     document.querySelectorAll('.add-to-cart').forEach(button => {
-        button.addEventListener('click', (e) => {
+        button.addEventListener('click', async(e) => {
             const item = e.target.closest('.item');
             const name = item.dataset.name;
             const price = item.dataset.price;
@@ -227,12 +281,11 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 cart.push({ name, price, quantity: 1 });
             }
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartButton();
+            await updateCartButton();
             updateCheckoutTotal();
 
             // Gamificação
-            addPoints(POINTS_PER_ITEM);
+            await addPoints(POINTS_PER_ITEM);
             showNotification(`${name} adicionado ao carrinho! +${POINTS_PER_ITEM} pts!`, 'success');
             button.classList.add('added');
             button.textContent = 'Adicionado! ✓';
@@ -245,10 +298,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    window.removeFromCart = (index) => {
+    window.removeFromCart = async(index) => {
         cart.splice(index, 1);
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartButton();
+        await updateCartButton();
         populateModal();
         showNotification('Item removido do carrinho! 🗑️');
         if (cart.length === 0) {
@@ -256,11 +308,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    clearCartBtn.addEventListener('click', () => {
+    clearCartBtn.addEventListener('click', async() => {
         if (confirm('Tem certeza que deseja limpar o carrinho? Todos os itens serão removidos.')) {
             cart.length = 0;
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartButton();
+            await updateCartButton();
             populateModal();
             discountApplied = false;
             showNotification('Carrinho limpo com sucesso! 🛒', 'success');
@@ -327,8 +378,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Enviar pedido com gamificação
-    checkoutForm.addEventListener('submit', (e) => {
+    // Enviar pedido com gamificação e salvar no DB
+    checkoutForm.addEventListener('submit', async(e) => {
         e.preventDefault();
         if (cart.length === 0) {
             showNotification('Seu carrinho está vazio! Adicione itens antes de finalizar.', 'error');
@@ -382,15 +433,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const whatsappUrl = `https://wa.me/+5534999537698?text=${encodeURIComponent(orderDetails)}`;
         window.open(whatsappUrl, '_blank');
 
+        // Salvar pedido no DB
+        const orderData = {
+            userId,
+            nome,
+            itens: cart,
+            subtotal: originalTotal,
+            desconto: discountApplied ? originalTotal * 0.05 : 0,
+            total,
+            endereco: { rua, numero, bairro, referencia },
+            pagamento: { metodo, troco },
+            observacoes: obs,
+            data: new Date().toISOString()
+        };
+        await saveToDB('orders', orderData);
+
         // Gamificação
         gamificationData.ordersCompleted += 1;
-        addPoints(POINTS_PER_ORDER);
-        checkBadges();
+        await addPoints(POINTS_PER_ORDER);
+        await checkBadges();
 
         // Limpar
         cart.length = 0;
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartButton();
+        await updateCartButton();
         checkoutForm.reset();
         if (nomeCliente) nomeCliente.value = '';
         if (observacoes) observacoes.value = '';
@@ -445,11 +510,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Inicialização
-    updateCartButton();
+    initCart();
+    initGamification();
     populateModal();
-    updateGamificationUI();
 
-    // Controles de rádio
+    // Controles de rádio (sem mudanças)
     if (radio && playBtn && pauseBtn && vuMeter) {
         playBtn.addEventListener('click', () => {
             radio.play().then(() => {
