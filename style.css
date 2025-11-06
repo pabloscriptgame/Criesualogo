@@ -1,0 +1,490 @@
+/* Reset e Estilos Base */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #000;
+    color: #fff;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+
+/* Cores Preto e Ouro com Neon */
+
+:root {
+    --gold-primary: #D4AF37;
+    --gold-secondary: #B8860B;
+    --gold-light: #FAD5A5;
+    --dark: #000;
+    --gray: #ccc;
+    --white: #fff;
+}
+
+.neon-gold {
+    box-shadow: 0 0 5px var(--gold-primary), 0 0 10px var(--gold-primary), 0 0 15px var(--gold-primary), 0 0 20px var(--gold-secondary);
+    transition: box-shadow 0.3s ease;
+}
+
+.neon-gold:hover {
+    box-shadow: 0 0 10px var(--gold-primary), 0 0 20px var(--gold-primary), 0 0 30px var(--gold-primary), 0 0 40px var(--gold-secondary);
+}
+
+.neon-border {
+    border: 1px solid var(--gold-primary);
+    box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+
+/* Header Fino e Profissional */
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    padding: 0.5rem 0;
+    /* Mais fino */
+    box-shadow: 0 2px 10px rgba(212, 175, 55, 0.1);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    /* Menor para header fino */
+    font-weight: 700;
+    color: var(--gold-primary);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    /* Gap menor */
+}
+
+.nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 0.9rem;
+    /* Fonte menor para menu fino */
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--gold-primary);
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 20px;
+    /* Mais fino */
+    height: 2px;
+    background: var(--gold-primary);
+    margin: 2px 0;
+    transition: 0.3s;
+}
+
+
+/* Hero Section Elegante com Imagem */
+
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: grayscale(50%) sepia(20%);
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: -1;
+}
+
+.hero-content {
+    z-index: 1;
+}
+
+.hero h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    color: var(--white);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: var(--gray);
+    max-width: 600px;
+}
+
+.cta-btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: transparent;
+    color: var(--gold-primary);
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s;
+    class: neon-border;
+}
+
+.cta-btn:hover {
+    background: var(--gold-primary);
+    color: var(--dark);
+    class: neon-gold;
+}
+
+
+/* Services Section */
+
+.services {
+    padding: 6rem 0;
+    background: var(--dark);
+}
+
+.section-title {
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--white);
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 2px;
+    background: var(--gold-primary);
+    margin: 1rem auto;
+    class: neon-gold;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.service-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s;
+    class: neon-border;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    filter: grayscale(30%);
+    transition: filter 0.3s;
+}
+
+.service-card:hover .service-img {
+    filter: grayscale(0%);
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    background: rgba(212, 175, 55, 0.1);
+    class: neon-gold;
+}
+
+.service-card i {
+    font-size: 3rem;
+    color: var(--gold-primary);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.service-card h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--white);
+}
+
+.service-card p {
+    color: var(--gray);
+}
+
+
+/* Map Section */
+
+.map-section {
+    padding: 6rem 0;
+    background: var(--dark);
+    text-align: center;
+}
+
+#map {
+    height: 450px;
+    width: 100%;
+    border-radius: 15px;
+    class: neon-border;
+    margin-top: 2rem;
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
+}
+
+
+/* Contact Section */
+
+.contact {
+    padding: 6rem 0;
+    background: var(--dark);
+    text-align: center;
+}
+
+.contact h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--white);
+}
+
+.contact p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    color: var(--gray);
+}
+
+.whatsapp-btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: #25D366;
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    margin-top: 1rem;
+    transition: all 0.3s;
+    class: neon-gold;
+}
+
+.whatsapp-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+}
+
+
+/* Chatbot Profissional */
+
+.chatbot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 320px;
+    height: 450px;
+    background: var(--dark);
+    border-radius: 15px;
+    class: neon-border;
+    display: none;
+    flex-direction: column;
+    z-index: 1001;
+    box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
+    color: var(--white);
+}
+
+.chat-header {
+    background: var(--gold-primary);
+    padding: 1.2rem;
+    border-radius: 15px 15px 0 0;
+    color: var(--dark);
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-chat {
+    background: none;
+    border: none;
+    color: var(--dark);
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.message {
+    margin-bottom: 1rem;
+    padding: 0.8rem;
+    border-radius: 10px;
+}
+
+.message.user {
+    background: var(--gold-primary);
+    color: var(--dark);
+    text-align: right;
+    margin-left: 20%;
+}
+
+.message.bot {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    border: 1px solid var(--gold-primary);
+    margin-right: 20%;
+}
+
+.chat-input {
+    display: flex;
+    padding: 1rem;
+    border-top: 1px solid var(--gold-primary);
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 0.8rem;
+    border: 1px solid var(--gold-primary);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    margin-right: 0.5rem;
+}
+
+.chat-input input::placeholder {
+    color: var(--gray);
+}
+
+.chat-input button {
+    padding: 0.8rem 1rem;
+    background: var(--gold-primary);
+    color: var(--dark);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    class: neon-gold;
+}
+
+.chat-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--gold-primary);
+    color: var(--dark);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1000;
+    class: neon-gold;
+}
+
+
+/* Footer */
+
+footer {
+    background: var(--dark);
+    color: var(--gray);
+    text-align: center;
+    padding: 2rem 0;
+    border-top: 1px solid var(--gold-primary);
+}
+
+
+/* Responsivo */
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    .hamburger {
+        display: flex;
+    }
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    .chatbot {
+        width: 90%;
+        right: 5%;
+    }
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* Animações Suaves */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+.service-card {
+    opacity: 0;
+    animation-delay: 0.2s;
+}
