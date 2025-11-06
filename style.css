@@ -99,6 +99,7 @@ nav {
     display: none;
     flex-direction: column;
     cursor: pointer;
+    z-index: 1001;
 }
 
 .hamburger span {
@@ -110,8 +111,20 @@ nav {
     transition: 0.3s;
 }
 
+.hamburger.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
 
-/* Hero Section Elegante com Imagem */
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+
+/* Hero Section Elegante com Imagem - Overlay ainda mais escurecido para melhor legibilidade do texto */
 
 .hero {
     height: 100vh;
@@ -131,7 +144,8 @@ nav {
     height: 100%;
     object-fit: cover;
     z-index: -1;
-    filter: grayscale(50%) sepia(20%);
+    filter: grayscale(50%) sepia(20%) brightness(0.5);
+    /* Brilho reduzido ainda mais para escurecer a imagem */
 }
 
 .hero-overlay {
@@ -140,7 +154,8 @@ nav {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.9);
+    /* Overlay escurecido de 0.8 para 0.9 para maior contraste com o texto */
     z-index: -1;
 }
 
@@ -153,7 +168,8 @@ nav {
     font-size: 4rem;
     margin-bottom: 1rem;
     color: var(--white);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+    /* Sombra do texto intensificada para melhor visibilidade */
 }
 
 .hero p {
@@ -444,11 +460,33 @@ footer {
 }
 
 
-/* Responsivo */
+/* Responsivo - Menu Mobile Melhorado */
 
 @media (max-width: 768px) {
     .nav-links {
         display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        z-index: 999;
+        backdrop-filter: blur(10px);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+    }
+    .nav-links.active {
+        display: flex;
+        transform: translateX(0);
+    }
+    .nav-links a {
+        font-size: 1.5rem;
+        padding: 1rem;
     }
     .hamburger {
         display: flex;
@@ -462,6 +500,10 @@ footer {
     }
     .services-grid {
         grid-template-columns: 1fr;
+    }
+    /* Bloqueia scroll quando menu aberto */
+    body.menu-open {
+        overflow: hidden;
     }
 }
 
