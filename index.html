@@ -4,121 +4,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pablo Studio - Transformo sua ideia em identidade! 🚀</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Pablo Designer - Design Criativo 3D</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <body>
-    <header>
-        <nav class="container">
-            <div class="logo">Pablo Studio</div>
-            <ul class="nav-links">
-                <li><a href="#home">Início</a></li>
-                <li><a href="#services">Serviços</a></li>
-                <li><a href="#map">Localização</a></li>
-                <li><a href="#contact">Contato</a></li>
+    <!-- HEADER COM LOGO E MENU -->
+    <header class="header">
+        <div class="logo">
+            <img src="https://i.ibb.co/tpNPjsjN/nova-logo-pablo-sem-fundo.png" alt="Pablo Designer Logo">
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#gerador">Gerador IA</a></li>
+                <li><a href="#portfolio">Portfólio</a></li>
+                <li><a href="#contato">Contato</a></li>
             </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <div class="toggle">🌙</div>
         </nav>
+        <div class="hamburger">☰</div>
     </header>
 
+    <!-- HOME / HERO COM LOGO DE FUNDO ESCURO -->
     <section id="home" class="hero">
-        <div class="hero-overlay"></div>
-        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Estúdio criativo com design dourado" class="hero-bg">
-        <div class="hero-content container fade-in">
-            <h1>Transformo sua ideia em identidade! 🚀</h1>
-            <p>Sou especializado na criação de logos 3D, sites modernos, artes visuais, vídeos e músicas personalizadas. Meu objetivo é valorizar sua marca com qualidade, criatividade e design profissional.</p>
-            <a href="#contact" class="cta-btn">Entre em Contato</a>
+        <div class="hero-content" data-aos="fade-up">
+            <h1>Pablo Designer</h1>
+            <p>Designs que transformam ideias em impacto visual</p>
+            <a href="#contato" class="btn">Fale Comigo no WhatsApp</a>
         </div>
     </section>
 
-    <section id="services" class="services">
-        <div class="container">
-            <h2 class="section-title fade-in">Nossos Serviços</h2>
-            <div class="services-grid">
-                <div class="service-card fade-in">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Logo 3D" class="service-img">
-                    <i class="fas fa-cube"></i>
-                    <h3>Logos 3D Impactantes</h3>
-                    <p>Crie logos que saltam da tela com design 3D elegante e toques dourados para máxima sofisticação.</p>
-                </div>
-                <div class="service-card fade-in">
-                    <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Site web" class="service-img">
-                    <i class="fas fa-globe"></i>
-                    <h3>Sites Responsivos e Modernos</h3>
-                    <p>Desenvolva sites profissionais, seguros e otimizados, como este, com integrações avançadas.</p>
-                </div>
-                <div class="service-card fade-in">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Edição de vídeo" class="service-img">
-                    <i class="fas fa-video"></i>
-                    <h3>Edição de Vídeo Profissional</h3>
-                    <p>Vídeos editados com transições suaves e estilo premium para elevar sua narrativa visual.</p>
-                </div>
-                <div class="service-card fade-in">
-                    <img src="https://images.unsplash.com/photo-1464817066258-0cf9e579f772?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Música personalizada" class="service-img">
-                    <i class="fas fa-music"></i>
-                    <h3>Criação de Músicas e Trilhas</h3>
-                    <p>Músicas personalizadas com harmonias refinadas para vídeos, sites e campanhas exclusivas.</p>
-                </div>
-                <div class="service-card fade-in">
-                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Arte promocional" class="service-img">
-                    <i class="fas fa-palette"></i>
-                    <h3>Imagens e Artes Promocionais</h3>
-                    <p>Artes visuais impactantes e elegantes para redes sociais e materiais promocionais de alto nível.</p>
-                </div>
-            </div>
+    <!-- SOBRE -->
+    <section id="sobre" class="section">
+        <h2 data-aos="fade-up">Sobre Mim</h2>
+        <p data-aos="fade-up">Especialista em logomarcas 3D, sites modernos, propagandas visuais e motion graphics. Com mais de 10 anos de experiência, crio soluções únicas, futuristas e de alto impacto para marcas que querem se destacar.</p>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section id="servicos" class="section">
+        <h2 data-aos="fade-up">Serviços</h2>
+        <div class="cards">
+            <div class="card" data-aos="zoom-in">Logomarcas & Branding 3D</div>
+            <div class="card" data-aos="zoom-in">Criação de Sites Responsivos</div>
+            <div class="card" data-aos="zoom-in">Propagandas Visuais (Posts, Banners)</div>
+            <div class="card" data-aos="zoom-in">Vídeos & Motion Graphics</div>
         </div>
     </section>
 
-    <section id="map" class="map-section">
-        <div class="container">
-            <h2 class="section-title fade-in">Nossa Localização: Monte Carmelo, MG</h2>
-            <p>Total segurança e proximidade para projetos incríveis. Integrado com Google Maps para acesso facilitado e profissional.</p>
-            <iframe id="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3750.123456789!2d-47.123456789!3d-18.123456789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDA3JzI5LjIiUyA0N8KwMDcnMTIuNSJX!5e0!3m2!1spt-BR!2sbr!4v1630000000000"
-                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <!-- GERADOR DE IMAGENS LITE GRÁTIS -->
+    <section id="gerador" class="section generator-lite">
+        <h2 data-aos="fade-up">Gerador de Imagens Lite Grátis</h2>
+        <p data-aos="fade-up">Digite um prompt e gere imagens incríveis com IA (versão lite simulada – totalmente grátis!)</p>
+        <div class="input-area">
+            <textarea id="promptIA" placeholder="Ex: 'Logo 3D metálico futurista azul com luz neon'"></textarea>
+            <button id="generateIA">Gerar Imagem</button>
+        </div>
+        <div class="result-ia" id="resultIA">
+            <p id="loadingIA">Gerando... Aguarde 3 segundos</p>
+            <img id="generatedIA" src="" alt="Imagem gerada com IA">
         </div>
     </section>
 
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title fade-in">Seu projeto com visual forte, presença marcante e estilo único.</h2>
-            <p>Entre em contato e vamos criar algo incrível!</p>
-            <a href="https://wa.me/5534998110946?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20o%20Pablo%20Studio." class="whatsapp-btn" target="_blank">
-                <i class="fab fa-whatsapp"></i> Entrar em Contato via WhatsApp
-            </a>
+    <!-- PORTFÓLIO -->
+    <section id="portfolio" class="section">
+        <h2 data-aos="fade-up">Portfólio</h2>
+        <div class="filters">
+            <button data-filter="all">Todos</button>
+            <button data-filter="logos">Logos 3D</button>
+            <button data-filter="sites">Sites</button>
+            <button data-filter="ads">Ads</button>
+            <button data-filter="motion">Motion</button>
+        </div>
+        <div class="gallery" id="gallery">
+            <!-- Imagens inseridas via JavaScript -->
         </div>
     </section>
 
+    <!-- CONTATO (SÓ WHATSAPP) -->
+    <section id="contato" class="section">
+        <h2 data-aos="fade-up">Contato</h2>
+        <p data-aos="fade-up" style="font-size: 1.4em; margin: 40px 0;">
+            Vamos conversar sobre seu projeto?<br> Clique no botão verde no canto da tela ou <a href="https://wa.me/5534998110946" style="color: var(--accent); font-weight: bold;">mande uma mensagem agora no WhatsApp</a>!
+        </p>
+        <p>Respondo rápido 🚀</p>
+    </section>
+
+    <!-- FOOTER -->
     <footer>
-        <div class="container">
-            <p>&copy; 2025 Pablo Studio. Todos os direitos reservados. | Desenvolvido com excelência e dedicação ao design premium.</p>
-        </div>
+        <p>© 2025 Pablo Designer. Todos os direitos reservados.</p>
     </footer>
 
-    <!-- Chatbot AI Profissional -->
-    <button class="chat-toggle" onclick="toggleChat()">
-        <i class="fas fa-comments"></i>
-    </button>
-    <div id="chatbot" class="chatbot">
-        <div class="chat-header">
-            <span>Assistente IA - Pablo Studio</span>
-            <button class="close-chat" onclick="toggleChat()">&times;</button>
-        </div>
-        <div id="chat-messages" class="chat-messages">
-            <div class="message bot">Olá! Sou o assistente IA do Pablo Studio. Como posso auxiliar em seu projeto criativo hoje? Precisa de um site, logo ou vídeo?</div>
+    <!-- BOTÃO FIXO WHATSAPP -->
+    <a href="https://wa.me/5534998110946?text=Ol%C3%A1%20Pablo!%20Vi%20seu%20site%20e%20gostaria%20de%20falar%20sobre%20um%20projeto" class="fixed-btn whatsapp" target="_blank">💬</a>
+
+    <!-- CHAT IA FIXO -->
+    <div class="chat-toggle">💬 IA</div>
+    <div class="chat-fixed">
+        <div class="chat-header">Chat IA Avançado 💬<span class="close-chat">✖</span></div>
+        <div class="chat-body" id="chatBody">
+            <p>IA: Olá! Sou seu assistente avançado. Pergunte sobre design, logos 3D ou orçamentos!</p>
         </div>
         <div class="chat-input">
-            <input type="text" id="chat-input" placeholder="Digite sua mensagem..." onkeypress="sendMessage(event)">
-            <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+            <input type="text" id="chatMsg" placeholder="Digite sua pergunta...">
+            <button id="sendMsg">➤</button>
         </div>
     </div>
 
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
 </body>
 

@@ -1,208 +1,130 @@
+// Inicializa animações AOS
+AOS.init({ duration: 1200 });
+
+// Menu Hamburger Mobile
+document.querySelector('.hamburger').addEventListener('click', () => {
+    document.querySelector('.nav').classList.toggle('active');
+});
+
+// Dark / Light Mode Toggle
+document.querySelector('.toggle').addEventListener('click', () => {
+    document.body.classList.toggle('light');
+    document.querySelector('.toggle').textContent = document.body.classList.contains('light') ? '☀️' : '🌙';
+});
+
 // Smooth Scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+        if (window.innerWidth <= 768) {
+            document.querySelector('.nav').classList.remove('active');
+        }
+    });
+});
+
+// Gerador de Imagens Lite
+const iaImages = [
+    "https://img.freepik.com/free-photo/3d-render-vs-company-metal-letter-logo-pen-tool-created-clipping-path-included-jpeg-easy-composite_460848-10423.jpg",
+    "https://img.freepik.com/free-psd/sale-object-3d-render-isolated-illustration_47987-27569.jpg",
+    "https://thumbs.dreamstime.com/b/industrial-metal-letter-h-sculpture-modern-design-textured-grey-background-410926229.jpg",
+    "https://thumbs.dreamstime.com/z/metallic-emblem-close-up-blue-orange-neon-lights-tech-branding-futuristic-design-metallic-emblem-close-up-blue-orange-neon-326813279.jpg",
+    "https://www.logoground.com/uploads14/dv14y2025105792025-05-212697476lg-ortegagraphics-futuristic-science-fiction-stylized-letter-o-3d.jpg",
+    "https://i.etsystatic.com/44403991/r/il/5022c5/7061873066/il_570xN.7061873066_g0z4.jpg",
+    "https://img.freepik.com/free-psd/golden-logo-mockup-facade-sign_145008-113.jpg"
+];
+
+document.getElementById('generateIA').addEventListener('click', () => {
+    const prompt = document.getElementById('promptIA').value.trim();
+    if (!prompt) return alert('Por favor, digite um prompt!');
+
+    document.getElementById('loadingIA').style.display = 'block';
+    document.getElementById('generatedIA').style.display = 'none';
+
+    setTimeout(() => {
+        const randomImg = iaImages[Math.floor(Math.random() * iaImages.length)];
+        document.getElementById('generatedIA').src = randomImg;
+        document.getElementById('generatedIA').style.display = 'block';
+        document.getElementById('loadingIA').style.display = 'none';
+    }, 3000);
+});
+
+// Portfólio - Imagens (com categorias)
+const portfolioImages = [
+    { src: "https://img.freepik.com/free-photo/3d-render-vs-company-metal-letter-logo-pen-tool-created-clipping-path-included-jpeg-easy-composite_460848-10423.jpg", cat: "logos" },
+    { src: "https://img.freepik.com/free-psd/sale-object-3d-render-isolated-illustration_47987-27569.jpg", cat: "logos" },
+    { src: "https://thumbs.dreamstime.com/b/industrial-metal-letter-h-sculpture-modern-design-textured-grey-background-410926229.jpg", cat: "logos" },
+    { src: "https://www.logoground.com/uploads14/dv14y2025105792025-05-212697476lg-ortegagraphics-futuristic-science-fiction-stylized-letter-o-3d.jpg", cat: "logos" },
+    { src: "https://assets.justinmind.com/wp-content/uploads/2020/02/free-website-mockups-lawyer.png", cat: "sites" },
+    { src: "https://assets.justinmind.com/wp-content/uploads/2020/02/website-mockup-examples-travel.png", cat: "sites" },
+    { src: "https://mockuptree.com/wp-content/uploads/2020/07/free-website-mockup-3d-perspective.jpg", cat: "sites" },
+    { src: "https://i.fbcd.co/products/resized/resized-750-500/99b4ca5940bee2858eb4e7bb1e5dbb3ec2999b981d0353fb75db454b1ef3bd75.jpg", cat: "ads" },
+    { src: "https://mir-s3-cdn-cf.behance.net/project_modules/hd/8ff963104656881.5f82e8c1e47c8.jpg", cat: "ads" },
+    { src: "https://cdn.dribbble.com/userupload/4514699/file/original-4f1399ad75732772e09cbc0d132b839b.png", cat: "ads" },
+    { src: "https://cdn.dribbble.com/userupload/10927019/file/original-79276582809a41708e28251e1c5a0a9d.jpg", cat: "motion" },
+    { src: "https://www.visme.co/wp-content/uploads/2024/10/youtube-thumbnail-maker-collage.jpg", cat: "motion" }
+];
+
+const gallery = document.getElementById('gallery');
+portfolioImages.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'item ' + item.cat;
+    div.innerHTML = `<img src="${item.src}" alt="Trabalho Pablo Designer">`;
+    gallery.appendChild(div);
+});
+
+// Filtro do Portfólio
+document.querySelectorAll('.filters button').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+        document.querySelectorAll('.gallery .item').forEach(item => {
+            if (filter === 'all') {
+                item.style.display = 'block';
+            } else {
+                item.style.display = item.classList.contains(filter) ? 'block' : 'none';
+            }
         });
     });
 });
 
-// Hamburger Menu (Mobile) - Melhorado para overlay completo e animação suave
-const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
-if (hamburger && navLinks) {
-    hamburger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        hamburger.classList.toggle('active'); // Animação no hamburger
-        document.body.classList.toggle('menu-open'); // Bloqueia scroll quando menu aberto
-    });
+// Chat IA Avançado
+const chatBody = document.getElementById('chatBody');
+const responsesAI = [
+    "Olá! Posso ajudar com ideias de logos 3D metálicos ou sites modernos.",
+    "O gerador lite é 100% grátis! Experimente prompts como 'cidade futurista neon'.",
+    "Precisa de orçamento? Fale direto no WhatsApp: (34) 99811-0946",
+    "Trabalho com branding completo, motion graphics e propagandas de alto impacto.",
+    "Dica: Descreva cores, estilo e elementos para melhores resultados no gerador!"
+];
 
-    // Fecha menu ao clicar em um link
-    navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            hamburger.classList.remove('active');
-            document.body.classList.remove('menu-open');
-        });
-    });
-
-    // Fecha menu ao clicar fora (overlay)
-    document.addEventListener('click', (e) => {
-        if (navLinks.classList.contains('active') && !navLinks.contains(e.target) && !hamburger.contains(e.target)) {
-            navLinks.classList.remove('active');
-            hamburger.classList.remove('active');
-            document.body.classList.remove('menu-open');
-        }
-    });
+function addMessage(text, isUser = false) {
+    const p = document.createElement('p');
+    p.textContent = isUser ? `Você: ${text}` : `IA: ${text}`;
+    chatBody.appendChild(p);
+    chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-// Toggle Chatbot
-function toggleChat() {
-    const chat = document.getElementById('chatbot');
-    if (chat) {
-        chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
-    }
-}
-
-// AI Chat Mais Inteligente (Respostas Avançadas com Contexto e Variações)
-let chatHistory = []; // Para manter contexto da conversa
-
-const responses = {
-    // Saudações e boas-vindas
-    'olá|oi|ei|hello|hi': [
-        'Olá! Bem-vindo ao Pablo Studio. Conte-me sobre sua ideia: um logo 3D dourado ou um site elegante?',
-        'Oi! Sou o assistente do Pablo Studio. O que te traz aqui hoje? Um projeto de design ou algo mais criativo?'
-    ],
-
-    // Sobre sites
-    'site|website|página|web': [
-        'Perfeito! Nossos sites são responsivos, com temas gold como este, integrações Google e chat IA. Qual funcionalidade prioriza? E-commerce, portfólio ou blog?',
-        'Sites modernos e otimizados para SEO. Posso criar algo personalizado. Qual o foco do seu negócio?'
-    ],
-
-    // Sobre logos
-    'logo|marca|branding|identidade': [
-        'Logos 3D premium com acabamento gold para impacto máximo. Envie detalhes da sua marca para um esboço inicial. Qual o nome da empresa?',
-        'Crio logos que capturam a essência da sua marca. Prefere estilo minimalista ou mais elaborado?'
-    ],
-
-    // Sobre vídeos
-    'vídeo|video|edição|animação': [
-        'Edição de vídeo profissional com transições suaves e áudio customizado. Qual o tema do seu conteúdo? Corporativo, promocional ou social?',
-        'Vídeos que engajam! Conte mais sobre o script ou duração desejada.'
-    ],
-
-    // Sobre música
-    'música|musica|trilha|som|audio': [
-        'Criação de trilhas originais, harmonizadas para branding. Prefere estilo clássico ou moderno? Jazz, eletrônica ou orquestral?',
-        'Músicas personalizadas para elevar seu vídeo ou site. Qual o mood que você busca?'
-    ],
-
-    // Sobre artes e imagens
-    'arte|imagem|design|gráfico|promocional': [
-        'Artes visuais impactantes para redes sociais e materiais de marketing. Qual o formato? Banner, post ou flyer?',
-        'Design gráfico premium com toques dourados. Descreva o conceito para eu sugerir ideias!'
-    ],
-
-    // Preços e orçamentos
-    'preço|quanto|custa|orçamento|valor': [
-        'Orçamentos personalizados! Para logos 3D, a partir de R$ 500. Sites completos a partir de R$ 2.000. Vamos agendar uma call para detalhes exatos?',
-        'Valores variam pelo escopo: simples ou premium. Me diga o serviço e eu estimo rapidinho.'
-    ],
-
-    // Projetos gerais
-    'projeto|ideia|criar|desenvolver': [
-        'Adoro transformar ideias em realidade! Qual o seu conceito inicial? Logo, site ou vídeo completo?',
-        'Vamos planejar! Descreva o que imagina e eu ajudo a refinar.'
-    ],
-
-    // Contato e próximos passos
-    'contato|whatsapp|email|telefone': [
-        'Entre em contato via WhatsApp: (34) 99811-0946. Ou me diga mais para eu te guiar!',
-        'Posso te conectar direto com o Pablo. Qual o melhor canal para você?'
-    ],
-
-    // Despedidas
-    'tchau|bye|obrigado|valeu|até logo': [
-        'Até breve! Qualquer dúvida, é só voltar. Seu projeto vai brilhar! 🚀',
-        'Obrigado pela conversa! Estou aqui quando precisar.'
-    ],
-
-    // Default com sugestões baseadas em histórico
-    'default': [
-        'Entendi! Para mais precisão, descreva seu projeto: logo, site, vídeo ou arte? Estou aqui para refinar ideias.',
-        'Hmm, me conte mais. Qual serviço te interessa mais? Ou tem uma ideia específica em mente?'
-    ]
-};
-
-// Função para gerar resposta inteligente com contexto
-function generateResponse(message) {
-    const lowerMessage = message.toLowerCase().trim();
-    chatHistory.push({ sender: 'user', text: message });
-
-    // Procura por match exato ou parcial nos keys
-    for (let key in responses) {
-        if (key === 'default') continue;
-        const keywords = key.split('|');
-        if (keywords.some(kw => lowerMessage.includes(kw))) {
-            const options = responses[key];
-            let response = options[Math.floor(Math.random() * options.length)]; // Variação aleatória
-
-            // Adiciona contexto baseado no histórico recente
-            if (chatHistory.length > 1) {
-                const lastUserMsg = chatHistory[chatHistory.length - 2].text.toLowerCase();
-                if (lastUserMsg.includes('logo') && lowerMessage.includes('preço')) {
-                    response = 'Para logos 3D, partindo de R$ 500. Mas depende do nível de detalhe. Quer um orçamento rápido?';
-                } else if (lastUserMsg.includes('site') && lowerMessage.includes('funcionalidade')) {
-                    response = 'Integrações como chat IA, formulários e e-commerce. Qual você prioriza?';
-                }
-            }
-
-            chatHistory.push({ sender: 'bot', text: response });
-            return response;
-        }
-    }
-
-    // Default com sugestão baseada no histórico
-    const defaultOptions = responses['default'];
-    let defaultResponse = defaultOptions[Math.floor(Math.random() * defaultOptions.length)];
-    if (chatHistory.length > 1) {
-        const recentTopics = chatHistory.slice(-3).filter(msg => msg.sender === 'user').map(msg => msg.text.toLowerCase());
-        if (recentTopics.some(topic => topic.includes('logo'))) {
-            defaultResponse = 'Falando em logos, quer ver exemplos de 3D gold? Ou prefere outro serviço?';
-        } else if (recentTopics.some(topic => topic.includes('site'))) {
-            defaultResponse = 'Sobre sites, posso integrar ferramentas como Google Analytics. O que acha?';
-        }
-    }
-
-    chatHistory.push({ sender: 'bot', text: defaultResponse });
-    return defaultResponse;
-}
-
-function sendMessage(event) {
-    if ((event && event.keyCode === 13) || event.target.tagName === 'BUTTON') {
-        const input = document.getElementById('chat-input');
-        if (input) {
-            const message = input.value.trim();
-            if (message) {
-                addMessage(message, 'user');
-                input.value = '';
-
-                // Resposta IA Mais Inteligente
-                setTimeout(() => {
-                    const response = generateResponse(message);
-                    addMessage(response, 'bot');
-                }, 800);
-            }
-        }
-    }
-}
-
-function addMessage(text, sender) {
-    const messages = document.getElementById('chat-messages');
-    if (messages) {
-        const div = document.createElement('div');
-        div.className = `message ${sender}`;
-        div.textContent = text;
-        messages.appendChild(div);
-        messages.scrollTop = messages.scrollHeight;
-    }
-}
-
-// Animações ao Scroll (Intersection Observer)
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.animationDelay = entry.target.dataset.delay || '0s';
-            entry.target.classList.add('fade-in');
-        }
-    });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.fade-in').forEach(el => {
-    observer.observe(el);
+document.getElementById('sendMsg').addEventListener('click', sendChat);
+document.getElementById('chatMsg').addEventListener('keypress', e => {
+    if (e.key === 'Enter') sendChat();
 });
 
-// Segurança: Validação e HTTPS Recomendado
-console.log('Chat IA aprimorado: Mais respostas variadas, contexto de conversa e sugestões inteligentes. Hospede em HTTPS para integrações plenas.');
+function sendChat() {
+    const input = document.getElementById('chatMsg');
+    const msg = input.value.trim();
+    if (!msg) return;
+    addMessage(msg, true);
+    input.value = '';
+    setTimeout(() => {
+        const response = responsesAI[Math.floor(Math.random() * responsesAI.length)];
+        addMessage(response);
+    }, 1000);
+}
+
+// Toggle Chat
+document.querySelector('.chat-toggle').addEventListener('click', () => {
+    document.querySelector('.chat-fixed').classList.toggle('active');
+});
+document.querySelector('.close-chat').addEventListener('click', () => {
+    document.querySelector('.chat-fixed').classList.remove('active');
+});
