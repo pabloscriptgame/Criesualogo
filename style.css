@@ -25,11 +25,25 @@ body.light {
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Rajdhani', 'Poppins', sans-serif;
     background: var(--bg);
     color: var(--text);
     transition: all 0.6s ease;
     overflow-x: hidden;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+h1,
+h2,
+h3,
+.hero h1,
+.section h2,
+.neon-card h3 {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
 }
 
 .header {
@@ -533,6 +547,16 @@ footer {
     box-shadow: var(--neon);
 }
 
+.trust-badges img {
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.trust-badges img:hover {
+    transform: scale(1.1);
+}
+
 
 /* RESPONSIVO */
 
@@ -585,5 +609,8 @@ footer {
     }
     .chat-toggle {
         left: 30px;
+    }
+    .trust-badges img {
+        height: 60px;
     }
 }

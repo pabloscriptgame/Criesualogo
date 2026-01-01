@@ -31,20 +31,21 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Gerador IA
+// Gerador IA Melhorado
 document.getElementById('generateIA').addEventListener('click', async() => {
-    const prompt = document.getElementById('promptIA').value.trim();
-    if (!prompt) return alert('Digite um prompt para gerar a imagem!');
+    let prompt = document.getElementById('promptIA').value.trim();
+    if (!prompt) return alert('Digite um prompt detalhado pra gerar uma imagem top!');
 
     document.getElementById('loadingIA').style.display = 'block';
     document.getElementById('generatedIA').style.display = 'none';
 
     try {
-        const img = await puter.ai.txt2img(prompt);
+        prompt = prompt + " , 3D neon cyan metallic glowing trap style, dark background, professional logo, high detail, futuristic, ultra sharp, cinematic lighting";
+        const img = await puter.ai.txt2img(prompt, { quality: "high" });
         document.getElementById('generatedIA').src = img.src;
         document.getElementById('generatedIA').style.display = 'block';
     } catch (err) {
-        alert('Erro ao gerar imagem. Tente novamente!');
+        alert('Erro ao gerar. Verifique conexão ou tente prompt mais simples!');
     } finally {
         document.getElementById('loadingIA').style.display = 'none';
     }
@@ -68,7 +69,7 @@ const gallery = document.getElementById('gallery');
 portfolioImages.forEach(item => {
     const div = document.createElement('div');
     div.className = 'item ' + item.cat;
-    div.innerHTML = `<img src="${item.src}" alt="Trabalho Pablo Designer">`;
+    div.innerHTML = `<img src="${item.src}" alt="Trabalho Pablo Designer Monte Carmelo MG">`;
     div.onclick = () => {
         document.getElementById('lightbox-img').src = item.src;
         document.getElementById('lightbox').style.display = 'flex';
@@ -76,12 +77,11 @@ portfolioImages.forEach(item => {
     gallery.appendChild(div);
 });
 
-// Filtros do Portfólio
+// Filtros Portfólio
 document.querySelectorAll('.filters button').forEach(btn => {
     btn.addEventListener('click', () => {
         document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-
         const filter = btn.dataset.filter;
         document.querySelectorAll('.gallery .item').forEach(item => {
             if (filter === 'all' || item.classList.contains(filter)) {
@@ -93,17 +93,17 @@ document.querySelectorAll('.filters button').forEach(btn => {
     });
 });
 
-// Lightbox fechar
+// Lightbox
 document.querySelector('.close-lightbox').onclick = () => {
     document.getElementById('lightbox').style.display = 'none';
 };
 
-// Chat IA
+// Chat IA Inteligente
 const chatBody = document.getElementById('chatBody');
 
 function addMsg(text, isUser = false) {
     const p = document.createElement('p');
-    p.textContent = text;
+    p.innerHTML = text;
     p.classList.add(isUser ? 'user-msg' : 'ai-msg');
     chatBody.appendChild(p);
     chatBody.scrollTop = chatBody.scrollHeight;
@@ -122,11 +122,14 @@ async function sendChat() {
     addMsg('Você: ' + msg, true);
     input.value = '';
 
-    if (msg.toLowerCase().includes('gerar') || msg.toLowerCase().includes('imagem') || msg.toLowerCase().includes('logo')) {
-        addMsg('IA: Gerando imagem pra você...', false);
+    const lower = msg.toLowerCase();
+
+    if (lower.includes('gerar') || lower.includes('imagem') || lower.includes('logo') || lower.includes('criar') || lower.includes('fazer') || lower.includes('desenhar')) {
+        addMsg('IA: Gerando uma imagem incrível pra você... Aguenta aí! 🔥', false);
         try {
-            const clean = msg.replace(/gerar|imagem|logo|ia/gi, '').trim() || 'Logo 3D neon cyan trap metálico';
-            const img = await puter.ai.txt2img(clean);
+            let clean = msg.replace(/gerar|imagem|logo|ia|criar|fazer|por favor|please/gi, '').trim() || 'Logo 3D neon cyan metálico trap glowing';
+            clean += " , 3D neon glowing cyan metallic trap style logo, dark background, high detail, professional, futuristic, ultra sharp";
+            const img = await puter.ai.txt2img(clean, { quality: "high" });
             const el = document.createElement('img');
             el.src = img.src;
             el.style.maxWidth = '100%';
@@ -136,16 +139,25 @@ async function sendChat() {
             chatBody.appendChild(el);
             chatBody.scrollTop = chatBody.scrollHeight;
         } catch (err) {
-            addMsg('IA: Erro ao gerar imagem. Tente de novo!', false);
+            addMsg('IA: Ops, erro ao gerar. Tenta de novo ou descreve melhor!', false);
         }
+    } else if (lower.includes('orçamento') || lower.includes('preço') || lower.includes('valor') || lower.includes('quanto')) {
+        addMsg('IA: Orçamentos variam conforme complexidade. Me chama no WhatsApp (34) 99811-0946 que eu te passo o valor certinho rapidinho! 🚀', false);
+    } else if (lower.includes('monte carmelo') || lower.includes('mg') || lower.includes('minas')) {
+        addMsg('IA: Sou de <strong>Monte Carmelo - MG</strong>! Atendo todo o Brasil remotamente. Como posso ajudar você hoje?', false);
     } else {
         const respostas = [
-            "Fala aí! Posso criar um logo 3D neon incrível pra sua marca.",
-            "Sites modernos como degusto.store e batatarecheada.shop são minha praia!",
-            "Quer orçamento? Me chama no WhatsApp (34) 99811-0946",
-            "Dica: no gerador use palavras como 'neon', 'cyan', 'metálico', 'trap' pra ficar top!"
+            "Fala aí! Sou especialista em logos 3D neon cyan incríveis. Descreve sua ideia que eu gero na hora!",
+            "Sites modernos e responsivos como degusto.store são minha especialidade. Quer um orçamento?",
+            "Me chama no WhatsApp (34) 99811-0946 pra fechar projeto rapidinho!",
+            "Dica top: pra logos ficarem insanos, usa palavras como 'neon cyan', 'metálico', 'glowing', 'trap' no prompt!",
+            "Trabalho em Monte Carmelo/MG - Brasil 🇧🇷. Atendo todo o país remotamente!",
+            "Precisa de propaganda que vende? Posts, banners, motion graphics... Eu faço tudo!",
+            "Olá de Monte Carmelo/MG! Como posso ajudar no seu projeto hoje?",
+            "Quer ver exemplos reais? Dá uma olhada no portfólio aqui em cima!",
+            "Posso gerar um logo 3D neon agora mesmo. Só descrever o que você quer!"
         ];
-        setTimeout(() => addMsg('IA: ' + respostas[Math.floor(Math.random() * respostas.length)]), 1200);
+        setTimeout(() => addMsg('IA: ' + respostas[Math.floor(Math.random() * respostas.length)], false), 800);
     }
 }
 
