@@ -4,68 +4,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pablo Designer - Design Criativo 3D</title>
+    <title>Pablo Designer | Logos 3D, Sites e Propaganda</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://js.puter.com/v2/"></script>
 </head>
 
 <body>
-    <!-- HEADER COM LOGO E MENU -->
+    <!-- HEADER -->
     <header class="header">
         <div class="logo">
-            <img src="https://i.ibb.co/tpNPjsjN/nova-logo-pablo-sem-fundo.png" alt="Pablo Designer Logo">
+            <img src="https://i.ibb.co/tpNPjsjN/nova-logo-pablo-sem-fundo.png" alt="Pablo Designer">
         </div>
         <nav class="nav">
             <ul>
-                <li><a href="#home">Home</a></li>
+                <li><a href="#home">Início</a></li>
                 <li><a href="#sobre">Sobre</a></li>
                 <li><a href="#servicos">Serviços</a></li>
                 <li><a href="#gerador">Gerador IA</a></li>
                 <li><a href="#portfolio">Portfólio</a></li>
                 <li><a href="#contato">Contato</a></li>
             </ul>
-            <div class="toggle">🌙</div>
+            <div class="toggle">
+                <i class="fas fa-sun"></i>
+                <!-- Ícone de sol para modo claro/escuro -->
+            </div>
         </nav>
-        <div class="hamburger">☰</div>
+        <div class="hamburger">
+            <i class="fas fa-bars"></i>
+            <!-- Ícone de menu hamburger -->
+        </div>
     </header>
 
-    <!-- HOME / HERO COM LOGO DE FUNDO ESCURO -->
+    <!-- HERO -->
     <section id="home" class="hero">
         <div class="hero-content" data-aos="fade-up">
             <h1>Pablo Designer</h1>
-            <p>Designs que transformam ideias em impacto visual</p>
-            <a href="#contato" class="btn">Fale Comigo no WhatsApp</a>
+            <p>Logos 3D neon, sites modernos e propagandas que vendem de verdade</p>
+            <a href="https://wa.me/5534998110946?text=Olá%20Pablo!%20Vi%20seu%20site%20e%20quero%20falar%20sobre%20meu%20projeto" class="neon-btn gradient-btn"><i class="fab fa-whatsapp"></i> Falar no WhatsApp</a>
         </div>
     </section>
 
     <!-- SOBRE -->
     <section id="sobre" class="section">
-        <h2 data-aos="fade-up">Sobre Mim</h2>
-        <p data-aos="fade-up">Especialista em logomarcas 3D, sites modernos, propagandas visuais e motion graphics. Com mais de 10 anos de experiência, crio soluções únicas, futuristas e de alto impacto para marcas que querem se destacar.</p>
+        <h2 data-aos="fade-up">Quem sou eu</h2>
+        <p data-aos="fade-up" class="sobre-text">Designer brasileiro apaixonado por criar marcas que impactam. Especialista em logos 3D neon, sites responsivos, anúncios visuais e motion graphics. Mais de 10 anos transformando ideias em resultados reais.</p>
     </section>
 
     <!-- SERVIÇOS -->
     <section id="servicos" class="section">
-        <h2 data-aos="fade-up">Serviços</h2>
+        <h2 data-aos="fade-up">O que eu faço</h2>
         <div class="cards">
-            <div class="card" data-aos="zoom-in">Logomarcas & Branding 3D</div>
-            <div class="card" data-aos="zoom-in">Criação de Sites Responsivos</div>
-            <div class="card" data-aos="zoom-in">Propagandas Visuais (Posts, Banners)</div>
-            <div class="card" data-aos="zoom-in">Vídeos & Motion Graphics</div>
+            <div class="card neon-card" data-aos="zoom-in">
+                <i class="fas fa-palette fa-3x" style="color: var(--accent);"></i>
+                <h3>Logos 3D Neon</h3>
+                <p>Identidade visual moderna e impactante</p>
+            </div>
+            <div class="card neon-card" data-aos="zoom-in">
+                <i class="fas fa-globe fa-3x" style="color: var(--accent);"></i>
+                <h3>Sites Profissionais</h3>
+                <p>Responsivos, rápidos e otimizados</p>
+            </div>
+            <div class="card neon-card" data-aos="zoom-in">
+                <i class="fas fa-ad fa-3x" style="color: var(--accent);"></i>
+                <h3>Propagandas Visuais</h3>
+                <p>Posts, banners e anúncios que convertem</p>
+            </div>
+            <div class="card neon-card" data-aos="zoom-in">
+                <i class="fas fa-video fa-3x" style="color: var(--accent);"></i>
+                <h3>Motion Graphics</h3>
+                <p>Vídeos e animações que chamam atenção</p>
+            </div>
         </div>
     </section>
 
-    <!-- GERADOR DE IMAGENS LITE GRÁTIS -->
+    <!-- GERADOR IA -->
     <section id="gerador" class="section generator-lite">
-        <h2 data-aos="fade-up">Gerador de Imagens Lite Grátis</h2>
-        <p data-aos="fade-up">Digite um prompt e gere imagens incríveis com IA (versão lite simulada – totalmente grátis!)</p>
+        <h2 data-aos="fade-up">Gerador de Imagens IA (Grátis)</h2>
+        <p data-aos="fade-up">Digite um prompt e gere imagens profissionais em segundos (parceria Puter.js)</p>
         <div class="input-area">
-            <textarea id="promptIA" placeholder="Ex: 'Logo 3D metálico futurista azul com luz neon'"></textarea>
-            <button id="generateIA">Gerar Imagem</button>
+            <textarea id="promptIA" placeholder="Ex: Logo 3D neon cyan metálico com fundo escuro para marca de moda"></textarea>
+            <button id="generateIA" class="neon-btn gradient-btn"><i class="fas fa-magic"></i> Gerar Imagem</button>
         </div>
-        <div class="result-ia" id="resultIA">
-            <p id="loadingIA">Gerando... Aguarde 3 segundos</p>
-            <img id="generatedIA" src="" alt="Imagem gerada com IA">
+        <div class="result-ia">
+            <p id="loadingIA">Gerando sua imagem...</p>
+            <img id="generatedIA" src="" alt="Imagem gerada pela IA">
         </div>
     </section>
 
@@ -73,48 +98,60 @@
     <section id="portfolio" class="section">
         <h2 data-aos="fade-up">Portfólio</h2>
         <div class="filters">
-            <button data-filter="all">Todos</button>
-            <button data-filter="logos">Logos 3D</button>
-            <button data-filter="sites">Sites</button>
-            <button data-filter="ads">Ads</button>
-            <button data-filter="motion">Motion</button>
+            <button data-filter="all" class="neon-btn gradient-btn active"><i class="fas fa-th"></i> Todos</button>
+            <button data-filter="logos" class="neon-btn gradient-btn"><i class="fas fa-palette"></i> Logos 3D</button>
+            <button data-filter="sites" class="neon-btn gradient-btn"><i class="fas fa-globe"></i> Sites</button>
         </div>
-        <div class="gallery" id="gallery">
-            <!-- Imagens inseridas via JavaScript -->
-        </div>
+        <div class="gallery" id="gallery"></div>
     </section>
 
-    <!-- CONTATO (SÓ WHATSAPP) -->
+    <!-- CONTATO -->
     <section id="contato" class="section">
-        <h2 data-aos="fade-up">Contato</h2>
-        <p data-aos="fade-up" style="font-size: 1.4em; margin: 40px 0;">
-            Vamos conversar sobre seu projeto?<br> Clique no botão verde no canto da tela ou <a href="https://wa.me/5534998110946" style="color: var(--accent); font-weight: bold;">mande uma mensagem agora no WhatsApp</a>!
-        </p>
-        <p>Respondo rápido 🚀</p>
+        <h2 data-aos="fade-up">Vamos conversar?</h2>
+        <p data-aos="fade-up" class="contato-text">Me conta sobre seu projeto! Respondo rapidinho.</p>
+        <a href="https://wa.me/5534998110946?text=Oi%20Pablo!%20Quero%20um%20logo%20ou%20site" class="neon-btn gradient-btn big-btn"><i class="fab fa-whatsapp"></i> Mandar mensagem no WhatsApp</a>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <p>© 2025 Pablo Designer. Todos os direitos reservados.</p>
+        <p>© 2026 Pablo Designer - Feito com carinho no Brasil 🇧🇷</p>
+        <div class="widgets">
+            <a href="https://www.youtube.com/@djpablobassoriginal" target="_blank" class="neon-btn gradient-btn"><i class="fab fa-youtube"></i> YouTube</a>
+            <a href="https://www.instagram.com/pablologomarcas/" target="_blank" class="neon-btn gradient-btn"><i class="fab fa-instagram"></i> Instagram</a>
+        </div>
+        <div class="radio-player">
+            <audio id="radio" controls preload="none">
+                <source src="https://stream.zeno.fm/si5xey7akartv.mp3" type="audio/mpeg">
+            </audio>
+        </div>
     </footer>
 
-    <!-- BOTÃO FIXO WHATSAPP -->
-    <a href="https://wa.me/5534998110946?text=Ol%C3%A1%20Pablo!%20Vi%20seu%20site%20e%20gostaria%20de%20falar%20sobre%20um%20projeto" class="fixed-btn whatsapp" target="_blank">💬</a>
+    <!-- BOTÕES FIXOS -->
+    <a href="https://wa.me/5534998110946" class="fixed-btn whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
-    <!-- CHAT IA FIXO -->
-    <div class="chat-toggle">💬 IA</div>
+    <div class="chat-toggle">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+
     <div class="chat-fixed">
-        <div class="chat-header">Chat IA Avançado 💬<span class="close-chat">✖</span></div>
+        <div class="chat-header">Assistente IA <span class="close-chat"><i class="fas fa-times"></i></span></div>
         <div class="chat-body" id="chatBody">
-            <p>IA: Olá! Sou seu assistente avançado. Pergunte sobre design, logos 3D ou orçamentos!</p>
+            <p class="ai-msg">IA: Fala aí! Pode perguntar sobre logos, sites ou pedir pra gerar imagem.</p>
         </div>
         <div class="chat-input">
-            <input type="text" id="chatMsg" placeholder="Digite sua pergunta...">
-            <button id="sendMsg">➤</button>
+            <input type="text" id="chatMsg" placeholder="Digite sua mensagem...">
+            <button id="sendMsg" class="neon-btn gradient-btn"><i class="fas fa-arrow-right"></i></button>
         </div>
     </div>
 
-    <!-- SCRIPTS -->
+    <!-- LIGHTBOX -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox"><i class="fas fa-times"></i></span>
+        <img id="lightbox-img" src="" alt="Imagem ampliada">
+    </div>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
 </body>

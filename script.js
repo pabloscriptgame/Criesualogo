@@ -1,68 +1,67 @@
-// Inicializa animações AOS
+// Animações AOS
 AOS.init({ duration: 1200 });
 
-// Menu Hamburger Mobile
+// Menu Hamburger
 document.querySelector('.hamburger').addEventListener('click', () => {
     document.querySelector('.nav').classList.toggle('active');
 });
 
-// Dark / Light Mode Toggle
+// Modo Claro/Escuro
 document.querySelector('.toggle').addEventListener('click', () => {
     document.body.classList.toggle('light');
-    document.querySelector('.toggle').textContent = document.body.classList.contains('light') ? '☀️' : '🌙';
+    const toggleIcon = document.querySelector('.toggle i');
+    if (document.body.classList.contains('light')) {
+        toggleIcon.classList.remove('fa-sun');
+        toggleIcon.classList.add('fa-moon');
+    } else {
+        toggleIcon.classList.remove('fa-moon');
+        toggleIcon.classList.add('fa-sun');
+    }
 });
 
-// Smooth Scroll
+// Scroll Suave
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+        const target = document.querySelector(this.getAttribute('href'));
+        target.scrollIntoView({ behavior: 'smooth' });
         if (window.innerWidth <= 768) {
             document.querySelector('.nav').classList.remove('active');
         }
     });
 });
 
-// Gerador de Imagens Lite
-const iaImages = [
-    "https://img.freepik.com/free-photo/3d-render-vs-company-metal-letter-logo-pen-tool-created-clipping-path-included-jpeg-easy-composite_460848-10423.jpg",
-    "https://img.freepik.com/free-psd/sale-object-3d-render-isolated-illustration_47987-27569.jpg",
-    "https://thumbs.dreamstime.com/b/industrial-metal-letter-h-sculpture-modern-design-textured-grey-background-410926229.jpg",
-    "https://thumbs.dreamstime.com/z/metallic-emblem-close-up-blue-orange-neon-lights-tech-branding-futuristic-design-metallic-emblem-close-up-blue-orange-neon-326813279.jpg",
-    "https://www.logoground.com/uploads14/dv14y2025105792025-05-212697476lg-ortegagraphics-futuristic-science-fiction-stylized-letter-o-3d.jpg",
-    "https://i.etsystatic.com/44403991/r/il/5022c5/7061873066/il_570xN.7061873066_g0z4.jpg",
-    "https://img.freepik.com/free-psd/golden-logo-mockup-facade-sign_145008-113.jpg"
-];
-
-document.getElementById('generateIA').addEventListener('click', () => {
+// Gerador IA
+document.getElementById('generateIA').addEventListener('click', async() => {
     const prompt = document.getElementById('promptIA').value.trim();
-    if (!prompt) return alert('Por favor, digite um prompt!');
+    if (!prompt) return alert('Digite um prompt para gerar a imagem!');
 
     document.getElementById('loadingIA').style.display = 'block';
     document.getElementById('generatedIA').style.display = 'none';
 
-    setTimeout(() => {
-        const randomImg = iaImages[Math.floor(Math.random() * iaImages.length)];
-        document.getElementById('generatedIA').src = randomImg;
+    try {
+        const img = await puter.ai.txt2img(prompt);
+        document.getElementById('generatedIA').src = img.src;
         document.getElementById('generatedIA').style.display = 'block';
+    } catch (err) {
+        alert('Erro ao gerar imagem. Tente novamente!');
+    } finally {
         document.getElementById('loadingIA').style.display = 'none';
-    }, 3000);
+    }
 });
 
-// Portfólio - Imagens (com categorias)
+// Portfólio
 const portfolioImages = [
-    { src: "https://img.freepik.com/free-photo/3d-render-vs-company-metal-letter-logo-pen-tool-created-clipping-path-included-jpeg-easy-composite_460848-10423.jpg", cat: "logos" },
-    { src: "https://img.freepik.com/free-psd/sale-object-3d-render-isolated-illustration_47987-27569.jpg", cat: "logos" },
-    { src: "https://thumbs.dreamstime.com/b/industrial-metal-letter-h-sculpture-modern-design-textured-grey-background-410926229.jpg", cat: "logos" },
-    { src: "https://www.logoground.com/uploads14/dv14y2025105792025-05-212697476lg-ortegagraphics-futuristic-science-fiction-stylized-letter-o-3d.jpg", cat: "logos" },
-    { src: "https://assets.justinmind.com/wp-content/uploads/2020/02/free-website-mockups-lawyer.png", cat: "sites" },
+    { src: "https://i.ibb.co/XRrVpch/logo-segura.png", cat: "logos" },
+    { src: "https://i.ibb.co/DPDZb4W1/Gemini-Generated-Image-40opkn40opkn40op-Photoroom.png", cat: "logos" },
+    { src: "https://i.ibb.co/KjXYTnyh/20251013-131541.png", cat: "logos" },
+    { src: "https://i.ibb.co/ksq33qGv/20250911-135505.png", cat: "logos" },
+    { src: "https://i.ibb.co/1GVPXDrS/20251022-124747.png", cat: "logos" },
+    { src: "https://i.ibb.co/MD2d4Rf7/LOGOMARCA-Rafaela-Oliveira-Store-2025.png", cat: "logos" },
+    { src: "https://i.ibb.co/cSj7z7fs/480470cba7087d7de97fd77cfe2d62c0-high.webp", cat: "logos" },
     { src: "https://assets.justinmind.com/wp-content/uploads/2020/02/website-mockup-examples-travel.png", cat: "sites" },
-    { src: "https://mockuptree.com/wp-content/uploads/2020/07/free-website-mockup-3d-perspective.jpg", cat: "sites" },
-    { src: "https://i.fbcd.co/products/resized/resized-750-500/99b4ca5940bee2858eb4e7bb1e5dbb3ec2999b981d0353fb75db454b1ef3bd75.jpg", cat: "ads" },
-    { src: "https://mir-s3-cdn-cf.behance.net/project_modules/hd/8ff963104656881.5f82e8c1e47c8.jpg", cat: "ads" },
-    { src: "https://cdn.dribbble.com/userupload/4514699/file/original-4f1399ad75732772e09cbc0d132b839b.png", cat: "ads" },
-    { src: "https://cdn.dribbble.com/userupload/10927019/file/original-79276582809a41708e28251e1c5a0a9d.jpg", cat: "motion" },
-    { src: "https://www.visme.co/wp-content/uploads/2024/10/youtube-thumbnail-maker-collage.jpg", cat: "motion" }
+    { src: "https://assets.justinmind.com/wp-content/uploads/2020/02/free-website-mockups-lawyer.png", cat: "sites" },
+    { src: "https://mockuptree.com/wp-content/uploads/2020/07/free-website-mockup-3d-perspective.jpg", cat: "sites" }
 ];
 
 const gallery = document.getElementById('gallery');
@@ -70,61 +69,90 @@ portfolioImages.forEach(item => {
     const div = document.createElement('div');
     div.className = 'item ' + item.cat;
     div.innerHTML = `<img src="${item.src}" alt="Trabalho Pablo Designer">`;
+    div.onclick = () => {
+        document.getElementById('lightbox-img').src = item.src;
+        document.getElementById('lightbox').style.display = 'flex';
+    };
     gallery.appendChild(div);
 });
 
-// Filtro do Portfólio
+// Filtros do Portfólio
 document.querySelectorAll('.filters button').forEach(btn => {
     btn.addEventListener('click', () => {
-        const filter = btn.getAttribute('data-filter');
+        document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
         document.querySelectorAll('.gallery .item').forEach(item => {
-            if (filter === 'all') {
+            if (filter === 'all' || item.classList.contains(filter)) {
                 item.style.display = 'block';
             } else {
-                item.style.display = item.classList.contains(filter) ? 'block' : 'none';
+                item.style.display = 'none';
             }
         });
     });
 });
 
-// Chat IA Avançado
-const chatBody = document.getElementById('chatBody');
-const responsesAI = [
-    "Olá! Posso ajudar com ideias de logos 3D metálicos ou sites modernos.",
-    "O gerador lite é 100% grátis! Experimente prompts como 'cidade futurista neon'.",
-    "Precisa de orçamento? Fale direto no WhatsApp: (34) 99811-0946",
-    "Trabalho com branding completo, motion graphics e propagandas de alto impacto.",
-    "Dica: Descreva cores, estilo e elementos para melhores resultados no gerador!"
-];
+// Lightbox fechar
+document.querySelector('.close-lightbox').onclick = () => {
+    document.getElementById('lightbox').style.display = 'none';
+};
 
-function addMessage(text, isUser = false) {
+// Chat IA
+const chatBody = document.getElementById('chatBody');
+
+function addMsg(text, isUser = false) {
     const p = document.createElement('p');
-    p.textContent = isUser ? `Você: ${text}` : `IA: ${text}`;
+    p.textContent = text;
+    p.classList.add(isUser ? 'user-msg' : 'ai-msg');
     chatBody.appendChild(p);
     chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-document.getElementById('sendMsg').addEventListener('click', sendChat);
+document.getElementById('sendMsg').onclick = sendChat;
 document.getElementById('chatMsg').addEventListener('keypress', e => {
     if (e.key === 'Enter') sendChat();
 });
 
-function sendChat() {
+async function sendChat() {
     const input = document.getElementById('chatMsg');
     const msg = input.value.trim();
     if (!msg) return;
-    addMessage(msg, true);
+
+    addMsg('Você: ' + msg, true);
     input.value = '';
-    setTimeout(() => {
-        const response = responsesAI[Math.floor(Math.random() * responsesAI.length)];
-        addMessage(response);
-    }, 1000);
+
+    if (msg.toLowerCase().includes('gerar') || msg.toLowerCase().includes('imagem') || msg.toLowerCase().includes('logo')) {
+        addMsg('IA: Gerando imagem pra você...', false);
+        try {
+            const clean = msg.replace(/gerar|imagem|logo|ia/gi, '').trim() || 'Logo 3D neon cyan trap metálico';
+            const img = await puter.ai.txt2img(clean);
+            const el = document.createElement('img');
+            el.src = img.src;
+            el.style.maxWidth = '100%';
+            el.style.borderRadius = '20px';
+            el.style.marginTop = '15px';
+            el.style.boxShadow = 'var(--neon)';
+            chatBody.appendChild(el);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        } catch (err) {
+            addMsg('IA: Erro ao gerar imagem. Tente de novo!', false);
+        }
+    } else {
+        const respostas = [
+            "Fala aí! Posso criar um logo 3D neon incrível pra sua marca.",
+            "Sites modernos como degusto.store e batatarecheada.shop são minha praia!",
+            "Quer orçamento? Me chama no WhatsApp (34) 99811-0946",
+            "Dica: no gerador use palavras como 'neon', 'cyan', 'metálico', 'trap' pra ficar top!"
+        ];
+        setTimeout(() => addMsg('IA: ' + respostas[Math.floor(Math.random() * respostas.length)]), 1200);
+    }
 }
 
 // Toggle Chat
-document.querySelector('.chat-toggle').addEventListener('click', () => {
+document.querySelector('.chat-toggle').onclick = () => {
     document.querySelector('.chat-fixed').classList.toggle('active');
-});
-document.querySelector('.close-chat').addEventListener('click', () => {
+};
+document.querySelector('.close-chat').onclick = () => {
     document.querySelector('.chat-fixed').classList.remove('active');
-});
+};
