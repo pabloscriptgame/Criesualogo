@@ -1,58 +1,61 @@
-// Animações AOS
-AOS.init({ duration: 1200 });
+// AOS
+AOS.init({ duration: 1000, once: true });
 
-// Menu Hamburger
-document.querySelector('.hamburger').addEventListener('click', () => {
-    document.querySelector('.nav').classList.toggle('active');
-});
-
-// Modo Claro/Escuro
-document.querySelector('.toggle').addEventListener('click', () => {
+// Tema claro/escuro
+document.querySelector('.theme-toggle').onclick = () => {
     document.body.classList.toggle('light');
-    const toggleIcon = document.querySelector('.toggle i');
-    if (document.body.classList.contains('light')) {
-        toggleIcon.classList.remove('fa-sun');
-        toggleIcon.classList.add('fa-moon');
+    const icon = document.querySelector('.theme-toggle i');
+    icon.classList.toggle('fa-moon');
+    icon.classList.toggle('fa-sun');
+};
+
+// Menu mobile
+document.querySelector('.hamburger').onclick = () => {
+    document.querySelector('.nav').classList.toggle('active');
+};
+
+// Player de rádio
+const audio = new Audio('https://stream.zeno.fm/si5xey7akartv.mp3');
+const playPause = document.getElementById('playPause');
+const volume = document.getElementById('volume');
+
+playPause.onclick = () => {
+    if (audio.paused) {
+        audio.play();
+        playPause.innerHTML = '<i class="fas fa-pause"></i>';
     } else {
-        toggleIcon.classList.remove('fa-moon');
-        toggleIcon.classList.add('fa-sun');
+        audio.pause();
+        playPause.innerHTML = '<i class="fas fa-play"></i>';
     }
-});
+};
 
-// Scroll Suave
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        target.scrollIntoView({ behavior: 'smooth' });
-        if (window.innerWidth <= 768) {
-            document.querySelector('.nav').classList.remove('active');
-        }
-    });
-});
+volume.oninput = () => audio.volume = volume.value;
 
-// Gerador IA Melhorado
-document.getElementById('generateIA').addEventListener('click', async() => {
-    let prompt = document.getElementById('promptIA').value.trim();
-    if (!prompt) return alert('Digite um prompt detalhado pra gerar uma imagem top!');
+// Gerador IA
+document.getElementById('generateIA').onclick = async() => {
+    const prompt = document.getElementById('promptIA').value.trim();
+    if (!prompt) return alert('Digite um prompt!');
 
-    document.getElementById('loadingIA').style.display = 'block';
-    document.getElementById('generatedIA').style.display = 'none';
+    const loading = document.getElementById('loadingIA');
+    const img = document.getElementById('generatedIA');
+
+    loading.style.display = 'block';
+    img.style.display = 'none';
 
     try {
-        prompt = prompt + " , 3D neon cyan metallic glowing trap style, dark background, professional logo, high detail, futuristic, ultra sharp, cinematic lighting";
-        const img = await puter.ai.txt2img(prompt, { quality: "high" });
-        document.getElementById('generatedIA').src = img.src;
-        document.getElementById('generatedIA').style.display = 'block';
-    } catch (err) {
-        alert('Erro ao gerar. Verifique conexão ou tente prompt mais simples!');
+        const full = prompt + " , 3D neon cyan metallic glowing trap style, dark background, professional logo, high detail, futuristic, ultra sharp, cinematic lighting";
+        const result = await puter.ai.txt2img(full, { quality: "high" });
+        img.src = result.src;
+        img.style.display = 'block';
+    } catch (e) {
+        alert('Erro ao gerar. Tente novamente.');
     } finally {
-        document.getElementById('loadingIA').style.display = 'none';
+        loading.style.display = 'none';
     }
-});
+};
 
-// Portfólio
-const portfolioImages = [
+// Portfólio (suas imagens originais)
+const images = [
     { src: "https://i.ibb.co/XRrVpch/logo-segura.png", cat: "logos" },
     { src: "https://i.ibb.co/DPDZb4W1/Gemini-Generated-Image-40opkn40opkn40op-Photoroom.png", cat: "logos" },
     { src: "https://i.ibb.co/KjXYTnyh/20251013-131541.png", cat: "logos" },
@@ -66,105 +69,64 @@ const portfolioImages = [
 ];
 
 const gallery = document.getElementById('gallery');
-portfolioImages.forEach(item => {
+images.forEach(item => {
     const div = document.createElement('div');
-    div.className = 'item ' + item.cat;
-    div.innerHTML = `<img src="${item.src}" alt="Trabalho Pablo Designer Monte Carmelo MG">`;
+    div.className = `item ${item.cat}`;
+    div.innerHTML = `<img src="${item.src}" alt="Portfólio" loading="lazy">`;
     div.onclick = () => {
         document.getElementById('lightbox-img').src = item.src;
-        document.getElementById('lightbox').style.display = 'flex';
+        document.getElementById('lightbox').classList.add('active');
     };
     gallery.appendChild(div);
 });
 
-// Filtros Portfólio
-document.querySelectorAll('.filters button').forEach(btn => {
-    btn.addEventListener('click', () => {
-        document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
+// Filtros portfólio
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.onclick = () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const filter = btn.dataset.filter;
-        document.querySelectorAll('.gallery .item').forEach(item => {
-            if (filter === 'all' || item.classList.contains(filter)) {
-                item.style.display = 'block';
-            } else {
-                item.style.display = 'none';
-            }
+        document.querySelectorAll('.gallery .item').forEach(el => {
+            el.style.display = (filter === 'all' || el.classList.contains(filter)) ? 'block' : 'none';
         });
-    });
+    };
 });
 
 // Lightbox
 document.querySelector('.close-lightbox').onclick = () => {
-    document.getElementById('lightbox').style.display = 'none';
+    document.getElementById('lightbox').classList.remove('active');
 };
 
-// Chat IA Inteligente
+// Chat
 const chatBody = document.getElementById('chatBody');
+const chatInput = document.getElementById('chatMsg');
+const sendBtn = document.getElementById('sendMsg');
 
-function addMsg(text, isUser = false) {
-    const p = document.createElement('p');
-    p.innerHTML = text;
-    p.classList.add(isUser ? 'user-msg' : 'ai-msg');
-    chatBody.appendChild(p);
+function addChatMsg(text, isUser = false) {
+    const div = document.createElement('div');
+    div.className = `msg ${isUser ? 'user' : 'ai'}`;
+    div.textContent = text;
+    chatBody.appendChild(div);
     chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-document.getElementById('sendMsg').onclick = sendChat;
-document.getElementById('chatMsg').addEventListener('keypress', e => {
-    if (e.key === 'Enter') sendChat();
-});
+sendBtn.onclick = () => {
+    const text = chatInput.value.trim();
+    if (!text) return;
+    addChatMsg(text, true);
+    chatInput.value = '';
 
-async function sendChat() {
-    const input = document.getElementById('chatMsg');
-    const msg = input.value.trim();
-    if (!msg) return;
-
-    addMsg('Você: ' + msg, true);
-    input.value = '';
-
-    const lower = msg.toLowerCase();
-
-    if (lower.includes('gerar') || lower.includes('imagem') || lower.includes('logo') || lower.includes('criar') || lower.includes('fazer') || lower.includes('desenhar')) {
-        addMsg('IA: Gerando uma imagem incrível pra você... Aguenta aí! 🔥', false);
-        try {
-            let clean = msg.replace(/gerar|imagem|logo|ia|criar|fazer|por favor|please/gi, '').trim() || 'Logo 3D neon cyan metálico trap glowing';
-            clean += " , 3D neon glowing cyan metallic trap style logo, dark background, high detail, professional, futuristic, ultra sharp";
-            const img = await puter.ai.txt2img(clean, { quality: "high" });
-            const el = document.createElement('img');
-            el.src = img.src;
-            el.style.maxWidth = '100%';
-            el.style.borderRadius = '20px';
-            el.style.marginTop = '15px';
-            el.style.boxShadow = 'var(--neon)';
-            chatBody.appendChild(el);
-            chatBody.scrollTop = chatBody.scrollHeight;
-        } catch (err) {
-            addMsg('IA: Ops, erro ao gerar. Tenta de novo ou descreve melhor!', false);
-        }
-    } else if (lower.includes('orçamento') || lower.includes('preço') || lower.includes('valor') || lower.includes('quanto')) {
-        addMsg('IA: Orçamentos variam conforme complexidade. Me chama no WhatsApp (34) 99811-0946 que eu te passo o valor certinho rapidinho! 🚀', false);
-    } else if (lower.includes('monte carmelo') || lower.includes('mg') || lower.includes('minas')) {
-        addMsg('IA: Sou de <strong>Monte Carmelo - MG</strong>! Atendo todo o Brasil remotamente. Como posso ajudar você hoje?', false);
-    } else {
-        const respostas = [
-            "Fala aí! Sou especialista em logos 3D neon cyan incríveis. Descreve sua ideia que eu gero na hora!",
-            "Sites modernos e responsivos como degusto.store são minha especialidade. Quer um orçamento?",
-            "Me chama no WhatsApp (34) 99811-0946 pra fechar projeto rapidinho!",
-            "Dica top: pra logos ficarem insanos, usa palavras como 'neon cyan', 'metálico', 'glowing', 'trap' no prompt!",
-            "Trabalho em Monte Carmelo/MG - Brasil 🇧🇷. Atendo todo o país remotamente!",
-            "Precisa de propaganda que vende? Posts, banners, motion graphics... Eu faço tudo!",
-            "Olá de Monte Carmelo/MG! Como posso ajudar no seu projeto hoje?",
-            "Quer ver exemplos reais? Dá uma olhada no portfólio aqui em cima!",
-            "Posso gerar um logo 3D neon agora mesmo. Só descrever o que você quer!"
-        ];
-        setTimeout(() => addMsg('IA: ' + respostas[Math.floor(Math.random() * respostas.length)], false), 800);
-    }
-}
-
-// Toggle Chat
-document.querySelector('.chat-toggle').onclick = () => {
-    document.querySelector('.chat-fixed').classList.toggle('active');
+    setTimeout(() => {
+        addChatMsg("Estou analisando sua ideia... Pode mandar mais detalhes do que você quer!");
+    }, 900);
 };
+
+chatInput.onkeypress = e => { if (e.key === 'Enter') sendBtn.click(); };
+
+document.querySelector('.chat-toggle').onclick = () => {
+    document.querySelector('.chat-window').classList.toggle('active');
+};
+
 document.querySelector('.close-chat').onclick = () => {
-    document.querySelector('.chat-fixed').classList.remove('active');
+    document.querySelector('.chat-window').classList.remove('active');
 };

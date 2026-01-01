@@ -4,26 +4,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Pablo Designer - Logos 3D Neon, Sites e Propaganda em Monte Carmelo MG. Atendimento Brasil todo.">
-    <meta name="keywords" content="designer Monte Carmelo MG, logos 3D neon, sites profissionais, propaganda Monte Carmelo, Pablo Designer MG, designer gráfico MG">
-    <meta name="geo.region" content="BR-MG">
-    <meta name="geo.placename" content="Monte Carmelo">
-    <meta name="geo.position" content="-18.7247;-47.4989">
     <title>Pablo Designer | Logos 3D Neon, Sites e Propaganda - Monte Carmelo MG</title>
-
-    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Logos 3D neon cyan, sites modernos, propagandas que vendem - Monte Carmelo MG">
+    <link rel="icon" type="image/png" href="https://i.ibb.co/zWcHNK8Y/download-We-Resize-com-1.png">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <!-- Fonte estilosa para designers profissionais -->
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://js.puter.com/v2/"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- HEADER -->
+
+    <!-- PLAYER FIXO NO TOPO -->
+    <div class="radio-player-top">
+        <div class="player-inner">
+            <div class="station-info">
+                <span class="live-dot"></span>
+                <strong>DJ PABLOBASS 24H</strong>
+            </div>
+            <div class="player-controls">
+                <button id="playPause" class="control-btn"><i class="fas fa-play"></i></button>
+                <input type="range" id="volume" min="0" max="1" step="0.01" value="0.6" class="volume-slider">
+            </div>
+            <div class="wave-container">
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER (abaixo do player) -->
     <header class="header">
         <div class="logo">
-            <img src="https://i.ibb.co/tpNPjsjN/nova-logo-pablo-sem-fundo.png" alt="Pablo Designer Monte Carmelo MG">
+            <img src="https://i.ibb.co/tpNPjsjN/nova-logo-pablo-sem-fundo.png" alt="Pablo Designer">
         </div>
         <nav class="nav">
             <ul>
@@ -34,8 +51,8 @@
                 <li><a href="#portfolio">Portfólio</a></li>
                 <li><a href="#contato">Contato</a></li>
             </ul>
-            <div class="toggle">
-                <i class="fas fa-sun"></i>
+            <div class="theme-toggle">
+                <i class="fas fa-moon"></i>
             </div>
         </nav>
         <div class="hamburger">
@@ -47,70 +64,57 @@
     <section id="home" class="hero">
         <div class="hero-content" data-aos="fade-up">
             <h1>PABLO DESIGNER</h1>
-            <p>Logos 3D neon, sites modernos e propagandas que vendem de verdade – Monte Carmelo / MG</p>
-            <a href="https://wa.me/5534998110946?text=Olá%20Pablo!%20Vi%20seu%20site%20e%20quero%20falar%20sobre%20meu%20projeto" class="neon-btn gradient-btn"><i class="fab fa-whatsapp"></i> Falar no WhatsApp</a>
+            <p>Logos 3D neon cyan • Sites modernos • Propaganda que vende de verdade</p>
+            <a href="https://wa.me/5534998110946?text=Olá%20Pablo!%20Vi%20seu%20site" class="neon-btn">
+                <i class="fab fa-whatsapp"></i> Falar no WhatsApp
+            </a>
         </div>
+        <div class="particles"></div>
     </section>
 
     <!-- SOBRE -->
     <section id="sobre" class="section">
         <h2 data-aos="fade-up">Quem sou eu</h2>
-        <p data-aos="fade-up" class="sobre-text">Designer brasileiro em <strong>Monte Carmelo / MG</strong>, apaixonado por criar marcas que impactam. Especialista em logos 3D neon, sites responsivos, anúncios visuais e motion graphics. Mais de 10 anos transformando ideias em resultados reais.
-            Atendo todo o Brasil remotamente!</p>
+        <p class="sobre-text" data-aos="fade-up" data-aos-delay="200">
+            Designer de Monte Carmelo / MG, especialista em <strong>logos 3D neon cyan metálico glowing trap</strong>, sites responsivos e propagandas visuais impactantes. Atendo todo o Brasil remotamente.
+        </p>
     </section>
-
-    <!-- BANNER PARCEIROS -->
-    <div style="background: #2d3436; color: white; padding: 70px 20px; text-align: center; font-family: Arial, sans-serif; position: relative; border-radius: 15px; overflow: hidden; margin: 20px auto; max-width: 1200px; box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
-        <div style="background: linear-gradient(45deg, rgba(108,92,231,0.8), rgba(162,155,254,0.8)); position: absolute; top: 0; left: 0; right: 0; bottom: 0;"></div>
-        <div style="position: relative; z-index: 2;">
-            <h1 style="font-size: 46px; margin: 0 0 20px 0;">Transforme Sua Marca com Pablo Designer</h1>
-            <p style="font-size: 24px; margin: 0 0 40px 0;">De Monte Carmelo/MG para o Brasil todo</p>
-            <div style="display: flex; justify-content: center; gap: 25px; flex-wrap: wrap;">
-                <a href="https://www.pablologomarcas.online" target="_blank" style="background: #a29bfe; padding: 18px 40px; font-size: 20px; text-decoration: none; border-radius: 50px; font-weight: bold;">CONTRATAR SERVIÇOS</a>
-                <a href="https://www.degusto.store" target="_blank" style="background: #e17055; padding: 18px 40px; font-size: 20px; text-decoration: none; border-radius: 50px; font-weight: bold;">DÊ GUSTO</a>
-                <a href="https://www.batatarecheada.shop" target="_blank" style="background: #fdcb6e; color: #2d3436; padding: 18px 40px; font-size: 20px; text-decoration: none; border-radius: 50px; font-weight: bold;">BATATA RECHEADA</a>
-            </div>
-        </div>
-    </div>
 
     <!-- SERVIÇOS -->
     <section id="servicos" class="section">
         <h2 data-aos="fade-up">O que eu faço</h2>
         <div class="cards">
-            <div class="card neon-card" data-aos="zoom-in">
-                <i class="fas fa-palette fa-3x" style="color: var(--accent);"></i>
+            <div class="neon-card" data-aos="zoom-in">
+                <i class="fas fa-palette fa-3x"></i>
                 <h3>Logos 3D Neon</h3>
-                <p>Identidade visual moderna e impactante</p>
+                <p>Identidade visual futurista e impactante</p>
             </div>
-            <div class="card neon-card" data-aos="zoom-in">
-                <i class="fas fa-globe fa-3x" style="color: var(--accent);"></i>
+            <div class="neon-card" data-aos="zoom-in" data-aos-delay="100">
+                <i class="fas fa-globe fa-3x"></i>
                 <h3>Sites Profissionais</h3>
-                <p>Responsivos, rápidos e otimizados</p>
+                <p>Modernos, rápidos e otimizados</p>
             </div>
-            <div class="card neon-card" data-aos="zoom-in">
-                <i class="fas fa-ad fa-3x" style="color: var(--accent);"></i>
+            <div class="neon-card" data-aos="zoom-in" data-aos-delay="200">
+                <i class="fas fa-ad fa-3x"></i>
                 <h3>Propagandas Visuais</h3>
                 <p>Posts, banners e anúncios que convertem</p>
             </div>
-            <div class="card neon-card" data-aos="zoom-in">
-                <i class="fas fa-video fa-3x" style="color: var(--accent);"></i>
+            <div class="neon-card" data-aos="zoom-in" data-aos-delay="300">
+                <i class="fas fa-video fa-3x"></i>
                 <h3>Motion Graphics</h3>
-                <p>Vídeos e animações que chamam atenção</p>
+                <p>Animações que chamam atenção</p>
             </div>
         </div>
     </section>
 
     <!-- GERADOR IA -->
-    <section id="gerador" class="section generator-lite">
+    <section id="gerador" class="section generator-section">
         <h2 data-aos="fade-up">Gerador de Imagens IA (Grátis)</h2>
-        <p data-aos="fade-up">Digite um prompt e gere imagens profissionais em segundos (parceria Puter.js)</p>
-        <div class="input-area">
-            <textarea id="promptIA" placeholder="Ex: Logo 3D neon cyan metálico glowing trap para loja de moda, fundo escuro, alta qualidade"></textarea>
-            <button id="generateIA" class="neon-btn gradient-btn"><i class="fas fa-magic"></i> Gerar Imagem</button>
-        </div>
-        <div class="result-ia">
-            <p id="loadingIA">Gerando sua imagem incrível...</p>
-            <img id="generatedIA" src="" alt="Imagem gerada pela IA">
+        <div class="generator-box">
+            <textarea id="promptIA" placeholder="Ex: Logo 3D neon cyan trap para marca de moda, fundo escuro..."></textarea>
+            <button id="generateIA" class="neon-btn"><i class="fas fa-magic"></i> Gerar Imagem</button>
+            <p id="loadingIA" class="loading-text">Gerando magia...</p>
+            <img id="generatedIA" class="generated-image" src="" alt="Imagem gerada">
         </div>
     </section>
 
@@ -118,9 +122,9 @@
     <section id="portfolio" class="section">
         <h2 data-aos="fade-up">Portfólio</h2>
         <div class="filters">
-            <button data-filter="all" class="neon-btn gradient-btn active"><i class="fas fa-th"></i> Todos</button>
-            <button data-filter="logos" class="neon-btn gradient-btn"><i class="fas fa-palette"></i> Logos 3D</button>
-            <button data-filter="sites" class="neon-btn gradient-btn"><i class="fas fa-globe"></i> Sites</button>
+            <button data-filter="all" class="filter-btn active">Todos</button>
+            <button data-filter="logos" class="filter-btn">Logos 3D</button>
+            <button data-filter="sites" class="filter-btn">Sites</button>
         </div>
         <div class="gallery" id="gallery"></div>
     </section>
@@ -128,19 +132,11 @@
     <!-- CONTATO -->
     <section id="contato" class="section">
         <h2 data-aos="fade-up">Vamos conversar?</h2>
-        <p data-aos="fade-up" class="contato-text">Me conta sobre seu projeto! Respondo rapidinho de Monte Carmelo/MG.</p>
-        <a href="https://wa.me/5534998110946?text=Oi%20Pablo!%20Quero%20um%20logo%20ou%20site" class="neon-btn gradient-btn big-btn"><i class="fab fa-whatsapp"></i> Mandar mensagem no WhatsApp</a>
+        <center><a href="https://wa.me/5534998110946" class="neon-btn big"><i class="fab fa-whatsapp"></i> (34) 99811-0946</a></center>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <div class="radio-player">
-            <p class="ai-msg">Rádio (DJ PABLOBASS 24Horas)</p>
-            <center><audio id="radio" controls preload="none">
-                <source src="https://stream.zeno.fm/si5xey7akartv.mp3" type="audio/mpeg">
-            </audio></center>
-        </div>
-
         <div class="trust-badges" style="margin: 50px 0; text-align: center;">
             <p style="font-size: 1.2em; margin-bottom: 20px;">Site Seguro e Confiável</p>
             <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto;">
@@ -163,39 +159,40 @@
                 <!-- Trusted Site Seal -->
                 <img src="https://trustlock.co/wp-content/uploads/2019/01/verified-SSL-Secure-trust-badge-seal.jpg" alt="Trusted Site" style="height: 80px;">
             </div>
+            <p>´</p>
+            <center>
+
+                <div class="widgets">
+                    <a href="https://www.youtube.com/@djpablobassoriginal" target="_blank" class="neon-btn gradient-btn"><i class="fab fa-youtube"></i> YouTube</a>
+                    <a href="https://www.instagram.com/pablologomarcas/" target="_blank" class="neon-btn gradient-btn"><i class="fab fa-instagram"></i> Instagram</a>
+                </div>
         </div>
 
-        <div class="widgets">
-            <a href="https://www.youtube.com/@djpablobassoriginal" target="_blank" class="neon-btn gradient-btn"><i class="fab fa-youtube"></i> YouTube</a>
-            <a href="https://www.instagram.com/pablologomarcas/" target="_blank" class="neon-btn gradient-btn"><i class="fab fa-instagram"></i> Instagram</a>
-        </div>
-        <p>© 2026 Pablo Designer - Monte Carmelo - Minas Gerais - Brasil 🇧🇷 | WhatsApp: (34) 99811-0946</p>
+        <center>
+            <p>© 2026 Pablo Designer - Monte Carmelo - Minas Gerais - Brasil 🇧🇷 | WhatsApp: (34) 99811-0946</p>
+        </center>
     </footer>
 
-    <!-- BOTÕES FIXOS -->
-    <a href="https://wa.me/5534998110946" class="fixed-btn whatsapp" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <div class="chat-toggle">
-        <i class="fas fa-comment-dots"></i>
-    </div>
-
-    <div class="chat-fixed">
-        <div class="chat-header">Assistente IA <span class="close-chat"><i class="fas fa-times"></i></span></div>
-        <div class="chat-body" id="chatBody">
-            <p class="ai-msg">IA: Fala aí! Pode perguntar sobre logos, sites ou pedir pra gerar imagem. Estou em Monte Carmelo/MG! 🚀</p>
+    <!-- CHAT FLUTUANTE -->
+    <div class="chat-toggle"><i class="fas fa-comment-dots"></i></div>
+    <div class="chat-window">
+        <div class="chat-header">
+            Assistente IA
+            <span class="close-chat"><i class="fas fa-times"></i></span>
         </div>
-        <div class="chat-input">
-            <input type="text" id="chatMsg" placeholder="Digite sua mensagem...">
-            <button id="sendMsg" class="neon-btn gradient-btn"><i class="fas fa-arrow-right"></i></button>
+        <div class="chat-body" id="chatBody">
+            <div class="msg ai">Fala aí! Quer um logoMarca ou gerar imagem? 🔥</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatMsg" placeholder="Digite aqui...">
+            <button id="sendMsg"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
     <!-- LIGHTBOX -->
     <div id="lightbox" class="lightbox">
         <span class="close-lightbox"><i class="fas fa-times"></i></span>
-        <img id="lightbox-img" src="" alt="Imagem ampliada">
+        <img id="lightbox-img" src="" alt="">
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
