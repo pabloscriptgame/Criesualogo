@@ -21,7 +21,7 @@ const volume = document.getElementById('volume');
 
 playPause.onclick = () => {
     if (audio.paused) {
-        audio.play();
+        audio.play().catch(e => console.log("Autoplay bloqueado:", e));
         playPause.innerHTML = '<i class="fas fa-pause"></i>';
     } else {
         audio.pause();
@@ -31,7 +31,18 @@ playPause.onclick = () => {
 
 volume.oninput = () => audio.volume = volume.value;
 
-// Gerador IA
+// Animação visual das barras do player
+const waveBars = document.querySelectorAll('.wave-bar');
+
+function animateWaves() {
+    waveBars.forEach(bar => {
+        const height = Math.random() * 20 + 8;
+        bar.style.height = `${height}px`;
+    });
+}
+setInterval(animateWaves, 180);
+
+// Gerador IA (mantido igual)
 document.getElementById('generateIA').onclick = async() => {
     const prompt = document.getElementById('promptIA').value.trim();
     if (!prompt) return alert('Digite um prompt!');
@@ -49,12 +60,13 @@ document.getElementById('generateIA').onclick = async() => {
         img.style.display = 'block';
     } catch (e) {
         alert('Erro ao gerar. Tente novamente.');
+        console.error(e);
     } finally {
         loading.style.display = 'none';
     }
 };
 
-// Portfólio (suas imagens originais)
+// Portfólio (mantido igual)
 const images = [
     { src: "https://i.ibb.co/XRrVpch/logo-segura.png", cat: "logos" },
     { src: "https://i.ibb.co/DPDZb4W1/Gemini-Generated-Image-40opkn40opkn40op-Photoroom.png", cat: "logos" },
@@ -97,36 +109,153 @@ document.querySelector('.close-lightbox').onclick = () => {
     document.getElementById('lightbox').classList.remove('active');
 };
 
-// Chat
+// ───────────────────────────────────────────────
+// CHAT SUPER INTELIGENTE – versão melhorada 2026
+// ───────────────────────────────────────────────
 const chatBody = document.getElementById('chatBody');
 const chatInput = document.getElementById('chatMsg');
 const sendBtn = document.getElementById('sendMsg');
+const chatWindow = document.querySelector('.chat-window');
+const chatToggle = document.querySelector('.chat-toggle');
+const closeChat = document.querySelector('.close-chat');
 
-function addChatMsg(text, isUser = false) {
+let conversationStarted = false;
+
+function addMsg(text, isUser = false) {
     const div = document.createElement('div');
     div.className = `msg ${isUser ? 'user' : 'ai'}`;
-    div.textContent = text;
+    div.innerHTML = text; // permite <br>, <strong>, etc.
     chatBody.appendChild(div);
     chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-sendBtn.onclick = () => {
+function showTyping() {
+    const typing = document.createElement('div');
+    typing.className = 'msg ai typing';
+    typing.innerHTML = 'Digitando<span class="dots"></span>';
+    chatBody.appendChild(typing);
+    chatBody.scrollTop = chatBody.scrollHeight;
+    return typing;
+}
+
+function removeTyping(typingEl) {
+    if (typingEl && typingEl.parentNode) typingEl.remove();
+}
+
+// Respostas inteligentes
+function getResponse(userText) {
+    const text = userText.toLowerCase().trim();
+
+    if (!conversationStarted) {
+        conversationStarted = true;
+        return `Fala meu parceiro! 🔥 Sou o assistente neon do <strong>Pablo Designer</strong>.<br><br>
+        O que tu tá precisando hoje?<br>
+        • Logo 3D trap neon<br>• Site que vende<br>• Pack de posts que bomba<br>• Gerar imagem IA foda<br>• Preço / prazo<br><br>
+        Manda aí que eu te coloco no caminho certo! 😈`;
+    }
+
+    // Palavras-chave principais
+    if (text.includes('logo') || text.includes('logomarca') || text.includes('marca')) {
+        return `Logos 3D neon trap / metallic glowing é o que eu mais faço!<br><br>
+        <strong>Valores reais 2026:</strong><br>
+        • Logo 3D simples → R$ 220 a 380<br>
+        • Logo + 4 mockups + animação curta → R$ 550 a 950<br>
+        • Pacote trap completo (logo + capa + 8 posts) → R$ 1.200 a 2.000<br><br>
+        Me fala o nome da marca, cores principais e a vibe (trap, funk, streetwear, rap, etc) que eu já começo a montar o conceito na cabeça! 🚀`;
+    }
+
+    if (text.includes('site') || text.includes('website') || text.includes('página')) {
+        if (text.includes('quanto') || text.includes('preço') || text.includes('valor') || text.includes('orçamento')) {
+            return `Sites modernos eu entrego no ponto:<br><br>
+            • Landing page one-page → R$ 950 a 2.000<br>
+            • Site 3–5 páginas + domínio + hospedagem 1 ano → R$ 2.200 a 4.500<br>
+            • Site completo + SEO inicial + manutenção 3 meses → sob consulta<br><br>
+            Qual o ramo do negócio? (barbearia, moda, estúdio musical, etc) e quantas páginas você imagina?`;
+        }
+        return `Sites rápidos, responsivos e com identidade neon/futurista são comigo mesmo.<br>
+        Já fiz pra marcas de trap, barbearias, moda street, academias... Qual o seu projeto? Me conta a ideia!`;
+    }
+
+    if (text.includes('gerar') || text.includes('ia') || text.includes('imagem') || text.includes('foto')) {
+        return `Bora gerar imagem matadora com IA?<br><br>
+        1. Vai na seção <strong>Gerador IA</strong> ali em cima<br>
+        2. Digita o prompt (quanto mais detalhado, melhor)<br>
+        3. Clica em "Gerar Imagem"<br><br>
+        Quer um prompt poderoso pra copiar e colar? Exemplo:<br>
+        <em>"Logotipo 3D neon pink e cyan para marca de funk 150 BPM, metal escovado, fundo preto infinito, glow intenso, ultra detalhado"</em><br><br>
+        Só pedir que eu te mando vários! 😈`;
+    }
+
+    if (text.includes('quanto') || text.includes('preço') || text.includes('valor') || text.includes('orçamento') || text.includes('quanto custa')) {
+        return `Tabela rápida real 2026:<br><br>
+        • Logo 3D isolado → R$ 220–380<br>
+        • Logo + mockups + animação → R$ 550–950<br>
+        • Site one-page → R$ 950–2.000<br>
+        • Pack 10 posts/stories propaganda → R$ 450–900<br>
+        • Pacote trap (logo + site + posts) → sob consulta<br><br>
+        Me fala exatamente o que você precisa que eu monto um orçamento na hora!`;
+    }
+
+    if (text.includes('portfolio') || text.includes('portfólio') || text.includes('trabalhos') || text.includes('exemplos')) {
+        return `Meu portfólio tá logo ali na seção <strong>Portfólio</strong> ↑<br>
+        Tem vários logos 3D neon trap, mockups e alguns sites.<br>
+        Pode filtrar por "Logos 3D" ou "Sites".<br><br>
+        Quer que eu te indique qual estilo combina mais com o que você tá pensando? (mais cyan, mais pink, mais dark metal...)`;
+    }
+
+    if (text.includes('oi') || text.includes('olá') || text.includes('e aí') || text.includes('fala') || text === 'opa') {
+        return `Fala meu consagrado! 🔥<br>
+        Pronto pra deixar sua marca brilhando no modo neon trap? 😈<br>
+        Manda o que tu precisa hoje!`;
+    }
+
+    // Resposta genérica inteligente
+    return `Entendi a vibe! 🔥<br>
+    Me dá mais detalhes do que você quer (logo, site, posts, animação, preço, prazo...).<br><br>
+    Exemplos que ajudam muito:<br>
+    • "quero logo trap neon pro meu canal de funk 150 bpm"<br>
+    • "quanto fica site pra barbearia com 4 páginas?"<br>
+    • "gera banner neon pra promoção de Black Friday"<br><br>
+    Quanto mais específico, mais rápido eu te entrego algo insano!`;
+}
+
+// Evento de envio
+function sendMessage() {
     const text = chatInput.value.trim();
     if (!text) return;
-    addChatMsg(text, true);
+
+    addMsg(text, true);
     chatInput.value = '';
 
+    const typing = showTyping();
+
     setTimeout(() => {
-        addChatMsg("Estou analisando sua ideia... Pode mandar mais detalhes do que você quer!");
-    }, 900);
+        removeTyping(typing);
+        addMsg(getResponse(text));
+    }, 800 + Math.random() * 1200); // tempo realista de resposta
+}
+
+sendBtn.onclick = sendMessage;
+chatInput.onkeypress = e => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        sendMessage();
+    }
 };
 
-chatInput.onkeypress = e => { if (e.key === 'Enter') sendBtn.click(); };
-
-document.querySelector('.chat-toggle').onclick = () => {
-    document.querySelector('.chat-window').classList.toggle('active');
+// Abre chat com mensagem inicial
+chatToggle.onclick = () => {
+    chatWindow.classList.toggle('active');
+    if (chatWindow.classList.contains('active') && !conversationStarted) {
+        setTimeout(() => {
+            addMsg(`Yo! 🔥 Bem-vindo ao chat do <strong>Pablo Designer</strong>.<br><br>
+            Tô aqui pra te ajudar com:<br>
+            • Logos 3D neon trap<br>• Sites que convertem<br>• Propaganda visual matadora<br>• Imagens IA instantâneas<br><br>
+            Qual é a boa hoje? Manda aí! 😈`);
+        }, 400);
+    }
 };
 
-document.querySelector('.close-chat').onclick = () => {
-    document.querySelector('.chat-window').classList.remove('active');
+closeChat.onclick = () => {
+    chatWindow.classList.remove('active');
 };

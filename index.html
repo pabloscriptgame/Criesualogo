@@ -12,6 +12,38 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://js.puter.com/v2/"></script>
     <link rel="stylesheet" href="style.css">
+
+    <!-- CSS do fundo rotativo (adicionado aqui) -->
+    <style>
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            /* fica atrás de tudo (player, header, sections...) */
+            background-image: url('https://i.ibb.co/Ld9hbLYW/redondo-logo-pablodesigner-Photoroom.png');
+            background-size: contain;
+            /* mantém proporção */
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.12;
+            /* bem sutil — ajuste se quiser mais forte (0.2–0.4) */
+            animation: rotateSlow 120s linear infinite;
+            /* bem lento e elegante */
+            pointer-events: none;
+        }
+        
+        @keyframes rotateSlow {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        /* Opcional: se quiser girar no sentido anti-horário */
+        /* body::before { animation: rotateSlow 120s linear infinite reverse; } */
+    </style>
 </head>
 
 <body>
@@ -160,6 +192,11 @@
                 <img src="https://trustlock.co/wp-content/uploads/2019/01/verified-SSL-Secure-trust-badge-seal.jpg" alt="Trusted Site" style="height: 80px;">
             </div>
             <p>´</p>
+            <center>
+
+                <div class="widgets">
+                    <a href="https://www.youtube.com/@djpablobassoriginal" target="_blank" class="neon-btn gradient-btn"><i class="fab fa-youtube"></i> YouTube</a>
+                </div>
         </div>
 
         <center>
@@ -195,5 +232,3 @@
 
 
 </html>
-
-
