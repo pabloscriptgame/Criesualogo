@@ -70,7 +70,6 @@ document.getElementById('generateIA').onclick = async() => {
 const images = [
     { src: "https://i.ibb.co/XRrVpch/logo-segura.png", cat: "logos" },
     { src: "https://i.ibb.co/DPDZb4W1/Gemini-Generated-Image-40opkn40opkn40op-Photoroom.png", cat: "logos" },
-    { src: "https://i.ibb.co/KjXYTnyh/20251013-131541.png", cat: "logos" },
     { src: "https://i.ibb.co/ksq33qGv/20250911-135505.png", cat: "logos" },
     { src: "https://i.ibb.co/1GVPXDrS/20251022-124747.png", cat: "logos" },
     { src: "https://i.ibb.co/MD2d4Rf7/LOGOMARCA-Rafaela-Oliveira-Store-2025.png", cat: "logos" },
@@ -258,4 +257,5 @@ chatToggle.onclick = () => {
 
 closeChat.onclick = () => {
     chatWindow.classList.remove('active');
+
 };
