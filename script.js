@@ -182,16 +182,16 @@ function getResponse(userText) {
         2. Digita o prompt (quanto mais detalhado, melhor)<br>
         3. Clica em "Gerar Imagem"<br><br>
         Quer um prompt poderoso pra copiar e colar? Exemplo:<br>
-        <em>"Logotipo 3D neon pink e cyan para marca de funk 150 BPM, metal escovado, fundo preto infinito, glow intenso, ultra detalhado"</em><br><br>
+        <em>"Logotipo 3D para marcas, metal escovado, fundo preto infinito, glow intenso, ultra detalhado"</em><br><br>
         Só pedir que eu te mando vários! 😈`;
     }
 
     if (text.includes('quanto') || text.includes('preço') || text.includes('valor') || text.includes('orçamento') || text.includes('quanto custa')) {
         return `Tabela rápida real 2026:<br><br>
-        • Logo 3D isolado → R$ 220–380<br>
-        • Logo + mockups + animação → R$ 550–950<br>
-        • Site one-page → R$ 950–2.000<br>
-        • Pack 10 posts/stories propaganda → R$ 450–900<br>
+        • Logo 3D  → R$ 50–100<br>
+        • Logo + animação → R$ 100–200<br>
+        • Site com carrinho de compra via zap → R$ 200–400 Mensal<br>
+        • Pack 10 posts/stories propaganda → R$ 450<br>
         • Pacote trap (logo + site + posts) → sob consulta<br><br>
         Me fala exatamente o que você precisa que eu monto um orçamento na hora!`;
     }
