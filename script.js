@@ -158,17 +158,17 @@ function getResponse(userText) {
     if (text.includes('logo') || text.includes('logomarca') || text.includes('marca')) {
         return `Logos 3D neon trap / metallic glowing é o que eu mais faço!<br><br>
         <strong>Valores reais 2026:</strong><br>
-        • Logo 3D simples → R$ 220 a 380<br>
-        • Logo + 4 mockups + animação curta → R$ 550 a 950<br>
-        • Pacote trap completo (logo + capa + 8 posts) → R$ 1.200 a 2.000<br><br>
+        • Logo 3D simples → R$ 50 a 100<br>
+        • Logo animação curta → R$ 100 a 200<br>
+        • Pacote trap completo (logo + capa + 8 posts) → R$ 200 <br><br>
         Me fala o nome da marca, cores principais e a vibe (trap, funk, streetwear, rap, etc) que eu já começo a montar o conceito na cabeça! 🚀`;
     }
 
     if (text.includes('site') || text.includes('website') || text.includes('página')) {
         if (text.includes('quanto') || text.includes('preço') || text.includes('valor') || text.includes('orçamento')) {
             return `Sites modernos eu entrego no ponto:<br><br>
-            • Landing page one-page → R$ 950 a 2.000<br>
-            • Site 3–5 páginas + domínio + hospedagem 1 ano → R$ 2.200 a 4.500<br>
+            • Landing page one-page → R$ 120<br>
+            • Site 3–5 páginas + domínio + hospedagem 1 ano → R$ 1.000<br>
             • Site completo + SEO inicial + manutenção 3 meses → sob consulta<br><br>
             Qual o ramo do negócio? (barbearia, moda, estúdio musical, etc) e quantas páginas você imagina?`;
         }
