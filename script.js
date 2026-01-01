@@ -74,7 +74,6 @@ const images = [
     { src: "https://i.ibb.co/1GVPXDrS/20251022-124747.png", cat: "logos" },
     { src: "https://i.ibb.co/MD2d4Rf7/LOGOMARCA-Rafaela-Oliveira-Store-2025.png", cat: "logos" },
     { src: "https://i.ibb.co/cSj7z7fs/480470cba7087d7de97fd77cfe2d62c0-high.webp", cat: "logos" },
-    { src: "https://assets.justinmind.com/wp-content/uploads/2020/02/website-mockup-examples-travel.png", cat: "sites" },
     { src: "https://i.ibb.co/fYbmj9q4/5.png", cat: "sites" },
     { src: "https://i.ibb.co/yncNjVkY/123123.png", cat: "sites" }
 ];
@@ -259,4 +258,5 @@ closeChat.onclick = () => {
     chatWindow.classList.remove('active');
 
 };
+
 
