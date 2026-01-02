@@ -138,178 +138,215 @@
             </div>
         </div>
     </section>
+
     <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    
-    .banner {
-      width: 1200px;
-      height: 400px;
-      background: linear-gradient(135deg, #e63946 0%, #f4a261 100%);
-      position: relative;
-      overflow: hidden;
-      color: white;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      border-radius: 12px;
-    }
-    
-    .content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      width: 90%;
-    }
-    
-    h1 {
-      font-size: 52px;
-      margin: 0 0 10px 0;
-      text-shadow: 3px 3px 8px rgba(0,0,0,0.5);
-      letter-spacing: 1px;
-    }
-    
-    .subtitle {
-      font-size: 28px;
-      margin: 0 0 30px 0;
-      font-weight: 300;
-    }
-    
-    .sites {
-      font-size: 24px;
-      background: rgba(0,0,0,0.4);
-      display: inline-block;
-      padding: 12px 30px;
-      border-radius: 50px;
-      backdrop-filter: blur(4px);
-    }
-    
-    .site-link {
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-      transition: all 0.3s;
-    }
-    
-    .site-link:hover {
-      color: #ffd60a;
-      text-decoration: underline;
-    }
-    
-    .highlight {
-      color: #ffd60a;
-      font-weight: bold;
-    }
-  </style>
-</head>
-<body>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0a0a0a#ffde21a;
+            /* fundo escuro geral da página */
+            color: #ffffff;
+            padding: 15px 0;
+        }
+        
+        .banner {
+            width: 100%;
+            max-width: 1200px;
+            min-height: 280px;
+            height: 40vh;
+            max-height: 420px;
+            margin: 0 auto;
+            background: #000000;
+            /* fundo preto sólido */
+            position: relative;
+            overflow: hidden;
+            color: white;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            /* borda sutil opcional */
+        }
+        
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 90%;
+            max-width: 1000px;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: clamp(2.1rem, 6vw, 3.4rem);
+            margin: 0 0 12px 0;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.8);
+            line-height: 1.1;
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            margin: 0 0 25px 0;
+            font-weight: 300;
+            opacity: 0.92;
+        }
+        
+        .sites {
+            font-size: clamp(1rem, 3.5vw, 1.4rem);
+            background: rgba(255, 255, 255, 0.06);
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 28px;
+            border-radius: 50px;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .site-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.25s ease;
+            white-space: nowrap;
+        }
+        
+        .site-link:hover,
+        .site-link:focus {
+            color: #ffd60a;
+            text-decoration: underline;
+            transform: translateY(-1px);
+        }
+        
+        .highlight {
+            color: #ffd60a;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 380px) {
+            .sites {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+    </head>
 
-<div class="banner">
-  <div class="content">
-    <h1>DELÍCIAS QUE VOCÊ MERECE!</h1>
-    <p class="subtitle">Sabor caseiro com muito capricho</p>
-    
-    <div class="sites">
-      <a href="https://www.degusto.store" class="site-link" target="_blank">www.degusto.store</a>
-      <span> • </span>
-      <a href="https://www.batatarecheadas.shop" class="site-link" target="_blank">www.batatarecheadas.shop</a>
-    </div>
-  </div>
-</div>
+    <body>
 
-    <!-- GERADOR IA -->
-    <section id="gerador" class="section generator-section">
-        <h2 data-aos="fade-up">Gerador de Imagens IA (Grátis)</h2>
-        <div class="generator-box">
-            <textarea id="promptIA" placeholder="Ex: Logo 3D neon cyan trap para marca de moda, fundo escuro..."></textarea>
-            <button id="generateIA" class="neon-btn"><i class="fas fa-magic"></i> Gerar Imagem</button>
-            <p id="loadingIA" class="loading-text">Gerando magia...</p>
-            <img id="generatedIA" class="generated-image" src="" alt="Imagem gerada">
-        </div>
-    </section>
+        <div class="banner">
+            <div class="content">
+                <h1>DELÍCIAS QUE VOCÊ MERECE!</h1>
+                <p class="subtitle">Sabor caseiro com muito capricho</p>
 
-    <!-- PORTFÓLIO -->
-    <section id="portfolio" class="section">
-        <h2 data-aos="fade-up">Portfólio</h2>
-        <div class="filters">
-            <button data-filter="all" class="filter-btn active">Todos</button>
-            <button data-filter="logos" class="filter-btn">Logos 3D</button>
-            <button data-filter="sites" class="filter-btn">Sites</button>
-        </div>
-        <div class="gallery" id="gallery"></div>
-    </section>
-
-    <!-- CONTATO -->
-    <section id="contato" class="section">
-        <h2 data-aos="fade-up">Vamos conversar?</h2>
-        <center><a href="https://wa.me/5534998110946" class="neon-btn big"><i class="fab fa-whatsapp"></i> (34) 99811-0946</a></center>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="trust-badges" style="margin: 50px 0; text-align: center;">
-            <p style="font-size: 1.2em; margin-bottom: 20px;">Site Seguro e Confiável</p>
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto;">
-
-                <!-- SSL Secured -->
-                <img src="https://mobecls.com/wp-content/uploads/2022/02/ssl-secure.jpg" alt="SSL Secured" style="height: 80px;">
-
-                <!-- Secure Checkout -->
-                <img src="https://blog.getmason.io/content/images/2022/01/Trust-Badges-Blog-05.jpg" alt="Secure Checkout" style="height: 80px;">
-
-                <!-- Encrypted Payment / Secure Connection -->
-                <img src="https://img.freepik.com/premium-vector/100-secure-payment-green-badge-isolated-transparent-background_105700-1800.jpg" alt="Encrypted Payment" style="height: 80px;">
-
-                <!-- Safe Shopping / Guaranteed Safe -->
-                <img src="https://p.kindpng.com/picc/s/379-3791804_shopify-safe-checkout-badge-hd-png-download.png" alt="Safe Shopping" style="height: 80px;">
-
-                <!-- Secured by PayPal (oficial e super confiável) -->
-                <img src="https://www.paypalobjects.com/webstatic/mktg/logo/bdg_secured_by_pp_2line.png" alt="Secured by PayPal" style="height: 80px;">
-
-                <!-- Trusted Site Seal -->
-                <img src="https://trustlock.co/wp-content/uploads/2019/01/verified-SSL-Secure-trust-badge-seal.jpg" alt="Trusted Site" style="height: 80px;">
-            </div>
-            <p>´</p>
-            <center>
-
-                <div class="widgets">
-                    <a href="https://www.youtube.com/@djpablobassoriginal" target="_blank" class="neon-btn gradient-btn"><i class="fab fa-youtube"></i> YouTube</a>
+                <div class="sites">
+                    <a href="https://www.degusto.store" class="site-link" target="_blank">www.degusto.store</a>
+                    <span>•</span>
+                    <a href="https://www.batatarecheadas.shop" class="site-link" target="_blank">www.batatarecheadas.shop</a>
                 </div>
+            </div>
         </div>
 
-        <center>
-            <p>© 2026 Pablo Designer - Monte Carmelo - Minas Gerais - Brasil 🇧🇷 | WhatsApp: (34) 99811-0946</p>
-        </center>
-    </footer>
+        <!-- GERADOR IA -->
+        <section id="gerador" class="section generator-section">
+            <h2 data-aos="fade-up">Gerador de Imagens IA (Grátis)</h2>
+            <div class="generator-box">
+                <textarea id="promptIA" placeholder="Ex: Logo 3D neon cyan trap para marca de moda, fundo escuro..."></textarea>
+                <button id="generateIA" class="neon-btn"><i class="fas fa-magic"></i> Gerar Imagem</button>
+                <p id="loadingIA" class="loading-text">Gerando magia...</p>
+                <img id="generatedIA" class="generated-image" src="" alt="Imagem gerada">
+            </div>
+        </section>
 
-    <!-- CHAT FLUTUANTE -->
-    <div class="chat-toggle"><i class="fas fa-comment-dots"></i></div>
-    <div class="chat-window">
-        <div class="chat-header">
-            Assistente IA
-            <span class="close-chat"><i class="fas fa-times"></i></span>
-        </div>
-        <div class="chat-body" id="chatBody">
-            <div class="msg ai">Fala aí! Quer um logoMarca ou gerar imagem? 🔥</div>
-        </div>
-        <div class="chat-input-area">
-            <input type="text" id="chatMsg" placeholder="Digite aqui...">
-            <button id="sendMsg"><i class="fas fa-paper-plane"></i></button>
-        </div>
-    </div>
+        <!-- PORTFÓLIO -->
+        <section id="portfolio" class="section">
+            <h2 data-aos="fade-up">Portfólio</h2>
+            <div class="filters">
+                <button data-filter="all" class="filter-btn active">Todos</button>
+                <button data-filter="logos" class="filter-btn">Logos 3D</button>
+                <button data-filter="sites" class="filter-btn">Sites</button>
+            </div>
+            <div class="gallery" id="gallery"></div>
+        </section>
 
-    <!-- LIGHTBOX -->
-    <div id="lightbox" class="lightbox">
-        <span class="close-lightbox"><i class="fas fa-times"></i></span>
-        <img id="lightbox-img" src="" alt="">
-    </div>
+        <!-- CONTATO -->
+        <section id="contato" class="section">
+            <h2 data-aos="fade-up">Vamos conversar?</h2>
+            <center><a href="https://wa.me/5534998110946" class="neon-btn big"><i class="fab fa-whatsapp"></i> (34) 99811-0946</a></center>
+        </section>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js"></script>
-</body>
+        <!-- FOOTER -->
+        <footer>
+            <div class="trust-badges" style="margin: 50px 0; text-align: center;">
+                <p style="font-size: 1.2em; margin-bottom: 20px;">Site Seguro e Confiável</p>
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto;">
+
+                    <!-- SSL Secured -->
+                    <img src="https://mobecls.com/wp-content/uploads/2022/02/ssl-secure.jpg" alt="SSL Secured" style="height: 80px;">
+
+                    <!-- Secure Checkout -->
+                    <img src="https://blog.getmason.io/content/images/2022/01/Trust-Badges-Blog-05.jpg" alt="Secure Checkout" style="height: 80px;">
+
+                    <!-- Encrypted Payment / Secure Connection -->
+                    <img src="https://img.freepik.com/premium-vector/100-secure-payment-green-badge-isolated-transparent-background_105700-1800.jpg" alt="Encrypted Payment" style="height: 80px;">
+
+                    <!-- Safe Shopping / Guaranteed Safe -->
+                    <img src="https://p.kindpng.com/picc/s/379-3791804_shopify-safe-checkout-badge-hd-png-download.png" alt="Safe Shopping" style="height: 80px;">
+
+                    <!-- Secured by PayPal (oficial e super confiável) -->
+                    <img src="https://www.paypalobjects.com/webstatic/mktg/logo/bdg_secured_by_pp_2line.png" alt="Secured by PayPal" style="height: 80px;">
+
+                    <!-- Trusted Site Seal -->
+                    <img src="https://trustlock.co/wp-content/uploads/2019/01/verified-SSL-Secure-trust-badge-seal.jpg" alt="Trusted Site" style="height: 80px;">
+                </div>
+                <p>´</p>
+                <center>
+
+                    <div class="widgets">
+                        <a href="https://www.youtube.com/@djpablobassoriginal" target="_blank" class="neon-btn gradient-btn"><i class="fab fa-youtube"></i> YouTube</a>
+                    </div>
+            </div>
+
+            <center>
+                <p>© 2026 Pablo Designer - Monte Carmelo - Minas Gerais - Brasil 🇧🇷 | WhatsApp: (34) 99811-0946</p>
+            </center>
+        </footer>
+
+        <!-- CHAT FLUTUANTE -->
+        <div class="chat-toggle"><i class="fas fa-comment-dots"></i></div>
+        <div class="chat-window">
+            <div class="chat-header">
+                Assistente IA
+                <span class="close-chat"><i class="fas fa-times"></i></span>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="msg ai">Fala aí! Quer um logoMarca ou gerar imagem? 🔥</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatMsg" placeholder="Digite aqui...">
+                <button id="sendMsg"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+
+        <!-- LIGHTBOX -->
+        <div id="lightbox" class="lightbox">
+            <span class="close-lightbox"><i class="fas fa-times"></i></span>
+            <img id="lightbox-img" src="" alt="">
+        </div>
+
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script src="script.js"></script>
+    </body>
 
 
 </html>
