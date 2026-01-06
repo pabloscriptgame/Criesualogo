@@ -233,7 +233,7 @@ chatToggle.onclick = () => {
     chatWindow.classList.toggle('active');
     if (chatWindow.classList.contains('active') && !conversationStarted) {
         setTimeout(() => {
-            addMsg(`Yo! 🔥 Bem-vindo ao chat do <strong>Pablo Designer</strong>.<br><br>Especialista em logomarcas 3D profissionais.<br><br>Qual é a boa hoje? 😈`);
+            addMsg(`Yo! 🔥 Bem-vindo ao chat do <strong>Pablo Designer</strong>.<br><br>Especialista em logomarcas 3D profissionais.<br><br>Qual é a boa hoje? 💻`);
             conversationStarted = true;
         }, 500);
     }
@@ -243,5 +243,6 @@ closeChat.onclick = () => {
     chatWindow.classList.remove('active');
 
 };
+
 
 
