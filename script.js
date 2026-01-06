@@ -182,7 +182,7 @@ function getResponse(userText) {
         • Site que vende<br>
         • Pack de posts<br>
         • Gerar imagem IA<br><br>
-        Manda aí que eu te ajudo! 😈`;
+        Manda aí que eu te ajudo! ❓`;
     }
 
     if (!context.nomeMarca) {
@@ -243,3 +243,4 @@ closeChat.onclick = () => {
     chatWindow.classList.remove('active');
 
 };
+
