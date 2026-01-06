@@ -60,7 +60,7 @@ document.getElementById('generateIA').onclick = async () => {
     loading.style.display = 'block';
     img.style.display = 'none';
     generateBtn.disabled = true;
-    generateBtn.innerHTML = 'Gerando logomarca 3D...';
+    generateBtn.innerHTML = 'Gerando Imagen...';
 
     // Prompt aprimorado apenas para logomarca 3D profissional (sem estilos forçados)
     const enhancedPrompt = `${prompt}, logomarca 3D profissional, alta resolução, ultra detalhado, fundo escuro infinito, iluminação cinematográfica volumétrica, foco nítido, estilo clean e futurista, octane render, ray tracing, simetria perfeita, sem distorção de texto`;
@@ -243,4 +243,5 @@ closeChat.onclick = () => {
     chatWindow.classList.remove('active');
 
 };
+
 
