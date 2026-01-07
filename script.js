@@ -294,4 +294,31 @@ document.addEventListener('DOMContentLoaded', () => {
         servicosSection.after(banner);
         AOS.refresh(); // Atualiza AOS para animar o elemento dinâmico
     }
+})
+
+// AJUSTE DINÂMICO DO PLAYER FIXO E BOTÃO DE CHAT
+document.addEventListener('DOMContentLoaded', () => {
+    const radioPlayer = document.querySelector('.radio-player');
+    const chatToggle = document.querySelector('.chat-toggle');
+
+    if (radioPlayer) {
+        function ajustarLayout() {
+            const alturaPlayer = radioPlayer.offsetHeight;
+
+            // Adiciona padding no body para não sobrepor conteúdo
+            document.body.style.paddingBottom = `${alturaPlayer + 30}px`;
+
+            // Posiciona o botão de chat acima do player
+            if (chatToggle) {
+                chatToggle.style.bottom = `${alturaPlayer + 20}px`;
+            }
+        }
+
+        // Executa na carga, redimensionamento e mudança de orientação
+        ajustarLayout();
+        window.addEventListener('resize', ajustarLayout);
+        window.addEventListener('orientationchange', () => {
+            setTimeout(ajustarLayout, 300); // Pequeno delay para recalcular após rotação
+        });
+    }
 });

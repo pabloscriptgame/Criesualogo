@@ -134,11 +134,11 @@ body::before {
     cursor: pointer;
 }
 
-/* PLAYER FIXO NO RODAPÉ */
+/* PLAYER FIXO NO RODAPÉ - VERSÃO MELHORADA E RESPONSIVA */
 .radio-player {
     position: fixed;
-    bottom: 0;
     left: 0;
+    bottom: env(safe-area-inset-bottom, 0); /* Suporte a notch do iPhone */
     width: 100%;
     background: var(--glass);
     backdrop-filter: blur(20px);
@@ -147,6 +147,7 @@ body::before {
     z-index: 1000;
     border-top: 2px solid rgba(0, 255, 255, 0.6);
     box-shadow: 0 -10px 40px rgba(0, 255, 255, 0.25);
+    transition: all 0.3s ease;
 }
 
 .player-inner {
@@ -218,6 +219,7 @@ body::before {
     background: rgba(255, 255, 255, 0.15);
     outline: none;
     -webkit-appearance: none;
+    accent-color: var(--accent);
 }
 
 .volume-slider::-webkit-slider-thumb {
@@ -268,6 +270,66 @@ body::before {
 @keyframes waveModern {
     0%, 100% { height: 12px; }
     50% { height: 42px; }
+}
+
+/* RESPONSIVO MELHORADO */
+@media (max-width: 1024px) {
+    .radio-player .player-inner {
+        flex-direction: column;
+        gap: 18px;
+        text-align: center;
+    }
+
+    .player-controls {
+        order: 2;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .wave-container {
+        order: 3;
+        justify-content: center;
+        height: 40px;
+    }
+
+    .station-info {
+        order: 1;
+    }
+
+    .volume-slider {
+        width: 70%;
+        max-width: 220px;
+    }
+}
+
+@media (max-width: 480px) {
+    .radio-player {
+        padding: 14px 20px;
+    }
+
+    .station-info {
+        font-size: 1.2rem;
+        gap: 10px;
+    }
+
+    .control-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.6rem;
+    }
+
+    .wave-container {
+        height: 35px;
+    }
+
+    .wave-bar {
+        width: 5px;
+    }
+
+    @keyframes waveModern {
+        0%, 100% { height: 10px; }
+        50% { height: 35px; }
+    }
 }
 
 /* HERO */
@@ -532,7 +594,7 @@ body::before {
 /* CHAT */
 .chat-toggle {
     position: fixed;
-    bottom: 160px;
+    bottom: 30px; /* Valor inicial baixo - será ajustado pelo JS */
     right: 30px;
     width: 70px;
     height: 70px;
@@ -547,7 +609,7 @@ body::before {
     cursor: pointer;
     box-shadow: var(--neon-glow);
     z-index: 999;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
 }
 
 .chat-toggle:hover {
