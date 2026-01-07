@@ -260,16 +260,16 @@
         <!-- GERADOR IA -->
         <section id="gerador" class="section generator-section">
             <h2 data-aos="fade-up">Gerador de Imagens IA (Grátis)</h2>
-            <textarea rows="5" cols="60" readonly style="font-family: monospace; width: 100%; background: #111; color: #0f0; padding: 10px; border: 1px solid #333;">  
+            <div class="generator-box">
+                <textarea id="promptIA" placeholder="Ex: Montanhas 3d..."></textarea>
+                <textarea rows="6" cols="60" readonly style="font-family: monospace; width: 100%; background: #111; color: #0f0; padding: 10px; border: 1px solid #333;">  
 Dicas para gerar Ex: "Lucas" neon   
 "Loja Teste" fundo branco 
                 
 (copie e modifique cole no gerador (desenvolvidor PabloDesinger) (Free)
 </textarea>
-            <div class="generator-box">
-                <textarea id="promptIA" placeholder="Ex: Montanhas 3d..."></textarea>
-                <button id="generateIA" class="neon-btn"><i class="fas fa-magic"></i> Gerar Imagem</button>
-                <p id="loadingIA" class="loading-text">Gerando magia...</p>
+                <button id="generateIA" class="neon-btn"><i class="fas fa-magic"></i> Gerar Imagen Gratis</button>
+                <p id="loadingIA" class="loading-text">PabloDesignerIA Gerando...</p>
                 <img id="generatedIA" class="generated-image" src="" alt="Imagem gerada">
             </div>
         </section>
@@ -357,6 +357,7 @@ Dicas para gerar Ex: "Lucas" neon
 
 
 </html>
+
 
 
 
