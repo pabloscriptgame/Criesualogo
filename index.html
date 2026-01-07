@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,64 +11,16 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://js.puter.com/v2/"></script>
     <link rel="stylesheet" href="style.css">
-
-    <!-- CSS do fundo rotativo (adicionado aqui) -->
-    <style>
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            z-index: -2;
-            /* fica atrás de tudo (player, header, sections...) */
-            background-image: url('https://i.ibb.co/Ld9hbLYW/redondo-logo-pablodesigner-Photoroom.png');
-            background-size: contain;
-            /* mantém proporção */
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0.12;
-            /* bem sutil — ajuste se quiser mais forte (0.2–0.4) */
-            animation: rotateSlow 120s linear infinite;
-            /* bem lento e elegante */
-            pointer-events: none;
-        }
-        
-        @keyframes rotateSlow {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-        /* Opcional: se quiser girar no sentido anti-horário */
-        /* body::before { animation: rotateSlow 120s linear infinite reverse; } */
-    </style>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#00ffff">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/zWcHNK8Y/download-We-Resize-com-1.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="PabloDesigner">
 </head>
-
 <body>
 
-    <!-- PLAYER FIXO NO TOPO -->
-    <div class="radio-player-top">
-        <div class="player-inner">
-            <div class="station-info">
-                <span class="live-dot"></span>
-                <strong>DJ PABLOBASS 24H</strong>
-            </div>
-            <div class="player-controls">
-                <button id="playPause" class="control-btn"><i class="fas fa-play"></i></button>
-                <input type="range" id="volume" min="0" max="1" step="0.01" value="0.6" class="volume-slider">
-            </div>
-            <div class="wave-container">
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- HEADER (abaixo do player) -->
+    <!-- HEADER -->
     <header class="header">
         <div class="logo">
             <img src="https://i.ibb.co/tpNPjsjN/nova-logo-pablo-sem-fundo.png" alt="Pablo Designer">
@@ -139,239 +90,108 @@
         </div>
     </section>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #0a0a0a#ffde21a;
-            /* fundo escuro geral da página */
-            color: #ffffff;
-            padding: 15px 0;
-        }
-        
-        .banner {
-            width: 100%;
-            max-width: 1200px;
-            min-height: 280px;
-            height: 40vh;
-            max-height: 420px;
-            margin: 0 auto;
-            background: #000000;
-            /* fundo preto sólido */
-            position: relative;
-            overflow: hidden;
-            color: white;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            /* borda sutil opcional */
-        }
-        
-        .content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            width: 90%;
-            max-width: 1000px;
-            padding: 20px;
-        }
-        
-        h1 {
-            font-size: clamp(2.1rem, 6vw, 3.4rem);
-            margin: 0 0 12px 0;
-            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.8);
-            line-height: 1.1;
-            letter-spacing: 1px;
-        }
-        
-        .subtitle {
-            font-size: clamp(1.2rem, 4vw, 1.8rem);
-            margin: 0 0 25px 0;
-            font-weight: 300;
-            opacity: 0.92;
-        }
-        
-        .sites {
-            font-size: clamp(1rem, 3.5vw, 1.4rem);
-            background: rgba(255, 255, 255, 0.06);
-            display: inline-flex;
-            align-items: center;
-            gap: 16px;
-            padding: 12px 28px;
-            border-radius: 50px;
-            backdrop-filter: blur(6px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .site-link {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.25s ease;
-            white-space: nowrap;
-        }
-        
-        .site-link:hover,
-        .site-link:focus {
-            color: #ffd60a;
-            text-decoration: underline;
-            transform: translateY(-1px);
-        }
-        
-        .highlight {
-            color: #ffd60a;
-            font-weight: bold;
-        }
-        
-        @media (max-width: 380px) {
-            .sites {
-                flex-direction: column;
-                gap: 10px;
-                padding: 10px 20px;
-            }
-        }
-    </style>
-    </head>
-
-    <body>
-
-        <div class="banner">
-            <div class="content">
-                <h1>DELÍCIAS QUE VOCÊ MERECE!</h1>
-                <p class="subtitle">Sabor caseiro com muito capricho</p>
-
-                <div class="sites">
-                    <a href="https://www.degusto.store" class="site-link" target="_blank">www.degusto.store</a>
-                    <span>•</span>
-                    <a href="https://www.batatarecheada.shop" class="site-link" target="_blank">www.batatarecheada.shop</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- GERADOR IA -->
-        <section id="gerador" class="section generator-section">
-            <h2 data-aos="fade-up">Gerador de Imagens IA (Grátis)</h2>
-            <div class="generator-box">
-                <textarea id="promptIA" placeholder="Ex: Montanhas 3d..."></textarea>
-                <textarea rows="7" cols="60" readonly style="font-family: monospace; width: 100%; background: #111; color: #0f0; padding: 10px; border: 1px solid #333;">  
+    <!-- GERADOR IA -->
+    <section id="gerador" class="section generator-section">
+        <h2 data-aos="fade-up">Gerador de Imagens IA (Grátis)</h2>
+        <div class="generator-box">
+            <textarea id="promptIA" placeholder="Ex: Montanhas 3d..."></textarea>
+            <textarea rows="7" cols="60" readonly style="font-family: monospace; width: 100%; background: #111; color: #0f0; padding: 10px; border: 1px solid #333;">  
 Dicas para gerar Ex: "Lucas" neon   
 "Loja" fundo branco 
                 
 (copie e modifique cole no gerador (desenvolvidor PabloDesigner) (Gratis não é 100% - quer Melhor Procure no zap)
 </textarea>
-                <button id="generateIA" class="neon-btn"><i class="fas fa-magic"></i> Gerar Imagen Gratis</button>
-                <p id="loadingIA" class="loading-text">PabloDesignerIA Gerando...</p>
-                <img id="generatedIA" class="generated-image" src="" alt="Imagem gerada">
+            <button id="generateIA" class="neon-btn"><i class="fas fa-magic"></i> Gerar Imagen Gratis</button>
+            <p id="loadingIA" class="loading-text">PabloDesignerIA Gerando...</p>
+            <img id="generatedIA" class="generated-image" src="" alt="Imagem gerada">
+        </div>
+    </section>
+
+    <!-- PORTFÓLIO -->
+    <section id="portfolio" class="section">
+        <h2 data-aos="fade-up">Trabalhos Entregues</h2>
+        <div class="filters">
+            <button data-filter="all" class="filter-btn active">Todos</button>
+            <button data-filter="logos" class="filter-btn">Logos 3D</button>
+            <button data-filter="sites" class="filter-btn">Sites</button>
+        </div>
+        <div class="gallery" id="gallery"></div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato" class="section">
+        <h2 data-aos="fade-up">Vamos conversar?</h2>
+        <center><a href="https://wa.me/5534998110946" class="neon-btn big"><i class="fab fa-whatsapp"></i> (34) 99811-0946</a></center>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="trust-badges" style="margin: 50px 0; text-align: center;">
+            <p style="font-size: 1.2em; margin-bottom: 20px;">Site Seguro e Confiável</p>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto;">
+                <img src="https://mobecls.com/wp-content/uploads/2022/02/ssl-secure.jpg" alt="SSL Secured" style="height: 80px;">
+                <img src="https://blog.getmason.io/content/images/2022/01/Trust-Badges-Blog-05.jpg" alt="Secure Checkout" style="height: 80px;">
+                <img src="https://img.freepik.com/premium-vector/100-secure-payment-green-badge-isolated-transparent-background_105700-1800.jpg" alt="Encrypted Payment" style="height: 80px;">
+                <img src="https://p.kindpng.com/picc/s/379-3791804_shopify-safe-checkout-badge-hd-png-download.png" alt="Safe Shopping" style="height: 80px;">
+                <img src="https://www.paypalobjects.com/webstatic/mktg/logo/bdg_secured_by_pp_2line.png" alt="Secured by PayPal" style="height: 80px;">
+                <img src="https://trustlock.co/wp-content/uploads/2019/01/verified-SSL-Secure-trust-badge-seal.jpg" alt="Trusted Site" style="height: 80px;">
             </div>
-        </section>
-
-        <!-- PORTFÓLIO -->
-        <section id="portfolio" class="section">
-            <h2 data-aos="fade-up">Trabalhos Entregues</h2>
-            <div class="filters">
-                <button data-filter="all" class="filter-btn active">Todos</button>
-                <button data-filter="logos" class="filter-btn">Logos 3D</button>
-                <button data-filter="sites" class="filter-btn">Sites</button>
-            </div>
-            <div class="gallery" id="gallery"></div>
-        </section>
-
-        <!-- CONTATO -->
-        <section id="contato" class="section">
-            <h2 data-aos="fade-up">Vamos conversar?</h2>
-            <center><a href="https://wa.me/5534998110946" class="neon-btn big"><i class="fab fa-whatsapp"></i> (34) 99811-0946</a></center>
-        </section>
-
-        <!-- FOOTER -->
-        <footer>
-            <div class="trust-badges" style="margin: 50px 0; text-align: center;">
-                <p style="font-size: 1.2em; margin-bottom: 20px;">Site Seguro e Confiável</p>
-                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto;">
-
-                    <!-- SSL Secured -->
-                    <img src="https://mobecls.com/wp-content/uploads/2022/02/ssl-secure.jpg" alt="SSL Secured" style="height: 80px;">
-
-                    <!-- Secure Checkout -->
-                    <img src="https://blog.getmason.io/content/images/2022/01/Trust-Badges-Blog-05.jpg" alt="Secure Checkout" style="height: 80px;">
-
-                    <!-- Encrypted Payment / Secure Connection -->
-                    <img src="https://img.freepik.com/premium-vector/100-secure-payment-green-badge-isolated-transparent-background_105700-1800.jpg" alt="Encrypted Payment" style="height: 80px;">
-
-                    <!-- Safe Shopping / Guaranteed Safe -->
-                    <img src="https://p.kindpng.com/picc/s/379-3791804_shopify-safe-checkout-badge-hd-png-download.png" alt="Safe Shopping" style="height: 80px;">
-
-                    <!-- Secured by PayPal (oficial e super confiável) -->
-                    <img src="https://www.paypalobjects.com/webstatic/mktg/logo/bdg_secured_by_pp_2line.png" alt="Secured by PayPal" style="height: 80px;">
-
-                    <!-- Trusted Site Seal -->
-                    <img src="https://trustlock.co/wp-content/uploads/2019/01/verified-SSL-Secure-trust-badge-seal.jpg" alt="Trusted Site" style="height: 80px;">
-                </div>
-                <p>´</p>
-                <center>
-
-                    <div class="widgets">
-                        <a href="https://www.youtube.com/@djpablobassoriginal" target="_blank" class="neon-btn gradient-btn"><i class="fab fa-youtube"></i> YouTube</a>
-                    </div>
-            </div>
-
-            <center>
-                <p>© 2026 Pablo Designer - Monte Carmelo - Minas Gerais - Brasil 🇧🇷 | WhatsApp: (34) 99811-0946</p>
-            </center>
-        </footer>
-
-        <!-- CHAT FLUTUANTE -->
-        <div class="chat-toggle"><i class="fas fa-comment-dots"></i></div>
-        <div class="chat-window">
-            <div class="chat-header">
-                Assistente IA
-                <span class="close-chat"><i class="fas fa-times"></i></span>
-            </div>
-            <div class="chat-body" id="chatBody">
-                <div class="msg ai">Fala aí! Quer um logoMarca ou gerar imagem? 🔥</div>
-            </div>
-            <div class="chat-input-area">
-                <input type="text" id="chatMsg" placeholder="Digite aqui...">
-                <button id="sendMsg"><i class="fas fa-paper-plane"></i></button>
+            <div class="widgets">
+                <a href="https://www.youtube.com/@djpablobassoriginal" target="_blank" class="neon-btn gradient-btn"><i class="fab fa-youtube"></i> YouTube</a>
             </div>
         </div>
+        <center>
+            <p>© 2026 Pablo Designer - Monte Carmelo - Minas Gerais - Brasil 🇧🇷 | WhatsApp: (34) 99811-0946</p>
+        </center>
+    </footer>
 
-        <!-- LIGHTBOX -->
-        <div id="lightbox" class="lightbox">
-            <span class="close-lightbox"><i class="fas fa-times"></i></span>
-            <img id="lightbox-img" src="" alt="">
+    <!-- CHAT FLUTUANTE -->
+    <div class="chat-toggle"><i class="fas fa-comment-dots"></i></div>
+    <div class="chat-window">
+        <div class="chat-header">
+            Assistente IA
+            <span class="close-chat"><i class="fas fa-times"></i></span>
         </div>
+        <div class="chat-body" id="chatBody">
+            <div class="msg ai">Fala aí! Quer um logoMarca ou gerar imagem? 🔥</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatMsg" placeholder="Digite aqui...">
+            <button id="sendMsg"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
 
-        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-        <script src="script.js"></script>
-    </body>
+    <!-- LIGHTBOX -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox"><i class="fas fa-times"></i></span>
+        <img id="lightbox-img" src="" alt="">
+    </div>
 
+    <!-- PLAYER FIXO NO RODAPÉ -->
+    <div class="radio-player">
+        <div class="player-inner">
+            <div class="station-info">
+                <span class="live-dot"></span>
+                <strong>DJ PABLOBASS 24H</strong>
+            </div>
+            <div class="player-controls">
+                <button id="playPause" class="control-btn"><i class="fas fa-play"></i></button>
+                <input type="range" id="volume" min="0" max="1" step="0.01" value="0.6" class="volume-slider">
+            </div>
+            <div class="wave-container">
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+            </div>
+        </div>
+    </div>
 
-
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

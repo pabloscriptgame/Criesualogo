@@ -14,6 +14,19 @@ document.querySelector('.hamburger').onclick = () => {
     document.querySelector('.nav').classList.toggle('active');
 };
 
+// Smooth scroll + fechar menu mobile ao clicar em link
+document.querySelectorAll('.nav a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+        // Fecha menu mobile
+        document.querySelector('.nav').classList.remove('active');
+    });
+});
+
 // Player de rádio
 const audio = new Audio('https://stream.zeno.fm/si5xey7akartv.mp3');
 const playPause = document.getElementById('playPause');
@@ -31,19 +44,7 @@ playPause.onclick = () => {
 
 volume.oninput = () => audio.volume = volume.value;
 
-// Animação das barras do player
-const waveBars = document.querySelectorAll('.wave-bar');
-function animateWaves() {
-    waveBars.forEach(bar => {
-        const height = Math.random() * 20 + 8;
-        bar.style.height = `${height}px`;
-    });
-}
-setInterval(animateWaves, 180);
-
-// ───────────────────────────────────────────────
-// GERADOR IA – Pollinations.AI + FLUX (melhor gratuito 2026, qualidade Grok/Gemini level) 🔥
-// ───────────────────────────────────────────────
+// GERADOR IA – Pollinations.AI + FLUX
 document.getElementById('generateIA').onclick = async () => {
     const promptInput = document.getElementById('promptIA');
     const prompt = promptInput.value.trim();
@@ -62,19 +63,16 @@ document.getElementById('generateIA').onclick = async () => {
     generateBtn.disabled = true;
     generateBtn.innerHTML = 'Gerando Imagen...';
 
-    // Prompt aprimorado apenas para logomarca 3D profissional (sem estilos forçados)
     const enhancedPrompt = `${prompt}, logomarca 3D profissional, alta resolução, ultra detalhado, fundo escuro infinito, iluminação cinematográfica volumétrica, foco nítido, estilo clean e futurista, octane render, ray tracing, simetria perfeita, sem distorção de texto`;
 
     try {
-        // Pollinations.AI + FLUX – gratuito, sem key, qualidade TOP mundial 2026
         const encodedPrompt = encodeURIComponent(enhancedPrompt);
         const url = `https://image.pollinations.ai/prompt/${encodedPrompt}?model=flux&width=1024&height=1024&seed=random&nologo=true&enhance=true`;
 
-        // Verifica se está acessível (rápido check)
         const response = await fetch(url, { method: 'HEAD' });
         if (!response.ok) throw new Error('Serviço temporário indisponível');
 
-        img.src = url + `&t=${Date.now()}`; // evita cache
+        img.src = url + `&t=${Date.now()}`;
         img.style.display = 'block';
 
     } catch (e) {
@@ -128,9 +126,7 @@ document.querySelector('.close-lightbox').onclick = () => {
     document.getElementById('lightbox').classList.remove('active');
 };
 
-// ───────────────────────────────────────────────
-// CHAT SUPER INTELIGENTE 2026 – Versão ULTRA Conversacional
-// ───────────────────────────────────────────────
+// CHAT INTELIGENTE
 const chatBody = document.getElementById('chatBody');
 const chatInput = document.getElementById('chatMsg');
 const sendBtn = document.getElementById('sendMsg');
@@ -199,8 +195,6 @@ function getResponse(userText) {
         return resp;
     }
 
-    // (resto do chat mantido igual – inteligente e conversacional)
-
     return `Entendi! 👊<br><br>Me dá mais detalhes da marca ou projeto que eu te oriento melhor 🔥`;
 }
 
@@ -241,8 +235,63 @@ chatToggle.onclick = () => {
 
 closeChat.onclick = () => {
     chatWindow.classList.remove('active');
-
 };
 
+// ========================
+// BANNER PUBLICITÁRIO DINÂMICO
+// ========================
 
+function createBanner() {
+    const banner = document.createElement('div');
+    banner.classList.add('banner');
+    banner.setAttribute('data-aos', 'fade-up');
 
+    const content = document.createElement('div');
+    content.classList.add('content');
+
+    const h1 = document.createElement('h1');
+    h1.textContent = 'DELÍCIAS QUE VOCÊ MERECE!';
+
+    const subtitle = document.createElement('p');
+    subtitle.classList.add('subtitle');
+    subtitle.textContent = 'Sabor caseiro com muito capricho';
+
+    const sites = document.createElement('div');
+    sites.classList.add('sites');
+
+    const link1 = document.createElement('a');
+    link1.href = 'https://www.degusto.store';
+    link1.classList.add('site-link');
+    link1.target = '_blank';
+    link1.textContent = 'www.degusto.store';
+
+    const separator = document.createElement('span');
+    separator.textContent = ' • ';
+
+    const link2 = document.createElement('a');
+    link2.href = 'https://www.batatarecheada.shop';
+    link2.classList.add('site-link');
+    link2.target = '_blank';
+    link2.textContent = 'www.batatarecheada.shop';
+
+    sites.appendChild(link1);
+    sites.appendChild(separator);
+    sites.appendChild(link2);
+
+    content.appendChild(h1);
+    content.appendChild(subtitle);
+    content.appendChild(sites);
+    banner.appendChild(content);
+
+    return banner;
+}
+
+// Insere o banner após a seção de serviços
+document.addEventListener('DOMContentLoaded', () => {
+    const servicosSection = document.getElementById('servicos');
+    if (servicosSection) {
+        const banner = createBanner();
+        servicosSection.after(banner);
+        AOS.refresh(); // Atualiza AOS para animar o elemento dinâmico
+    }
+});

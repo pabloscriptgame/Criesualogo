@@ -1,0 +1,100 @@
+{
+  "name": "Pablo Designer",
+  "short_name": "PabloDesigner",
+  "description": "Logos 3D profissionais, sites modernos com carrinho via WhatsApp, propagandas que vendem e rádio DJ PABLOBASS 24h - Monte Carmelo MG",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a0a1f",
+  "theme_color": "#00ffff",
+  "categories": ["business", "design", "music", "shopping"],
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "https://i.ibb.co/zWcHNK8Y/download-We-Resize-com-1.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://i.ibb.co/tpNPjsjN/nova-logo-pablo-sem-fundo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://i.ibb.co/tpNPjsjN/nova-logo-pablo-sem-fundo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://i.ibb.co/tpNPjsjN/nova-logo-pablo-sem-fundo.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://i.ibb.co/tpNPjsjN/nova-logo-pablo-sem-fundo.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://i.ibb.co/tpNPjsjN/nova-logo-pablo-sem-fundo.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Tela inicial do Pablo Designer no celular"
+    },
+    {
+      "src": "https://i.ibb.co/tpNPjsjN/nova-logo-pablo-sem-fundo.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Player de rádio DJ PABLOBASS no desktop"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Falar no WhatsApp",
+      "short_name": "WhatsApp",
+      "description": "Abrir WhatsApp direto com Pablo",
+      "url": "https://wa.me/5534998110946?text=Olá%20Pablo!%20Vi%20seu%20site",
+      "icons": [
+        {
+          "src": "https://i.ibb.co/zWcHNK8Y/download-We-Resize-com-1.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Gerador de IA",
+      "short_name": "IA",
+      "description": "Gerar imagens grátis com IA",
+      "url": "/#gerador",
+      "icons": [
+        {
+          "src": "https://i.ibb.co/zWcHNK8Y/download-We-Resize-com-1.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Rádio 24h",
+      "short_name": "Rádio",
+      "description": "Ouvir DJ PABLOBASS ao vivo",
+      "url": "/",
+      "icons": [
+        {
+          "src": "https://i.ibb.co/zWcHNK8Y/download-We-Resize-com-1.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false
+}
