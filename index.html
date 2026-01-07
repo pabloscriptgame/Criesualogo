@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pablo Designer | Logos 3D, Sites e Propaganda - Monte Carmelo MG</title>
+    <meta name="description" content="Logos 3D neon cyan, sites modernos, propagandas que vendem - Monte Carmelo MG">
+    <link rel="icon" type="image/png" href="https://i.ibb.co/zWcHNK8Y/download-We-Resize-com-1.png">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://js.puter.com/v2/"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#00ffff">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/zWcHNK8Y/download-We-Resize-com-1.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="PabloDesigner">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo">
+            <img src="https://i.ibb.co/tpNPjsjN/nova-logo-pablo-sem-fundo.png" alt="Pablo Designer">
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="#home">Início</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#gerador">Gerador IA</a></li>
+                <li><a href="#portfolio">Portfólio</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+            <div class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </div>
+        </nav>
+        <div class="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- TOP RADIO PLAYER FINO (único player agora) -->
+    <div class="top-radio-player">
+        <div class="top-player-inner">
+            <div class="station-info">
+                <span class="live-dot"></span>
+                <strong>DJ PABLOBASS 24H</strong>
+            </div>
+            <div class="top-player-controls">
+                <button id="topPlayPause" class="control-btn"><i class="fas fa-play"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <section id="home" class="hero">
+        <div class="hero-content" data-aos="fade-up">
+            <h1>PABLO DESIGNER</h1>
+            <p>Logos 3D • Sites modernos • Propaganda que vende de verdade</p>
+            <a href="https://wa.me/5534998110946?text=Olá%20Pablo!%20Vi%20seu%20site" class="neon-btn">
+                <i class="fab fa-whatsapp"></i> Falar no WhatsApp
+            </a>
+        </div>
+        <div class="particles"></div>
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre" class="section">
+        <h2 data-aos="fade-up">Quem sou eu</h2>
+        <p class="sobre-text" data-aos="fade-up" data-aos-delay="200">
+            Designer de Monte Carmelo / MG, especialista em <strong>logos 3D </strong>, sites Com Carrinho de Compra Via ZAP e propagandas visuais impactantes. Atendo todo o Brasil remotamente.
+        </p>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section id="servicos" class="section">
+        <h2 data-aos="fade-up">O que eu faço</h2>
+        <div class="cards">
+            <div class="neon-card" data-aos="zoom-in">
+                <i class="fas fa-palette fa-3x"></i>
+                <h3>Logos 3D</h3>
+                <p>Identidade visual futurista e impactante</p>
+            </div>
+            <div class="neon-card" data-aos="zoom-in" data-aos-delay="100">
+                <i class="fas fa-globe fa-3x"></i>
+                <h3>Sites Profissionais</h3>
+                <p>Modernos, rápidos e otimizados</p>
+            </div>
+            <div class="neon-card" data-aos="zoom-in" data-aos-delay="200">
+                <i class="fas fa-ad fa-3x"></i>
+                <h3>Propagandas Visuais</h3>
+                <p>Posts, banners e anúncios que convertem</p>
+            </div>
+            <div class="neon-card" data-aos="zoom-in" data-aos-delay="300">
+                <i class="fas fa-video fa-3x"></i>
+                <h3>Motion Graphics</h3>
+                <p>Animações que chamam atenção</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- GERADOR IA -->
+    <section id="gerador" class="section generator-section">
+        <h2 data-aos="fade-up">Gerador de Imagens IA (Grátis)</h2>
+        <div class="generator-box">
+            <textarea id="promptIA" placeholder="Ex: Montanhas 3d..."></textarea>
+            <textarea rows="7" cols="60" readonly style="font-family: monospace; width: 100%; background: #111; color: #0f0; padding: 10px; border: 1px solid #333;">  
+Dicas para gerar Ex: "Lucas" neon   
+"Loja" fundo branco 
+                
+(copie e modifique cole no gerador (desenvolvidor PabloDesigner) (Gratis não é 100% - quer Melhor Procure no zap)
+</textarea>
+            <button id="generateIA" class="neon-btn"><i class="fas fa-magic"></i> Gerar Imagen Gratis</button>
+            <p id="loadingIA" class="loading-text">PabloDesignerIA Gerando...</p>
+            <img id="generatedIA" class="generated-image" src="" alt="Imagem gerada">
+        </div>
+    </section>
+
+    <!-- PORTFÓLIO -->
+    <section id="portfolio" class="section">
+        <h2 data-aos="fade-up">Trabalhos Entregues</h2>
+        <div class="filters">
+            <button data-filter="all" class="filter-btn active">Todos</button>
+            <button data-filter="logos" class="filter-btn">Logos 3D</button>
+            <button data-filter="sites" class="filter-btn">Sites</button>
+        </div>
+        <div class="gallery" id="gallery"></div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato" class="section">
+        <h2 data-aos="fade-up">Vamos conversar?</h2>
+        <center><a href="https://wa.me/5534998110946" class="neon-btn big"><i class="fab fa-whatsapp"></i> (34) 99811-0946</a></center>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="trust-badges" style="margin: 50px 0; text-align: center;">
+            <p style="font-size: 1.2em; margin-bottom: 20px;">Site Seguro e Confiável</p>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto;">
+                <img src="https://mobecls.com/wp-content/uploads/2022/02/ssl-secure.jpg" alt="SSL Secured" style="height: 80px;">
+                <img src="https://blog.getmason.io/content/images/2022/01/Trust-Badges-Blog-05.jpg" alt="Secure Checkout" style="height: 80px;">
+                <img src="https://img.freepik.com/premium-vector/100-secure-payment-green-badge-isolated-transparent-background_105700-1800.jpg" alt="Encrypted Payment" style="height: 80px;">
+                <img src="https://p.kindpng.com/picc/s/379-3791804_shopify-safe-checkout-badge-hd-png-download.png" alt="Safe Shopping" style="height: 80px;">
+                <img src="https://www.paypalobjects.com/webstatic/mktg/logo/bdg_secured_by_pp_2line.png" alt="Secured by PayPal" style="height: 80px;">
+                <img src="https://trustlock.co/wp-content/uploads/2019/01/verified-SSL-Secure-trust-badge-seal.jpg" alt="Trusted Site" style="height: 80px;">
+            </div>
+            <div class="widgets">
+                <a href="https://www.youtube.com/@djpablobassoriginal" target="_blank" class="neon-btn gradient-btn"><i class="fab fa-youtube"></i> YouTube</a>
+            </div>
+        </div>
+        <center>
+            <p>© 2026 Pablo Designer - Monte Carmelo - Minas Gerais - Brasil 🇧🇷 | WhatsApp: (34) 99811-0946</p>
+        </center>
+    </footer>
+
+    <!-- CHAT FLUTUANTE -->
+    <div class="chat-toggle"><i class="fas fa-comment-dots"></i></div>
+    <div class="chat-window">
+        <div class="chat-header">
+            Assistente IA
+            <span class="close-chat"><i class="fas fa-times"></i></span>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="msg ai">Fala aí! Quer um logoMarca ou gerar imagem? 🔥</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatMsg" placeholder="Digite aqui...">
+            <button id="sendMsg"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox"><i class="fas fa-times"></i></span>
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
