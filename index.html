@@ -260,8 +260,60 @@
         <!-- GERADOR IA -->
         <section id="gerador" class="section generator-section">
             <h2 data-aos="fade-up">Gerador de Imagens IA (Grátis)</h2>
+            <textarea rows="15" cols="60" readonly style="font-family: monospace; width: 100%; background: #111; color: #0f0; padding: 10px; border: 1px solid #333;">
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucas Neon</title>
+<style>
+body {
+margin: 0;
+height: 100vh;
+background: #000;
+display: flex;
+justify-content: center;
+align-items: center;
+font-family: 'Arial Black', Arial, sans-serif;
+}
+.neon-text {
+font-size: 80px;
+color: #fff;
+text-transform: uppercase;
+letter-spacing: 4px;
+text-shadow:
+0 0 7px #fff,
+0 0 10px #fff,
+0 0 21px #ff00de,
+0 0 42px #ff00de,
+0 0 82px #ff00de,
+0 0 92px #ff00de,
+0 0 102px #ff00de,
+0 0 151px #0ff;
+animation: flicker 1.5s infinite alternate;
+}
+@keyframes flicker {
+0%, 18%, 22%, 25%, 53%, 57%, 100% { text-shadow:
+0 0 7px #fff,
+0 0 10px #fff,
+0 0 21px #ff00de,
+0 0 42px #ff00de,
+0 0 82px #ff00de,
+0 0 92px #ff00de,
+0 0 102px #ff00de,
+0 0 151px #0ff; }
+20%, 24%, 55% { text-shadow: none; }
+}
+</style>
+</head>
+<body>
+<h1 class="neon-text">Lucas</h1>
+</body>
+</html>
+</textarea>
             <div class="generator-box">
-                <textarea id="promptIA" placeholder="Ex: Montanhas 3d, fundo escuro..."></textarea>
+                <textarea id="promptIA" placeholder="Ex: Montanhas 3d..."></textarea>
                 <button id="generateIA" class="neon-btn"><i class="fas fa-magic"></i> Gerar Imagem</button>
                 <p id="loadingIA" class="loading-text">Gerando magia...</p>
                 <img id="generatedIA" class="generated-image" src="" alt="Imagem gerada">
@@ -351,5 +403,6 @@
 
 
 </html>
+
 
 
