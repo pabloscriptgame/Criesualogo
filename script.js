@@ -144,7 +144,7 @@ document.querySelector('.close-lightbox').onclick = () => {
     document.getElementById('lightbox').classList.remove('active');
 };
 
-// CHAT INTELIGENTE
+// CHAT INTELIGENTE (VERSÃO MELHORADA 2026)
 const chatBody = document.getElementById('chatBody');
 const chatInput = document.getElementById('chatMsg');
 const sendBtn = document.getElementById('sendMsg');
@@ -153,14 +153,18 @@ const chatToggle = document.querySelector('.chat-toggle');
 const closeChat = document.querySelector('.close-chat');
 
 let conversationStarted = false;
-let context = {
+
+const context = {
+    nomeCliente: null,
     nomeMarca: null,
     tipoServico: null,
     cores: null,
     vibe: null,
-    nomeCliente: null,
-    jaPediuOrcamento: false
+    detalhesExtras: null,
+    etapa: 'inicio' // controla o fluxo
 };
+
+const SEU_NUMERO_WHATSAPP = "559999999999"; // ⚠️ TROQUE AQUI PELO SEU NÚMERO REAL (com +55 e DDD, sem traços/espaços)
 
 function addMsg(text, isUser = false) {
     const div = document.createElement('div');
@@ -184,36 +188,146 @@ function removeTyping() {
     if (typing) typing.remove();
 }
 
+function gerarLinkWhatsApp() {
+    let mensagem = `Olá Pablo! 🔥%0a%0aGostaria de um orçamento para:`;
+
+    if (context.tipoServico) mensagem += `%0a• Serviço: ${context.tipoServico}`;
+    if (context.nomeMarca) mensagem += `%0a• Nome da marca: ${context.nomeMarca}`;
+    if (context.nomeCliente) mensagem += `%0a• Meu nome: ${context.nomeCliente}`;
+    if (context.cores) mensagem += `%0a• Cores desejadas: ${context.cores}`;
+    if (context.vibe) mensagem += `%0a• Estilo/Vibe: ${context.vibe}`;
+    if (context.detalhesExtras) mensagem += `%0a• Detalhes extras: ${context.detalhesExtras}`;
+
+    mensagem += `%0a%0aPode me passar os valores e prazos? 😎`;
+
+    return `https://wa.me/${SEU_NUMERO_WHATSAPP}?text=${mensagem}`;
+}
+
+function enviarParaWhatsApp() {
+    const link = gerarLinkWhatsApp();
+    addMsg(`Perfeito, irmão! 🔥<br><br>
+             Já organizei tudo pra você falar direto comigo no WhatsApp.<br><br>
+             <a href="${link}" target="_blank" class="whatsapp-btn">
+             <i class="fab fa-whatsapp"></i> Falar com Pablo no WhatsApp
+             </a><br><br>
+             Clica aí que já abre o chat com todos os seus detalhes preenchidos! 🚀`);
+
+    window.open(link, '_blank');
+}
+
 function getResponse(userText) {
     const text = userText.toLowerCase().trim();
 
-    if (!conversationStarted) {
+    // Extração automática de nome da marca e cliente
+    if (!context.nomeMarca) {
+        const matchMarca = userText.match(/(?:marca|loja|nome|chama|é|se chama)\s*["']?([^"',\.?!]{2,40})/i);
+        if (matchMarca) context.nomeMarca = matchMarca[1].trim();
+    }
+    if (!context.nomeCliente) {
+        const matchCliente = userText.match(/(?:eu sou|meu nome|chamo|sou)\s*["']?([^"',\.?!]{2,30})/i);
+        if (matchCliente) context.nomeCliente = matchCliente[1].trim();
+    }
+
+    // Fluxo guiado
+    if (context.etapa === 'inicio') {
+        context.etapa = 'servico';
         conversationStarted = true;
         return `Fala, meu parceiro! 🔥🔥<br><br>
-        Eu sou o assistente do <strong>Pablo Designer</strong>, especialista em logomarcas 3D profissionais que impactam.<br><br>
-        Hoje tu veio atrás de quê?<br>
-        • Logomarca 3D<br>
-        • Site que vende<br>
-        • Pack de posts<br>
-        • Gerar imagem IA<br><br>
-        Manda aí que eu te ajudo! ❓`;
+                Eu sou o assistente do <strong>Pablo Designer</strong>, especialista em logomarcas 3D que convertem de verdade.<br><br>
+                Hoje tu tá querendo o quê?<br><br>
+                • Logomarca 3D (estática ou animada)<br>
+                • Site profissional que vende<br>
+                • Pack de posts pra redes<br>
+                • Identidade visual completa<br><br>
+                Manda aí que eu já te ajudo! 💬`;
     }
 
-    if (!context.nomeMarca) {
-        const match = userText.match(/(?:marca|nome|chama|é|se chama)\s*["']?([^"',\.?!]{2,30})/i);
-        if (match) context.nomeMarca = match[1].trim();
+    if (context.etapa === 'servico' && !context.tipoServico) {
+        if (text.includes('logo') || text.includes('logomarca') || text.includes('marca') || text.includes('3d')) {
+            context.tipoServico = 'Logomarca 3D';
+            context.etapa = 'marca';
+            return `Logomarca 3D é comigo mesmo! 🔥<br><br>
+                    Estilo profissional, clean, com iluminação cinematográfica e impacto visual forte.<br><br>
+                    <strong>Valores 2026:</strong><br>
+                    • Logo 3D estática → R$ 70–120<br>
+                    • Logo 3D animada → R$ 150–250<br>
+                    • Pacote completo → R$ 350–500<br><br>
+                    Qual o nome da marca/loja? 👀`;
+        }
+        if (text.includes('site') || text.includes('web')) {
+            context.tipoServico = 'Site profissional';
+            context.etapa = 'marca';
+            return `Site que vende de verdade? Tô dentro! 💻<br><br>
+                    Landing pages, lojas virtuais, portfólios – tudo responsivo e otimizado.<br><br>
+                    Me fala o nome da marca ou do projeto?`;
+        }
+        if (text.includes('post') || text.includes('redes') || text.includes('pack')) {
+            context.tipoServico = 'Pack de posts para redes';
+            context.etapa = 'marca';
+            return `Pack de posts pra bombar no Instagram? 🚀<br><br>
+                    Artes profissionais, carrosséis, stories animados...<br><br>
+                    Qual o nome da marca ou nicho?`;
+        }
     }
 
-    if (text.includes('logo') || text.includes('logomarca') || text.includes('marca')) {
-        context.tipoServico = 'logo';
-        let resp = `Logomarca 3D profissional é minha especialidade, irmão! 🔥<br><br>Estilo clean, alta qualidade, impacto visual forte.<br><br>`;
-        if (context.nomeMarca) resp += `Já anotei que a marca é <strong>${context.nomeMarca}</strong>. Perfeito!<br><br>`;
-        else resp += `Me fala o nome da marca?<br><br>`;
-        resp += `<strong>Valores 2026:</strong><br>• Logo 3D estático → R$ 70–120<br>• Logo animado → R$ 150–250<br>• Pacote completo → R$ 350–500<br><br>Qual estilo tu quer? (minimalista, metálico, dourado, colorido...)`;
-        return resp;
+    if (context.etapa === 'marca' && context.tipoServico && !context.nomeMarca) {
+        if (text.length >= 2) context.nomeMarca = userText.trim();
+        if (context.nomeMarca) {
+            context.etapa = 'cliente';
+            return `Beleza, anotei: <strong>${context.nomeMarca}</strong> 🔥<br><br>
+                    Qual é o seu nome pra eu te chamar direito? 😎`;
+        }
     }
 
-    return `Entendi! 👊<br><br>Me dá mais detalhes da marca ou projeto que eu te oriento melhor 🔥`;
+    if (context.etapa === 'cliente' && !context.nomeCliente) {
+        if (text.length >= 2) context.nomeCliente = userText.trim();
+        if (context.nomeCliente) {
+            context.etapa = 'cores';
+            return `Tranquilo, ${context.nomeCliente}! 👊<br><br>
+                    Quais cores tu tá pensando pra esse projeto?<br>
+                    (ex: dourado e preto, azul neon, tons pastéis, etc.)`;
+        }
+    }
+
+    if (context.etapa === 'cores' && !context.cores) {
+        if (text.length >= 3) {
+            context.cores = userText.trim();
+            context.etapa = 'vibe';
+            return `Cores anotadas: <strong>${context.cores}</strong><br><br>
+                    Agora me conta a vibe/estilo que tu quer:<br>
+                    • Minimalista • Metálico • Futurista • Vintage • Colorido • Luxuoso • etc.<br><br>
+                    Ou descreve como tu imagina!`;
+        }
+    }
+
+    if (context.etapa === 'vibe' && !context.vibe) {
+        if (text.length >= 3) {
+            context.vibe = userText.trim();
+            context.etapa = 'final';
+            return `Perfeito! Já tenho tudo que preciso.<br><br>
+                    Resumo:<br>
+                    • Serviço: ${context.tipoServico}<br>
+                    • Marca: ${context.nomeMarca}<br>
+                    • Cliente: ${context.nomeCliente}<br>
+                    • Cores: ${context.cores}<br>
+                    • Estilo: ${context.vibe}<br><br>
+                    Quer que eu te envie direto pro WhatsApp do Pablo com tudo isso pronto? 🚀`;
+        }
+    }
+
+    // Atalhos para WhatsApp
+    if (text.includes('sim') || text.includes('quero') || text.includes('orçamento') || text.includes('whatsapp') || text.includes('falar')) {
+        enviarParaWhatsApp();
+        return null;
+    }
+
+    if (context.etapa === 'final') {
+        context.detalhesExtras = userText;
+    }
+
+    return `Entendi! 👊<br><br>
+            Pode mandar mais detalhes que eu ajusto.<br><br>
+            Quando quiser, só falar "quero orçamento" ou "vamos pro WhatsApp" que eu te levo direto pro Pablo! 🔥`;
 }
 
 function sendMessage() {
@@ -225,12 +339,11 @@ function sendMessage() {
 
     showTyping();
 
-    const delay = 1000 + Math.random() * 2000;
-
     setTimeout(() => {
         removeTyping();
-        addMsg(getResponse(text));
-    }, delay);
+        const resposta = getResponse(text);
+        if (resposta) addMsg(resposta);
+    }, 1000 + Math.random() * 1500);
 }
 
 sendBtn.onclick = sendMessage;
@@ -245,9 +358,10 @@ chatToggle.onclick = () => {
     chatWindow.classList.toggle('active');
     if (chatWindow.classList.contains('active') && !conversationStarted) {
         setTimeout(() => {
-            addMsg(`Yo! 🔥 Bem-vindo ao chat do <strong>Pablo Designer</strong>.<br><br>Especialista em logomarcas 3D profissionais.<br><br>Qual é a boa hoje? 💻`);
-            conversationStarted = true;
-        }, 500);
+            addMsg(`Yo! 🔥 Bem-vindo ao chat do <strong>Pablo Designer</strong>!<br><br>
+                    Logomarcas 3D profissionais • Sites que vendem • Packs de redes<br><br>
+                    Qual é a boa hoje, irmão? 💻`);
+        }, 600);
     }
 };
 
