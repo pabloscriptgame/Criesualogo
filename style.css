@@ -758,3 +758,141 @@ img {
     max-width: 100%;
     overflow: hidden;
 }
+
+
+/* ===============================================
+   APENAS O BANNER NOVO - adicionado no final
+   =============================================== */
+
+.promo-banner {
+    position: relative;
+    margin: 80px auto;
+    max-width: 1100px;
+    border-radius: 24px;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(20, 20, 60, 0.92) 0%, rgba(10, 10, 40, 0.96) 50%, rgba(30, 0, 60, 0.88) 100%);
+    border: 1px solid rgba(0, 255, 255, 0.22);
+    box-shadow: 0 0 60px rgba(0, 255, 255, 0.18), inset 0 0 90px rgba(0, 255, 255, 0.07);
+    backdrop-filter: blur(10px);
+}
+
+.banner-glow-layer {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 35% 65%, rgba(255, 100, 140, 0.15), transparent 45%);
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.banner-content {
+    position: relative;
+    z-index: 2;
+    padding: 80px 6% 90px;
+    text-align: center;
+}
+
+.banner-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(3.4rem, 8vw, 6rem);
+    font-weight: 800;
+    background: linear-gradient(90deg, #ff6bc1, #00f0ff, #ff6bc1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 35px rgba(0, 240, 255, 0.45);
+    margin-bottom: 28px;
+    line-height: 1.05;
+    letter-spacing: -1px;
+}
+
+.banner-title .highlight-word {
+    background: linear-gradient(90deg, #ffd700, #ffaa00, #ffd700);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.banner-subtitle {
+    font-size: clamp(1.35rem, 3.8vw, 2rem);
+    color: #e0f7ff;
+    margin-bottom: 45px;
+    font-weight: 300;
+    opacity: 0.93;
+    max-width: 780px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.banner-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 35px;
+    margin-bottom: 50px;
+}
+
+.site-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 38px;
+    background: rgba(0, 255, 255, 0.11);
+    border: 1px solid rgba(0, 255, 255, 0.38);
+    border-radius: 50px;
+    color: #00ffff;
+    font-size: 1.35rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.35s ease;
+    backdrop-filter: blur(8px);
+}
+
+.site-button:hover {
+    background: rgba(0, 255, 255, 0.24);
+    transform: translateY(-5px);
+    box-shadow: 0 0 35px rgba(0, 255, 255, 0.45);
+    border-color: #00ffff;
+}
+
+.links-separator {
+    color: #00ffff70;
+    font-size: 1.8rem;
+    font-weight: 300;
+}
+
+.banner-cta {
+    padding: 18px 60px;
+    font-size: 1.4rem;
+    box-shadow: 0 0 45px rgba(0, 255, 255, 0.55);
+}
+
+.banner-cta:hover {
+    transform: translateY(-8px) scale(1.07);
+    box-shadow: 0 0 90px rgba(0, 255, 255, 0.75);
+}
+
+
+/* Responsividade do banner */
+
+@media (max-width: 820px) {
+    .promo-banner {
+        margin: 60px 5%;
+    }
+    .banner-content {
+        padding: 65px 6% 80px;
+    }
+    .banner-title {
+        font-size: clamp(2.9rem, 9vw, 4.8rem);
+    }
+}
+
+@media (max-width: 680px) {
+    .banner-links {
+        flex-direction: column;
+        gap: 25px;
+    }
+    .banner-subtitle {
+        font-size: 1.45rem;
+    }
+}
