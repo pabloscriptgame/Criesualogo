@@ -285,7 +285,7 @@ function createBanner() {
             </div>
 
             <a href="https://www.degusto.store" target="_blank" class="neon-btn banner-cta">
-                Conhecer Agora <i class="fas fa-arrow-right"></i>
+                Conhecer<i class="fas fa-arrow-right"></i>
             </a>
         </div>
     `;
@@ -300,4 +300,5 @@ document.addEventListener('DOMContentLoaded', () => {
         servicosSection.after(banner);
         AOS.refresh();
     }
+
 });
