@@ -269,7 +269,7 @@ function createBanner() {
             </h2>
 
             <p class="banner-subtitle">
-                Sabor caseiro, muito capricho e aquele carinho que só a gente sabe fazer ❤️
+                Sabor caseiro, muito capricho e aquele carinho ❤️
             </p>
 
             <div class="banner-links">
@@ -302,3 +302,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
+
