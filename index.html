@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pablo Designer | Logos 3D, Sites e Propaganda - Monte Carmelo MG</title>
+    <meta name="description" content="Logos 3D neon cyan, sites modernos, propagandas que vendem - Monte Carmelo MG">
+    <link rel="icon" type="image/png" href="https://i.ibb.co/zWcHNK8Y/download-We-Resize-com-1.png">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://js.puter.com/v2/"></script>
+    <meta name="theme-color" content="#00ffff">
+
+    <style>
+        /* ================= CSS ================= */
+        
+         :root {
+            --bg: #050510;
+            --accent: #00ffff;
+            --accent-dark: #008888;
+            --text: #f0f8ff;
+            --card: rgba(15, 15, 35, 0.7);
+            --neon-glow: 0 0 15px rgba(0, 255, 255, 0.5), 0 0 30px rgba(0, 255, 255, 0.3);
+            --gradient: linear-gradient(135deg, #00ffff, #00ccff, #0077ff);
+            --glass: rgba(5, 5, 15, 0.75);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html,
+        body {
+            overflow-x: hidden;
+            width: 100%;
+            min-width: 0;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Rajdhani', sans-serif;
+            min-height: 100vh;
+        }
+        
+        body.light {
+            --bg: #f0f4ff;
+            --text: #050510;
+            --card: rgba(255, 255, 255, 0.85);
+            --glass: rgba(255, 255, 255, 0.9);
+            --neon-glow: 0 5px 20px rgba(0, 200, 255, 0.4);
+        }
+        /* Fundo rotativo */
+        
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background-image: url('https://i.ibb.co/Ld9hbLYW/redondo-logo-pablodesigner-Photoroom.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.08;
+            animation: rotateSlow 150s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes rotateSlow {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        /* Scrollbar */
+        
+         ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+         ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        
+         ::-webkit-scrollbar-thumb {
+            background: var(--accent-dark);
+            border-radius: 5px;
+        }
+        
+         ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+        /* HEADER */
+        
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 15px 40px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.15);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .logo img {
+            height: 60px;
+            transition: all 0.4s ease;
+            filter: drop-shadow(0 0 5px var(--accent));
+        }
+        
+        .logo img:hover {
+            transform: scale(1.08) rotate(3deg);
+        }
+        
+        .nav ul {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+        
+        .nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            position: relative;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+        
+        .nav a:hover::after {
+            width: 100%;
+        }
+        
+        .nav a:hover {
+            color: var(--accent);
+        }
+        
+        .theme-toggle {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--accent);
+            transition: 0.3s;
+        }
+        
+        .theme-toggle:hover {
+            transform: rotate(30deg) scale(1.1);
+        }
+        
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            color: var(--accent);
+            cursor: pointer;
+        }
+        /* RADIO PLAYER */
+        
+        .top-radio-player {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, var(--glass), rgba(0, 255, 255, 0.05), var(--glass));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 8px 30px;
+            z-index: 999;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+            display: none;
+        }
+        
+        .top-player-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .station-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+        
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: #ff0055;
+            border-radius: 50%;
+            animation: pulseLive 1.5s infinite;
+        }
+        
+        @keyframes pulseLive {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 0, 85, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 0, 85, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 0, 85, 0);
+            }
+        }
+        
+        .control-btn {
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.5);
+            border-radius: 50%;
+            color: var(--accent);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .control-btn:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: var(--neon-glow);
+            transform: scale(1.1);
+        }
+        /* HERO */
+        
+        .hero {
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(0, 200, 255, 0.15) 0%, rgba(0, 0, 0, 0.8) 70%);
+        }
+        
+        .hero-content h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3.5rem, 8vw, 6.5rem);
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: var(--neon-glow);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+        
+        .hero-content p {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            margin-bottom: 40px;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+        /* BOTÕES */
+        
+        .neon-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 45px;
+            background: var(--gradient);
+            color: #050510;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            transition: all 0.4s ease;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+        
+        .neon-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.8);
+        }
+        
+        .neon-btn.big {
+            padding: 20px 60px;
+            font-size: 1.4rem;
+        }
+        
+        .gradient-btn {
+            background: linear-gradient(45deg, #ff007f, #7f00ff, #00ffff);
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .gradient-btn:hover {
+            background: linear-gradient(45deg, #00ffff, #7f00ff, #ff007f);
+        }
+        /* SEÇÕES GERAIS */
+        
+        .section {
+            padding: 100px 5% 80px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        
+        .section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            text-align: center;
+            margin-bottom: 60px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: var(--neon-glow);
+        }
+        
+        .sobre-text {
+            text-align: center;
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            color: #ddd;
+        }
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+        
+        .neon-card {
+            background: var(--card);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 45px 30px;
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+        
+        .neon-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 30px rgba(0, 255, 255, 0.15), inset 0 0 20px rgba(0, 255, 255, 0.05);
+        }
+        
+        .neon-card i {
+            color: var(--accent);
+            margin-bottom: 25px;
+            font-size: 3.5rem;
+            filter: drop-shadow(0 0 10px var(--accent));
+        }
+        
+        .neon-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-family: 'Orbitron', sans-serif;
+        }
+        /* SISTEMAS GRATUITOS NOVOS */
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .tool-box {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .tool-box h3 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .tool-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            color: white;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+        
+        .palette-container {
+            display: flex;
+            height: 60px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+        
+        .color-block {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 2px #000;
+            transition: 0.3s;
+        }
+        
+        .color-block:hover {
+            flex: 1.5;
+        }
+        /* GERADOR IA */
+        
+        .generator-section {
+            background: linear-gradient(135deg, rgba(15, 15, 40, 0.8), rgba(5, 5, 20, 0.95));
+            border-radius: 30px;
+            margin: 40px auto;
+            padding: 80px 5%;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            box-shadow: inset 0 0 50px rgba(0, 255, 255, 0.05);
+        }
+        
+        .generator-box {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        #promptIA {
+            width: 100%;
+            min-height: 120px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 15px;
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            resize: vertical;
+            outline: none;
+            transition: 0.3s;
+        }
+        
+        #promptIA:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+        
+        .dicas-box {
+            width: 100%;
+            background: #0a0a0a;
+            color: #00ff88;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            font-family: monospace;
+            font-size: 0.9rem;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+        
+        .loading-text {
+            display: none;
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin: 30px 0;
+            font-family: 'Orbitron', sans-serif;
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+                text-shadow: var(--neon-glow);
+            }
+            100% {
+                opacity: 0.5;
+            }
+        }
+        
+        .generated-image {
+            display: none;
+            max-width: 100%;
+            border-radius: 20px;
+            margin-top: 40px;
+            box-shadow: var(--neon-glow);
+            border: 2px solid var(--accent);
+        }
+        /* PORTFÓLIO */
+        
+        .filters {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .filter-btn {
+            padding: 12px 25px;
+            margin: 5px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            color: var(--text);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .gallery .item {
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        .gallery .item::after {
+            content: '\f00e';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            color: #fff;
+            font-size: 3rem;
+            opacity: 0;
+            transition: 0.3s;
+            text-shadow: 0 0 10px #000;
+        }
+        
+        .gallery .item:hover::after {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            z-index: 2;
+        }
+        
+        .gallery img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            filter: brightness(0.8);
+        }
+        
+        .gallery .item:hover img {
+            transform: scale(1.1);
+            filter: brightness(1.1);
+        }
+        /* BANNER PROMO */
+        
+        .promo-banner {
+            position: relative;
+            margin: 80px auto;
+            max-width: 1100px;
+            border-radius: 24px;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(20, 20, 60, 0.92) 0%, rgba(10, 10, 40, 0.96) 50%, rgba(30, 0, 60, 0.88) 100%);
+            border: 1px solid rgba(0, 255, 255, 0.22);
+            box-shadow: 0 0 60px rgba(0, 255, 255, 0.18), inset 0 0 90px rgba(0, 255, 255, 0.07);
+            backdrop-filter: blur(10px);
+        }
+        
+        .banner-glow-layer {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 35% 65%, rgba(255, 100, 140, 0.15), transparent 45%);
+            pointer-events: none;
+            opacity: 0.8;
+        }
+        
+        .banner-content {
+            position: relative;
+            z-index: 2;
+            padding: 70px 5%;
+            text-align: center;
+        }
+        
+        .banner-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            background: linear-gradient(90deg, #ff6bc1, #00f0ff, #ff6bc1);
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 35px rgba(0, 240, 255, 0.45);
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+        
+        .banner-title .highlight-word {
+            background: linear-gradient(90deg, #ffd700, #ffaa00);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        
+        .banner-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: #e0f7ff;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+        
+        .banner-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .site-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 14px 30px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            color: var(--accent);
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .site-button:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
+            transform: translateY(-3px);
+        }
+        
+        .links-separator {
+            color: rgba(0, 255, 255, 0.5);
+            font-size: 1.5rem;
+        }
+        /* FOOTER */
+        
+        footer {
+            padding: 60px 5% 30px;
+            text-align: center;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .trust-badges p {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            font-weight: 600;
+            color: #aaa;
+        }
+        
+        .badges-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .badges-container img {
+            height: 60px;
+            object-fit: contain;
+            filter: grayscale(20%);
+            transition: 0.3s;
+        }
+        
+        .badges-container img:hover {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+        
+        .footer-copy {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+        /* WIDGETS CENTRALIZADOS */
+        
+        .flex-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0;
+        }
+        /* CHAT FLUTUANTE */
+        
+        .chat-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 65px;
+            height: 65px;
+            background: var(--glass);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--accent);
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+        
+        .chat-toggle:hover {
+            transform: scale(1.1) rotate(10deg);
+            background: var(--accent);
+            color: #000;
+        }
+        
+        .chat-window {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            width: 380px;
+            height: 500px;
+            background: rgba(10, 10, 25, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 255, 255, 0.2);
+            display: none;
+            flex-direction: column;
+            z-index: 998;
+            overflow: hidden;
+        }
+        
+        .chat-window.active {
+            display: flex;
+            animation: slideUp 0.4s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .chat-header {
+            padding: 15px 20px;
+            background: linear-gradient(90deg, rgba(0, 255, 255, 0.2), transparent);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .close-chat {
+            cursor: pointer;
+            color: #fff;
+            transition: 0.3s;
+        }
+        
+        .close-chat:hover {
+            color: #ff0055;
+            transform: rotate(90deg);
+        }
+        
+        .chat-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            scroll-behavior: smooth;
+        }
+        
+        .msg {
+            padding: 12px 16px;
+            border-radius: 15px;
+            max-width: 85%;
+            line-height: 1.4;
+            font-size: 1.05rem;
+            word-wrap: break-word;
+        }
+        
+        .msg.ai {
+            background: rgba(0, 255, 255, 0.15);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-bottom-left-radius: 2px;
+            align-self: flex-start;
+        }
+        
+        .msg.user {
+            background: rgba(255, 255, 255, 0.1);
+            border-bottom-right-radius: 2px;
+            align-self: flex-end;
+            color: #fff;
+        }
+        
+        .chat-input-area {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        #chatMsg {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px 0 0 25px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            outline: none;
+        }
+        
+        #chatMsg:focus {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        #sendMsg {
+            padding: 0 20px;
+            border-radius: 0 25px 25px 0;
+            background: var(--accent);
+            border: none;
+            color: #000;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        #sendMsg:hover {
+            background: #fff;
+        }
+        /* LIGHTBOX */
+        
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .lightbox.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        #lightbox-img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+            border: 2px solid rgba(0, 255, 255, 0.2);
+        }
+        
+        .close-lightbox {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 3rem;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 3001;
+        }
+        
+        .close-lightbox:hover {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+        /* RESPONSIVO */
+        
+        @media (max-width: 900px) {
+            .header {
+                padding: 15px 20px;
+            }
+            .nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(5, 5, 15, 0.95);
+                flex-direction: column;
+                padding: 30px;
+                text-align: center;
+                border-bottom: 2px solid var(--accent);
+            }
+            .nav.active ul {
+                display: flex;
+            }
+            .hamburger {
+                display: block;
+            }
+            .chat-window {
+                width: calc(100% - 40px);
+                right: 20px;
+                bottom: 100px;
+            }
+            .promo-banner {
+                margin: 60px 5%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo">
+            <img src="https://i.ibb.co/tpNPjsjN/nova-logo-pablo-sem-fundo.png" alt="Pablo Designer">
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="#home">Início</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#ferramentas">Ferramentas Grátis</a></li>
+                <li><a href="https://portal-criativo.vercel.app/" target="_blank">Portal Criativo</a></li>
+                <li><a href="#gerador">IA</a></li>
+                <li><a href="#portfolio">Portfólio</a></li>
+            </ul>
+            <div class="theme-toggle"><i class="fas fa-moon"></i></div>
+        </nav>
+        <div class="hamburger"><i class="fas fa-bars"></i></div>
+    </header>
+
+    <!-- TOP RADIO PLAYER FINO -->
+    <div class="top-radio-player">
+        <div class="top-player-inner">
+            <div class="station-info">
+                <span class="live-dot"></span>
+                <strong>DJ PABLOBASS 24H</strong>
+            </div>
+            <div class="top-player-controls">
+                <button id="topPlayPause" class="control-btn"><i class="fas fa-play"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <section id="home" class="hero">
+        <div class="hero-content" data-aos="zoom-in">
+            <h1>PABLO DESIGNER</h1>
+            <p>Logos 3D • Sites modernos • Propaganda que vende de verdade</p>
+            <a href="https://wa.me/5534998110946?text=Olá%20Pablo!%20Vi%20seu%20site" target="_blank" class="neon-btn">
+                <i class="fab fa-whatsapp"></i> Falar no WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre" class="section">
+        <h2 data-aos="fade-up">Quem sou eu</h2>
+        <p class="sobre-text" data-aos="fade-up" data-aos-delay="200">
+            Designer de Monte Carmelo / MG, especialista em <strong>Logos 3D</strong>, Sites com Carrinho de Compra Via ZAP, Certificados Premium e propagandas visuais impactantes.
+        </p>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section id="servicos" class="section">
+        <h2 data-aos="fade-up">O que eu faço</h2>
+        <div class="cards">
+            <div class="neon-card" data-aos="fade-up" data-aos-delay="0">
+                <i class="fas fa-cube"></i>
+                <h3>Logos 3D</h3>
+                <p>Identidade visual futurista e impactante para destacar sua marca.</p>
+            </div>
+            <div class="neon-card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-laptop-code"></i>
+                <h3>Sites Profissionais</h3>
+                <p>Modernos, rápidos, otimizados e prontos para vender via WhatsApp.</p>
+            </div>
+            <div class="neon-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-certificate"></i>
+                <h3>Certificados</h3>
+                <p>Certificados premium e exclusivos para cursos e eventos.</p>
+            </div>
+            <div class="neon-card" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-bullhorn"></i>
+                <h3>Propagandas Visuais</h3>
+                <p>Posts, banners e criativos estratégicos que convertem.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FERRAMENTAS GRATUITAS (NOVO SISTEMA) -->
+    <section id="ferramentas" class="section" style="background: rgba(0,255,255,0.02); border-top: 1px solid rgba(0,255,255,0.1); border-bottom: 1px solid rgba(0,255,255,0.1);">
+        <h2 data-aos="fade-up">Sistemas & Ferramentas (Grátis)</h2>
+        <p class="sobre-text" data-aos="fade-up">Utilize nossas ferramentas exclusivas abaixo para facilitar o seu dia a dia.</p>
+
+        <div class="tools-grid">
+            <!-- Gerador de Paleta -->
+            <div class="tool-box" data-aos="zoom-in">
+                <h3><i class="fas fa-palette"></i> Paleta de Cores</h3>
+                <p style="font-size: 0.9rem; margin-bottom: 10px; color: #aaa;">Gere paletas perfeitas para sua marca.</p>
+                <div class="palette-container" id="paletteContainer">
+                    <div class="color-block" style="background: #1abc9c;">#1abc9c</div>
+                    <div class="color-block" style="background: #2ecc71;">#2ecc71</div>
+                    <div class="color-block" style="background: #3498db;">#3498db</div>
+                    <div class="color-block" style="background: #9b59b6;">#9b59b6</div>
+                    <div class="color-block" style="background: #f1c40f;">#f1c40f</div>
+                </div>
+                <button onclick="gerarPaleta()" class="site-button" style="width: 100%; justify-content: center; font-size: 1rem;"><i class="fas fa-sync"></i> Gerar Nova Paleta</button>
+            </div>
+
+            <!-- Gerador Link WhatsApp -->
+            <div class="tool-box" data-aos="zoom-in" data-aos-delay="100">
+                <h3><i class="fab fa-whatsapp"></i> Gerador Link ZAP</h3>
+                <p style="font-size: 0.9rem; margin-bottom: 10px; color: #aaa;">Crie um link direto para seu WhatsApp.</p>
+                <input type="text" id="waNumber" class="tool-input" placeholder="Seu Número (ex: 553499999999)">
+                <input type="text" id="waMsg" class="tool-input" placeholder="Mensagem padrão (opcional)">
+                <button onclick="gerarLinkZap()" class="site-button" style="width: 100%; justify-content: center; font-size: 1rem;"><i class="fas fa-link"></i> Copiar Link</button>
+            </div>
+
+            <!-- Contador de Caracteres / Formatador -->
+            <div class="tool-box" data-aos="zoom-in" data-aos-delay="200">
+                <h3><i class="fas fa-text-width"></i> Formatador de Texto</h3>
+                <p style="font-size: 0.9rem; margin-bottom: 10px; color: #aaa;">Ajuste seus textos para redes sociais.</p>
+                <textarea id="textFormat" class="tool-input" rows="2" placeholder="Digite seu texto aqui..."></textarea>
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="formatarTexto('upper')" class="site-button" style="flex: 1; padding: 8px; font-size: 0.9rem;">MAIÚSCULA</button>
+                    <button onclick="formatarTexto('lower')" class="site-button" style="flex: 1; padding: 8px; font-size: 0.9rem;">minúscula</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GERADOR IA -->
+    <section id="gerador" class="section generator-section" data-aos="fade-up">
+        <h2>Gerador de Imagens IA <span style="font-size: 0.5em; vertical-align: middle; color: #fff;">(Grátis)</span></h2>
+        <div class="generator-box">
+            <textarea id="promptIA" placeholder="Ex: Um leão de armadura cyberpunk, render 3d octane..."></textarea>
+            <div class="dicas-box">
+                <strong>💡 Dicas para gerar melhor:</strong><br> - Descreva estilos (ex: "Fundo neon", "estilo 3D", "Cyberpunk").<br> - Coloque nomes entre aspas (ex: "Lojja", "Lucas").<br>
+                <em>*A ferramenta grátis não é 100% perfeita para textos. Para uma Logomarca Exclusiva, me chame no WhatsApp!*</em>
+            </div>
+            <button id="generateIA" class="neon-btn"><i class="fas fa-magic"></i> Gerar Imagem Grátis</button>
+            <p id="loadingIA" class="loading-text"><i class="fas fa-circle-notch fa-spin"></i> A IA de PabloDesigner está criando...</p>
+            <img id="generatedIA" class="generated-image" src="" alt="Imagem gerada">
+        </div>
+    </section>
+
+    <!-- PORTFÓLIO -->
+    <section id="portfolio" class="section">
+        <h2 data-aos="fade-up">Trabalhos Entregues</h2>
+        <div class="filters" data-aos="fade-up">
+            <button data-filter="all" class="filter-btn active">Todos</button>
+            <button data-filter="logos" class="filter-btn">Logos 3D</button>
+            <button data-filter="sites" class="filter-btn">Sites</button>
+            <button data-filter="certificados" class="filter-btn">Certificados</button>
+        </div>
+        <div class="gallery" id="gallery" data-aos="fade-up"></div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato" class="section" style="text-align: center;">
+        <h2 data-aos="fade-up">Vamos elevar sua marca?</h2>
+        <a href="https://wa.me/5534998110946" target="_blank" class="neon-btn big" data-aos="zoom-in">
+            <i class="fab fa-whatsapp"></i> Chamar (34) 99811-0946
+        </a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="trust-badges">
+            <p>Ambiente Seguro e Confiável</p>
+            <div class="badges-container">
+                <img src="https://mobecls.com/wp-content/uploads/2022/02/ssl-secure.jpg" alt="SSL Secured">
+                <img src="https://img.freepik.com/premium-vector/100-secure-payment-green-badge-isolated-transparent-background_105700-1800.jpg" alt="Encrypted Payment">
+                <img src="https://p.kindpng.com/picc/s/379-3791804_shopify-safe-checkout-badge-hd-png-download.png" alt="Safe Shopping">
+                <img src="https://www.paypalobjects.com/webstatic/mktg/logo/bdg_secured_by_pp_2line.png" alt="Secured by PayPal">
+            </div>
+            <a href="https://portal-criativo.vercel.app/" target="_blank" class="neon-btn gradient-btn" style="padding: 10px 25px; font-size: 1rem;"><i class="fab fa-youtube"></i> Portal Criativo</a>
+        </div>
+        <p class="footer-copy">© 2026 Pablo Designer - Monte Carmelo / MG - Brasil 🇧🇷 | WhatsApp: (34) 99811-0946</p>
+    </footer>
+
+    <!-- CHAT FLUTUANTE -->
+    <div class="chat-toggle"><i class="fas fa-comment-dots"></i></div>
+    <div class="chat-window">
+        <div class="chat-header">
+            <span><i class="fas fa-robot"></i> Assistente IA</span>
+            <span class="close-chat"><i class="fas fa-times"></i></span>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="msg ai">Fala aí! Quer uma Logomarca braba ou testar o gerador? 🔥</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatMsg" placeholder="Digite aqui..." autocomplete="off">
+            <button id="sendMsg"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox"><i class="fas fa-times"></i></span>
+        <img id="lightbox-img" src="" alt="Ampliado">
+    </div>
+
+    <!-- HISTATS -->
+    <div id="histats_counter"></div>
+    <script type="text/javascript">
+        var _Hasync = _Hasync || [];
+        _Hasync.push(['Histats.start', '1,5002196,4,5,172,25,00011001']);
+        _Hasync.push(['Histats.fasi', '1']);
+        _Hasync.push(['Histats.track_hits', '']);
+        (function() {
+            var hs = document.createElement('script');
+            hs.type = 'text/javascript';
+            hs.async = true;
+            hs.src = ('//s10.histats.com/js15_as.js');
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+        })();
+    </script>
+    <noscript><a href="/" target="_blank"><img src="//sstatic1.histats.com/0.gif?5002196&101" alt="" border="0"></a></noscript>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // AOS Init
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+
+        // Tema claro/escuro
+        document.querySelector('.theme-toggle').onclick = () => {
+            document.body.classList.toggle('light');
+            const icon = document.querySelector('.theme-toggle i');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        };
+
+        // Menu Mobile
+        document.querySelector('.hamburger').onclick = () => {
+            document.querySelector('.nav').classList.toggle('active');
+        };
+
+        // Smooth scroll
+        document.querySelectorAll('.nav a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) target.scrollIntoView({
+                    behavior: 'smooth'
+                });
+                document.querySelector('.nav').classList.remove('active');
+            });
+        });
+
+        // Player de Rádio
+        const audio = new Audio('https://stream.zeno.fm/si5xey7akartv.mp3');
+        const topPlayPause = document.getElementById('topPlayPause');
+        const topRadioPlayer = document.querySelector('.top-radio-player');
+
+        function updatePlayIcons(playing) {
+            topPlayPause.innerHTML = `<i class="fas ${playing ? 'fa-pause' : 'fa-play'}"></i>`;
+        }
+
+        if (topPlayPause) {
+            topPlayPause.onclick = () => {
+                if (audio.paused) {
+                    audio.play().catch(e => console.log("Autoplay bloqueado:", e));
+                    updatePlayIcons(true);
+                } else {
+                    audio.pause();
+                    updatePlayIcons(false);
+                }
+            };
+        }
+
+        function posicionarTopPlayer() {
+            if (topRadioPlayer) {
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                topRadioPlayer.style.top = `${headerHeight}px`;
+                topRadioPlayer.style.display = 'block';
+            }
+        }
+        document.addEventListener('DOMContentLoaded', posicionarTopPlayer);
+        window.addEventListener('resize', posicionarTopPlayer);
+
+        // ================= FUNÇÕES DOS SISTEMAS GRATUITOS =================
+
+        // 1. Gerador de Paleta
+        function randomHex() {
+            return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+        }
+
+        function gerarPaleta() {
+            const container = document.getElementById('paletteContainer');
+            container.innerHTML = '';
+            for (let i = 0; i < 5; i++) {
+                const color = randomHex();
+                const div = document.createElement('div');
+                div.className = 'color-block';
+                div.style.background = color;
+                div.innerText = color;
+                div.onclick = () => {
+                    navigator.clipboard.writeText(color);
+                    div.innerText = "Copiado!";
+                    setTimeout(() => div.innerText = color, 1500);
+                };
+                container.appendChild(div);
+            }
+        }
+
+        // 2. Gerador de Link WhatsApp
+        function gerarLinkZap() {
+            let numero = document.getElementById('waNumber').value.replace(/\D/g, '');
+            let msg = encodeURIComponent(document.getElementById('waMsg').value);
+            if (numero.length < 10) {
+                alert("Digite um número válido com DDD!");
+                return;
+            }
+            let link = `https://wa.me/${numero}?text=${msg}`;
+            navigator.clipboard.writeText(link);
+            alert("Link copiado: " + link);
+        }
+
+        // 3. Formatador de Texto
+        function formatarTexto(tipo) {
+            let textarea = document.getElementById('textFormat');
+            if (tipo === 'upper') textarea.value = textarea.value.toUpperCase();
+            if (tipo === 'lower') textarea.value = textarea.value.toLowerCase();
+        }
+
+        // ===================================================================
+
+        // Gerador IA - Pollinations.AI + FLUX
+        document.getElementById('generateIA').onclick = async() => {
+            const promptInput = document.getElementById('promptIA');
+            const prompt = promptInput.value.trim();
+            if (!prompt) {
+                alert('Digite um prompt pra gerar a imagem, irmão! 🔥');
+                return;
+            }
+
+            const loading = document.getElementById('loadingIA');
+            const img = document.getElementById('generatedIA');
+            const generateBtn = document.getElementById('generateIA');
+
+            loading.style.display = 'block';
+            img.style.display = 'none';
+            generateBtn.disabled = true;
+            generateBtn.innerHTML = 'Gerando...';
+
+            const enhancedPrompt = `${prompt}, logomarca 3D profissional, alta resolução, ultra detalhado, fundo escuro infinito, iluminação cinematográfica volumétrica, foco nítido, estilo clean e futurista, octane render, ray tracing, simetria perfeita, sem distorção de texto`;
+
+            try {
+                const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?model=flux&width=1024&height=1024&seed=random&nologo=true&enhance=true`;
+                const response = await fetch(url, {
+                    method: 'HEAD'
+                });
+                if (!response.ok) throw new Error('Serviço indisponível');
+                img.src = url + `&t=${Date.now()}`;
+                img.style.display = 'block';
+            } catch (e) {
+                alert('Deu um probleminha temporário 😔\nTenta de novo em 10 segundos ou simplifica o prompt.');
+            } finally {
+                loading.style.display = 'none';
+                generateBtn.disabled = false;
+                generateBtn.innerHTML = '<i class="fas fa-magic"></i> Gerar Imagem Grátis';
+            }
+        };
+
+        // Portfólio Array (NOVAS IMAGENS INCLUÍDAS AQUI)
+        const images = [{
+                src: "https://i.ibb.co/XRrVpch/logo-segura.png",
+                cat: "logos"
+            }, {
+                src: "https://i.ibb.co/DPDZb4W1/Gemini-Generated-Image-40opkn40opkn40op-Photoroom.png",
+                cat: "logos"
+            }, {
+                src: "https://i.ibb.co/ksq33qGv/20250911-135505.png",
+                cat: "logos"
+            }, {
+                src: "https://i.ibb.co/1GVPXDrS/20251022-124747.png",
+                cat: "logos"
+            }, {
+                src: "https://i.ibb.co/MD2d4Rf7/LOGOMARCA-Rafaela-Oliveira-Store-2025.png",
+                cat: "logos"
+            }, {
+                src: "https://i.ibb.co/7t25mYfx/480470cba7087d7de97fd77cfe2d62c0-high-Photoroom.png",
+                cat: "logos"
+            },
+            /* Novas Logos adicionadas */
+            {
+                src: "https://iili.io/qq2y471.png",
+                cat: "logos"
+            }, {
+                src: "https://iili.io/qqBNA7V.png",
+                cat: "logos"
+            }, {
+                src: "https://iili.io/qqBNjIt.png",
+                cat: "logos"
+            },
+            /* Novo Certificado adicionado */
+            {
+                src: "https://iili.io/qqBOsAN.png",
+                cat: "certificados"
+            },
+            /* Sites Originais e Novos */
+            {
+                src: "https://i.ibb.co/fYbmj9q4/5.png",
+                cat: "sites"
+            }, {
+                src: "https://i.ibb.co/yncNjVkY/123123.png",
+                cat: "sites"
+            }, {
+                src: "https://iili.io/qqBewfs.png",
+                cat: "sites"
+            }
+        ];
+
+        // Montar Galeria
+        const gallery = document.getElementById('gallery');
+        images.forEach(item => {
+            const div = document.createElement('div');
+            div.className = `item ${item.cat}`;
+            div.innerHTML = `<img src="${item.src}" alt="Portfólio" loading="lazy">`;
+            div.onclick = () => {
+                document.getElementById('lightbox-img').src = item.src;
+                document.getElementById('lightbox').classList.add('active');
+            };
+            gallery.appendChild(div);
+        });
+
+        // Filtros Galeria
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.onclick = () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                document.querySelectorAll('.gallery .item').forEach(el => {
+                    el.style.display = (filter === 'all' || el.classList.contains(filter)) ? 'block' : 'none';
+                });
+            };
+        });
+
+        // Lightbox Close
+        document.querySelector('.close-lightbox').onclick = () => {
+            document.getElementById('lightbox').classList.remove('active');
+        };
+
+        // Chat Inteligente
+        const chatBody = document.getElementById('chatBody');
+        const chatInput = document.getElementById('chatMsg');
+        const sendBtn = document.getElementById('sendMsg');
+        const chatWindow = document.querySelector('.chat-window');
+        const chatToggle = document.querySelector('.chat-toggle');
+        let conversationStarted = false;
+
+        const context = {
+            nomeCliente: null,
+            nomeMarca: null,
+            tipoServico: null,
+            cores: null,
+            vibe: null,
+            etapa: 'inicio'
+        };
+        const SEU_NUMERO_WHATSAPP = "5534998110946";
+
+        function addMsg(text, isUser = false) {
+            const div = document.createElement('div');
+            div.className = `msg ${isUser ? 'user' : 'ai'}`;
+            div.innerHTML = text;
+            chatBody.appendChild(div);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function gerarLinkWhatsApp() {
+            let msg = `Olá Pablo! 🔥%0a%0aGostaria de um orçamento para:`;
+            if (context.tipoServico) msg += `%0a• Serviço: ${context.tipoServico}`;
+            if (context.nomeMarca) msg += `%0a• Marca: ${context.nomeMarca}`;
+            if (context.nomeCliente) msg += `%0a• Meu nome: ${context.nomeCliente}`;
+            if (context.cores) msg += `%0a• Cores: ${context.cores}`;
+            if (context.vibe) msg += `%0a• Estilo: ${context.vibe}`;
+            msg += `%0a%0aPode me passar os valores? 😎`;
+            return `https://wa.me/${SEU_NUMERO_WHATSAPP}?text=${msg}`;
+        }
+
+        function getResponse(userText) {
+            const text = userText.toLowerCase().trim();
+            if (text.includes('orçamento') || text.includes('whatsapp') || text.includes('sim')) {
+                const link = gerarLinkWhatsApp();
+                window.open(link, '_blank');
+                return `Perfeito! Clica aqui se não abriu automático:<br><br><a href="${link}" target="_blank" class="whatsapp-btn">Falar no WhatsApp</a>`;
+            }
+            if (context.etapa === 'inicio') {
+                context.etapa = 'servico';
+                return `Opa! Tá buscando Logo 3D, Site, Certificado ou Artes pra Redes?`;
+            }
+            if (context.etapa === 'servico') {
+                context.tipoServico = userText;
+                context.etapa = 'marca';
+                return `Show! Qual é o nome da marca/projeto?`;
+            }
+            if (context.etapa === 'marca') {
+                context.nomeMarca = userText;
+                context.etapa = 'cliente';
+                return `Anotado: ${context.nomeMarca}. E qual é o seu nome?`;
+            }
+            if (context.etapa === 'cliente') {
+                context.nomeCliente = userText;
+                context.etapa = 'cores';
+                return `Prazer, ${context.nomeCliente}! Quais cores você pensou pra esse projeto?`;
+            }
+            if (context.etapa === 'cores') {
+                context.cores = userText;
+                context.etapa = 'final';
+                return `Massa! Qual a vibe? (Minimalista, neon, luxo, etc). E já mando pro zap!`;
+            }
+            if (context.etapa === 'final') {
+                context.vibe = userText;
+                return `Tudo pronto! Quer ir pro WhatsApp agora pra fechar o orçamento? Digite "SIM".`;
+            }
+            return `Pode mandar mais detalhes. Se quiser ir pro WhatsApp do Pablo, digite "orçamento"!`;
+        }
+
+        function sendMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+            addMsg(text, true);
+            chatInput.value = '';
+            setTimeout(() => {
+                const resposta = getResponse(text);
+                if (resposta) addMsg(resposta);
+            }, 800);
+        }
+
+        sendBtn.onclick = sendMessage;
+        chatInput.onkeypress = e => {
+            if (e.key === 'Enter') sendMessage();
+        };
+
+        chatToggle.onclick = () => {
+            chatWindow.classList.toggle('active');
+            if (chatWindow.classList.contains('active') && !conversationStarted) {
+                conversationStarted = true;
+            }
+        };
+        document.querySelector('.close-chat').onclick = () => chatWindow.classList.remove('active');
+
+        // BANNER PUBLICITÁRIO DINÂMICO
+        function createBanner() {
+            const banner = document.createElement('div');
+            banner.className = 'promo-banner';
+            banner.setAttribute('data-aos', 'fade-up');
+
+            banner.innerHTML = `
+                <div class="banner-glow-layer"></div>
+                <div class="banner-content">
+                    <h2 class="banner-title">DELÍCIAS QUE VOCÊ <span class="highlight-word">MERECE!</span></h2>
+                    <p class="banner-subtitle">Sabor caseiro com muito capricho direto pra sua casa</p>
+                    <div class="banner-links">
+                        <a href="https://www.degusto.store" class="site-button" target="_blank"><i class="fas fa-shopping-bag"></i> www.degusto.store</a>
+                        <span class="links-separator">•</span>
+                        <a href="https://www.batatarecheada.shop" class="site-button" target="_blank"><i class="fas fa-hamburger"></i> www.batatarecheada.shop</a>
+                    </div>
+                </div>
+            `;
+            return banner;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const servicosSection = document.getElementById('servicos');
+            if (servicosSection) {
+                servicosSection.after(createBanner());
+            }
+        });
+    </script>
+</body>
+
+</html>
